@@ -178,10 +178,10 @@ public class OmniaIntersectionListDataLevel {
         if (!(pC1.getControllerDataPreviousUpdate().equals(pC2.getControllerDataPreviousUpdate()))) {
             iRet =  CHANGED;
         }
-        if (iRet==CHANGED) {
-            logger.info("***Changed1  pC1.toString()" + pC1.toString());
-            logger.info("***Changed2  pC2.toString()" + pC2.toString());
-        }
+//        if (iRet==CHANGED) {
+//            logger.info("***Changed1  pC1.toString()" + pC1.toString());
+//            logger.info("***Changed2  pC2.toString()" + pC2.toString());
+//        }
         return iRet;
     }
     public int MakeDeleteInsert(OmniaIntersectionData pC1) {
@@ -238,8 +238,8 @@ public class OmniaIntersectionListDataLevel {
         try {
             InsertOmniaIntersectionDataMySql st = new InsertOmniaIntersectionDataMySql();
             SQL =st.getStatement();
-            logger.info("SQL = " + SQL);
-            logger.info("pOmniaIntersectionData.toString()=" + pOmniaIntersectionData.toString());
+//            logger.info("SQL = " + SQL);
+//            logger.info("pOmniaIntersectionData.toString()=" + pOmniaIntersectionData.toString());
             stmt = gSqlCon.prepareStatement(SQL);
             int pos=0;
             pos=1;
@@ -290,9 +290,7 @@ public class OmniaIntersectionListDataLevel {
         try {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();
-            logger.info("pPermanentData = "+ pPermanentData);
-// RETHIN K why strip here
-//            strHelp1 = mu.StripFileStartEnd(pPermanentData);
+ //           logger.info("pPermanentData = "+ pPermanentData);
             strHelp1 = pPermanentData;
             JsonParser jsonParser = new JsonParser();
             OmniaIntersectionData aOmniaIntersection1 = myGson.fromJson(strHelp1, OmniaIntersectionData.class);

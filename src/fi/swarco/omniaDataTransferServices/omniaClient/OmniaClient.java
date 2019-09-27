@@ -11,15 +11,22 @@ import fi.swarco.omniaDataTransferServices.XORChecksumShort;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import fi.swarco.dataHandling.MakeSendJsonOperations;
+import fi.swarco.properties.JSwarcoproperties;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import static fi.swarco.CONSTANT.*;
 public class OmniaClient {
     static Logger logger = Logger.getLogger(OmniaClient.class.getName());
     private long Rounds = 100000000;
+    private static JSwarcoproperties sw = new JSwarcoproperties();
     public static void main(String[] args) {
         try {
             logger.info("Heippa  !!!!");
+            int iRett =sw.getSwarcoProperties();
+            if (iRett != INT_RET_OK) {
+                logger.info(" Error reading Swarco properties ! ");
+                System.exit(1);
+            }
             sendGetOmniaData();
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,23 +73,29 @@ public class OmniaClient {
           //                  logger.info("getJSonPermanentData strhelp1 = " + strHelp1);
                             String strHelp2 = NO_VALUE;
                             strHelp2 = ms.getJSonMeasurementData();
-                            logger.info("getJSonPermanentData strHelp2 = " + strHelp2);
+             //               logger.info("getJSonPermanentData strHelp2 = " + strHelp2);
                             strHelp1 = strHelp1 + strHelp2;
             //                logger.info("before decimal  strHelp1 =" + strHelp1);
                             strHelp1 = mu.DecodeJsonPercentDecimal(strHelp1);
                             //************************************************************************
               //              logger.info("before decode  strHelp1 =" + strHelp1);
                             strHelp1 = URLEncoder.encode(strHelp1, StandardCharsets.UTF_8.toString());
-                            logger.info("after decode  strHelp1 =" + strHelp1);
+                //            logger.info("after decode  strHelp1 =" + strHelp1);
                         //**********************************************************************
-                            url1 = "http://localhost:8888/?";
+                            url1 =sw.getOmniaClientUrl();
+                         //   logger.info("moi url1 =" + url1);
+// Use it
+//                            url1 = "http://aineisto.swarco.fi/receiver/?";
+                  // url1 = "http://localhost:8888/?";
+                           // url1 = "https://aineistot.swarco.fi/receiver/?";
                             logger.info("moi url1 =" + url1);
-                            logger.info("moi strHelp1 =" + strHelp1);
+                           // logger.info("moi strHelp1 =" + strHelp1);
                             url1 = url1 + strHelp1;
-                            logger.info("moi url1 =" + url1);
+                           // logger.info("moi url1 =" + url1);
                             bXorResult = XORChecksumShort.xor(url1);
                             url1 = url1 + "&chk=" + bXorResult;
-                            logger.info("moi url1 with check sum =" + url1);
+                            logger.info("****** Length of url1.length() =" + url1.length());
+                           // logger.info("moi url1 with check sum =" + url1);
                             logger.info("moi \"&chk=\" =" + bXorResult);
                             URL obj = new URL(url1);
                             HttpURLConnection con = (HttpURLConnection) obj.openConnection();

@@ -1,0 +1,303 @@
+Index: src/fi/swarco/properties/JSwarcoproperties.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/fi/swarco/properties/JSwarcoproperties.java	(date 1569224285000)
++++ src/fi/swarco/properties/JSwarcoproperties.java	(date 1569241525344)
+@@ -8,6 +8,13 @@
+ import static fi.swarco.CONSTANT.INT_RET_OK;
+ public class JSwarcoproperties {
+     private static Logger logger = Logger.getLogger(JSwarcoproperties.class.getName());
++    private String OmniaClientUrl;
++    public String getOmniaClientUrl() {
++        return OmniaClientUrl;
++    }
++    public void setOmniaClientUrl(String pOmniaClientUrl) {
++        OmniaClientUrl = pOmniaClientUrl;
++    }
+     private String[] timeFormat = new String[16];
+     public String[] getTimeFormat() {
+         return timeFormat;
+@@ -117,8 +124,6 @@
+     public String getMySqlServerTimeZone() {
+         return MySqlServerTimeZone;
+     }
+-
+-
+     public void setMySqlConnUrlWhole(String pMySqlConnUrlWhole) {
+         MySqlConnUrlWhole = pMySqlConnUrlWhole;
+     }
+@@ -182,6 +187,10 @@
+             if (iRet != 1) {
+                 logger.info("No Time format props in this environment!");
+             }
++            iRet = setOmniaClientProps();
++            if (iRet != 1) {
++                logger.info("No OnmniaClient props in this environment!");
++            }
+             return INT_RET_OK;
+         } catch (IOException ex) {
+             ex.printStackTrace();
+@@ -271,6 +280,11 @@
+         String theString = Arrays.toString(timeFormat);
+        // logger.info("TimeArray[] theString = " + theString);
+         return INT_RET_OK;
++    }
++    private int setOmniaClientProps(){
++        setOmniaClientUrl(prop.getProperty("OmniaClientUrl")) ;
++        logger.info("getOmniaClientUrl()= " + getOmniaClientUrl());
++        return INT_RET_OK;
+     }
+ }
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(date 1569224285000)
++++ .idea/workspace.xml	(date 1569300706678)
+@@ -9,7 +9,12 @@
+     </artifacts-to-build>
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="" />
++    <list default="true" id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/swarco.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/swarco.properties" afterDir="false" />
++    </list>
+     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -43,6 +48,16 @@
+       </list>
+     </option>
+   </component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="IgnoredFileRootStore">
++    <option name="generatedRoots">
++      <set>
++        <option value="C:\TFS\IntelliJ\JsonTest" />
++      </set>
++    </option>
++  </component>
+   <component name="ProjectId" id="1OVVhVipmapTEUdifBHH05qFgP2" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="PropertiesComponent">
+@@ -70,22 +85,23 @@
+     <property name="project.structure.proportion" value="0.15" />
+     <property name="project.structure.side.proportion" value="0.09718173" />
+     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
++    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+   </component>
+   <component name="RecentsManager">
+-    <key name="MoveFile.RECENT_KEYS">
++    <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\TFS\IntelliJ\JsonTest\src" />
+       <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco" />
+-      <recent name="C:\TFS\IntelliJ\JsonTest\lib" />
+-      <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco\dataHandling" />
+     </key>
+     <key name="CopyClassDialog.RECENTS_KEY">
++      <recent name="fi.swarco.omniaDataTransferServices.omniaClient" />
+       <recent name="fi.swarco.dataHandling" />
+       <recent name="fi.swarco" />
+     </key>
+-    <key name="CopyFile.RECENT_KEYS">
++    <key name="MoveFile.RECENT_KEYS">
+       <recent name="C:\TFS\IntelliJ\JsonTest\src" />
+       <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco" />
++      <recent name="C:\TFS\IntelliJ\JsonTest\lib" />
++      <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco\dataHandling" />
+     </key>
+   </component>
+   <component name="RunDashboard">
+@@ -100,7 +116,7 @@
+       </list>
+     </option>
+   </component>
+-  <component name="RunManager" selected="Application.OmniaCloudHTTPServer">
++  <component name="RunManager" selected="Application.OmniaClient">
+     <configuration name="CustomerClient" type="Application" factoryName="Application" temporary="true">
+       <option name="MAIN_CLASS_NAME" value="fi.swarco.omniaDataTransferServices.customerClient.CustomerClient" />
+       <module name="JsonTest" />
+@@ -306,13 +322,28 @@
+       <workItem from="1568790760210" duration="16899000" />
+       <workItem from="1568872951304" duration="9589000" />
+       <workItem from="1568966974994" duration="5181000" />
+-      <workItem from="1569218686365" duration="714000" />
++      <workItem from="1569218686365" duration="1537000" />
++      <workItem from="1569225058014" duration="9914000" />
++      <workItem from="1569299729083" duration="965000" />
+     </task>
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="1" />
+   </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State>
++              <option name="COLUMN_ORDER" />
++            </State>
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+       <breakpoints>
+@@ -494,7 +525,7 @@
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
+-          <line>29</line>
++          <line>36</line>
+           <option name="timeStamp" value="117" />
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+@@ -509,7 +540,7 @@
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
+-          <line>47</line>
++          <line>54</line>
+           <option name="timeStamp" value="133" />
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+@@ -566,11 +597,6 @@
+           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaCloudHTTPServer/OmniaCloudHTTPServer.java</url>
+           <line>18</line>
+           <option name="timeStamp" value="160" />
+-        </line-breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
+-          <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
+-          <line>70</line>
+-          <option name="timeStamp" value="161" />
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/MessageUtils.java</url>
+@@ -624,13 +650,38 @@
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
+-          <line>50</line>
++          <line>57</line>
+           <option name="timeStamp" value="174" />
+         </line-breakpoint>
+         <line-breakpoint enabled="true" type="java-line">
+           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+           <line>134</line>
+           <option name="timeStamp" value="175" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
++          <line>70</line>
++          <option name="timeStamp" value="176" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
++          <line>84</line>
++          <option name="timeStamp" value="177" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
++          <line>24</line>
++          <option name="timeStamp" value="178" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
++          <line>85</line>
++          <option name="timeStamp" value="179" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java</url>
++          <line>284</line>
++          <option name="timeStamp" value="180" />
+         </line-breakpoint>
+       </breakpoints>
+     </breakpoint-manager>
+Index: src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java	(date 1569224285000)
++++ src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java	(date 1569241054361)
+@@ -11,15 +11,22 @@
+ import org.apache.commons.lang.exception.ExceptionUtils;
+ import org.apache.log4j.Logger;
+ import fi.swarco.dataHandling.MakeSendJsonOperations;
++import fi.swarco.properties.JSwarcoproperties;
+ import java.net.URLEncoder;
+ import java.nio.charset.StandardCharsets;
+ import static fi.swarco.CONSTANT.*;
+ public class OmniaClient {
+     static Logger logger = Logger.getLogger(OmniaClient.class.getName());
+     private long Rounds = 100000000;
++    private static JSwarcoproperties sw = new JSwarcoproperties();
+     public static void main(String[] args) {
+         try {
+             logger.info("Heippa  !!!!");
++            int iRett =sw.getSwarcoProperties();
++            if (iRett != INT_RET_OK) {
++                logger.info(" Error reading Swarco properties ! ");
++                System.exit(1);
++            }
+             sendGetOmniaData();
+         } catch (IOException e) {
+             e.printStackTrace();
+@@ -75,7 +82,12 @@
+                             strHelp1 = URLEncoder.encode(strHelp1, StandardCharsets.UTF_8.toString());
+                             logger.info("after decode  strHelp1 =" + strHelp1);
+                         //**********************************************************************
+-                            url1 = "http://localhost:8888/?";
++                            url1 =sw.getOmniaClientUrl();
++                            logger.info("moi url1 =" + url1);
++// Use it
++//                            url1 = "http://aineisto.swarco.fi/receiver/?";
++                  // url1 = "http://localhost:8888/?";
++                           // url1 = "https://aineistot.swarco.fi/receiver/?";
+                             logger.info("moi url1 =" + url1);
+                             logger.info("moi strHelp1 =" + strHelp1);
+                             url1 = url1 + strHelp1;
+Index: src/swarco.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- src/swarco.properties	(date 1569224285000)
++++ src/swarco.properties	(date 1569241525328)
+@@ -35,9 +35,6 @@
+ ##MySqldbuser=mainuser
+ ##MySqlpassword=MainProxyUser
+ #***********************traffic_proxy End
+-
+-
+-
+ #******Test linux ******
+ #MySqlDriver=com.mysql.jdbc.Driver
+ #MySqlConnectionUrlStart = jdbc:mysql://192.168.111.10:3306/
+@@ -50,9 +47,9 @@
+ FilePathStringOmniaClient=C:/OmniaClientOwn/
+ FilePathStringOmniaCloud=C:/OmniaCloudOwn/
+ FilePathStringOmniaCustomerClient=C:/OmniaCustomerOwn/
+-
+-
+-
++#*********OmniaClientProperties*********
++# OmniaClientUrl=http://aineisto.swarco.fi/receiver/?
++OmniaClientUrl=http://localhost:8888/?
+ TimeF1=M[M]['/']['-']['.']d[d]['/']['-']['.']yyyy[' ']['T'][' ']h[h]:mm:ss[' ']a[' ']['('][VV][X][x][Z][z][O][')']
+ TimeF2=M[M]['/']['-']['.']d[d]['/']['-']['.']yyyy[' ']['T'][' ']H[H]:mm:ss[' ']['('][VV][X][x][Z][z][O][')']
+ TimeF3=d[d]['/']['-']['.']M[M]['/']['-']['.']yyyy[' ']['T'][' ']h[h]:mm:ss[' ']a[' ']['('][VV][X][x][Z][z][O][')']

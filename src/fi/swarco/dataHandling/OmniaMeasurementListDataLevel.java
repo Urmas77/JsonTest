@@ -357,7 +357,7 @@ public class OmniaMeasurementListDataLevel {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();
             strHelp1 = mu.StripFileStartEnd(pMeasurementsData);
-            logger.info("stripped strHelp1 = " + strHelp1);
+ //           logger.info("stripped strHelp1 = " + strHelp1);
             int iHere = strHelp1.indexOf("}");
             int iRound =1;
             int iHereOld=0;

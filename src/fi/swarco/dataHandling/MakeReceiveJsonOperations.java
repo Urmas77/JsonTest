@@ -29,14 +29,14 @@ public class MakeReceiveJsonOperations {
     }
     public static void setPermanentJsonData(String pPermanentJsonData) {
         permanentJsonData = pPermanentJsonData;
-        logger.info("jjjjjj   permanentJsonData = " + permanentJsonData);
+ //       logger.info("jjjjjj   permanentJsonData = " + permanentJsonData);
     }
     private static String measurementsJsonData = NO_VALUE;
     public static String getMeasurementsJsonData() {
         return measurementsJsonData;
     }
     public static void setMeasurementsJsonData(String pMeasurementsJsonData) { measurementsJsonData = pMeasurementsJsonData;
-        logger.info("jjjjjj   measurementsJsonData = " + measurementsJsonData);
+   //     logger.info("jjjjjj   measurementsJsonData = " + measurementsJsonData);
     }
 // get whole string
 // made it back to json
@@ -54,7 +54,7 @@ public class MakeReceiveJsonOperations {
         MessageUtils mu = new MessageUtils();
         String strWhoJsonData =mu.reCreateJsonDecimal(strWholeRawData);
        // setpFullJsonData(strWhoJsonData);
-       logger.info("strWhoJsonData = " +strWhoJsonData);
+   //    logger.info("strWhoJsonData = " +strWhoJsonData);
         jsw = mu.SplitJson(strWhoJsonData);
         if (!(jsw.getPermanentData().equals(NO_VALUE))) {
             setPermanentJsonData(jsw.getPermanentData());
@@ -68,8 +68,8 @@ public class MakeReceiveJsonOperations {
             }
             return INT_RET_NOT_OK;
         }
-        logger.info("getPermanentJsonData() =  " + getPermanentJsonData());
-        logger.info("getMeasurementsJsonData() =  " + getMeasurementsJsonData());
+     //   logger.info("getPermanentJsonData() =  " + getPermanentJsonData());
+     //   logger.info("getMeasurementsJsonData() =  " + getMeasurementsJsonData());
 
         iRet=fo.initFileOperations();
         if (iRet == UNSUCCESSFUL_FILE_OPERATION ) {
@@ -108,19 +108,17 @@ public class MakeReceiveJsonOperations {
             //   System.exit(1);
         } else {  // do db operations
             iRet=  kk.JsonOmniaIntersectionSql(getPermanentJsonData());
-            if  (iRet!=1) {
+            if  (iRet<0) {
                 logger.info("Unsuccessful insert iRet="+ iRet);
                 iRet = fo.addOmniaCloudJsonLine("error##" + getPermanentJsonData(),"OwmMachineCloudServer");
            } else
                 iRet=  mm.MakeConnection(MYSQL_LOCAL_JATRI2);
             if (iRet != DATABASE_CONNECTION_OK)  {
-                logger.info("No Database conncetion iRet =" + iRet);
-                logger.info("Unsuccessful insert iRet="+ iRet);
+                logger.info("No Database conncection iRet =" + iRet);
                 iRet = fo.addOmniaCloudJsonLine("error##" + getMeasurementsJsonData(),"OwmMachineCloudServer");
                 if (iRet == UNSUCCESSFUL_FILE_OPERATION ) {
                     logger.info("Unsuccessful file Operations iRet =" + iRet);
                 }
-                //   System.exit(1);
             } else {  // do db operations
                 iRet = mm.JsonOmniaMeasurementSql(getMeasurementsJsonData());
                 if  (iRet!=1) {

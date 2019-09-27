@@ -158,7 +158,6 @@ public class SwarcoConnections {
         try {
             if (curSqlCon == null) {
                 logger.info("CurConnection is null make totally new connection!");
-              //  logger.info("CurConnection is null swarvop.getMySqlConnUrlWhole() = " + swarvop.getMySqlConnUrlWhole());
                 logger.info("swarvop.getMySqlConnUrlStartDbase() = " + swarvop.getMySqlConnUrlStartDbase());
                 logger.info("swarvop.getMySqldbuser() = " + swarvop.getMySqldbuser());
                 logger.info("swarvop.getMySqlpassword() = " + swarvop.getMySqlpassword());
@@ -166,21 +165,37 @@ public class SwarcoConnections {
                 if (swarvop.getMySqlServerTimeZone().equals("NOTDEFINED")) {
                     logger.info(" timezone not defined");
                     curSqlCon = DriverManager.getConnection(swarvop.getMySqlConnUrlStartDbase(), swarvop.getMySqldbuser(), swarvop.getMySqlpassword());
-                    return INT_RET_OK;
+                    if (curSqlCon.isValid(0)) {
+                        return INT_RET_OK;
+                    }
+                    return INT_RET_NOT_OK;
                 } else {
+                    String strHelp1 =   swarvop.getMySqlConnUrlStartDbase() +
+                             "?serverTimezone=" +
+                                swarvop.getMySqlServerTimeZone();
+                    logger.info("strHelp1 = " + strHelp1);
+                    logger.info("swarvop.getMySqldbuser() = " + swarvop.getMySqldbuser());
+                    logger.info("swarvop.getMySqlpassword() = " + swarvop.getMySqlpassword());
+                    curSqlCon = DriverManager.getConnection(strHelp1, swarvop.getMySqldbuser(), swarvop.getMySqlpassword());
                    // curSqlCon = DriverManager.getConnection(swarvop.getMySqlConnUrlStartDbase(), swarvop.getMySqldbuser(), swarvop.getMySqlpassword());
-                      String strHelp1 =   swarvop.getMySqlConnUrlStartDbase() + ",user=" +
-                                           swarvop.getMySqldbuser() + ",password=" +
-                                          swarvop.getMySqlpassword() +",serverTimezone="+
-                                          swarvop.getMySqlServerTimeZone();
-                       logger.info("strHelp1 = " + strHelp1);
-                       curSqlCon = DriverManager.getConnection(strHelp1);
-                       return INT_RET_OK;
-                      // add this after server name
-                       // ?useTimezone=true&serverTimezone=UTC.
-                             // "jdbc:mysql://localhost:3306/management", "root", "root");
+                   // String strHelp1 =   swarvop.getMySqlConnUrlStartDbase() +
+                   //         "?serverTimezone="+     // Olde was ,server...
+                   //         swarvop.getMySqlServerTimeZone() +
+                   //         ",user=" +
+                   //         swarvop.getMySqldbuser() +
+                   //         ",password=" +
+                   //         swarvop.getMySqlpassword();
+              //      String strHelp1 =   swarvop.getMySqlConnUrlStartDbase() + ",user=" +
+              //                             swarvop.getMySqldbuser() + ",password=" +
+              //                            swarvop.getMySqlpassword() +"?serverTimezone="+     // Olde was ,server...
+              //                            swarvop.getMySqlServerTimeZone();
+ //                      logger.info("strHelp1 = " + strHelp1);
+//                       curSqlCon = DriverManager.getConnection(strHelp1);
+                       if (curSqlCon.isValid(0)) {
+                          return INT_RET_OK;
+                       }
+                       return INT_RET_NOT_OK;
                }
-                   //curSqlCon = DriverManager.getConnection(swarvop.getMySqlConnUrlWhole());
             } else {
                 if (!curSqlCon.isValid(0)) {
                     logger.info("CurConnection is not valid make new one!");
@@ -188,14 +203,15 @@ public class SwarcoConnections {
                     logger.info("swarvop.getMySqldbuser() = " + swarvop.getMySqldbuser());
                     logger.info("swarvop.getMySqlpassword() = " + swarvop.getMySqlpassword());
                     curSqlCon = DriverManager.getConnection(swarvop.getMySqlConnUrlStartDbase(),swarvop.getMySqldbuser(),swarvop.getMySqlpassword());
-                    return INT_RET_OK;
+                    if (curSqlCon.isValid(0)) {
+                        return INT_RET_OK;
+                    }
+                    return INT_RET_NOT_OK;
                 } else {
                     logger.info("CurConnection is valid return OK !");
                     return INT_RET_OK;
                 }
             }
-      //      logger.info("Connected.MySql = " + swarvop.getMySqlConnUrlWhole());
-         //   return INT_RET_NOT_OK;
         } catch (Exception e) {
             System.out.println(" catch 11");
             e.printStackTrace();

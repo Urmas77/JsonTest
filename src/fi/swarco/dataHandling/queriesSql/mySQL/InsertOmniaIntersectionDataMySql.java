@@ -34,6 +34,6 @@ public class InsertOmniaIntersectionDataMySql {
         statement = statement + "?,";
         statement = statement + "?,";
         statement = statement + "?);";
-        logger.info("statement = " + statement);
+  //      logger.info("statement = " + statement);
     }
 }

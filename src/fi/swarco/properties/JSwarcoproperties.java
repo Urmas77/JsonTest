@@ -8,6 +8,13 @@ import static fi.swarco.CONSTANT.INT_RET_NOT_OK;
 import static fi.swarco.CONSTANT.INT_RET_OK;
 public class JSwarcoproperties {
     private static Logger logger = Logger.getLogger(JSwarcoproperties.class.getName());
+    private String OmniaClientUrl;
+    public String getOmniaClientUrl() {
+        return OmniaClientUrl;
+    }
+    public void setOmniaClientUrl(String pOmniaClientUrl) {
+        OmniaClientUrl = pOmniaClientUrl;
+    }
     private String[] timeFormat = new String[16];
     public String[] getTimeFormat() {
         return timeFormat;
@@ -117,8 +124,6 @@ public class JSwarcoproperties {
     public String getMySqlServerTimeZone() {
         return MySqlServerTimeZone;
     }
-
-
     public void setMySqlConnUrlWhole(String pMySqlConnUrlWhole) {
         MySqlConnUrlWhole = pMySqlConnUrlWhole;
     }
@@ -157,7 +162,7 @@ public class JSwarcoproperties {
         prop = new Properties();
         InputStream input = null;
         try {
-            String filename = "Swarco.properties";
+            String filename = "swarco.properties";  // old one Swarco.
             input = JSwarcoproperties.class.getClassLoader().getResourceAsStream(filename);
             logger.info("input = " + input);
             if (input != null) {
@@ -181,6 +186,10 @@ public class JSwarcoproperties {
             iRet = setTimeFormatProps();
             if (iRet != 1) {
                 logger.info("No Time format props in this environment!");
+            }
+            iRet = setOmniaClientProps();
+            if (iRet != 1) {
+                logger.info("No OnmniaClient props in this environment!");
             }
             return INT_RET_OK;
         } catch (IOException ex) {
@@ -232,12 +241,13 @@ public class JSwarcoproperties {
         //   strHelp1 =strHelp1 + "database=" + getMySqldatabase()  +",";
         //   strHelp1 = strHelp1 + "user=" + getMySqldbuser() +",";
         //   strHelp1 = strHelp1 + "password=" + getMySqlpassword();
-        setMySqlConnUrlWhole(strHelp1);
+           setMySqlConnUrlWhole(strHelp1);
            logger.info("MySqlConnUrlStart = " + prop.getProperty("MySqlConnectionUrlStart"));
            logger.info("MySqlpassword = " + prop.getProperty("MySqlpassword"));
            logger.info("MySqldatabase = " + prop.getProperty("MySqldatabase"));
            logger.info("MySqldbuser = " + prop.getProperty("MySqldbuser"));
-           logger.info("getpMySqlConnUrlWhole() = " + getMySqlConnUrlWhole());
+           logger.info("MySqlServerTimeZone = " + prop.getProperty("MySqlServerTimeZone"));
+       //    logger.info("getpMySqlConnUrlWhole() = " + getMySqlConnUrlWhole());
         return INT_RET_OK;
     }
     private int setFileProps() {
@@ -270,6 +280,11 @@ public class JSwarcoproperties {
         timeFormat[15] = prop.getProperty("TimeF16");
         String theString = Arrays.toString(timeFormat);
        // logger.info("TimeArray[] theString = " + theString);
+        return INT_RET_OK;
+    }
+    private int setOmniaClientProps(){
+        setOmniaClientUrl(prop.getProperty("OmniaClientUrl")) ;
+        logger.info("getOmniaClientUrl()= " + getOmniaClientUrl());
         return INT_RET_OK;
     }
 }

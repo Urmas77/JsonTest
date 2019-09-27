@@ -87,15 +87,15 @@ public class OmniaIntersectionData {
        this.IntersectionId = intersectionId;
     }
     public String getIntesectionDescription() {
-        logger.info ("from get start IntesectionDescription ="+ IntesectionDescription);
+      //  logger.info ("from get start IntesectionDescription ="+ IntesectionDescription);
         if (IntesectionDescription == null) {
             this.IntesectionDescription = NO_VALUE;
         }
-        logger.info ("from get end IntesectionDescription ="+ IntesectionDescription);
+      //  logger.info ("from get end IntesectionDescription ="+ IntesectionDescription);
         return IntesectionDescription;
     }
     public void setIntesectionDescription(String pIntesectionDescription) {
-        logger.info ("pIntesectionDescription ="+ pIntesectionDescription);
+      //  logger.info ("pIntesectionDescription ="+ pIntesectionDescription);
         if (pIntesectionDescription == null) {
             this.IntesectionDescription = NO_VALUE;
         } else {

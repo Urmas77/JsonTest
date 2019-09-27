@@ -342,16 +342,11 @@ public class MeasurementTaskHandling {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-
-
-
-
-
     public int DeleteDoneTaskFromWorkDb(TRPXMeasurementTaskData ce) {
         // RETHINK TaskType
         int iRet;
         String SQL = "";
-        logger.info("ce.toString()=" + ce.toString());
+ //       logger.info("ce.toString()=" + ce.toString());
         try {
             java.sql.PreparedStatement stmt;
             SQL = " delete from TRPX_MeasurementTask_Work ";
@@ -436,7 +431,7 @@ public class MeasurementTaskHandling {
             return NO_VALUE;
         }
         return NO_VALUE;
-    }
+   }
    private String getPermanentJsonDataSpare(long plngIntersectionId, long plngControllerId) {
         //public String getPermanentJsonDataSpare(long plngIntersectionId, long plngControllerId) {
         // RETHINK   GetPermanentDataSpare this is only in dbback
@@ -465,7 +460,6 @@ public class MeasurementTaskHandling {
         }
         return NO_VALUE;
     }
-
     public String getPermanentSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) {
         String SQL = "";
         String strRet = NO_VALUE;
@@ -478,7 +472,6 @@ public class MeasurementTaskHandling {
         }
         return strRet;
     }
-
     public String getMeasurementSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) {
         String SQL = "";
         String strRet = NO_VALUE;
@@ -492,62 +485,4 @@ public class MeasurementTaskHandling {
         return strRet;
     }
 }
-/*    private String getPermanentJsonData(long plngIntersectionId, long plngControllerId,String pstrTimestamp) {
-        String SQL = "";
-        String strRet = NO_VALUE;
-        int iRet = 0;
-        java.sql.PreparedStatement stmt;
-        try {
-            SQL = " select dbo.TRPX_GetPermanentData( ";
-            SQL = SQL + plngIntersectionId + ",";
-            SQL = SQL + plngControllerId +  ",";
-            SQL =  SQL  + "'" + pstrTimestamp + "')";
-            logger.info("SQL = " +SQL);
-            stmt = gSqlCon.prepareStatement(SQL);
-            ResultSet rs;
-            rs = stmt.executeQuery();
-            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
-            while (rs.next()) {
-                strRet = rs.getString(1);
-                logger.info("strRet = " + strRet);
-                return strRet;
-            }
-        } catch (SQLException e) {
-            logger.info(ExceptionUtils.getRootCauseMessage(e));
-            logger.info(ExceptionUtils.getFullStackTrace(e));
-            e.printStackTrace();
-            return NO_VALUE;
-        }
-        return NO_VALUE;
-    }
-    private String getMeasurementJsonData(long plngIntersectionId, long plngControllerId,String pstrTimestamp) {
-    //public String getMeasurementJsonData(long plngIntersectionId, long plngControllerId,String pstrTimestamp) {
-        String SQL = "";
-        String strRet =NO_VALUE;
-        int iRet = 0;
-        java.sql.PreparedStatement stmt;
-        logger.info(" SqlConnectionType =" + SqlConnectionType);
-        logger.info("Start ");
-        try {
-            SQL = " select dbo.TRPX_GetMeasurementData(";
-            SQL = SQL + plngIntersectionId + ",";
-            SQL = SQL + plngControllerId +  ",";
-            SQL = SQL + "'" + pstrTimestamp + "')";
-            logger.info("SQL = " +SQL);
-            stmt = gSqlCon.prepareStatement(SQL);
-            ResultSet rs;
-            rs = stmt.executeQuery();
-            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
-            while (rs.next()) {
-                strRet = rs.getString(1);
-                return strRet;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            logger.info(ExceptionUtils.getRootCauseMessage(e));
-            logger.info(ExceptionUtils.getFullStackTrace(e));
-            return NO_VALUE;
-        }
-        return NO_VALUE;
-    } */
 
