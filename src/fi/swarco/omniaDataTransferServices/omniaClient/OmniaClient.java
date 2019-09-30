@@ -33,6 +33,7 @@ public class OmniaClient {
         }
     }    // HTTP GET request
     private static void sendGetOmniaData() throws IOException {
+        int intSleep =0;
         String url1;
         String url2;
         String url3 = "";
@@ -54,7 +55,6 @@ public class OmniaClient {
         while (iloop == 1) {
             try {
                 for (long i = 1; i < 2; i++) {
-                    logger.info("i=" + i);
                     iRet = ms.PollOfWorks();
                     if (iRet == THERE_IS_WORK) {
                         iRet = ms.MakeSendOmniaOperations();
@@ -70,32 +70,17 @@ public class OmniaClient {
                         } else {
                             String strHelp1 = NO_VALUE;
                             strHelp1 = ms.getJSonPermanentData();
-          //                  logger.info("getJSonPermanentData strhelp1 = " + strHelp1);
                             String strHelp2 = NO_VALUE;
                             strHelp2 = ms.getJSonMeasurementData();
-             //               logger.info("getJSonPermanentData strHelp2 = " + strHelp2);
                             strHelp1 = strHelp1 + strHelp2;
-            //                logger.info("before decimal  strHelp1 =" + strHelp1);
                             strHelp1 = mu.DecodeJsonPercentDecimal(strHelp1);
-                            //************************************************************************
-              //              logger.info("before decode  strHelp1 =" + strHelp1);
                             strHelp1 = URLEncoder.encode(strHelp1, StandardCharsets.UTF_8.toString());
-                //            logger.info("after decode  strHelp1 =" + strHelp1);
-                        //**********************************************************************
                             url1 =sw.getOmniaClientUrl();
-                         //   logger.info("moi url1 =" + url1);
-// Use it
-//                            url1 = "http://aineisto.swarco.fi/receiver/?";
-                  // url1 = "http://localhost:8888/?";
-                           // url1 = "https://aineistot.swarco.fi/receiver/?";
                             logger.info("moi url1 =" + url1);
-                           // logger.info("moi strHelp1 =" + strHelp1);
                             url1 = url1 + strHelp1;
-                           // logger.info("moi url1 =" + url1);
                             bXorResult = XORChecksumShort.xor(url1);
                             url1 = url1 + "&chk=" + bXorResult;
                             logger.info("****** Length of url1.length() =" + url1.length());
-                           // logger.info("moi url1 with check sum =" + url1);
                             logger.info("moi \"&chk=\" =" + bXorResult);
                             URL obj = new URL(url1);
                             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -104,7 +89,6 @@ public class OmniaClient {
                             con.setRequestMethod("GET");
                             responseCode = con.getResponseCode();
                             logger.debug("bef Response Code : " + responseCode);
-                            // LogUtilities mfl = new LogUtilities();
                             if (responseCode != 200) {
                                 in = new BufferedReader(new InputStreamReader(con.getErrorStream()));
                                 iRet = mfl.MakeFullLogOperations(
@@ -112,6 +96,11 @@ public class OmniaClient {
                                         SwarcoEnumerations.ApiMessageCodes.ERROR,
                                         url1);
                             } else {
+                                // delete done task from db here RETHINK
+                                iRet = ms.DeleteDoneTaskFromWorkDb();
+                                if (iRet != INT_RET_OK) {
+                                    logger.info("Unsuccesfull delete from tasklist iRet = " + iRet);
+                                }
                                 in = new BufferedReader(new InputStreamReader(con.getInputStream()));
                                 iRet = mfl.MakeFullLogOperations(
                                         SwarcoEnumerations.LoggingDestinationType.OMNIA_CLIENT,
@@ -129,7 +118,12 @@ public class OmniaClient {
                         }
                     }
                     logger.info("bef sleep");
-                    Thread.sleep(200);   // 200 ms
+                    logger.info(" sw.getOmniaClientSleepMs() = " + sw.getOmniaClientSleepMs());
+                    intSleep = Integer.valueOf(sw.getOmniaClientSleepMs());
+                    if (intSleep <=100) {
+                        intSleep=200;
+                    }
+                    Thread.sleep(intSleep);   // 200 ms
                     logger.info("after sleep");
                 }
             } catch (Exception e) {
@@ -137,6 +131,6 @@ public class OmniaClient {
                logger.info(ExceptionUtils.getRootCauseMessage(e));
                logger.info(ExceptionUtils.getFullStackTrace(e));
             }
-        } // end while for testing
+        }
     }
 }

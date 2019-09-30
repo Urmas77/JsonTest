@@ -21,6 +21,13 @@ public class MakeSendJsonOperations {
     public static void setjSonMeasurementData(String pJSonMeasurementData) {
         jSonMeasurementData = pJSonMeasurementData;
     }
+    private static TRPXMeasurementTaskData TaskUnderWork = null;
+    public static TRPXMeasurementTaskData getTaskUnderWork() {
+        return TaskUnderWork;
+    }
+    public static void setTaskUnderWork(TRPXMeasurementTaskData pTaskUnderWork) {
+        TaskUnderWork = pTaskUnderWork;
+    }
     private static MeasurementTaskHandling th = new MeasurementTaskHandling();
     private int MakeClearanceOperations(TRPXMeasurementTaskData pCe) {
         String strHelp1 = NO_VALUE;
@@ -126,11 +133,6 @@ public class MakeSendJsonOperations {
         int iRound = 0;
         int iloop = 1;
         String strHelp1 = NO_VALUE;
-//        iRet = PollOfWorks();
-//         if (iRet != THERE_IS_WORK) {
-//            logger.info("Error of getting work iRet = " + iRet);
-//            return iRet;
-//       }
         while (iloop == 1) {
             try {
                 // do work   "old way"
@@ -149,6 +151,7 @@ public class MakeSendJsonOperations {
                 }
                 strHelp1 = th.getPermanentSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
                 logger.info("strHelp1 = " + strHelp1);
+                logger.info("strHelp1.lenght()  = " + strHelp1.length());
                 if (strHelp1.equals(NO_VALUE)) {
                     iRet = MakeSpareOperations(ce);
                     if (iRet < 0) {
@@ -159,6 +162,8 @@ public class MakeSendJsonOperations {
                 }
                 setjSonPermanentData(strHelp1);
                 strHelp1 = th.getMeasurementSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
+                logger.info("strHelp1 = " + strHelp1);
+                logger.info("strHelp1.length()  = " + strHelp1.length());
                 if (strHelp1.equals(NO_VALUE)) {
                     // REHINK update task state and write to log
                     iRet = MakeClearanceOperations(ce);
@@ -166,14 +171,7 @@ public class MakeSendJsonOperations {
                     return iRet;
                 } else {
                     setjSonMeasurementData(strHelp1);
-                    // delete done task from db
-                    iRet = th.DeleteDoneTaskFromWorkDb(ce);
-                    if (iRet < 1) {
-                        logger.info("Unsuccesfull delete from tasklist ce.toString() =  " + ce.toString());
-                        logger.info("Unsuccesfull delete from tasklist iRet = " + iRet);
-                        return OMNIA_DATA_PICK_NOT_OK;
-                    }
-                    //   return OMNIA_DATA_PICK_OK;  // RETHINK uncomment this line if you want to send only once
+                    setTaskUnderWork(ce);
                 }
                 if (iRound  >= 2) {
                     Thread.sleep(5000);
@@ -189,5 +187,15 @@ public class MakeSendJsonOperations {
         } // polling loop while end
        return OMNIA_DATA_PICK_OK;
     }
+   public int   DeleteDoneTaskFromWorkDb() {
+       TRPXMeasurementTaskData ce = getTaskUnderWork();
+       int iRet = th.DeleteDoneTaskFromWorkDb(ce);
+       if (iRet < 1) {
+          logger.info("Unsuccesfull delete from tasklist ce.toString() =  " + ce.toString());
+          logger.info("Unsuccesfull delete from tasklist iRet = " + iRet);
+          return OMNIA_DATA_PICK_NOT_OK;
+      }
+      return INT_RET_OK;
+   }
 }
 

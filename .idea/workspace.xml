@@ -10,16 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="Eka committi">
-      <change afterPath="$PROJECT_DIR$/Eka_committi.patch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/OmniaIntersectionListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/OmniaIntersectionListDataLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/OmniaMeasurementListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/OmniaMeasurementListDataLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/RawDataDataListLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/RawDataDataListLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaIntersectionData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaIntersectionData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/InsertOmniaIntersectionDataMySql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/InsertOmniaIntersectionDataMySql.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/swarco.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/swarco.properties" afterDir="false" />
@@ -134,7 +127,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.OmniaClient">
+  <component name="RunManager" selected="Application.OmniaCloudHTTPServer">
     <configuration name="CustomerClient" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="fi.swarco.omniaDataTransferServices.customerClient.CustomerClient" />
       <module name="JsonTest" />
@@ -345,6 +338,7 @@
       <workItem from="1569299729083" duration="13837000" />
       <workItem from="1569390263452" duration="10442000" />
       <workItem from="1569563441461" duration="645000" />
+      <workItem from="1569564608278" duration="16268000" />
     </task>
     <task id="LOCAL-00001" summary="Eka committi">
       <created>1569300763657</created>
@@ -353,7 +347,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569300763657</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="On production Before &quot;!Loop resend&quot; version JIs">
+      <created>1569564872149</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1569564872149</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -388,7 +389,8 @@
     <option name="MOVE_SHELVES" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="true" />
     <MESSAGE value="Eka committi" />
-    <option name="LAST_COMMIT_MESSAGE" value="Eka committi" />
+    <MESSAGE value="On production Before &quot;!Loop resend&quot; version JIs" />
+    <option name="LAST_COMMIT_MESSAGE" value="On production Before &quot;!Loop resend&quot; version JIs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -571,7 +573,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
-          <line>36</line>
+          <line>37</line>
           <option name="timeStamp" value="117" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -586,7 +588,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
-          <line>54</line>
+          <line>55</line>
           <option name="timeStamp" value="133" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -596,7 +598,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>160</line>
+          <line>163</line>
           <option name="timeStamp" value="141" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -646,12 +648,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>128</line>
-          <option name="timeStamp" value="172" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>66</line>
+          <line>73</line>
           <option name="timeStamp" value="173" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -661,7 +658,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>134</line>
+          <line>136</line>
           <option name="timeStamp" value="175" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -671,23 +668,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
-          <line>84</line>
+          <line>77</line>
           <option name="timeStamp" value="177" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
           <line>24</line>
           <option name="timeStamp" value="178" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
-          <line>85</line>
-          <option name="timeStamp" value="179" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java</url>
-          <line>285</line>
-          <option name="timeStamp" value="180" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java</url>
@@ -698,6 +685,21 @@
           <url>file://$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java</url>
           <line>172</line>
           <option name="timeStamp" value="182" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="183" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="185" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>173</line>
+          <option name="timeStamp" value="186" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

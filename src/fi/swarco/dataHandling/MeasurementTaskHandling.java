@@ -364,7 +364,7 @@ public class MeasurementTaskHandling {
                 iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
                 return iRet;
             }
-            return iRet;
+            return INT_RET_OK;
         } catch (Exception e) {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
