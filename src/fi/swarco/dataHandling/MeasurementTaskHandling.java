@@ -6,25 +6,13 @@ import java.util.List;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.omniaClientDataHandling.DetectorMeasurementsClientDataLevel;
+import fi.swarco.dataHandling.omniaClientDataHandling.DetectorMeasurementsShortClientDataLevel;
 import fi.swarco.dataHandling.omniaClientDataHandling.OmniaIntersectionListClientDataLevel;
 import fi.swarco.dataHandling.pojos.TRPXMeasurementTaskData;
 import fi.swarco.dataHandling.queriesSql.sqlServer.JiMeasurementTaskSelectSqlServer;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
-// Methods which are  needed to handle Dat transfer tasks
-// Between Omniaservers and Swarco cloud
-// needed methods
-// getData from Omnia
-// getpermanentdata
-// 1.1 Json to single string versio
-// getMesurement data
-// 1.1 Json to single string versio
-// getTaskfromTasklist
-//delete task from task list    "trigger and history is supported"
-//   JIs 18.06.2019
-// new version WORK table is adde trigger functionality is changed
-// Jis 18.09.2019
 public class MeasurementTaskHandling {
     private static Logger logger = Logger.getLogger(MeasurementTaskHandling.class.getName());
     private List<TRPXMeasurementTaskData> TaskUnits = Collections.synchronizedList(new LinkedList<TRPXMeasurementTaskData>());  // ????
@@ -92,7 +80,6 @@ public class MeasurementTaskHandling {
             return -1;
         }
     }
-
     public int AnyWorkWork() {
         int iRet = INT_RET_NOT_OK;
         String SQL = "";
@@ -118,8 +105,6 @@ public class MeasurementTaskHandling {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-
-
     public int AnyWork() {
         int iRet = INT_RET_NOT_OK;
         String SQL = "";
@@ -271,17 +256,9 @@ public class MeasurementTaskHandling {
             logger.info("ce.toString()=" + ce.toString());
             return ce;
         }
-// If list is empty
         ce.MakeEmptyElement();
         return ce;
     }
-    //    delete from JI_MeasurementTask where DetectorID=165 and DetectorMeasuresTimestamp
-// first try to use only timestamp
-// current situation you need
-//    OmniaCode = (select min(omniaCode) from ji_omnia) and
-//            IntersectionID = (select min(IntersectionID) from JI_MeasurementTask) and
-//            ControllerID  = (select min(ControllerID) from JI_MeasurementTask) and
-//            DetectorMeasuresTimestamp
     public int DeleteDoneTaskFromDb(TRPXMeasurementTaskData ce) {
         // RETHINK TaskType
         int iRet;
@@ -433,8 +410,6 @@ public class MeasurementTaskHandling {
         return NO_VALUE;
    }
    private String getPermanentJsonDataSpare(long plngIntersectionId, long plngControllerId) {
-        //public String getPermanentJsonDataSpare(long plngIntersectionId, long plngControllerId) {
-        // RETHINK   GetPermanentDataSpare this is only in dbback
         String SQL = "";
         String strRet = NO_VALUE;
         int iRet = 0;
@@ -484,5 +459,19 @@ public class MeasurementTaskHandling {
         }
         return strRet;
     }
+    public String getMeasurementShortSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) {
+        String SQL = "";
+        String strRet = NO_VALUE;
+        int iRet = 0;
+        java.sql.PreparedStatement stmt;
+        DetectorMeasurementsShortClientDataLevel oi = new DetectorMeasurementsShortClientDataLevel();
+        iRet = oi.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        if (iRet == DATABASE_CONNECTION_OK) {
+            strRet = oi.GetMeasurementsDataString(plngIntersectionId, plngControllerId, pstrTimestamp);
+        }
+        return strRet;
+    }
+
+
 }
 

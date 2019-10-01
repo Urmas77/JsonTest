@@ -1,4 +1,4 @@
-package fi.swarco.dataHandling;
+package fi.swarco.dataHandling.omniaClientDataHandling;
 import java.sql.*;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -7,25 +7,24 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
-import fi.swarco.dataHandling.pojos.OmniaMeasurementData;
-import fi.swarco.dataHandling.queriesSql.mySQL.InsertOmniaMeasurementDataMySql;
-import fi.swarco.dataHandling.queriesSql.mySQL.OmniaMeasurementDataMySqlSelectWhere;
-import fi.swarco.dataHandling.queriesSql.sqlServer.OmniaMeasurementDataSqlServerSelectJson;
+import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShort;
+import fi.swarco.dataHandling.queriesSql.mySQL.InsertOmniaMeasurementDataShortMySql;
+import fi.swarco.dataHandling.queriesSql.mySQL.OmniaMeasurementDataShortMySqlSelectWhere;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
 import fi.swarco.omniaDataTransferServices.SwarcoTimeUtilities;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
-public class OmniaMeasurementListDataLevel {
-    static Logger logger = Logger.getLogger(OmniaMeasurementListDataLevel.class.getName());
-    List<OmniaMeasurementData> OmniaMeasurementDataUnits = Collections.synchronizedList(new LinkedList<OmniaMeasurementData>());  // ????
+public class OmniaMeasurementShortListDataLevel {
+    static Logger logger = Logger.getLogger(fi.swarco.dataHandling.OmniaMeasurementListDataLevel.class.getName());
+    List<OmniaMeasurementDataShort> OmniaMeasurementDataUnits = Collections.synchronizedList(new LinkedList<OmniaMeasurementDataShort>());  // ????
     static Connection gSqlCon;
     private SwarcoEnumerations.ConnectionType SqlConnectionType=SwarcoEnumerations.ConnectionType.NOT_DEFINED;
     private SwarcoEnumerations.RequestOriginType requestOrigin= SwarcoEnumerations.RequestOriginType.NORMALROAD;
-    private OmniaMeasurementData foundRec;
-    public OmniaMeasurementData getFoundRec() { return foundRec;}
+    private OmniaMeasurementDataShort foundRec;
+    public OmniaMeasurementDataShort getFoundRec() { return foundRec;}
 
-    public  void setFoundRec(OmniaMeasurementData pFoundRec) {foundRec=pFoundRec;}
+    public  void setFoundRec(OmniaMeasurementDataShort pFoundRec) {foundRec=pFoundRec;}
 
     public void setRequestOrigin(SwarcoEnumerations.RequestOriginType prequestOrigin) {
         requestOrigin=prequestOrigin;
@@ -43,14 +42,15 @@ public class OmniaMeasurementListDataLevel {
         return DATABASE_CONNECTION_OK;
     }
     //********************************************************************************************************
-    public int DoesLineAlreadyExsist(OmniaMeasurementData pOmniaMeasurementData) {
+    public int DoesLineAlreadyExsist(OmniaMeasurementDataShort pOmniaMeasurementDataShort) {
         String SQL="";
         java.sql.PreparedStatement stmt=null;
-        OmniaMeasurementData oi = new OmniaMeasurementData();
+        OmniaMeasurementDataShort oi = new OmniaMeasurementDataShort();
         oi.MakeEmptyElement();
         setFoundRec(oi);
         try {
-            OmniaMeasurementDataMySqlSelectWhere st = new OmniaMeasurementDataMySqlSelectWhere();
+        //    OmniaMeasurementDataMySqlSelectWhere st = new OmniaMeasurementDataMySqlSelectWhere();
+            OmniaMeasurementDataShortMySqlSelectWhere st = new OmniaMeasurementDataShortMySqlSelectWhere();
             SQL =st.getStatement();
             //      logger.debug("SqlConnectionTypeyyyy= "+ SqlConnectionType);
             ResultSet rs;
@@ -61,58 +61,32 @@ public class OmniaMeasurementListDataLevel {
             //    logger.info("pOmniaIntersectionData.getControllerId()=" + pOmniaMeasurementData.getControllerId());
             //    logger.info("pOmniaIntersectionData.getDetectorId()=" + pOmniaMeasurementData.getDetectorId());
             //    logger.info("pOmniaIntersectionData.getMeasurementTime()=" + pOmniaMeasurementData.getMeasurementTime());
-            stmt.setLong(1,pOmniaMeasurementData.getOmniaCode());
-            stmt.setLong(2,pOmniaMeasurementData.getIntersectionId());
-            stmt.setLong(3,pOmniaMeasurementData.getControllerId());
-            stmt.setLong(4,pOmniaMeasurementData.getDetectorId());
-            stmt.setString(5,pOmniaMeasurementData.getMeasurementTime());
+            stmt.setLong(1,pOmniaMeasurementDataShort.getOmniaCode());
+            stmt.setLong(2,pOmniaMeasurementDataShort.getIntersectionId());
+            stmt.setLong(3,pOmniaMeasurementDataShort.getControllerId());
+            stmt.setLong(4,pOmniaMeasurementDataShort.getDetectorId());
+            stmt.setString(5,pOmniaMeasurementDataShort.getMeasurementTime());
             rs = stmt.executeQuery();
-            OmniaMeasurementData cc;
+            OmniaMeasurementDataShort cc;
             while (rs.next()) {
                 // logger.info("*****inside rsloop");
-                cc= new OmniaMeasurementData();
+                cc= new OmniaMeasurementDataShort();
                 cc.MakeEmptyElement();
-                //logger.info("cc.toString() = " +cc.toString() );
                 cc.setOmniaCode(rs.getLong(1));
-                //logger.info("cc.toString() = " +cc.toString() );
-                cc.setOmniaName(rs.getString(2));
-                //logger.info("cc.toString() = " +cc.toString() );
-                cc.setOmniaPublicationStatus(rs.getLong(3));
-                //logger.info("cc.toString() = " +cc.toString() );
-                cc.setIntersectionId(rs.getLong(4));
-                //logger.info("cc.toString() = " +cc.toString() );
-                cc.setControllerId(rs.getLong(5));
-                //logger.info("cc.toString() = " +cc.toString() );
-                cc.setMeasurementTime(rs.getString(6));
-                //logger.info("cc.toString() = " +cc.toString() );
-                cc.setDetectorId(rs.getLong(7));
-                // logger.info("cc.toString() = " +cc.toString() );
-                // logger.info("rs.getLong(8) ="+ rs.getLong(8));
-                cc.setDetectorTypeId(rs.getLong(8));
-                //logger.info("rs.getString(9) ="+ rs.getString(9));
-                cc.setDetectorExternalCode(rs.getString(9));
-                // logger.info("cc.toString() = " +cc.toString() );
-                //logger.info("rs.getString(10) ="+ rs.getString(10));
-                cc.setDetectorMaintenanceCode(rs.getString(10));
-                //logger.info("cc.toString() = " +cc.toString() );
-                cc.setDetectorUnitId(rs.getLong(11));
-                // logger.info("cc.toString() = " +cc.toString() );
-                cc.setDetectorDataPreviousUpdate(rs.getString(12));
-                //logger.info("cc.toString() = " +cc.toString() );
-                cc.setDetectorDescription(rs.getString(13));
-                //logger.info("cc.toString() = " +cc.toString() );
-                cc.setMeasurementVehicleCount(rs.getLong(14));
-                //logger.info("cc.toString() = " +cc.toString() );
-                cc.setMeasurementMeanVehicleSpeed(rs.getLong(15));
-                // logger.info("cc.toString() = " +cc.toString() );
-                cc.setMeasurementOccupancyProcent(rs.getLong(16));
-                // logger.info("cc.toString() = " +cc.toString() );
-                cc.setMeasurementAccurancy(rs.getLong(17));
-                if (((cc.getOmniaCode()==(pOmniaMeasurementData.getOmniaCode())) &&
-                        (cc.getIntersectionId()==(pOmniaMeasurementData.getIntersectionId()) &&
-                                (cc.getControllerId()==(pOmniaMeasurementData.getControllerId())) &&
-                                (cc.getDetectorId()==(pOmniaMeasurementData.getDetectorId())) &&
-                                (cc.getMeasurementTime().equals(pOmniaMeasurementData.getMeasurementTime()))))) {
+                cc.setIntersectionId(rs.getLong(2));
+                cc.setControllerId(rs.getLong(3));
+                cc.setMeasurementTime(rs.getString(4));
+                cc.setDetectorId(rs.getLong(5));
+                cc.setDetectorExternalCode(rs.getString(6));
+                cc.setVehicleCount(rs.getLong(7));
+                cc.setMeanVehicleSpeed(rs.getLong(7));
+                cc.setOccupancyProcent(rs.getLong(9));
+                cc.setAccurancy(rs.getLong(10));
+                if (((cc.getOmniaCode()==(pOmniaMeasurementDataShort.getOmniaCode())) &&
+                        (cc.getIntersectionId()==(pOmniaMeasurementDataShort.getIntersectionId()) &&
+                                (cc.getControllerId()==(pOmniaMeasurementDataShort.getControllerId())) &&
+                                (cc.getDetectorId()==(pOmniaMeasurementDataShort.getDetectorId())) &&
+                                (cc.getMeasurementTime().equals(pOmniaMeasurementDataShort.getMeasurementTime()))))) {
                     logger.info(" l�yty");
                     setFoundRec(cc);
                     return INT_RET_FOUND;
@@ -130,42 +104,21 @@ public class OmniaMeasurementListDataLevel {
             return INT_RET_NOT_OK;
         }
     }
-    public int IsItChanged(OmniaMeasurementData pC1 ,OmniaMeasurementData pC2) {
+    public int IsItChanged(OmniaMeasurementDataShort pC1 ,OmniaMeasurementDataShort pC2) {
         int iRet =  NOT_CHANGED;
-        if (!(pC1.getOmniaName().equals(pC2.getOmniaName()))) {
-            iRet =  CHANGED;
-        }
-        if (!(pC1.getOmniaPublicationStatus()==(pC2.getOmniaPublicationStatus()))) {
-            iRet =  CHANGED;
-        }
-        if (!(pC1.getDetectorTypeId()==(pC2.getDetectorTypeId()))) {
-            iRet =  CHANGED;
-        }
         if (!(pC1.getDetectorExternalCode().equals(pC2.getDetectorExternalCode()))) {
             iRet =  CHANGED;
         }
-        if (!(pC1.getDetectorMaintenanceCode().equals(pC2.getDetectorMaintenanceCode()))) {
+        if (!(pC1.getVehicleCount()==(pC2.getVehicleCount()))) {
             iRet =  CHANGED;
         }
-        if (!(pC1.getDetectorUnitId()==(pC2.getDetectorUnitId()))) {
+        if (!(pC1.getMeanVehicleSpeed()==(pC2.getMeanVehicleSpeed()))) {
             iRet =  CHANGED;
         }
-        if (!(pC1.getDetectorDataPreviousUpdate().equals(pC2.getDetectorDataPreviousUpdate()))) {
+        if (!(pC1.getOccupancyProcent()==(pC2.getOccupancyProcent()))) {
             iRet =  CHANGED;
         }
-        if (!(pC1.getDetectorDescription().equals(pC2.getDetectorDescription()))) {
-            iRet =  CHANGED;
-        }
-        if (!(pC1.getMeasurementVehicleCount()==(pC2.getMeasurementVehicleCount()))) {
-            iRet =  CHANGED;
-        }
-        if (!(pC1.getMeasurementMeanVehicleSpeed()==(pC2.getMeasurementMeanVehicleSpeed()))) {
-            iRet =  CHANGED;
-        }
-        if (!(pC1.getMeasurementOccupancyProcent()==(pC2.getMeasurementOccupancyProcent()))) {
-            iRet =  CHANGED;
-        }
-        if (!(pC1.getMeasurementAccurancy()==(pC2.getMeasurementAccurancy()))) {
+        if (!(pC1.getAccurancy()==(pC2.getAccurancy()))) {
             iRet =  CHANGED;
         }
         if (iRet==CHANGED) {
@@ -174,16 +127,16 @@ public class OmniaMeasurementListDataLevel {
         }
         return iRet;
     }
-    public int MakeDeleteInsert(OmniaMeasurementData pC1) {
+    public int MakeDeleteInsert(OmniaMeasurementDataShort pC1) {
         int iRet = INT_RET_OK;
-        iRet = DeleteOldOmniaInterserctioDataLineFromDb(pC1);
+        iRet = DeleteOldOmniaMeasurementDataShortLineFromDb(pC1);
         if (iRet < 0) {
             logger.info("iRet = " + iRet);
             iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
             logger.info("iRet = " + iRet);
             return iRet;
         }
-        iRet = AddNewOmniaMeasurementData(pC1);
+        iRet = AddNewOmniaMeasurementDataShort(pC1);
         if (iRet < 0) {
             logger.info("***********************Successful delete unsuccesful insert iRet = " + iRet);
             iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
@@ -192,12 +145,12 @@ public class OmniaMeasurementListDataLevel {
         }
         return iRet;
     }
-    private int DeleteOldOmniaInterserctioDataLineFromDb(OmniaMeasurementData pC1 ) {
+    private int DeleteOldOmniaMeasurementDataShortLineFromDb(OmniaMeasurementDataShort pC1 ) {
         int iRet;
         String SQL = "";
         try {
             java.sql.PreparedStatement stmt;
-            SQL = " delete from Omniameasurementdata ";
+            SQL = " delete from OmniameasurementdataShort ";
             SQL = SQL + "where OmniaCode = " + pC1.getOmniaCode() + " and " +
                     " IntersectionId = " + pC1.getIntersectionId() + " and " +
                     " ControllerId = " + pC1.getControllerId() + " and " +
@@ -223,51 +176,37 @@ public class OmniaMeasurementListDataLevel {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public static int AddNewOmniaMeasurementData(OmniaMeasurementData pOmniaMeasurementData) {
+    public static int AddNewOmniaMeasurementDataShort(OmniaMeasurementDataShort pOmniaMeasurementDataShort) {
         int iRet;
         String SQL="";
         java.sql.PreparedStatement stmt;
         try {
-            InsertOmniaMeasurementDataMySql st = new InsertOmniaMeasurementDataMySql();
+        InsertOmniaMeasurementDataShortMySql st = new InsertOmniaMeasurementDataShortMySql();
             SQL =st.getStatement();
             //         logger.info("SQL = " + SQL);
             //         logger.info("pOmniaMeasurementData.toString()=" + pOmniaMeasurementData.toString());
             stmt = gSqlCon.prepareStatement(SQL);
             int pos=0;
             pos=1;   // old was zero
-            stmt.setLong(pos,pOmniaMeasurementData.getOmniaCode());
+            stmt.setLong(pos,pOmniaMeasurementDataShort.getOmniaCode());
             pos=pos+1;
-            stmt.setString(pos,pOmniaMeasurementData.getOmniaName());
+            stmt.setLong(pos,pOmniaMeasurementDataShort.getIntersectionId());
             pos=pos+1;
-            stmt.setLong(pos,pOmniaMeasurementData.getOmniaPublicationStatus());
+            stmt.setLong(pos,pOmniaMeasurementDataShort.getControllerId());
             pos=pos+1;
-            stmt.setLong(pos,pOmniaMeasurementData.getIntersectionId());
+            stmt.setString(pos,pOmniaMeasurementDataShort.getMeasurementTime());  // ...Sql and setTimestamp ?
             pos=pos+1;
-            stmt.setLong(pos,pOmniaMeasurementData.getControllerId());
+            stmt.setLong(pos,pOmniaMeasurementDataShort.getDetectorId());
             pos=pos+1;
-            stmt.setString(pos,pOmniaMeasurementData.getMeasurementTime());  // ...Sql and setTimestamp ?
+            stmt.setString(pos,pOmniaMeasurementDataShort.getDetectorExternalCode());
             pos=pos+1;
-            stmt.setLong(pos,pOmniaMeasurementData.getDetectorId());
+            stmt.setLong(pos,pOmniaMeasurementDataShort.getVehicleCount());
             pos=pos+1;
-            stmt.setLong(pos,pOmniaMeasurementData.getDetectorTypeId());
+            stmt.setDouble(pos,pOmniaMeasurementDataShort.getMeanVehicleSpeed());
             pos=pos+1;
-            stmt.setString(pos,pOmniaMeasurementData.getDetectorExternalCode());
+            stmt.setDouble(pos,pOmniaMeasurementDataShort.getOccupancyProcent());
             pos=pos+1;
-            stmt.setString(pos,pOmniaMeasurementData.getDetectorMaintenanceCode());
-            pos=pos+1;
-            stmt.setLong(pos,pOmniaMeasurementData.getDetectorUnitId());
-            pos=pos+1;
-            stmt.setString(pos,pOmniaMeasurementData.getDetectorDataPreviousUpdate());  //...Sql and setTimestamp ?
-            pos=pos+1;
-            stmt.setString(pos,pOmniaMeasurementData.getDetectorDescription());
-            pos=pos+1;
-            stmt.setLong(pos,pOmniaMeasurementData.getMeasurementVehicleCount());
-            pos=pos+1;
-            stmt.setDouble(pos,pOmniaMeasurementData.getMeasurementMeanVehicleSpeed());
-            pos=pos+1;
-            stmt.setDouble(pos,pOmniaMeasurementData.getMeasurementOccupancyProcent());
-            pos=pos+1;
-            stmt.setDouble(pos,pOmniaMeasurementData.getMeasurementAccurancy());
+            stmt.setDouble(pos,pOmniaMeasurementDataShort.getAccurancy());
             iRet = stmt.executeUpdate();
             if (iRet!=1) {
                 iRet=UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
@@ -284,28 +223,28 @@ public class OmniaMeasurementListDataLevel {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public  List<OmniaMeasurementData> GetOmniaMeasurementDataList()  {
-        OmniaMeasurementData cc = new OmniaMeasurementData();
+    public  List<OmniaMeasurementDataShort> GetOmniaMeasurementDataList()  {
+        OmniaMeasurementDataShort cc = new OmniaMeasurementDataShort();
         if (OmniaMeasurementDataUnits.isEmpty()==true) {
-            cc= new OmniaMeasurementData();
+            cc= new OmniaMeasurementDataShort();
             cc.MakeEmptyElement();
             OmniaMeasurementDataUnits.add(cc);
         }
         return OmniaMeasurementDataUnits;
     }
-    public  int JsonOmniaMeasurementSql(String pMeasurementsData) {
+    public  int JsonOmniaMeasurementShortSql(String pMeasurementsDataShort) {
         int iRet=0;
         String strHelp1=NO_VALUE;
         try {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();
-            strHelp1 = mu.StripFileStartEnd(pMeasurementsData);
- //           logger.info("stripped strHelp1 = " + strHelp1);
+            strHelp1 = mu.StripFileStartEnd(pMeasurementsDataShort);
+            //           logger.info("stripped strHelp1 = " + strHelp1);
             int iHere = strHelp1.indexOf("}");
             int iRound =1;
             int iHereOld=0;
             String strHelp2 = strHelp1.substring(0, iHere + 1);
-            OmniaMeasurementData aO1 = new OmniaMeasurementData();
+            OmniaMeasurementDataShort aO1 = new OmniaMeasurementDataShort();
             SwarcoTimeUtilities sw = new  SwarcoTimeUtilities();
             String swarcoTime="";
             while  (iHere>0 ) {
@@ -313,9 +252,7 @@ public class OmniaMeasurementListDataLevel {
                 //           logger.info("stripped only first strHelp2 = " + strHelp2 + " strHelp2 iRound = " + iRound);
                 JsonParser jsonParser = new JsonParser();
                 //  OmniaMeasurementData aO1 = myGson.fromJson(strHelp2, OmniaMeasurementData.class);
-                aO1 = myGson.fromJson(strHelp2, OmniaMeasurementData.class);
-                swarcoTime =sw.ToSwarcoTime(aO1.getDetectorDataPreviousUpdate());
-                aO1.setDetectorDataPreviousUpdate(swarcoTime);
+                aO1 = myGson.fromJson(strHelp2, OmniaMeasurementDataShort.class);
 // check do
 // check does the line already exists
 // no: make insert
@@ -327,7 +264,7 @@ public class OmniaMeasurementListDataLevel {
 //        Database triggers write old lines to history table
                 iRet= DoesLineAlreadyExsist(aO1);
                 if (iRet==INT_RET_NOT_FOUND) {
-                    iRet=iRet = AddNewOmniaMeasurementData(aO1);
+                    iRet=iRet = AddNewOmniaMeasurementDataShort(aO1);
                     //                  logger.info("  one line inserted iRet = " + iRet);
                     if (iRet!=INT_RET_OK) {
                         logger.info("Unsuccessful OmniameasurementData insert iRet = " + iRet);
@@ -362,3 +299,9 @@ public class OmniaMeasurementListDataLevel {
         return iRet;
     }
 }
+
+
+
+
+
+

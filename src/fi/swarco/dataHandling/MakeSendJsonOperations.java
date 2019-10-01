@@ -161,7 +161,8 @@ public class MakeSendJsonOperations {
                     return OMNIA_DATA_PICK_NOT_OK;
                 }
                 setjSonPermanentData(strHelp1);
-                strHelp1 = th.getMeasurementSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
+                //strHelp1 = th.getMeasurementSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
+                strHelp1 = th.getMeasurementShortSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
                 logger.info("strHelp1 = " + strHelp1);
                 logger.info("strHelp1.length()  = " + strHelp1.length());
                 if (strHelp1.equals(NO_VALUE)) {

@@ -1,4 +1,5 @@
 package fi.swarco.dataHandling;
+import fi.swarco.dataHandling.omniaClientDataHandling.OmniaMeasurementShortListDataLevel;
 import fi.swarco.dataHandling.pojos.RawData;
 import fi.swarco.omniaDataTransferServices.FileOperations;
 import fi.swarco.omniaDataTransferServices.JsonWrapper;
@@ -78,7 +79,8 @@ public class MakeReceiveJsonOperations {
 // database operations
         RawDataDataListLevel  rd = new RawDataDataListLevel();
         OmniaIntersectionListDataLevel kk = new OmniaIntersectionListDataLevel();
-        OmniaMeasurementListDataLevel mm = new OmniaMeasurementListDataLevel();
+     //   OmniaMeasurementListDataLevel mm = new OmniaMeasurementListDataLevel();
+        OmniaMeasurementShortListDataLevel mm = new OmniaMeasurementShortListDataLevel();
         iRet = rd.MakeConnection(MYSQL_LOCAL_JATRI2);
         if (iRet != DATABASE_CONNECTION_OK) {
             logger.info("No Database conncetion iRet =" + iRet);
@@ -120,7 +122,8 @@ public class MakeReceiveJsonOperations {
                     logger.info("Unsuccessful file Operations iRet =" + iRet);
                 }
             } else {  // do db operations
-                iRet = mm.JsonOmniaMeasurementSql(getMeasurementsJsonData());
+                iRet =mm.JsonOmniaMeasurementShortSql(getMeasurementsJsonData());
+                //iRet = mm.JsonOmniaMeasurementSql(getMeasurementsJsonData());
                 if  (iRet!=1) {
                     logger.info("Unsuccesful insert iRet=" + iRet);
                     iRet = fo.addOmniaCloudJsonLine("error##" + getMeasurementsJsonData(),"OwmMachineCloudServer");
