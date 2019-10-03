@@ -117,7 +117,7 @@ public class DetectorMeasurementsShortClientDataLevel {
         if (strHelp1.equals(NO_VALUE)) {
             return NO_VALUE;
         }
-//        logger.info("kkkkkkk strHelp2 = "+  strHelp2);
+//logger.info("kkkkkkk strHelp2 = "+  strHelp2);
         strHelp2= mu.AddBrackets(strHelp2);
 //        logger.info("kkkkkkk strHelp2 = " + strHelp2);
         return strHelp2;

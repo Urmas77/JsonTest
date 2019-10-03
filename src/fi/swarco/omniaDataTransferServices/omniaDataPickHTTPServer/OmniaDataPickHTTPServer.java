@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import fi.swarco.dataHandling.MakeReceiveClientRequestOperations;
+import fi.swarco.dataHandling.oldDataHandling.MakeReceiveClientRequestOperations;
 import fi.swarco.dataHandling.MakeReceiveJsonOperations;
 import fi.swarco.messageHandling.MapHandle;
 import org.apache.commons.lang.exception.ExceptionUtils;

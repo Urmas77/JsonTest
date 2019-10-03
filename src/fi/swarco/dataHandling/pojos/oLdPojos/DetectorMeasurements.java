@@ -1,4 +1,4 @@
-package fi.swarco.dataHandling.pojos;
+package fi.swarco.dataHandling.pojos.oLdPojos;
 import static fi.swarco.CONSTANT.NO_IDENTITY;
  import static fi.swarco.CONSTANT.NO_VALUE;
 public class DetectorMeasurements {

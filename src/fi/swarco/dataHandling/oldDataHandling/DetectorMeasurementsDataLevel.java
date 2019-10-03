@@ -1,8 +1,8 @@
-package fi.swarco.dataHandling;
+package fi.swarco.dataHandling.oldDataHandling;
 import com.google.gson.*;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
-import fi.swarco.dataHandling.pojos.DetectorMeasurements;
+import fi.swarco.dataHandling.pojos.oLdPojos.DetectorMeasurements;
 import fi.swarco.dataHandling.queriesSql.mySQL.DetectorMeasurementsMySqlSelect;
 import fi.swarco.messageHandling.ParameterWrapper;
 import org.apache.log4j.Logger;

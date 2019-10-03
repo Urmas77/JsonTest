@@ -49,7 +49,6 @@ public static final int  DELETE_UNFILLABLE_TASK_ERROR=-5996;
 public static final int  OMNIA_EMPTY_WORK_LIST = -4999;
 public static final String QUERY_CURRENTSTATE="CURRENTSTATE";
 public static final String QUERY_HISTORYSTATE="HISTORYSTATE";
-
 // Omnia inteface  publication statuses Jis 10.6 2019
 //     OFF :   No data send
 //     SWARCO  : Data is sent  Swarco cloud  for swarco and "test use"
@@ -63,7 +62,6 @@ public static final int READY_DATATRANSFER_TASK =-999;
 public static final int DATABASE_CONNECTION_OK =111;
 //
 public static final int  FILE_NOT_EXIST = -9998;
-
 public static final int OMNIA_DATA_PICK_OK =2222;
 public static final int OMNIA_DATA_PICK_NOT_OK =-777;
 public static final int CLOUD_DATA_PICK_NOT_OK=-778;
@@ -71,4 +69,12 @@ public static final int CLOUD_DATA_LIST_IS_EMPTY=-779;
 public static final int CLOUD_DATA_LIST_CREATION_ERROR=-780;
 public static final int MESSAGE_RECEIVED_OK=1234;
 public static final int MESSAGE_NOT_RECEIVED_OK=-4321;
+//  transfer task types  JIs 02.10 2019
+public static final String   TT_MEASUREMENT_DATA_INSERT="MEASUREMENTDATAINSERT";
+public static final String  TT_CONTROLLER_DATA_CHANGE="CONTROLLERDATACHANGE";
+public static final String  TT_INTERSECTION_DATA_CHANGE="INTERSECTIONDATACHANGE";
+public static final String  TT_DETECTOR_DATA_CHANGE="DETECTORDATACHANGE";                    //  1234567890123456789012345678901234567890
+public static final String  TT_LOAD_CURRENT_CONTROLLER_INTERSECTION_DATA="LOADCURRENTCONTROLLERINTERSECTIONDATA";
+public static final String  TT_LOAD_CURRENT_DETECTORS_DATA="LOADCURRENTDETECTORSDATA";
+public static final String  TT_NOT_DEFINED="NOTDEFINED";
 }

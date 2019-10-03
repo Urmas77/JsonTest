@@ -85,17 +85,44 @@ public class MakeSendJsonOperations {
                 return THERE_IS_WORK;
             }
             while (iloop == 1) {
-                if (th.AnyWork() == 0) {
-                    Thread.sleep(5000);   // 5 seconds sleep
-                } else {
-                    // transfer tasks to work table
-                   iRet = th.TransferTasksToWorkQueue();
-                   if (iRet != TASK_TRANSFER_OK) {
-                       logger.info("Task Transfer error iRet = " + iRet);
-                       return iRet;
-                   }
+// 2. Controllerworks
+// 3. Detectorworks
+// 4. Measurementsworks
+                if (th.AnyWorkIntersection() > 0) {
+                    iRet = th.TransferIntersectionTasksToWorkQueue();
+                    if (iRet != TASK_TRANSFER_OK) {
+                        logger.info("Task Transfer error iRet = " + iRet);
+                        return iRet;
+                    }
                     // update work from super
-                    iRet = th.FillUpTasks();
+                    iRet = th.FillUpIntersectionTasks();
+                    if (iRet != FILL_UP_TASK_OK) {
+                        logger.info("Fill UpTask error iRet = " + iRet);
+                        return iRet;
+                    }
+                    // because Intersection or controller is not visible
+                    iRet = th.DeleteNotFilledIntersectionTasks();
+                    //iRet = th.DeleteNotFilledTasks();
+                    if (iRet != DELETE_UNFILLABLE_TASK_OK) {
+                        logger.info("Fill UpTask error iRet = " + iRet);
+                        return iRet;
+                    }
+                    // delete tasks from task table
+                    iRet=th.DeleteIntersectionTasksFromDb();
+                    if (iRet < 0) {
+                        logger.info("Task Delete error iRet = " + iRet);
+                        return iRet;
+                    }
+                    return THERE_IS_WORK;
+                }
+                if (th.AnyWorkController() > 0) {
+                    iRet = th.TransferControllerTasksToWorkQueue();
+                    if (iRet != TASK_TRANSFER_OK) {
+                        logger.info("Task Transfer error iRet = " + iRet);
+                        return iRet;
+                    }
+                    // update work from super
+               //     iRet = th.FillUpControllerTasks();
                     if (iRet != FILL_UP_TASK_OK) {
                         logger.info("Fill UpTask error iRet = " + iRet);
                         return iRet;
@@ -107,14 +134,69 @@ public class MakeSendJsonOperations {
                         return iRet;
                     }
                     // delete tasks from task table
-                    iRet=th.DeleteTasksFromDb();
+                    iRet=th.DeleteControllerTasksFromDb();
                     if (iRet < 0) {
                         logger.info("Task Delete error iRet = " + iRet);
                         return iRet;
                     }
+                    return THERE_IS_WORK;
                 }
-                return THERE_IS_WORK;
-            }
+                if (th.AnyWorkDetector() > 0) {
+                    iRet = th.TransferDetectorTasksToWorkQueue();
+                    if (iRet != TASK_TRANSFER_OK) {
+                        logger.info("Task Transfer error iRet = " + iRet);
+                        return iRet;
+                    }
+                    // update work from super
+              //      iRet = th.FillUpDetectorTasks();
+                    if (iRet != FILL_UP_TASK_OK) {
+                        logger.info("Fill UpTask error iRet = " + iRet);
+                        return iRet;
+                    }
+                    // because Intersection or controller is not visible
+                    iRet = th.DeleteNotFilledTasks();
+                    if (iRet != DELETE_UNFILLABLE_TASK_OK) {
+                        logger.info("Fill UpTask error iRet = " + iRet);
+                        return iRet;
+                    }
+                    // delete tasks from task table
+                    iRet=th.DeleteDetectorTasksFromDb();
+                    if (iRet < 0) {
+                        logger.info("Task Delete error iRet = " + iRet);
+                        return iRet;
+                    }
+                    return THERE_IS_WORK;
+                }
+                if (th.AnyWorkMeasurements() == 0) {
+                    Thread.sleep(5000);   // 5 seconds sleep
+                } else {
+                    // transfer tasks to work table
+                  iRet = th.TransferMeasurementTasksToWorkQueue();
+                  if (iRet != TASK_TRANSFER_OK) {
+                     logger.info("Task Transfer error iRet = " + iRet);
+                      return iRet;
+                  }
+                // update work from super
+                  iRet = th.FillUpTasks();
+                   if (iRet != FILL_UP_TASK_OK) {
+                      logger.info("Fill UpTask error iRet = " + iRet);
+                      return iRet;
+                   }
+                // because Intersection or controller is not visible
+                   iRet = th.DeleteNotFilledTasks();
+                   if (iRet != DELETE_UNFILLABLE_TASK_OK) {
+                      logger.info("Fill UpTask error iRet = " + iRet);
+                      return iRet;
+                   }
+                // delete tasks from task table
+                   iRet=th.DeleteTasksFromDb();
+                    if (iRet < 0) {
+                       logger.info("Task Delete error iRet = " + iRet);
+                       return iRet;
+                    }
+               }
+            return THERE_IS_WORK;
+        }
         } catch (Exception e) {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
@@ -136,6 +218,7 @@ public class MakeSendJsonOperations {
         while (iloop == 1) {
             try {
                 // do work   "old way"
+
                 iRet = th.MeasurementTaskDataList();
                 if (iRet != INT_RET_OK) {
                     if (iRet != NO_TASK_LIST) {

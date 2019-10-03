@@ -1,4 +1,4 @@
-package fi.swarco.dataHandling;
+package fi.swarco.dataHandling.oldDataHandling;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.messageHandling.CustomerRequestMapHandle;
 import fi.swarco.messageHandling.HtppRequestWrapper;

@@ -1,6 +1,6 @@
-package fi.swarco.dataHandling.pojos;
+package fi.swarco.dataHandling.pojos.oLdPojos;
 import static fi.swarco.CONSTANT.NO_VALUE;
-public class DetectorPermanentData {
+public class DetectorMeasurementsHistoryState {
     private long omniaCode;
     private long intersectionId;
     private long controllerId;
@@ -10,7 +10,7 @@ public class DetectorPermanentData {
     private String intersectionPublicName;
     private String detectorPublicName;
     private int intValue;
-    private double dblValue;
+    private  double dblValue;
     private String strValue;
     private double latitude;
     private double longitude;
@@ -20,8 +20,14 @@ public class DetectorPermanentData {
     private String comment1;
     private String comment2;
     private String created;
-    public  DetectorPermanentData() {}
-    public DetectorPermanentData(
+    private String measurementTime;
+    private long measurementVehicleCount;
+    private double measurementMeanVehicleSpeed;
+    private double measurementOccupancyProcent;
+    private double measurementAccurancy;
+    public  DetectorMeasurementsHistoryState() {}
+    public DetectorMeasurementsHistoryState(
+            long identity,
             long omniaCode,
             long intersectionId,
             long controllerId,
@@ -40,7 +46,12 @@ public class DetectorPermanentData {
             String realCource,
             String comment1,
             String comment2,
-            String created
+            String created,
+            String measurementTime,
+            long measurementVehicleCount,
+            double measurementMeanVehicleSpeed,
+            double measurementOccupancyProcent,
+            double measurementAccurancy
     ) {
         super();
         this.omniaCode=omniaCode;
@@ -62,6 +73,10 @@ public class DetectorPermanentData {
         this.comment1=comment1;
         this.comment2=comment2;
         this.created=created;
+        this.measurementVehicleCount=measurementVehicleCount;
+        this.measurementMeanVehicleSpeed=measurementMeanVehicleSpeed;
+        this.measurementOccupancyProcent=measurementOccupancyProcent;
+        this.measurementAccurancy=measurementAccurancy;
     }
     public long getOmniaCode() {
         return omniaCode;
@@ -177,14 +192,44 @@ public class DetectorPermanentData {
     public void setCreated(String pCreated) {
         this.created = pCreated;
     }
+    public String getMeasurementTime() {
+        return measurementTime;
+    }
+    public void setMeasurementTime(String pMeasurementTime) {
+        this.measurementTime = pMeasurementTime;
+    }
+    public long getMeasurementVehicleCount() {
+        return measurementVehicleCount;
+    }
+    public void setMeasurementVehicleCount(long measurementVehicleCount) {
+        this.measurementVehicleCount = measurementVehicleCount;
+    }
+    public double getMeasurementMeanVehicleSpeed() {
+        return measurementMeanVehicleSpeed;
+    }
+    public void setMeasurementMeanVehicleSpeed(double measurementMeanVehicleSpeed) {
+        this.measurementMeanVehicleSpeed = measurementMeanVehicleSpeed;
+    }
+    public double getMeasurementOccupancyProcent() {
+        return measurementOccupancyProcent;
+    }
+    public void setMeasurementOccupancyProcent(double measurementOccupancyProcent) {
+        this.measurementOccupancyProcent = measurementOccupancyProcent;
+    }
+    public double getMeasurementAccurancy() {
+        return measurementAccurancy;
+    }
+    public void setMeasurementAccurancy(double measurementAccurancy) {
+        this.measurementAccurancy = measurementAccurancy;
+    }
     @Override
     public String toString() {
-        return "DetectorPermanentData [omniaCode = " + omniaCode +
+        return "DetectorMeasurementsHistoryState [omniaCode = " + omniaCode +
                 ", intersectionId = " + intersectionId +
                 ", controllerId =" + controllerId +
                 ", detectorId =" + detectorId +
                 ",omniaPublicName  =" + omniaPublicName +
-                ",controllerPublicName =" + controllerPublicName +
+                ",controllerPublicName =" +controllerPublicName +
                 ",intersectionPublicName  =" + intersectionPublicName +
                 ",detectorPublicName  =" + detectorPublicName +
                 ",intValue  =" + intValue +
@@ -197,7 +242,12 @@ public class DetectorPermanentData {
                 ",realCource  =" + realCource +
                 ",comment1  =" + comment1 +
                 ",comment2  =" + comment2 +
-                ",created  =" + created + "]";
+                ",created  =" + created +
+                ",measurementTime  =" + measurementTime +
+                ",measurementVehicleCount = " + measurementVehicleCount +
+                ",measurementMeanVehicleSpeed = " + measurementMeanVehicleSpeed +
+                ",measurementOccupancyProcent = " + measurementOccupancyProcent +
+                ",measurementAccurancy = " + measurementAccurancy +"]";
     }
     public void MakeEmptyElement() {
         omniaCode =Long.valueOf(0);
@@ -219,6 +269,13 @@ public class DetectorPermanentData {
         comment1=NO_VALUE;
         comment2=NO_VALUE;
         created="1970-01-01 00:00:00";
+        measurementTime="1970-01-01 00:00:00";
+        measurementVehicleCount=Long.valueOf(0);
+        measurementMeanVehicleSpeed= Double.valueOf(0.0);
+        measurementOccupancyProcent= Double.valueOf(0.0);
+        measurementAccurancy= Double.valueOf(0.0);
     }
 }
+
+
 
