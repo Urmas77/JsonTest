@@ -52,6 +52,7 @@ public class OmniaClient {
         }
         int iloop=1;
         byte bXorResult;
+        ms.setSleep(Integer.valueOf(sw.getOmniaClientWorkWaitSleep()));
         while (iloop == 1) {
             try {
                 for (long i = 1; i < 2; i++) {
@@ -97,7 +98,9 @@ public class OmniaClient {
                                         url1);
                             } else {
                                 // delete done task from db here RETHINK
-                                iRet = ms.DeleteDoneTaskFromWorkDb();
+                                // wrong place this must be done Imidiadly  after One tasks has been done
+                                iRet= ms.DeleteDoneTaskFromWorkDb();
+                                //iRet = ms.DeleteDoneTaskFromWorkDbOLD();
                                 if (iRet != INT_RET_OK) {
                                     logger.info("Unsuccesfull delete from tasklist iRet = " + iRet);
                                 }

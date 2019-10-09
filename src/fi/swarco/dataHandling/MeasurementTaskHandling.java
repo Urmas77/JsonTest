@@ -76,7 +76,7 @@ public class MeasurementTaskHandling {
             ce = new TRPXMeasurementTaskData();
             ce.MakeEmptyElement();
             TaskUnits.add(ce);
-            return -1;
+            return NO_TASK_LIST;
         }
     }
     public int AnyWorkWork() {
@@ -154,10 +154,6 @@ public class MeasurementTaskHandling {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-
-
-
-
     public int AnyWorkIntersection() {
         int iRet = INT_RET_NOT_OK;
         String SQL = "";
@@ -390,6 +386,10 @@ public int TransferIntersectionTasksToWorkQueue() {
     public int TransferMeasurementTasksToWorkQueue() {
         int iRet;
         String SQL = "";
+     // RETHINK RETHINK
+     //     Ota countti talteen
+     // tee transaction ???
+
         try {
             SQL = "insert into TRPX_MeasurementTask_Work ";
             SQL = SQL + " ([MeasurementTask_idindex] ";
@@ -547,7 +547,7 @@ public int TransferIntersectionTasksToWorkQueue() {
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines updated  iRet = " + iRet);
+            logger.debug("Lines filledUp??? updated  iRet = " + iRet);
             if (iRet < 0) {
                 iRet = FILL_UP_TASK_ERROR;
                 return iRet;
@@ -649,6 +649,76 @@ public int TransferIntersectionTasksToWorkQueue() {
             return DELETE_UNFILLABLE_TASK_ERROR;
         }
     }
+    public int DeleteTrashTasksBeforeHand() {
+   // if controller or Intersection is invisible or deleted data will not be transferred
+   // JIs 07/10 2019
+   //
+        int iRet;
+        String SQL = "";
+        try {
+            SQL = "delete from TRPX_MeasurementTask  ";
+            SQL = SQL + " where MeasurementTask_idindex in (   ";
+            SQL = SQL + " select MeasurementTask_idindex from TRPX_MeasurementTask Task  ";
+            SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid   ";
+            SQL = SQL + " where  DetectorMeasuresTimestamp = ";
+            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where  TaskType = 'NOTDEFINED'  order by DetectorMeasuresTimestamp asc))";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            logger.debug("Lines updated  iRet = " + iRet);
+            if (iRet < 0) {
+                iRet = DELETE_TRASH_TASK_ERROR;
+                return iRet;
+            }
+            return DELETE_TRASH_TASK_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            return DELETE_TRASH_TASK_ERROR ;
+        }
+    }
+    public int DeleteTrashTasksAfterHand() {
+        // if controller or Intersection is invisible or deleted data will not be transferred
+        // JIs 07/10 2019
+        //
+        int iRet;
+        String SQL = "";
+        try {
+            SQL = "delete from TRPX_MeasurementTask_Work  ";
+            SQL = SQL + " where MeasurementTask_idindex in (   ";
+            SQL = SQL + " select MeasurementTask_idindex from TRPX_MeasurementTask_Work Task  ";
+            SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid   ";
+            SQL = SQL + " where  DetectorMeasuresTimestamp = ";
+            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask_work where  TaskType = 'NOTDEFINED'  order by DetectorMeasuresTimestamp asc))";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            logger.debug("Lines deleted  iRet = " + iRet);
+            if (iRet < 0) {
+                iRet = DELETE_TRASH_TASK_ERROR;
+                return iRet;
+            }
+            return DELETE_TRASH_TASK_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            return DELETE_TRASH_TASK_ERROR ;
+        }
+    }
+
+
+
+
+
+
+
+
     public int DeleteNotFilledTasks() {
         int iRet;
         String SQL = "";
@@ -689,8 +759,12 @@ public int TransferIntersectionTasksToWorkQueue() {
         ce.MakeEmptyElement();
         return ce;
     }
-    public int DeleteDoneTaskFromDb(TRPXMeasurementTaskData ce) {
+    public int DeleteDoneTaskFromDbOLD(TRPXMeasurementTaskData ce) {
         // RETHINK TaskType
+        // RETHINK tee  joini js åoistse sen mukaan
+        // poista yksi kerraan suorituksen jälkeen
+        // taitaa mennä oikein jo nyt
+        // POista tää ******** RETHINK
         int iRet;
         String SQL = "";
         logger.info("ce.toString()=" + ce.toString());
@@ -703,6 +777,51 @@ public int TransferIntersectionTasksToWorkQueue() {
             SQL = SQL + "ControllerID=" + ce.getControllerId() + " and ";
             SQL = SQL + "DetectorMeasuresTimestamp = '" + ce.getDetectorMeasuresTimestamp() + "' and ";
             SQL = SQL + "TaskStatus =  " + MEASUREMENT_TASK_STATUS_CREATED + ";";
+            logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            logger.debug("Lines deleted iRet = " + iRet);
+            if (iRet < 0) {
+                iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
+                return iRet;
+            }
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int DeleteDoneTaskFromDb(TRPXMeasurementTaskData ce) {
+        // RETHINK TaskType
+        // RETHINK tee  joini  sen mukaan
+        // poista yksi kerrallaaan suorituksen jälkeen
+        // taitaa mennä oikein jo nyt
+        // eikun kontrollerin sisällä voi jäädä taskeja jonoon
+        // ota countit ekaksi ja älä deletoi jos countit ei täsmää vaan siirrä uudelleen
+        // Yri 3
+        // tee poisto TRPX_MeasurementTask poisto heti suorituksen jälkeen
+        // tän jälkeen poista samassa metodissa ko. Taski TRPX_MeasurementTask työtaulusta
+        int iRet;
+        String SQL = "";
+        logger.info("ce.toString()=" + ce.toString());
+        try {
+            java.sql.PreparedStatement stmt;
+            SQL = " delete from  TRPX_MeasurementTask " ;
+            SQL = SQL +  "where MeasurementTask_idindex in ";
+            SQL = SQL + "(select task.MeasurementTask_idindex from TRPX_MeasurementTask task  ";
+            SQL = SQL +" join TRPX_MeasurementTask_Work work on  ";
+            SQL = SQL + " work.DetectorID=task.DetectorID and ";
+            SQL = SQL + " work.DetectorMeasuresTimestamp = task.DetectorMeasuresTimestamp ";
+            SQL = SQL +  " where work.TaskType='NOTDEFINED' and ";
+            SQL = SQL +" work.OmniaCode=2 and  ";
+            SQL = SQL +" work.IntersectionID= " + ce.getIntersectionId()   +  " and ";
+            SQL = SQL +" work.ControllerID=  " + ce.getControllerId()   + " and ";
+            SQL = SQL +" work.TaskStatus=1 and ";
+            SQL = SQL +" work.DetectorMeasuresTimestamp =  " +  "'" + ce.getDetectorMeasuresTimestamp() + "');";
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();

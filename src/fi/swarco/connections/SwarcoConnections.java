@@ -5,7 +5,6 @@ import fi.swarco.properties.JSwarcoproperties;
 import org.apache.log4j.Logger;
 
 import static fi.swarco.CONSTANT.*;
-
 public class SwarcoConnections {
     static Logger logger = Logger.getLogger(SwarcoConnections.class.getName());
     static Connection curSqlCon;

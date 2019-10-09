@@ -8,6 +8,7 @@ import com.google.gson.JsonParser;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShort;
+import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShortJson;
 import fi.swarco.dataHandling.queriesSql.mySQL.InsertOmniaMeasurementDataShortMySql;
 import fi.swarco.dataHandling.queriesSql.mySQL.OmniaMeasurementDataShortMySqlSelectWhere;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
@@ -23,9 +24,7 @@ public class OmniaMeasurementShortListDataLevel {
     private SwarcoEnumerations.RequestOriginType requestOrigin= SwarcoEnumerations.RequestOriginType.NORMALROAD;
     private OmniaMeasurementDataShort foundRec;
     public OmniaMeasurementDataShort getFoundRec() { return foundRec;}
-
     public  void setFoundRec(OmniaMeasurementDataShort pFoundRec) {foundRec=pFoundRec;}
-
     public void setRequestOrigin(SwarcoEnumerations.RequestOriginType prequestOrigin) {
         requestOrigin=prequestOrigin;
     }
@@ -138,9 +137,8 @@ public class OmniaMeasurementShortListDataLevel {
         }
         iRet = AddNewOmniaMeasurementDataShort(pC1);
         if (iRet < 0) {
-            logger.info("***********************Successful delete unsuccesful insert iRet = " + iRet);
             iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
-            logger.info("***********************Successful delete unsuccesful insert iRet = " + iRet);
+            logger.info("***********************  unsuccessful delete iRet = " + iRet);
             return iRet;
         }
         return iRet;
@@ -245,6 +243,7 @@ public class OmniaMeasurementShortListDataLevel {
             int iHereOld=0;
             String strHelp2 = strHelp1.substring(0, iHere + 1);
             OmniaMeasurementDataShort aO1 = new OmniaMeasurementDataShort();
+            OmniaMeasurementDataShortJson ceJson = new OmniaMeasurementDataShortJson();
             SwarcoTimeUtilities sw = new  SwarcoTimeUtilities();
             String swarcoTime="";
             while  (iHere>0 ) {
@@ -252,7 +251,12 @@ public class OmniaMeasurementShortListDataLevel {
                 //           logger.info("stripped only first strHelp2 = " + strHelp2 + " strHelp2 iRound = " + iRound);
                 JsonParser jsonParser = new JsonParser();
                 //  OmniaMeasurementData aO1 = myGson.fromJson(strHelp2, OmniaMeasurementData.class);
-                aO1 = myGson.fromJson(strHelp2, OmniaMeasurementDataShort.class);
+             //   aO1 = myGson.fromJson(strHelp2, OmniaMeasurementDataShort.class);
+                   ceJson = myGson.fromJson(strHelp2, OmniaMeasurementDataShortJson.class);
+                   aO1=ceJson.MakeItemFromJsonTransferItem();
+                   logger.info("ceJson.toString().length() = " + ceJson.toString().length());
+                  // logger.info("ceJson.toString() = " + ceJson.toString());
+                  // logger.info("aO1.toString() = " + aO1.toString());
 // check do
 // check does the line already exists
 // no: make insert

@@ -74,6 +74,7 @@ public class OmniaCloudHTTPServer {
             public void handle(HttpExchange t) throws IOException {
                 int messageReceived = MESSAGE_NOT_RECEIVED_OK;
                 int iRet =0;
+                MakeReceiveJsonOperations hd = new MakeReceiveJsonOperations();
                 //  MESSAGE_RECEIVED_OK;
                 String method = t.getRequestMethod();
                 String path   = t.getRequestURI().getPath();
@@ -101,7 +102,8 @@ public class OmniaCloudHTTPServer {
                     os.close();
                 }
                 if  (messageReceived==MESSAGE_RECEIVED_OK) {
-                    MakeReceiveJsonOperations hd = new MakeReceiveJsonOperations();
+                    // RETHINK JIs 05.10 2019
+                    // MakeReceiveJsonOperations hd = new MakeReceiveJsonOperations();
                     hd.setPseudoJsonData(uquery);
                     iRet = hd.MakeReceiveOmniaOperations();
                 }

@@ -3,6 +3,7 @@ import com.google.gson.*;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShort;
+import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShortJson;
 import fi.swarco.dataHandling.queriesSql.sqlServer.GetMeasurementShortSqlServerData;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
 import org.apache.log4j.Logger;
@@ -55,6 +56,7 @@ public class DetectorMeasurementsShortClientDataLevel {
         logger.info("SQL = " +SQL);
         //DetectorMeasurements ce;
         OmniaMeasurementDataShort cc;
+        //OmniaMeasurementDataShortJson cc;
         int pos=0;
         try {
             stmt = gSqlCon.prepareStatement(SQL);
@@ -78,9 +80,9 @@ public class DetectorMeasurementsShortClientDataLevel {
                 cc.setDetectorId(rs.getLong(5));
                 cc.setDetectorExternalCode(rs.getString(5));
                 cc.setVehicleCount(rs.getLong(7));
-                cc.setMeanVehicleSpeed(rs.getLong(8));
-                cc.setOccupancyProcent(rs.getLong(9));
-                cc.setAccurancy(rs.getLong(10));
+                cc.setMeanVehicleSpeed(rs.getDouble(8));
+                cc.setOccupancyProcent(rs.getDouble(9));
+                cc.setAccurancy(rs.getDouble(10));
                 DmUnits.add(cc);
             }
             if (DmUnits.isEmpty()) {
@@ -106,11 +108,18 @@ public class DetectorMeasurementsShortClientDataLevel {
         String strHelp1 = NO_VALUE;
         String strHelp2 = "";
         OmniaMeasurementDataShort aDetMea = new OmniaMeasurementDataShort();
+        OmniaMeasurementDataShortJson aDetTran = new OmniaMeasurementDataShortJson();
         aDetMea.MakeEmptyElement();
+        aDetTran.MakeEmptyElement();
         for (int i = 0; i < DmUnits.size(); i++) {
             aDetMea = DmUnits.get(i);
+            aDetTran=aDetMea.SetJsonTransferItem();
+         //   logger.info("aDetMea = " + aDetMea);
+         //   logger.info("aDetTran = " + aDetTran);
+            logger.info("aDetTran.toString().length() = " + aDetTran.toString().length());
             //       logger.info("i,DmUnits.toString() = " + i + "," + DmUnits.toString());
-            strHelp1 = myGson.toJson(aDetMea);
+           // strHelp1 = myGson.toJson(aDetMea);
+            strHelp1 = myGson.toJson(aDetTran);
             strHelp2 = strHelp2 + strHelp1;
             aDetMea.MakeEmptyElement();
         }

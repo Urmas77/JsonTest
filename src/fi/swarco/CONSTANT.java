@@ -46,6 +46,8 @@ public static final int THERE_IS_WORK =5997;
 public static final int THERE_IS_NO_WORK =-5997;
 public static final int  DELETE_UNFILLABLE_TASK_OK=5996;
 public static final int  DELETE_UNFILLABLE_TASK_ERROR=-5996;
+public static final int  DELETE_TRASH_TASK_OK =5995;
+public static final int  DELETE_TRASH_TASK_ERROR =-5995;
 public static final int  OMNIA_EMPTY_WORK_LIST = -4999;
 public static final String QUERY_CURRENTSTATE="CURRENTSTATE";
 public static final String QUERY_HISTORYSTATE="HISTORYSTATE";
@@ -77,4 +79,6 @@ public static final String  TT_DETECTOR_DATA_CHANGE="DETECTORDATACHANGE";       
 public static final String  TT_LOAD_CURRENT_CONTROLLER_INTERSECTION_DATA="LOADCURRENTCONTROLLERINTERSECTIONDATA";
 public static final String  TT_LOAD_CURRENT_DETECTORS_DATA="LOADCURRENTDETECTORSDATA";
 public static final String  TT_NOT_DEFINED="NOTDEFINED";
+//
+public static final double  DOUBLE_LONG_MULTIPLIER = 10000000.0;
 }

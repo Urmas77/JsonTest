@@ -15,6 +15,14 @@ public class JSwarcoproperties {
     public void setOmniaClientUrl(String pOmniaClientUrl) {
         OmniaClientUrl = pOmniaClientUrl;
     }
+    //OmniaClientWorkWaitSleep
+    private String OmniaClientWorkWaitSleep;
+    public String getOmniaClientWorkWaitSleep() {
+        return OmniaClientWorkWaitSleep;
+    }
+    public void setOmniaClientWorkWaitSleep(String pOmniaClientWorkWaitSleep) {
+        OmniaClientWorkWaitSleep = pOmniaClientWorkWaitSleep;
+    }
     private String OmniaClientSleepMs;
     public String getOmniaClientSleepMs() {
         return OmniaClientSleepMs;
@@ -296,6 +304,8 @@ public class JSwarcoproperties {
         logger.info("getOmniaClientUrl()= " + getOmniaClientUrl());
         setOmniaClientSleepMs(prop.getProperty("OmniaClientSleepMs"));
         logger.info("getOmniaClientSleepMs() = " + getOmniaClientSleepMs());
+        setOmniaClientWorkWaitSleep(prop.getProperty("OmniaClientWorkWaitSleep"));
+        logger.info("getOmniaClientWorkWaitSleep() = " + getOmniaClientWorkWaitSleep());
         return INT_RET_OK;
     }
 }
