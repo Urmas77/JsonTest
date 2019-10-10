@@ -41,9 +41,7 @@ public class RawDataDataListLevel {
     }
     public  RawDataDataListLevel () {}
 
-    public int AddNewRawData(RawData pRawData) {
-//        logger.info("  rawdata  AddNewRawData start pRawData = " + pRawData);
-//        logger.info(" moi moi vaan!");
+    public int AddNewRawData(RawData pRawData) throws SQLException{
         int iRet;
         String SQL="";
         java.sql.PreparedStatement stmt;
@@ -55,27 +53,20 @@ public class RawDataDataListLevel {
                 InsertRawDataSqlServer st = new InsertRawDataSqlServer();
                 SQL =st.getStatement();
             }
-        //    logger.info("SQL = " + SQL);
-       //     logger.info("pRawData.toString()=" + pRawData.toString());
             stmt = gSqlCon.prepareStatement(SQL);
             int pos=0;
             pos=1;
             stmt.setLong(pos,pRawData.getRawDataSourceId());
-    //        logger.info(" pos = " + pos + " pRawData.getRawDataSourceId() = " + pRawData.getRawDataSourceId());
-            pos=pos+1;
+                pos=pos+1;
             stmt.setLong(pos,pRawData.getRawDataStatus());
-    //        logger.info(" pos = " + pos + " pRawData.getRawDataStatus() = " + pRawData.getRawDataStatus());
             pos=pos+1;
             stmt.setString(pos,pRawData.getRawDataStatusString());
-    //        logger.info(" pos = " + pos + " pRawData.getRawDataStatusString() = " + pRawData.getRawDataStatusString());
             pos=pos+1;
             stmt.setString(pos,pRawData.getRawDataLine());
-    //        logger.info(" pos = " + pos + " pRawData.getRawDataLine() = " + pRawData.getRawDataLine());
             pos=pos+1;
             stmt.setString(pos,pRawData.getTimestamp());
-    //        logger.info(" pos = " + pos + " pRawData.getTimestamp() = " + pRawData.getTimestamp());
-    //        logger.info(" stmt.getParameterMetaData() = " + stmt.getParameterMetaData());
             iRet = stmt.executeUpdate();
+            stmt.close();
             if (iRet!=1) {
                 iRet= CONSTANT.UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
                 return iRet;
@@ -85,6 +76,7 @@ public class RawDataDataListLevel {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }

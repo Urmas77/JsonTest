@@ -6,6 +6,9 @@ import fi.swarco.omniaDataTransferServices.JsonWrapper;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
 import fi.swarco.omniaDataTransferServices.SwarcoTimeUtilities;
 import org.apache.log4j.Logger;
+
+import java.sql.SQLException;
+
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2;
 public class MakeReceiveJsonOperations {
@@ -45,7 +48,7 @@ public class MakeReceiveJsonOperations {
 // do database inserts
 // write to logs and sequential files
     public MakeReceiveJsonOperations(){}
-    public static int MakeReceiveOmniaOperations() {
+    public static int MakeReceiveOmniaOperations()  throws SQLException {
         int iRet=0;
         FileOperations fo = new  FileOperations();
         JsonWrapper jsw = new JsonWrapper();

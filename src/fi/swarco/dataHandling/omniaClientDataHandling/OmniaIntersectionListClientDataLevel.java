@@ -31,7 +31,7 @@ public class OmniaIntersectionListClientDataLevel {
         gSqlCon = vg.getSqlCon();
         return DATABASE_CONNECTION_OK;
     }
-    private OmniaIntersectionDataClient GetOmniaPermanentData (long plngIntersectionId, long plngControllerId,String pstrTimestamp) {
+    private OmniaIntersectionDataClient GetOmniaPermanentData (long plngIntersectionId, long plngControllerId,String pstrTimestamp) throws SQLException {
 // there is only one element
         String SQL="";
         java.sql.PreparedStatement stmt;
@@ -69,9 +69,12 @@ public class OmniaIntersectionListClientDataLevel {
                 ce.setControllerDescription(rs.getString(10));
                 ce.setControllerExternalCode(rs.getString(11));
                 ce.setControllerDataPreviousUpdate(rs.getString(12));  // ...Sql Timestamp ?
+                stmt.close();
+                rs.close();
                 return ce;
             }
-            // one or nothing
+            stmt.close();
+            rs.close();
             ce = new OmniaIntersectionDataClient();
             ce.MakeEmptyElement();
             return ce;
@@ -81,6 +84,7 @@ public class OmniaIntersectionListClientDataLevel {
             logger.info(ExceptionUtils.getFullStackTrace(e));
             ce= new OmniaIntersectionDataClient();
             ce.MakeEmptyElement();
+            gSqlCon.close();
             return ce;
         }
     }
@@ -93,11 +97,6 @@ public class OmniaIntersectionListClientDataLevel {
             logger.info("pCe.toString() = "+ pCe.toString());
             JsonParser jsonParser = new JsonParser();
             strHelp1 = myGson.toJson(pCe);
-// do not do it
-         //   logger.info("AAAAAAAAAAAAAAAAAA strHelp1 ="+strHelp1);
-       //     strHelp1 = mu.StripFileStartEnd(strHelp1);
-       //     logger.info("BBBBBBBBBBBBBBBBBBB strHelp1 ="+strHelp1);
-            //Todo start and end?
             return strHelp1 ;
         } catch (Exception e) {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
@@ -106,7 +105,7 @@ public class OmniaIntersectionListClientDataLevel {
             return NO_VALUE;
         }
     }
-    public String GetPermanentJsonData(long plngIntersectionId, long plngControllerId,String pstrTimestamp) {
+    public String GetPermanentJsonData(long plngIntersectionId, long plngControllerId,String pstrTimestamp) throws SQLException {
         OmniaIntersectionDataClient ce = GetOmniaPermanentData(plngIntersectionId, plngControllerId, pstrTimestamp);
         String strHelp1 = GetpermanentDataJsonString(ce);
         return strHelp1;

@@ -2,7 +2,11 @@ package fi.swarco.omniaDataTransferServices;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.dataHandling.pojos.RawData;
 import fi.swarco.dataHandling.RawDataDataListLevel;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
+
+import java.sql.SQLException;
+
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.SwarcoEnumerations.ConnectionType.*;
 import static fi.swarco.SwarcoEnumerations.ConnectionType.NOT_DEFINED;
@@ -60,7 +64,13 @@ public class LogUtilities {
             rData.setRawDataStatusString(pSuccessCode.toString());   //
             rData.setTimestamp(strTime);
             logger.info("bef AddNewRawData");
+            try {
             iRet = rd.AddNewRawData(rData);
+            } catch (SQLException e) {
+                logger.info(ExceptionUtils.getRootCauseMessage(e));
+                logger.info(ExceptionUtils.getFullStackTrace(e));
+                e.printStackTrace();
+            }
             if (iRet != INT_RET_OK) {
                 logger.info("Unsuccessful RawData Db operation iRet=" + iRet);
             }
@@ -119,7 +129,13 @@ public class LogUtilities {
             rData.setRawDataStatusString(pSuccessCode.toString());   //
             rData.setTimestamp(strTime);
             logger.info("bef AddNewRawData");
-            iRet = rd.AddNewRawData(rData);
+            try {
+                iRet = rd.AddNewRawData(rData);
+            } catch (SQLException e) {
+                logger.info(ExceptionUtils.getRootCauseMessage(e));
+                logger.info(ExceptionUtils.getFullStackTrace(e));
+                e.printStackTrace();
+            }
             if (iRet != INT_RET_OK) {
                 logger.info("Unsuccessful RawData Db operation iRet=" + iRet);
             }

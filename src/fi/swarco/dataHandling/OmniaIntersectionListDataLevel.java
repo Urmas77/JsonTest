@@ -24,9 +24,7 @@ public class OmniaIntersectionListDataLevel {
     SwarcoEnumerations.RequestOriginType requestOrigin= SwarcoEnumerations.RequestOriginType.NORMALROAD;
     private OmniaIntersectionData foundRec = new OmniaIntersectionData();
     public OmniaIntersectionData getFoundRec() { return foundRec;}
-
     public  void setFoundRec(OmniaIntersectionData pFoundRec) {foundRec=pFoundRec;}
-
     public void setRequestOrigin(SwarcoEnumerations.RequestOriginType prequestOrigin) {
         requestOrigin=prequestOrigin;
     }
@@ -42,7 +40,7 @@ public class OmniaIntersectionListDataLevel {
         gSqlCon = vg.getSqlCon();
         return DATABASE_CONNECTION_OK;
     }
-    public int OmniaIntersectionDataList () {
+    public int OmniaIntersectionDataList () throws SQLException {
         OmniaIntersectionDataUnits.clear();
         String SQL="";
         java.sql.PreparedStatement stmt;
@@ -74,6 +72,8 @@ public class OmniaIntersectionListDataLevel {
                 ce.setControllerDataPreviousUpdate(rs.getString(12));  // ...Sql Timestamp ?
                 OmniaIntersectionDataUnits.add(ce);
             }
+            stmt.close();
+            rs.close();
             if (OmniaIntersectionDataUnits.isEmpty()==true) {
                 ce= new OmniaIntersectionData();
                 ce.MakeEmptyElement();
@@ -89,10 +89,11 @@ public class OmniaIntersectionListDataLevel {
             ce= new OmniaIntersectionData();
             ce.MakeEmptyElement();
             OmniaIntersectionDataUnits.add(ce);
+            gSqlCon.close();
             return -1;
         }
     }
-    public int DoesLineAlreadyExsist(OmniaIntersectionData pOmniaIntersectionData) {
+    public int DoesLineAlreadyExsist(OmniaIntersectionData pOmniaIntersectionData) throws SQLException {
         String SQL="";
         java.sql.PreparedStatement stmt=null;
         OmniaIntersectionData oi = new OmniaIntersectionData();
@@ -101,13 +102,8 @@ public class OmniaIntersectionListDataLevel {
         try {
             SelectOmniaIntersectionDataMySqlWhere st = new SelectOmniaIntersectionDataMySqlWhere();
             SQL =st.getStatement();
-     //       logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
             ResultSet rs;
-            //logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
-//            logger.info("pOmniaIntersectionData..getOmniaCode()=" + pOmniaIntersectionData.getOmniaCode());
-//            logger.info("pOmniaIntersectionData..getIntersectionId()=" + pOmniaIntersectionData.getIntersectionId());
-//            logger.info("pOmniaIntersectionData..getControllerId()=" + pOmniaIntersectionData.getControllerId());
             stmt.setLong(1,pOmniaIntersectionData.getOmniaCode());
             stmt.setLong(2,pOmniaIntersectionData.getIntersectionId());
             stmt.setLong(3,pOmniaIntersectionData.getControllerId());
@@ -133,9 +129,13 @@ public class OmniaIntersectionListDataLevel {
                    (cc.getControllerId()==(pOmniaIntersectionData.getControllerId())))))) {
                     logger.info("löyty");
                     setFoundRec(cc);
+                    stmt.close();
+                    rs.close();
                     return INT_RET_FOUND;
                 }
             }
+            stmt.close();
+            rs.close();
             logger.info("ei l�ytyny");
             return INT_RET_NOT_FOUND;
         } catch(Exception e) {
@@ -144,6 +144,7 @@ public class OmniaIntersectionListDataLevel {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
             e.printStackTrace();
+            gSqlCon.close();
             return INT_RET_NOT_OK;
         }
     }
@@ -155,8 +156,6 @@ public class OmniaIntersectionListDataLevel {
         if (!(pC1.getOmniaPublicationStatus()==(pC2.getOmniaPublicationStatus()))) {
             iRet =  CHANGED;
         }
-       //logger.info("pC1.getIntesectionDescription() ="+ pC1.getIntesectionDescription());
-       //logger.info("pC2.getIntesectionDescription() ="+ pC2.getIntesectionDescription());
         if (!(pC1.getIntesectionDescription().equals(pC2.getIntesectionDescription()))) {
             iRet =  CHANGED;
         }
@@ -184,7 +183,7 @@ public class OmniaIntersectionListDataLevel {
 //        }
         return iRet;
     }
-    public int MakeDeleteInsert(OmniaIntersectionData pC1) {
+    public int MakeDeleteInsert(OmniaIntersectionData pC1) throws SQLException {
         int iRet = INT_RET_OK;
         iRet = DeleteOldOmniaInterserctioDataLineFromDb(pC1);
         if (iRet < 0) {
@@ -202,7 +201,7 @@ public class OmniaIntersectionListDataLevel {
         }
         return iRet;
     }
-    private int DeleteOldOmniaInterserctioDataLineFromDb(OmniaIntersectionData pC1 ) {
+    private int DeleteOldOmniaInterserctioDataLineFromDb(OmniaIntersectionData pC1 ) throws SQLException {
         int iRet;
         String SQL = "";
         try {
@@ -215,6 +214,7 @@ public class OmniaIntersectionListDataLevel {
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
                 logger.info("iRet = " + iRet);
                 iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
@@ -228,10 +228,11 @@ public class OmniaIntersectionListDataLevel {
             e.printStackTrace();
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public  int AddNewOmniaIntersectionData(OmniaIntersectionData pOmniaIntersectionData) {
+    public  int AddNewOmniaIntersectionData(OmniaIntersectionData pOmniaIntersectionData) throws SQLException {
         int iRet;
         String SQL="";
         java.sql.PreparedStatement stmt;
@@ -267,11 +268,13 @@ public class OmniaIntersectionListDataLevel {
             pos=pos+1;
             stmt.setString(pos,pOmniaIntersectionData.getIntersectionDataPreviousUpdate());
             iRet = stmt.executeUpdate();
+            stmt.close();
             return iRet;
         } catch(Exception e) {
             logger.info(" catch 11  e=",e);
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
         }
     }
@@ -284,13 +287,12 @@ public class OmniaIntersectionListDataLevel {
         }
         return OmniaIntersectionDataUnits;
     }
-    public  int JsonOmniaIntersectionSql(String pPermanentData) {
+    public  int JsonOmniaIntersectionSql(String pPermanentData) throws SQLException{
         int iRet=0;
         String strHelp1=NO_VALUE;
         try {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();
- //           logger.info("pPermanentData = "+ pPermanentData);
             strHelp1 = pPermanentData;
             JsonParser jsonParser = new JsonParser();
             OmniaIntersectionData aOmniaIntersection1 = myGson.fromJson(strHelp1, OmniaIntersectionData.class);
@@ -299,14 +301,6 @@ public class OmniaIntersectionListDataLevel {
             aOmniaIntersection1.setIntersectionDataPreviousUpdate(swarcoTime);
             swarcoTime = sw.ToSwarcoTime(aOmniaIntersection1.getControllerDataPreviousUpdate());
             aOmniaIntersection1.setControllerDataPreviousUpdate(swarcoTime);
-// check does the line already exists
-// no: make insert
-// yes: is it changed
-//        no: do nothing
-//        yes:
-//        make delete and insert
-//        write to logs
-//        Database triggers write old lines to history table
             iRet= DoesLineAlreadyExsist(aOmniaIntersection1);
             if (iRet==INT_RET_NOT_FOUND) {
                iRet=AddNewOmniaIntersectionData(aOmniaIntersection1);
@@ -333,6 +327,7 @@ public class OmniaIntersectionListDataLevel {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
         }
     }

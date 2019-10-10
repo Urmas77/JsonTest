@@ -4,8 +4,11 @@ import fi.swarco.dataHandling.pojos.TRPXMeasurementTaskData;
 import fi.swarco.omniaDataTransferServices.LogUtilities;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
+
+import java.sql.SQLException;
+
 import static fi.swarco.CONSTANT.*;
-public class MakeSendJsonOperations {
+public class MakeSendJsonOperations  {
     static Logger logger = Logger.getLogger(MakeSendJsonOperations.class.getName());
     private static String jSonPermanentData = "novalue";
     public static String getJSonPermanentData() {
@@ -14,7 +17,6 @@ public class MakeSendJsonOperations {
     public static void setjSonPermanentData(String pJSonPermanentData) {
         jSonPermanentData = pJSonPermanentData;
     }
-
     private static int intSleep =5000;
     public static int getSleep() {
         return intSleep;
@@ -22,7 +24,6 @@ public class MakeSendJsonOperations {
     public static void setSleep(int pSleep) {
          intSleep=pSleep;
     }
-
     private static String jSonMeasurementData = "novalue";
     public static String getJSonMeasurementData() {
         return jSonMeasurementData;
@@ -38,7 +39,7 @@ public class MakeSendJsonOperations {
         TaskUnderWork = pTaskUnderWork;
     }
     private static MeasurementTaskHandling th = new MeasurementTaskHandling();
-    private int MakeClearanceOperations(TRPXMeasurementTaskData pCe) {
+    private int MakeClearanceOperations(TRPXMeasurementTaskData pCe) throws SQLException {
         String strHelp1 = NO_VALUE;
         int iRet = INT_RET_NOT_OK;
         LogUtilities mfl = new LogUtilities();
@@ -56,7 +57,7 @@ public class MakeSendJsonOperations {
         logger.info("No JsonMeasurementData! ");
         return OMNIA_DATA_PICK_NOT_OK;
     }
-    private int MakeSpareOperations(TRPXMeasurementTaskData pCe) {
+    private int MakeSpareOperations(TRPXMeasurementTaskData pCe) throws SQLException{
         String strHelp1 = NO_VALUE;
         int iRet = INT_RET_NOT_OK;
         LogUtilities mfl = new LogUtilities();
@@ -78,7 +79,7 @@ public class MakeSendJsonOperations {
         }
         return OMNIA_DATA_PICK_NOT_OK;
     }
-    public int PollOfWorks() {
+    public int PollOfWorks() throws SQLException {
         // check is ther work is if it is transfer them to work queue
         int iloop = 1;
         int intSleep=0;
@@ -204,7 +205,7 @@ public class MakeSendJsonOperations {
         }
         return iRet;
     }
-    public int MakeSendOmniaOperations() {
+    public int MakeSendOmniaOperations() throws SQLException {
         LogUtilities mfl = new LogUtilities();
         int iRet = MeasurementTaskHandling.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
         if (iRet != INT_RET_OK) {
@@ -280,7 +281,7 @@ public class MakeSendJsonOperations {
         } // polling loop while end
        return OMNIA_DATA_PICK_OK;
     }
-   public int   DeleteDoneTaskFromWorkDb() {
+   public int   DeleteDoneTaskFromWorkDb() throws SQLException{
        TRPXMeasurementTaskData ce = getTaskUnderWork();
        int iRet = th.DeleteDoneTaskFromDb(ce);
        if (iRet < 0) {   // 0 they have all ready been deleted
@@ -297,4 +298,3 @@ public class MakeSendJsonOperations {
       return INT_RET_OK;
    }
 }
-

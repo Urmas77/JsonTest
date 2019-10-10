@@ -37,7 +37,7 @@ import static fi.swarco.CONSTANT.*;
             gSqlCon = vg.getSqlCon();
             return DATABASE_CONNECTION_OK;
         }
-        public int OmniaSuperDataList () {
+        public int OmniaSuperDataList () throws SQLException {
             SuperDataUnits.clear();
             String SQL="";
             java.sql.PreparedStatement stmt;
@@ -61,6 +61,8 @@ import static fi.swarco.CONSTANT.*;
                     ce.setDetectorId(rs.getLong(10));
                     SuperDataUnits.add(ce);
                 }
+                stmt.close();
+                rs.close();
                 if (SuperDataUnits.isEmpty()==true) {
                     ce= new SuperData();
                     ce.MakeEmptyElement();
@@ -76,6 +78,7 @@ import static fi.swarco.CONSTANT.*;
                 ce= new SuperData();
                 ce.MakeEmptyElement();
                 SuperDataUnits.add(ce);
+                gSqlCon.close();
                 return -1;
             }
         }

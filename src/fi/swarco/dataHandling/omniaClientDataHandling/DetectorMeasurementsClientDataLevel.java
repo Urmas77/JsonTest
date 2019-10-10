@@ -34,7 +34,7 @@ public class DetectorMeasurementsClientDataLevel {
         gSqlCon = vg.getSqlCon();
         return DATABASE_CONNECTION_OK;
     }
-    public String GetMeasurementsDataString(long plngIntersectionId, long plngControllerId,String pstrTimestamp) {
+    public String GetMeasurementsDataString(long plngIntersectionId, long plngControllerId,String pstrTimestamp) throws SQLException{
         String strHelp1=NO_VALUE;
         int iRet = GetOmniaMeasurementsData(plngIntersectionId, plngControllerId, pstrTimestamp);
         if  (iRet ==INT_RET_OK) {
@@ -42,7 +42,7 @@ public class DetectorMeasurementsClientDataLevel {
         }
         return strHelp1;
     }
-    private int GetOmniaMeasurementsData(long plngIntersectionId, long plngControllerId,String pstrTimestamp) {
+    private int GetOmniaMeasurementsData(long plngIntersectionId, long plngControllerId,String pstrTimestamp) throws SQLException{
         DmUnits.clear();
         String SQL="";
         java.sql.PreparedStatement stmt;
@@ -89,6 +89,8 @@ public class DetectorMeasurementsClientDataLevel {
                 cc.setMeasurementAccurancy(rs.getLong(17));
                 DmUnits.add(cc);
             }
+            stmt.close();
+            rs.close();
             if (DmUnits.isEmpty()) {
                 cc= new OmniaMeasurementData();
                 cc.MakeEmptyElement();
@@ -103,6 +105,7 @@ public class DetectorMeasurementsClientDataLevel {
             cc= new OmniaMeasurementData();
             cc.MakeEmptyElement();
             DmUnits.add(cc);
+            gSqlCon.close();
             return INT_RET_NOT_OK;
         }
     }
@@ -123,9 +126,7 @@ public class DetectorMeasurementsClientDataLevel {
         if (strHelp1.equals(NO_VALUE)) {
             return NO_VALUE;
         }
-//        logger.info("kkkkkkk strHelp2 = "+  strHelp2);
         strHelp2= mu.AddBrackets(strHelp2);
-//        logger.info("kkkkkkk strHelp2 = " + strHelp2);
         return strHelp2;
     }
     public  List<OmniaMeasurementData> GetDetectorMeasurementsDataList()  {

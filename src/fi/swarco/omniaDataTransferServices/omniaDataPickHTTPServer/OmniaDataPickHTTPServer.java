@@ -4,6 +4,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -194,7 +195,14 @@ public class OmniaDataPickHTTPServer {
             if (messageReceived == MESSAGE_RECEIVED_OK) {
                 MakeReceiveJsonOperations hd = new MakeReceiveJsonOperations();
                 MakeReceiveJsonOperations.setPseudoJsonData(uquery);
-                iRet = MakeReceiveJsonOperations.MakeReceiveOmniaOperations();
+                try {
+                    iRet = MakeReceiveJsonOperations.MakeReceiveOmniaOperations();
+                } catch (SQLException e) {
+                    logger.info(ExceptionUtils.getRootCauseMessage(e));
+                    logger.info(ExceptionUtils.getFullStackTrace(e));
+                    e.printStackTrace();
+                }
+                logger.info ("iRet = " + iRet);
             }
         }
     }

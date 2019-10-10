@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +17,10 @@ import java.util.List;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.dataHandling.pojos.OmniaIntersectionData;
 import fi.swarco.dataHandling.pojos.OmniaMeasurementData;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
+
+import static fi.swarco.CONSTANT.UNSUCCESSFUL_DATABASE_OPERATION;
 
 public class ReandJsonfromOmniaDb {
     static Logger logger = Logger.getLogger(ReandJsonfromOmniaDb.class.getName());
@@ -27,10 +31,19 @@ public class ReandJsonfromOmniaDb {
         this.jsonSource = jsonSource;
         this.sourceFromFile = sourceFromFile;
     }
-    public static void main(String[] args){
-        JsonOmniaMeasurementSql();
-        JsonOmniaIntersectionSql();
-    }
+    //public static void main(String[] args){
+    //   try {
+    //       JsonOmniaMeasurementSql();
+    //       JsonOmniaIntersectionSql();
+    //   } catch(SQLException e) {
+    //       logger.info(ExceptionUtils.getRootCauseMessage(e));
+    //       logger.info(ExceptionUtils.getFullStackTrace(e));
+    //       logger.info( "failed! {}", e );
+    //       logger.info(" catch 11");
+    //       logger.info(e.getMessage());
+    //       e.printStackTrace();
+     //      System.exit(0);
+    // }
     /**
      * Obtain the JsonReader for the given source details.
      * @return the JsonReader instance
@@ -45,7 +58,7 @@ public class ReandJsonfromOmniaDb {
         return reader;
     }
     //**********************************************************************
-    private static void JsonOmniaMeasurementSql() {
+    private static void JsonOmniaMeasurementSql() throws SQLException {
         ReandJsonfromOmniaDb jsonParserFactory = new ReandJsonfromOmniaDb("c:/OmniaInterface2019/Javatest/Jatri_measurement.json",true);
         OmniaMeasurementListDataLevel omniaMeasurementFunctions = new OmniaMeasurementListDataLevel();
         omniaMeasurementFunctions.setRequestOrigin(SwarcoEnumerations.RequestOriginType.FROMJSONTOMYSQL);
@@ -84,7 +97,7 @@ public class ReandJsonfromOmniaDb {
             e.printStackTrace();
         }
     }
-    private static void JsonOmniaIntersectionSql() {
+    private static void JsonOmniaIntersectionSql() throws SQLException {
         ReandJsonfromOmniaDb jsonParserFactory = new ReandJsonfromOmniaDb("c:/OmniaInterface2019/JavaTest/Jatri_Intersection.json",true);
         OmniaIntersectionListDataLevel omniaIntersectionFunctions = new OmniaIntersectionListDataLevel();
         omniaIntersectionFunctions.setRequestOrigin(SwarcoEnumerations.RequestOriginType.FROMJSONTOMYSQL);
@@ -121,8 +134,6 @@ public class ReandJsonfromOmniaDb {
             logger.info(" IOException");
             e.printStackTrace();
         }
-    }
-    private static void JsonGetIntersectionSqlFromOmniaDataBase() {
     }
 }
 

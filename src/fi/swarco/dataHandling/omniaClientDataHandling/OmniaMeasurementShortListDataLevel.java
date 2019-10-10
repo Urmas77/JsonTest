@@ -48,18 +48,10 @@ public class OmniaMeasurementShortListDataLevel {
         oi.MakeEmptyElement();
         setFoundRec(oi);
         try {
-        //    OmniaMeasurementDataMySqlSelectWhere st = new OmniaMeasurementDataMySqlSelectWhere();
             OmniaMeasurementDataShortMySqlSelectWhere st = new OmniaMeasurementDataShortMySqlSelectWhere();
             SQL =st.getStatement();
-            //      logger.debug("SqlConnectionTypeyyyy= "+ SqlConnectionType);
             ResultSet rs;
-            //logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
-            //    logger.info("pOmniaIntersectionData.getOmniaCode()=" + pOmniaMeasurementData.getOmniaCode());
-            //    logger.info("pOmniaIntersectionData.getIntersectionId()=" + pOmniaMeasurementData.getIntersectionId());
-            //    logger.info("pOmniaIntersectionData.getControllerId()=" + pOmniaMeasurementData.getControllerId());
-            //    logger.info("pOmniaIntersectionData.getDetectorId()=" + pOmniaMeasurementData.getDetectorId());
-            //    logger.info("pOmniaIntersectionData.getMeasurementTime()=" + pOmniaMeasurementData.getMeasurementTime());
             stmt.setLong(1,pOmniaMeasurementDataShort.getOmniaCode());
             stmt.setLong(2,pOmniaMeasurementDataShort.getIntersectionId());
             stmt.setLong(3,pOmniaMeasurementDataShort.getControllerId());
@@ -88,9 +80,13 @@ public class OmniaMeasurementShortListDataLevel {
                                 (cc.getMeasurementTime().equals(pOmniaMeasurementDataShort.getMeasurementTime()))))) {
                     logger.info(" l�yty");
                     setFoundRec(cc);
+                    stmt.close();
+                    rs.close();
                     return INT_RET_FOUND;
                 }
             }
+            stmt.close();
+            rs.close();
             //    logger.info("ei l�ytyny");
             return INT_RET_NOT_FOUND;
         } catch(Exception e) {
@@ -126,7 +122,7 @@ public class OmniaMeasurementShortListDataLevel {
         }
         return iRet;
     }
-    public int MakeDeleteInsert(OmniaMeasurementDataShort pC1) {
+    public int MakeDeleteInsert(OmniaMeasurementDataShort pC1) throws SQLException{
         int iRet = INT_RET_OK;
         iRet = DeleteOldOmniaMeasurementDataShortLineFromDb(pC1);
         if (iRet < 0) {
@@ -143,7 +139,7 @@ public class OmniaMeasurementShortListDataLevel {
         }
         return iRet;
     }
-    private int DeleteOldOmniaMeasurementDataShortLineFromDb(OmniaMeasurementDataShort pC1 ) {
+    private int DeleteOldOmniaMeasurementDataShortLineFromDb(OmniaMeasurementDataShort pC1 ) throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -158,6 +154,7 @@ public class OmniaMeasurementShortListDataLevel {
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
                 logger.info("iRet = " + iRet);
                 iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
@@ -171,18 +168,17 @@ public class OmniaMeasurementShortListDataLevel {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public static int AddNewOmniaMeasurementDataShort(OmniaMeasurementDataShort pOmniaMeasurementDataShort) {
+    public static int AddNewOmniaMeasurementDataShort(OmniaMeasurementDataShort pOmniaMeasurementDataShort) throws SQLException{
         int iRet;
         String SQL="";
         java.sql.PreparedStatement stmt;
         try {
         InsertOmniaMeasurementDataShortMySql st = new InsertOmniaMeasurementDataShortMySql();
             SQL =st.getStatement();
-            //         logger.info("SQL = " + SQL);
-            //         logger.info("pOmniaMeasurementData.toString()=" + pOmniaMeasurementData.toString());
             stmt = gSqlCon.prepareStatement(SQL);
             int pos=0;
             pos=1;   // old was zero
@@ -206,6 +202,7 @@ public class OmniaMeasurementShortListDataLevel {
             pos=pos+1;
             stmt.setDouble(pos,pOmniaMeasurementDataShort.getAccurancy());
             iRet = stmt.executeUpdate();
+            stmt.close();
             if (iRet!=1) {
                 iRet=UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
                 return iRet;
@@ -218,6 +215,7 @@ public class OmniaMeasurementShortListDataLevel {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
@@ -230,14 +228,13 @@ public class OmniaMeasurementShortListDataLevel {
         }
         return OmniaMeasurementDataUnits;
     }
-    public  int JsonOmniaMeasurementShortSql(String pMeasurementsDataShort) {
+    public  int JsonOmniaMeasurementShortSql(String pMeasurementsDataShort) throws SQLException{
         int iRet=0;
         String strHelp1=NO_VALUE;
         try {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();
             strHelp1 = mu.StripFileStartEnd(pMeasurementsDataShort);
-            //           logger.info("stripped strHelp1 = " + strHelp1);
             int iHere = strHelp1.indexOf("}");
             int iRound =1;
             int iHereOld=0;
@@ -247,28 +244,13 @@ public class OmniaMeasurementShortListDataLevel {
             SwarcoTimeUtilities sw = new  SwarcoTimeUtilities();
             String swarcoTime="";
             while  (iHere>0 ) {
-//                logger.info("stripped only first  iRound = " + iRound);
-                //           logger.info("stripped only first strHelp2 = " + strHelp2 + " strHelp2 iRound = " + iRound);
                 JsonParser jsonParser = new JsonParser();
-                //  OmniaMeasurementData aO1 = myGson.fromJson(strHelp2, OmniaMeasurementData.class);
-             //   aO1 = myGson.fromJson(strHelp2, OmniaMeasurementDataShort.class);
                    ceJson = myGson.fromJson(strHelp2, OmniaMeasurementDataShortJson.class);
                    aO1=ceJson.MakeItemFromJsonTransferItem();
                    logger.info("ceJson.toString().length() = " + ceJson.toString().length());
-                  // logger.info("ceJson.toString() = " + ceJson.toString());
-                  // logger.info("aO1.toString() = " + aO1.toString());
-// check do
-// check does the line already exists
-// no: make insert
-// yes: is it changed
-//        no: do nothing
-//        yes:
-//        make delete and insert
-//        write to logs
-//        Database triggers write old lines to history table
-                iRet= DoesLineAlreadyExsist(aO1);
+                   iRet= DoesLineAlreadyExsist(aO1);
                 if (iRet==INT_RET_NOT_FOUND) {
-                    iRet=iRet = AddNewOmniaMeasurementDataShort(aO1);
+                    iRet=AddNewOmniaMeasurementDataShort(aO1);
                     //                  logger.info("  one line inserted iRet = " + iRet);
                     if (iRet!=INT_RET_OK) {
                         logger.info("Unsuccessful OmniameasurementData insert iRet = " + iRet);
@@ -298,14 +280,9 @@ public class OmniaMeasurementShortListDataLevel {
             logger.info( "failed! {}", e );
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
+            gSqlCon.close();
             return iRet;
         }
         return iRet;
     }
 }
-
-
-
-
-
-

@@ -2,6 +2,8 @@ package fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer;
         import java.io.IOException;
         import java.io.OutputStream;
         import java.net.InetSocketAddress;
+        import java.sql.SQLException;
+
         import com.sun.net.httpserver.HttpExchange;
         import com.sun.net.httpserver.HttpHandler;
         import com.sun.net.httpserver.HttpServer;
@@ -105,7 +107,13 @@ public class OmniaCloudHTTPServer {
                     // RETHINK JIs 05.10 2019
                     // MakeReceiveJsonOperations hd = new MakeReceiveJsonOperations();
                     hd.setPseudoJsonData(uquery);
-                    iRet = hd.MakeReceiveOmniaOperations();
+                    try {
+                        iRet = hd.MakeReceiveOmniaOperations();
+                    } catch (SQLException e) {
+                        logger.info(ExceptionUtils.getRootCauseMessage(e));
+                        logger.info(ExceptionUtils.getFullStackTrace(e));
+                        e.printStackTrace();
+                    }
                 }
             }
         }

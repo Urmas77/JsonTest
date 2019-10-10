@@ -22,7 +22,7 @@ public class MeasurementTaskHandling {
     public void setRequestOrigin(SwarcoEnumerations.RequestOriginType prequestOrigin) {
         requestOrigin = prequestOrigin;
     }
-    public static int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon) {
+    public static int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon) throws SQLException {
         SwarcoConnections vg = new SwarcoConnections();
         logger.info("pSqlCon = " + pSqlCon);
         int iRet = vg.MakeConnection(pSqlCon);
@@ -34,10 +34,11 @@ public class MeasurementTaskHandling {
         gSqlCon = vg.getSqlCon();
         return INT_RET_OK;
     }
-    public int MeasurementTaskDataList() {
+    public int MeasurementTaskDataList() throws SQLException {
         TaskUnits.clear();
         String SQL = "";
         java.sql.PreparedStatement stmt;
+        ResultSet rs;
         JiMeasurementTaskSelectSqlServer st = new JiMeasurementTaskSelectSqlServer();
         SQL = st.getStatement();
         logger.info("SqlConnectionTypeyyyy= " + SqlConnectionType);
@@ -45,7 +46,6 @@ public class MeasurementTaskHandling {
         TRPXMeasurementTaskData ce;
         try {
             stmt = gSqlCon.prepareStatement(SQL);
-            ResultSet rs;
             rs = stmt.executeQuery();
             logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
@@ -61,6 +61,8 @@ public class MeasurementTaskHandling {
                 ce.setCreated(rs.getString(9));
                 TaskUnits.add(ce);
             }
+            stmt.close();
+            rs.close();
             if (TaskUnits.isEmpty() == true) {
                 ce = new TRPXMeasurementTaskData();
                 ce.MakeEmptyElement();
@@ -76,10 +78,11 @@ public class MeasurementTaskHandling {
             ce = new TRPXMeasurementTaskData();
             ce.MakeEmptyElement();
             TaskUnits.add(ce);
+            gSqlCon.close();
             return NO_TASK_LIST;
         }
     }
-    public int AnyWorkWork() {
+    public int AnyWorkWork() throws SQLException{
         int iRet = INT_RET_NOT_OK;
         String SQL = "";
         try {
@@ -92,8 +95,12 @@ public class MeasurementTaskHandling {
             logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
                 return iRet;
             }
+            stmt.close();
+            rs.close();
             return iRet;
         } catch (Exception e) {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
@@ -101,10 +108,11 @@ public class MeasurementTaskHandling {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int AnyWork() {
+    public int AnyWork() throws SQLException{
         int iRet = INT_RET_NOT_OK;
         String SQL = "";
         try {
@@ -117,8 +125,12 @@ public class MeasurementTaskHandling {
             logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
              while (rs.next()) {
                 iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
                 return iRet;
             }
+            stmt.close();
+            rs.close();
             return iRet;
         } catch (Exception e) {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
@@ -126,10 +138,11 @@ public class MeasurementTaskHandling {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int AnyWorkMeasurements() {
+    public int AnyWorkMeasurements() throws SQLException{
         int iRet = INT_RET_NOT_OK;
         String SQL = "";
         try {
@@ -142,8 +155,12 @@ public class MeasurementTaskHandling {
             logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
                 return iRet;
             }
+            stmt.close();
+            rs.close();
             return iRet;
         } catch (Exception e) {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
@@ -151,10 +168,11 @@ public class MeasurementTaskHandling {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int AnyWorkIntersection() {
+    public int AnyWorkIntersection() throws SQLException{
         int iRet = INT_RET_NOT_OK;
         String SQL = "";
         try {
@@ -167,8 +185,12 @@ public class MeasurementTaskHandling {
             logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
                 return iRet;
             }
+            stmt.close();
+            rs.close();
             return iRet;
         } catch (Exception e) {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
@@ -176,10 +198,11 @@ public class MeasurementTaskHandling {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int AnyWorkController() {
+    public int AnyWorkController() throws SQLException{
         int iRet = INT_RET_NOT_OK;
         String SQL = "";
         try {
@@ -192,8 +215,12 @@ public class MeasurementTaskHandling {
             logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
                 return iRet;
             }
+            stmt.close();
+            rs.close();
             return iRet;
         } catch (Exception e) {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
@@ -201,10 +228,11 @@ public class MeasurementTaskHandling {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int AnyWorkDetector() {
+    public int AnyWorkDetector() throws SQLException{
         int iRet = INT_RET_NOT_OK;
         String SQL = "";
         try {
@@ -217,8 +245,12 @@ public class MeasurementTaskHandling {
             logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
                 return iRet;
             }
+            stmt.close();
+            rs.close();
             return iRet;
         } catch (Exception e) {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
@@ -226,10 +258,11 @@ public class MeasurementTaskHandling {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-public int TransferIntersectionTasksToWorkQueue() {
+public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -265,8 +298,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
+            stmt.close();
             logger.info("Lines inserted iRet = " + iRet);
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = TASK_TRANSFER_ERROR;
                 return iRet;
             }
@@ -277,10 +312,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return TASK_TRANSFER_ERROR;
         }
     }
-    public int TransferControllerTasksToWorkQueue() {
+    public int TransferControllerTasksToWorkQueue() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -317,7 +353,9 @@ public int TransferIntersectionTasksToWorkQueue() {
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             logger.info("Lines inserted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = TASK_TRANSFER_ERROR;
                 return iRet;
             }
@@ -328,11 +366,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return TASK_TRANSFER_ERROR;
         }
     }
-
-    public int TransferDetectorTasksToWorkQueue() {
+    public int TransferDetectorTasksToWorkQueue() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -362,14 +400,16 @@ public int TransferIntersectionTasksToWorkQueue() {
             SQL = SQL + " , GETDATE() ";
             SQL = SQL + " from TRPX_MeasurementTask  ";
             SQL = SQL + "where TaskType = 'DETECTORDATACHANGE' and  " ;
-                    SQL = SQL +  " DetectorMeasuresTimestamp = ";
+            SQL = SQL +  " DetectorMeasuresTimestamp = ";
             SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where  TaskType = 'DETECTORDATACHANGE'  order by DetectorMeasuresTimestamp asc) ";
             logger.info("SQL = " + SQL);
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             logger.info("Lines inserted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = TASK_TRANSFER_ERROR;
                 return iRet;
             }
@@ -380,16 +420,13 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return TASK_TRANSFER_ERROR;
         }
     }
-    public int TransferMeasurementTasksToWorkQueue() {
+    public int TransferMeasurementTasksToWorkQueue() throws SQLException{
         int iRet;
         String SQL = "";
-     // RETHINK RETHINK
-     //     Ota countti talteen
-     // tee transaction ???
-
         try {
             SQL = "insert into TRPX_MeasurementTask_Work ";
             SQL = SQL + " ([MeasurementTask_idindex] ";
@@ -424,7 +461,9 @@ public int TransferIntersectionTasksToWorkQueue() {
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             logger.info("Lines inserted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = TASK_TRANSFER_ERROR;
                 return iRet;
             }
@@ -435,10 +474,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return TASK_TRANSFER_ERROR;
         }
     }
-    public int TransferTasksToWorkQueue() {
+    public int TransferTasksToWorkQueue()  throws SQLException {
         int iRet;
         String SQL = "";
         try {
@@ -474,7 +514,9 @@ public int TransferIntersectionTasksToWorkQueue() {
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             logger.info("Lines inserted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = TASK_TRANSFER_ERROR;
                 return iRet;
             }
@@ -485,10 +527,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return TASK_TRANSFER_ERROR;
         }
     }
-    public int FillUpIntersectionTasks() {
+    public int FillUpIntersectionTasks() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -510,8 +553,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines updated  iRet = " + iRet);
+            logger.info("Lines updated  iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = FILL_UP_TASK_ERROR;
                 return iRet;
             }
@@ -522,10 +567,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return FILL_UP_TASK_ERROR;
         }
     }
-    public int FillUpTasks() {
+    public int FillUpTasks() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -547,8 +593,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines filledUp??? updated  iRet = " + iRet);
+            logger.info("Lines filledUp??? updated  iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = FILL_UP_TASK_ERROR;
                 return iRet;
             }
@@ -559,10 +607,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return FILL_UP_TASK_ERROR;
         }
     }
-    public int DeleteNotFilledIntersectionTasks() {
+    public int DeleteNotFilledIntersectionTasks() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -576,8 +625,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines updated  iRet = " + iRet);
+            logger.info("Lines updated  iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = DELETE_UNFILLABLE_TASK_ERROR;
                 return iRet;
             }
@@ -588,10 +639,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return DELETE_UNFILLABLE_TASK_ERROR;
         }
     }
-    public int DeleteNotFilledControllerTasks() {
+    public int DeleteNotFilledControllerTasks() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -605,9 +657,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines updated  iRet = " + iRet);
+            logger.info("Lines updated  iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
                 iRet = DELETE_UNFILLABLE_TASK_ERROR;
+                gSqlCon.close();
                 return iRet;
             }
             return DELETE_UNFILLABLE_TASK_OK;
@@ -617,10 +671,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return DELETE_UNFILLABLE_TASK_ERROR;
         }
     }
-    public int DeleteNotDetectorTasks() {
+    public int DeleteNotDetectorTasks() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -634,8 +689,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines updated  iRet = " + iRet);
+            logger.info("Lines updated  iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = DELETE_UNFILLABLE_TASK_ERROR;
                 return iRet;
             }
@@ -646,10 +703,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return DELETE_UNFILLABLE_TASK_ERROR;
         }
     }
-    public int DeleteTrashTasksBeforeHand() {
+    public int DeleteTrashTasksBeforeHand() throws SQLException{
    // if controller or Intersection is invisible or deleted data will not be transferred
    // JIs 07/10 2019
    //
@@ -665,7 +723,8 @@ public int TransferIntersectionTasksToWorkQueue() {
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines updated  iRet = " + iRet);
+            logger.info("Lines updated  iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
                 iRet = DELETE_TRASH_TASK_ERROR;
                 return iRet;
@@ -680,7 +739,7 @@ public int TransferIntersectionTasksToWorkQueue() {
             return DELETE_TRASH_TASK_ERROR ;
         }
     }
-    public int DeleteTrashTasksAfterHand() {
+    public int DeleteTrashTasksAfterHand() throws SQLException{
         // if controller or Intersection is invisible or deleted data will not be transferred
         // JIs 07/10 2019
         //
@@ -696,9 +755,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines deleted  iRet = " + iRet);
+            logger.info("Lines deleted  iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
                 iRet = DELETE_TRASH_TASK_ERROR;
+                gSqlCon.close();
                 return iRet;
             }
             return DELETE_TRASH_TASK_OK;
@@ -708,18 +769,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return DELETE_TRASH_TASK_ERROR ;
         }
     }
-
-
-
-
-
-
-
-
-    public int DeleteNotFilledTasks() {
+    public int DeleteNotFilledTasks() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -733,8 +787,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines updated  iRet = " + iRet);
+            logger.info("Lines updated  iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = DELETE_UNFILLABLE_TASK_ERROR;
                 return iRet;
             }
@@ -745,6 +801,7 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return DELETE_UNFILLABLE_TASK_ERROR;
         }
     }
@@ -759,52 +816,8 @@ public int TransferIntersectionTasksToWorkQueue() {
         ce.MakeEmptyElement();
         return ce;
     }
-    public int DeleteDoneTaskFromDbOLD(TRPXMeasurementTaskData ce) {
-        // RETHINK TaskType
-        // RETHINK tee  joini js åoistse sen mukaan
-        // poista yksi kerraan suorituksen jälkeen
-        // taitaa mennä oikein jo nyt
-        // POista tää ******** RETHINK
-        int iRet;
-        String SQL = "";
-        logger.info("ce.toString()=" + ce.toString());
-        try {
-            java.sql.PreparedStatement stmt;
-            SQL = " delete from TRPX_MeasurementTask ";
-            SQL = SQL + "where ";
-            SQL = SQL + "OmniaCode=" + ce.getOmniaCode() + " and ";
-            SQL = SQL + "IntersectionID=" + ce.getIntersectionId() + " and ";
-            SQL = SQL + "ControllerID=" + ce.getControllerId() + " and ";
-            SQL = SQL + "DetectorMeasuresTimestamp = '" + ce.getDetectorMeasuresTimestamp() + "' and ";
-            SQL = SQL + "TaskStatus =  " + MEASUREMENT_TASK_STATUS_CREATED + ";";
-            logger.info("SQL = " + SQL);
-            stmt = gSqlCon.prepareStatement(SQL);
-            iRet = stmt.executeUpdate();
-            logger.debug("Lines deleted iRet = " + iRet);
-            if (iRet < 0) {
-                iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
-                return iRet;
-            }
-            return iRet;
-        } catch (Exception e) {
-            logger.info(ExceptionUtils.getRootCauseMessage(e));
-            logger.info(ExceptionUtils.getFullStackTrace(e));
-            logger.info(" catch 11");
-            logger.info(e.getMessage());
-            e.printStackTrace();
-            return UNSUCCESSFUL_DATABASE_OPERATION;
-        }
-    }
-    public int DeleteDoneTaskFromDb(TRPXMeasurementTaskData ce) {
-        // RETHINK TaskType
-        // RETHINK tee  joini  sen mukaan
-        // poista yksi kerrallaaan suorituksen jälkeen
-        // taitaa mennä oikein jo nyt
-        // eikun kontrollerin sisällä voi jäädä taskeja jonoon
-        // ota countit ekaksi ja älä deletoi jos countit ei täsmää vaan siirrä uudelleen
-        // Yri 3
-        // tee poisto TRPX_MeasurementTask poisto heti suorituksen jälkeen
-        // tän jälkeen poista samassa metodissa ko. Taski TRPX_MeasurementTask työtaulusta
+
+    public int DeleteDoneTaskFromDb(TRPXMeasurementTaskData ce) throws SQLException{
         int iRet;
         String SQL = "";
         logger.info("ce.toString()=" + ce.toString());
@@ -825,8 +838,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines deleted iRet = " + iRet);
+            logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
                 return iRet;
             }
@@ -837,10 +852,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int DeleteIntersectionTasksFromDb() {
+    public int DeleteIntersectionTasksFromDb() throws SQLException{
         // According to oldest timestamp
         // these tasks has been transferred under work to TRPX_MeasurementTask_Work table
         int iRet;
@@ -853,8 +869,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines deleted iRet = " + iRet);
+            logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                stmt.close();
+                gSqlCon.close();
                 iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
                 return iRet;
             }
@@ -865,13 +884,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-
-    public int DeleteControllerTasksFromDb() {
-        // According to oldest timestamp
-        // these tasks has been transferred under work to TRPX_MeasurementTask_Work table
+    public int DeleteControllerTasksFromDb() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -882,8 +899,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines deleted iRet = " + iRet);
+            logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
                 return iRet;
             }
@@ -894,12 +913,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int DeleteDetectorTasksFromDb() {
-        // According to oldest timestamp
-        // these tasks has been transferred under work to TRPX_MeasurementTask_Work table
+    public int DeleteDetectorTasksFromDb() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -910,8 +928,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines deleted iRet = " + iRet);
+            logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
                 return iRet;
             }
@@ -922,12 +942,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int DeleteMeasurementTasksFromDb() {
-        // According to oldest timestamp
-        // these tasks has been transferred under work to TRPX_MeasurementTask_Work table
+    public int DeleteMeasurementTasksFromDb() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -938,8 +957,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines deleted iRet = " + iRet);
+            logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
                 return iRet;
             }
@@ -950,12 +971,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int DeleteTasksFromDb() {
-        // According to oldest timestamp
-        // these tasks has been transferred under work to TRPX_MeasurementTask_Work table
+    public int DeleteTasksFromDb() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -966,8 +986,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines deleted iRet = " + iRet);
+            logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
                 return iRet;
             }
@@ -978,14 +1000,14 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int DeleteDoneTaskFromWorkDb(TRPXMeasurementTaskData ce) {
+    public int DeleteDoneTaskFromWorkDb(TRPXMeasurementTaskData ce) throws SQLException{
         // RETHINK TaskType
         int iRet;
         String SQL = "";
- //       logger.info("ce.toString()=" + ce.toString());
         try {
             java.sql.PreparedStatement stmt;
             SQL = " delete from TRPX_MeasurementTask_Work ";
@@ -998,8 +1020,10 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.debug("Lines deleted iRet = " + iRet);
+            logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
                 return iRet;
             }
@@ -1010,11 +1034,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    // update task to unsolved and write log
-    public int UpdateTaskFromDbForClearance(TRPXMeasurementTaskData ce) {
+    public int UpdateTaskFromDbForClearance(TRPXMeasurementTaskData ce) throws SQLException{
         int iRet;
         String SQL = "";
         logger.info("ce.toString()=" + ce.toString());
@@ -1023,15 +1047,13 @@ public int TransferIntersectionTasksToWorkQueue() {
             SQL = " update TRPX_MeasurementTask_Work  set TaskStatus = " + MEASUREMENT_TASK_STATUS_CLEARING + " ";
             SQL = SQL + "where ";
             SQL = SQL + " MeasurementTask_idindex = " + ce.getMeasurementTaskIdindex() + ";";
-            //SQL = SQL + "OmniaCode=" + ce.getOmniaCode() + " and ";
-            //SQL = SQL + "IntersectionID=" + ce.getIntersectionId()  + " and ";
-            //SQL = SQL + "ControllerID=" +  ce.getControllerId()  + " and ";
-            //SQL = SQL + "DetectorMeasuresTimestamp = '" + ce.getDetectorMeasuresTimestamp()+ "';";
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
             if (iRet < 0) {
+                gSqlCon.close();
                 iRet = UNSUCCESSFUL_DATABASE_UPDATE_OPERATION;
                 return iRet;
             }
@@ -1042,10 +1064,11 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(" catch 11");
             logger.info(e.getMessage());
             e.printStackTrace();
+            gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public String getPermanentSqlDataSpare(long plngIntersectionId, long plngControllerId) {
+    public String getPermanentSqlDataSpare(long plngIntersectionId, long plngControllerId) throws SQLException{
         String SQL = "";
         String strRet = NO_VALUE;
         int iRet = 0;
@@ -1059,6 +1082,7 @@ public int TransferIntersectionTasksToWorkQueue() {
             ResultSet rs;
             rs = stmt.executeQuery();
             logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+            stmt.close();
             while (rs.next()) {
                 strRet = rs.getString(1);
                 return strRet;
@@ -1067,11 +1091,12 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
             e.printStackTrace();
+            gSqlCon.close();
             return NO_VALUE;
         }
         return NO_VALUE;
    }
-   private String getPermanentJsonDataSpare(long plngIntersectionId, long plngControllerId) {
+   private String getPermanentJsonDataSpare(long plngIntersectionId, long plngControllerId) throws SQLException{
         String SQL = "";
         String strRet = NO_VALUE;
         int iRet = 0;
@@ -1085,6 +1110,7 @@ public int TransferIntersectionTasksToWorkQueue() {
             ResultSet rs;
             rs = stmt.executeQuery();
             logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+            stmt.close();
             while (rs.next()) {
                 strRet = rs.getString(1);
                 return strRet;
@@ -1093,11 +1119,12 @@ public int TransferIntersectionTasksToWorkQueue() {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
             e.printStackTrace();
+            gSqlCon.close();
             return NO_VALUE;
         }
         return NO_VALUE;
     }
-    public String getPermanentSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) {
+    public String getPermanentSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException  {
         String SQL = "";
         String strRet = NO_VALUE;
         int iRet = 0;
@@ -1109,7 +1136,7 @@ public int TransferIntersectionTasksToWorkQueue() {
         }
         return strRet;
     }
-    public String getMeasurementSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) {
+    public String getMeasurementSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException{
         String SQL = "";
         String strRet = NO_VALUE;
         int iRet = 0;
@@ -1121,7 +1148,7 @@ public int TransferIntersectionTasksToWorkQueue() {
         }
         return strRet;
     }
-    public String getMeasurementShortSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) {
+    public String getMeasurementShortSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException{
         String SQL = "";
         String strRet = NO_VALUE;
         int iRet = 0;
