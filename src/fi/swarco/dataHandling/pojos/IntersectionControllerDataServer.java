@@ -1,11 +1,12 @@
+// OmniaIntersectionControllerDataServer
+
 package fi.swarco.dataHandling.pojos;
 import org.apache.log4j.Logger;
 
 import static fi.swarco.CONSTANT.*;
 
-public class OmniaIntersectionData {
-    private static Logger logger = Logger.getLogger(OmniaIntersectionData.class.getName());
-    private long identity=NO_IDENTITY;
+public class IntersectionControllerDataServer {
+    private static Logger logger = Logger.getLogger(IntersectionControllerDataServer.class.getName());
     private long omniaCode=INT_EMPTY_ELEMENT;
     private String omniaName=NO_VALUE;
     private long omniaPublicationStatus=Long.valueOf(0);
@@ -18,7 +19,7 @@ public class OmniaIntersectionData {
     private long  intersectionVisible=Long.valueOf(0);
     private long  intersectionDeleted=Long.valueOf(0);
     private String intersectionDataPreviousUpdate="1970-01-01 00:00:00";
-    private String intersectionGuid=NO_VALUE;
+    private String  intersectionGuid=NO_VALUE;
     private long  intersectionProgressId=Long.valueOf(0);
     private long controllerId=Long.valueOf(0);
     private String controllerDescription=NO_VALUE;
@@ -31,11 +32,12 @@ public class OmniaIntersectionData {
     private long controllerDeleted=Long.valueOf(0);
     private String controllerDataPreviousUpdate="1970-01-01 00:00:00";
     private String controllerGuid=NO_VALUE;
+    private String created="1970-01-01 00:00:00";;
     private java.sql.Timestamp controllerDataPreviousUpdateSql=java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
     private java.sql.Timestamp intersectionDataPreviousUpdateSql=java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
-    public  OmniaIntersectionData(){}
-    public OmniaIntersectionData(
-            long identity,
+    private java.sql.Timestamp createdSql=java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
+    public IntersectionControllerDataServer(){}
+    public IntersectionControllerDataServer(
             long omniaCode,
             String omniaName,
             long omniaPublicationStatus,
@@ -60,43 +62,39 @@ public class OmniaIntersectionData {
             long controllerVisible,
             long controllerDeleted,
             String controllerDataPreviousUpdate,
-            String controllerGuid
+            String controllerGuid,
+            String created
     ) {
         super();
-        this.identity = identity;
         this.omniaCode = omniaCode;
         this.omniaName = omniaName;
         this.omniaPublicationStatus = omniaPublicationStatus;
         this.intersectionId = intersectionId;
         this.intesectionDescription = intesectionDescription;
         this.intersectionAreaId = intersectionAreaId;
-        this.intersectionMaintenanceAreaId=intersectionMaintenanceAreaId;
-        this.intersectionExternalCode=intersectionExternalCode;
-        this.intersectionSubSystemId=intersectionSubSystemId;
-        this.intersectionVisible=intersectionVisible;
-        this.intersectionDeleted=intersectionDeleted;
-        this.intersectionDataPreviousUpdate=intersectionDataPreviousUpdate;
-        this.intersectionGuid=intersectionGuid;
-        this.intersectionProgressId=intersectionProgressId;
-        this.controllerId=controllerId;
-        this.controllerDescription=controllerDescription;
-        this.controllerTypeId=controllerTypeId;
-        this.controllerRoadsideUnitId=controllerRoadsideUnitId;
-        this.controllerExternalCode=controllerExternalCode;
-        this.controllerSubSystemId=controllerSubSystemId;
-        this.controllerObjectPriorityId=controllerObjectPriorityId;
-        this.controllerVisible=controllerVisible;
-        this.controllerDeleted=controllerDeleted;
-        this.controllerDataPreviousUpdate=controllerDataPreviousUpdate;
-        this.controllerGuid=controllerGuid;
+        this.intersectionMaintenanceAreaId = intersectionMaintenanceAreaId;
+        this.intersectionExternalCode = intersectionExternalCode;
+        this.intersectionSubSystemId = intersectionSubSystemId;
+        this.intersectionVisible = intersectionVisible;
+        this.intersectionDeleted = intersectionDeleted;
+        this.intersectionDataPreviousUpdate = intersectionDataPreviousUpdate;
+        this.intersectionGuid = intersectionGuid;
+        this.intersectionProgressId = intersectionProgressId;
+        this.controllerId = controllerId;
+        this.controllerDescription = controllerDescription;
+        this.controllerTypeId = controllerTypeId;
+        this.controllerRoadsideUnitId = controllerRoadsideUnitId;
+        this.controllerExternalCode = controllerExternalCode;
+        this.controllerSubSystemId = controllerSubSystemId;
+        this.controllerObjectPriorityId = controllerObjectPriorityId;
+        this.controllerVisible = controllerVisible;
+        this.controllerDeleted = controllerDeleted;
+        this.controllerDataPreviousUpdate = controllerDataPreviousUpdate;
+        this.controllerGuid = controllerGuid;
+        this.created = created;
         this.controllerDataPreviousUpdateSql = java.sql.Timestamp.valueOf(controllerDataPreviousUpdate);
         this.intersectionDataPreviousUpdateSql = java.sql.Timestamp.valueOf(intersectionDataPreviousUpdate);
-    }
-    public long getIdentity() {
-        return identity;
-    }
-    public void setIdentity(long identity) {
-        this.identity = identity;
+        this.createdSql = java.sql.Timestamp.valueOf(created);
     }
     public long getOmniaCode() {
         return omniaCode;
@@ -143,6 +141,12 @@ public class OmniaIntersectionData {
     }
     public void setIntersectionAreaId(long pIntersectionAreaId) {
         this.intersectionAreaId = pIntersectionAreaId;
+    }
+    public long getIntersectionMaintenanceAreaId() {
+        return intersectionMaintenanceAreaId;
+    }
+    public void setIntersectionMaintenanceAreaId(long pIntersectionMaintenanceAreaId) {
+        this.intersectionMaintenanceAreaId = pIntersectionMaintenanceAreaId;
     }
     public String getIntersectionExternalCode() {
         if (this.intersectionExternalCode == null) {
@@ -305,10 +309,37 @@ public class OmniaIntersectionData {
     public void setControllerGuid(String pControllerGuid) {
         this.controllerGuid = pControllerGuid;
     }
+    public String getCreated() {
+        if (created == null) {
+            if (!(createdSql==null)) {
+                created=createdSql.toString().substring(0, 19);
+            }
+        }
+        return created;
+    }
+    public void setCreated(String pCreated) {
+        this.created= pCreated;
+        if (!(created == null )) {
+            createdSql=java.sql.Timestamp.valueOf(created);
+        }
+    }
+    public java.sql.Timestamp getCeatedSql() {
+        if (createdSql == null) {
+            if (!(created == null)) {
+                createdSql=java.sql.Timestamp.valueOf(created);
+            }
+        }
+        return createdSql;
+    }
+    public void setCreatedSql(java.sql.Timestamp pCreatedSql) {
+        this.createdSql = pCreatedSql;
+        if (!(createdSql == null)) {
+            created=createdSql.toString().substring(0, 19);
+        }
+    }
     @Override
     public String toString() {
-        return "OmniaIntersectionDataClient [identity = " +identity  +
-                ", omniaCode = " +omniaCode  +
+        return "OmniaIntersectionControllerData [omniaCode = " + omniaCode  +
                 ", omniaName = " + omniaName +
                 ", omniaPublicationStatus = " + omniaPublicationStatus +
                 ", intersectionId = " +  intersectionId +
@@ -335,11 +366,13 @@ public class OmniaIntersectionData {
                 ", controllerDeleted =" + controllerDeleted +
                 ", controllerDataPreviousUpdate =" + controllerDataPreviousUpdate +
                 ", controllerGuid =" + controllerGuid +
+                ", created = " + created +
                 ", controllerDataPreviousUpdateSql =" + controllerDataPreviousUpdateSql +
-                ", intersectionDataPreviousUpdateSql =" + intersectionDataPreviousUpdateSql +"]";
+                ", intersectionDataPreviousUpdateSql =" + intersectionDataPreviousUpdateSql +
+                ", createdSql = " + createdSql  +"]";
+
     }
     public void MakeEmptyElement() {
-        identity=Long.valueOf(NO_IDENTITY);
         omniaCode =INT_EMPTY_ELEMENT;
         omniaName=NO_VALUE;
         omniaPublicationStatus =Long.valueOf(0);
@@ -365,7 +398,20 @@ public class OmniaIntersectionData {
         controllerDeleted=Long.valueOf(0);
         controllerDataPreviousUpdate="1970-01-01 00:00:00";
         controllerGuid=NO_VALUE;
+        created="1970-01-01 00:00:00";
         controllerDataPreviousUpdateSql=java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
         intersectionDataPreviousUpdateSql=java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
+        createdSql=java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
     }
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 package fi.swarco.dataHandling.queriesSql.mySQL;
 import org.apache.log4j.Logger;
-public class InsertOmniaIntersectionDataMySql {
-    private static Logger logger = Logger.getLogger(InsertOmniaMeasurementDataMySql.class.getName());
+public class InsertIntersectionDataMySql {
+    private static Logger logger = Logger.getLogger(InsertMeasurementDataMySql.class.getName());
     private String statement = "";
     public String getStatement() {
         buildStatement();

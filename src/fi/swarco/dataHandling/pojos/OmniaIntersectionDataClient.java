@@ -1,10 +1,11 @@
 package fi.swarco.dataHandling.pojos;
 import org.apache.log4j.Logger;
-import static fi.swarco.CONSTANT.NO_IDENTITY;
-import static fi.swarco.CONSTANT.NO_VALUE;
+
+import static fi.swarco.CONSTANT.*;
+
 public class OmniaIntersectionDataClient {
     private static Logger logger = Logger.getLogger(OmniaIntersectionData.class.getName());
-    private long omniaCode=Long.valueOf(0);
+    private long omniaCode=INT_EMPTY_ELEMENT;
     private String omniaName=NO_VALUE;
     private long omniaPublicationStatus=Long.valueOf(0);
     private long intersectionId=Long.valueOf(0);
@@ -16,7 +17,7 @@ public class OmniaIntersectionDataClient {
     private long  intersectionVisible=Long.valueOf(0);
     private long  intersectionDeleted=Long.valueOf(0);
     private String intersectionDataPreviousUpdate="1970-01-01 00:00:00";
-    private long  intersectionGuid=Long.valueOf(0);
+    private String  intersectionGuid=NO_VALUE;
     private long  intersectionProgressId=Long.valueOf(0);
     private long controllerId=Long.valueOf(0);
     private String controllerDescription=NO_VALUE;
@@ -45,7 +46,7 @@ public class OmniaIntersectionDataClient {
             long  intersectionVisible,
             long  intersectionDeleted,
             String intersectionDataPreviousUpdate,
-            long  intersectionGuid,
+            String  intersectionGuid,
             long  intersectionProgressId,
             long controllerId,
             String controllerDescription,
@@ -189,10 +190,10 @@ public class OmniaIntersectionDataClient {
             intersectionDataPreviousUpdate=intersectionDataPreviousUpdateSql.toString().substring(0, 19);
         }
     }
-    public long getIntersectionGuid() {
+    public String getIntersectionGuid() {
         return intersectionGuid;
     }
-    public void setIntersectionGuid(long pIntersectionGuid) {
+    public void setIntersectionGuid(String pIntersectionGuid) {
         this.intersectionGuid = pIntersectionGuid;
     }
     public long getIntersectionProgressId() {
@@ -328,7 +329,7 @@ public class OmniaIntersectionDataClient {
                 ", intersectionDataPreviousUpdateSql =" + intersectionDataPreviousUpdateSql +"]";
     }
     public void MakeEmptyElement() {
-        omniaCode =Long.valueOf(0);
+        omniaCode =INT_EMPTY_ELEMENT;
         omniaName=NO_VALUE;
         omniaPublicationStatus =Long.valueOf(0);
         intersectionId=Long.valueOf(0);
@@ -340,7 +341,7 @@ public class OmniaIntersectionDataClient {
         intersectionVisible=Long.valueOf(0);
         intersectionDeleted=Long.valueOf(0);
         intersectionDataPreviousUpdate="1970-01-01 00:00:00";
-        intersectionGuid=Long.valueOf(0);
+        intersectionGuid=NO_VALUE;
         intersectionProgressId=Long.valueOf(0);
         controllerId=Long.valueOf(0);
         controllerDescription=NO_VALUE;

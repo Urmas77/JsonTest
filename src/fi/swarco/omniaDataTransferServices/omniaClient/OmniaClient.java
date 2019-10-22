@@ -61,7 +61,7 @@ public class OmniaClient {
                         iRet = ms.MakeSendOmniaOperations();
                         if (iRet != OMNIA_DATA_PICK_OK) {
                             // update task and write log *********************************************
-                            if  (iRet != OMNIA_EMPTY_WORK_LIST) {
+                            if (iRet != OMNIA_EMPTY_WORK_LIST) {
                                 iRet = mfl.MakeFullLogOperations(
                                         SwarcoEnumerations.LoggingDestinationType.OMNIA_CLIENT,
                                         SwarcoEnumerations.ApiMessageCodes.DATAERROR,
@@ -69,55 +69,60 @@ public class OmniaClient {
                                 logger.info("Unsuccessful data send ");
                             }
                         } else {
-                            String strHelp1 = NO_VALUE;
-                            strHelp1 = ms.getJSonPermanentData();
-                            String strHelp2 = NO_VALUE;
-                            strHelp2 = ms.getJSonMeasurementData();
-                            strHelp1 = strHelp1 + strHelp2;
-                            strHelp1 = mu.DecodeJsonPercentDecimal(strHelp1);
-                            strHelp1 = URLEncoder.encode(strHelp1, StandardCharsets.UTF_8.toString());
-                            url1 =sw.getOmniaClientUrl();
-                            logger.info("moi url1 =" + url1);
-                            url1 = url1 + strHelp1;
-                            bXorResult = XORChecksumShort.xor(url1);
-                            url1 = url1 + "&chk=" + bXorResult;
-                            logger.info("****** Length of url1.length() =" + url1.length());
-                            logger.info("moi \"&chk=\" =" + bXorResult);
-                            URL obj = new URL(url1);
-                            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                            con.setRequestProperty("Content-Type", "application/json,charset=UTF-8");
-                            con.setDoOutput(true);
-                            con.setRequestMethod("GET");
-                            responseCode = con.getResponseCode();
-                            logger.debug("bef Response Code : " + responseCode);
-                            if (responseCode != 200) {
-                                in = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+                            // if no value do not send RETHINK
+                            String strHelp1 = ms.getJSonDataForTransfer();
+                            if (strHelp1.equals(NO_VALUE)) {
                                 iRet = mfl.MakeFullLogOperations(
                                         SwarcoEnumerations.LoggingDestinationType.OMNIA_CLIENT,
-                                        SwarcoEnumerations.ApiMessageCodes.ERROR,
-                                        url1);
+                                        SwarcoEnumerations.ApiMessageCodes.DATAERROR,
+                                        "no data to send  strHelp1 = " + strHelp1);
+                                logger.info("no data to send  strHelp1 = " + strHelp1);
                             } else {
-                                // delete done task from db here RETHINK
-                                // wrong place this must be done Imidiadly  after One tasks has been done
-                                iRet= ms.DeleteDoneTaskFromWorkDb();
-                                //iRet = ms.DeleteDoneTaskFromWorkDbOLD();
-                                if (iRet != INT_RET_OK) {
-                                    logger.info("Unsuccesfull delete from tasklist iRet = " + iRet);
+                                strHelp1 = mu.DecodeJsonPercentDecimal(strHelp1);
+                                strHelp1 = URLEncoder.encode(strHelp1, StandardCharsets.UTF_8.toString());
+                                url1 = sw.getOmniaClientUrl();
+                                logger.info("moi url1 =" + url1);
+                                url1 = url1 + strHelp1;
+                                bXorResult = XORChecksumShort.xor(url1);
+                                url1 = url1 + "&chk=" + bXorResult;
+                                logger.info("****** Length of url1.length() =" + url1.length());
+                                logger.info("moi \"&chk=\" =" + bXorResult);
+                                URL obj = new URL(url1);
+                                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                                con.setRequestProperty("Content-Type", "application/json,charset=UTF-8");
+                                con.setDoOutput(true);
+                                con.setRequestMethod("GET");
+                                responseCode = con.getResponseCode();
+                                logger.info("bef Response Code : " + responseCode);
+                                if (responseCode != 200) {
+                                    in = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+                                    iRet = mfl.MakeFullLogOperations(
+                                            SwarcoEnumerations.LoggingDestinationType.OMNIA_CLIENT,
+                                            SwarcoEnumerations.ApiMessageCodes.ERROR,
+                                            url1);
+                                } else {
+                                    // delete done task from db here RETHINK
+                                    // wrong place this must be done Imidiadly  after One tasks has been done
+                                    iRet = ms.DeleteDoneTaskFromWorkDb();
+                                    //iRet = ms.DeleteDoneTaskFromWorkDbOLD();
+                                    if (iRet != INT_RET_OK) {
+                                        logger.info("Unsuccesfull delete from tasklist iRet = " + iRet);
+                                    }
+                                    in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                                    iRet = mfl.MakeFullLogOperations(
+                                            SwarcoEnumerations.LoggingDestinationType.OMNIA_CLIENT,
+                                            SwarcoEnumerations.ApiMessageCodes.SUCCESSFUL,
+                                            url1);
                                 }
-                                in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                                iRet = mfl.MakeFullLogOperations(
-                                        SwarcoEnumerations.LoggingDestinationType.OMNIA_CLIENT,
-                                        SwarcoEnumerations.ApiMessageCodes.SUCCESSFUL,
-                                        url1);
+                                logger.info("jjjj after Response Code : " + responseCode);
+                                StringBuffer response = new StringBuffer();
+                                while ((inputLine = in.readLine()) != null) {
+                                    response.append(inputLine);
+                                    logger.info(" jjjjj inputLine = " + inputLine);
+                                }
+                                in.close();
+                                logger.info("jjjj response.length()=  " + response.length());
                             }
-                            logger.info("jjjj after Response Code : " + responseCode);
-                            StringBuffer response = new StringBuffer();
-                            while ((inputLine = in.readLine()) != null) {
-                                response.append(inputLine);
-                                logger.info(" jjjjj inputLine = " + inputLine);
-                            }
-                            in.close();
-                            logger.info("jjjj response.length()=  " + response.length());
                         }
                     }
                     logger.info("bef sleep");

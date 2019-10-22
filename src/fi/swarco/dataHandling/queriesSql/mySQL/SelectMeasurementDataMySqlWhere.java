@@ -1,8 +1,7 @@
-//OmniaMeasurementDataShortMySqlSelectWhere
 package fi.swarco.dataHandling.queriesSql.mySQL;
 import org.apache.log4j.Logger;
-public class OmniaMeasurementDataShortMySqlSelectWhere {
-    private static Logger logger = Logger.getLogger(OmniaMeasurementDataShortMySqlSelectWhere.class.getName());
+public class SelectMeasurementDataMySqlWhere {
+    private static Logger logger = Logger.getLogger(SelectMeasurementDataMySqlWhere.class.getName());
     private String statement="";
     public String getStatement() {
         buildStatement ();
@@ -11,16 +10,23 @@ public class OmniaMeasurementDataShortMySqlSelectWhere {
     private void  buildStatement () {
         statement = "SELECT ";
         statement =	statement + "OmniaCode,";
+        statement =	statement +	"OmniaName,";
+        statement =	statement +	"OmniaPublicationStatus,";
         statement =	statement +	"IntersectionID ,";
         statement =	statement +	"ControllerId ,";
         statement =	statement + "MeasurementTime ,";
         statement =	statement +	"DetectorId ,";
+        statement =	statement +	"DetectorTypeId ,";
         statement =	statement + "DetectorExternalCode ,";
-        statement =	statement +	"VehicleCount,";
-        statement =	statement + "MeanVehicleSpeed,";
-        statement =	statement +	"OccupancyProcent,";
-        statement =	statement +	"Accurancy";
-        statement =	statement + " from OmniaMeasurementDataShort ";
+        statement =	statement +	"DetectorMaintenanceCode ,";
+        statement =	statement +	"DetectorUnitId,";
+        statement =	statement + "DetectorDataPreviousUpdate,";
+        statement =	statement +	"DetectorDescription,";
+        statement =	statement +	"MeasurementVehicleCount,";
+        statement =	statement + "MeasurementMeanVehicleSpeed,";
+        statement =	statement +	"MeasurementOccupancyProcent,";
+        statement =	statement +	"MeasurementAccurancy";
+        statement =	statement + " from OmniaMeasurementData ";
         statement =	statement + " where omniacode =  ? and " ;
         statement =	statement + " intersectionId  =  ? and  ";
         statement =	statement + " ControllerId  =  ? and  ";
@@ -30,4 +36,3 @@ public class OmniaMeasurementDataShortMySqlSelectWhere {
      //   logger.info("statement = " + statement);
     }
 }
-

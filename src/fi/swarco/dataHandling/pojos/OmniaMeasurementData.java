@@ -1,11 +1,12 @@
 package fi.swarco.dataHandling.pojos;
 import org.apache.log4j.Logger;
 
+import static fi.swarco.CONSTANT.INT_EMPTY_ELEMENT;
 import static fi.swarco.CONSTANT.NO_IDENTITY;
 public class OmniaMeasurementData {
     static Logger logger = Logger.getLogger(OmniaMeasurementData.class.getName());
-    private long identity;
-    private long OmniaCode;
+    private long identity=NO_IDENTITY;
+    private long OmniaCode=INT_EMPTY_ELEMENT;
     private String OmniaName;
     private long OmniaPublicationStatus;
     private long IntersectionId;
@@ -246,7 +247,7 @@ public class OmniaMeasurementData {
     }
     public void MakeEmptyElement() {
         identity=Long.valueOf(NO_IDENTITY);
-        OmniaCode =Long.valueOf(0);
+        OmniaCode =INT_EMPTY_ELEMENT;
         OmniaName="novalue";
         OmniaPublicationStatus =Long.valueOf(0);
         IntersectionId=Long.valueOf(0);

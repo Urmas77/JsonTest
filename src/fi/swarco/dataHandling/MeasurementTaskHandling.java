@@ -5,9 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
-import fi.swarco.dataHandling.omniaClientDataHandling.DetectorMeasurementsClientDataLevel;
-import fi.swarco.dataHandling.omniaClientDataHandling.DetectorMeasurementsShortClientDataLevel;
-import fi.swarco.dataHandling.omniaClientDataHandling.OmniaIntersectionListClientDataLevel;
+import fi.swarco.dataHandling.omniaClientDataHandling.*;
 import fi.swarco.dataHandling.pojos.TRPXMeasurementTaskData;
 import fi.swarco.dataHandling.queriesSql.sqlServer.JiMeasurementTaskSelectSqlServer;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -56,9 +54,10 @@ public class MeasurementTaskHandling {
                 ce.setControllerId(rs.getLong(4));
                 ce.setDetectorId(rs.getLong(5));
                 ce.setDetectorMeasuresTimestamp(rs.getString(6));
-                ce.setTaskType(rs.getString(7));
-                ce.setTaskStatus(rs.getLong(8));
-                ce.setCreated(rs.getString(9));
+                ce.setPermanentDataTimestamp(rs.getString(7));
+                ce.setTaskType(rs.getString(8));
+                ce.setTaskStatus(rs.getLong(9));
+                ce.setCreated(rs.getString(10));
                 TaskUnits.add(ce);
             }
             stmt.close();
@@ -146,7 +145,8 @@ public class MeasurementTaskHandling {
         int iRet = INT_RET_NOT_OK;
         String SQL = "";
         try {
-            SQL = "select count(*) from TRPX_MeasurementTask where taskType='NOTDEFINED';";
+            //SQL = "select count(*) from TRPX_MeasurementTask where taskType='NOTDEFINED';";
+            SQL = "select count(*) from TRPX_MeasurementTask where taskType='MEASUREMENTDATAINSERT';";
             logger.info("SQL = " + SQL);
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
@@ -273,6 +273,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " ,[ControllerId] ";
             SQL = SQL + " ,[DetectorID] ";
             SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
             SQL = SQL + " ,[TaskType] ";
             SQL = SQL + " ,[TaskStatus] ";
             SQL = SQL + " ,[Created] ";
@@ -285,6 +286,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " ,[ControllerId] ";
             SQL = SQL + " ,[DetectorID] ";
             SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
             SQL = SQL + " ,[TaskType] ";
             SQL = SQL + " ,[TaskStatus] ";
             SQL = SQL + " ,[Created] ";
@@ -292,8 +294,8 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " , GETDATE() ";
             SQL = SQL + " from TRPX_MeasurementTask  ";
             SQL = SQL + "where TaskType = 'INTERSECTIONDATACHANGE' and  " ;
-            SQL = SQL +  " DetectorMeasuresTimestamp = ";
-            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask  where TaskType = 'INTERSECTIONDATACHANGE'  order by DetectorMeasuresTimestamp asc) ";
+            SQL = SQL +  " PermanentDataTimestamp  = ";
+            SQL = SQL + " (select top 1 PermanentDataTimestamp  from TRPX_MeasurementTask  where TaskType = 'INTERSECTIONDATACHANGE'  order by PermanentDataTimestamp  asc) ";
             logger.info("SQL = " + SQL);
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
@@ -327,6 +329,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " ,[ControllerId] ";
             SQL = SQL + " ,[DetectorID] ";
             SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
             SQL = SQL + " ,[TaskType] ";
             SQL = SQL + " ,[TaskStatus] ";
             SQL = SQL + " ,[Created] ";
@@ -339,6 +342,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " ,[ControllerId] ";
             SQL = SQL + " ,[DetectorID] ";
             SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
             SQL = SQL + " ,[TaskType] ";
             SQL = SQL + " ,[TaskStatus] ";
             SQL = SQL + " ,[Created] ";
@@ -346,8 +350,8 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " , GETDATE() ";
             SQL = SQL + " from TRPX_MeasurementTask  ";
             SQL = SQL + "where TaskType = 'CONTROLLERDATACHANGE' and  " ;
-                    SQL = SQL +  " DetectorMeasuresTimestamp = ";
-            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where  TaskType = 'CONTROLLERDATACHANGE'  order by DetectorMeasuresTimestamp asc) ";
+                    SQL = SQL +  " PermanentDataTimestamp  = ";
+            SQL = SQL + " (select top 1 PermanentDataTimestamp  from TRPX_MeasurementTask where  TaskType = 'CONTROLLERDATACHANGE'  order by PermanentDataTimestamp  asc) ";
             logger.info("SQL = " + SQL);
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
@@ -370,6 +374,34 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return TASK_TRANSFER_ERROR;
         }
     }
+    public int  GetCurrentWorkTaskIdindex() throws SQLException {
+        String SQL = "";
+        int intRet = INT_EMPTY_ELEMENT;
+        int iRet = 0;
+        java.sql.PreparedStatement stmt;
+        try {
+            SQL = " select  top 1 MeasurementTask_idindex  from TRPX_MeasurementTask_Work  ";
+            SQL = SQL + "TaskType ('DETECTORDATACHANGE','CONTROLLERDATACHANGE','INTERSECTIONDATACHANGE') AND TaskStatus=1 ";
+            logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+            stmt.close();
+            while (rs.next()) {
+                intRet = rs.getInt(1);
+                rs.close();
+                return intRet;
+            }
+        } catch (SQLException e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            e.printStackTrace();
+            gSqlCon.close();
+            return INT_RET_NOT_OK;
+        }
+        return INT_RET_NOT_OK;
+    }
     public int TransferDetectorTasksToWorkQueue() throws SQLException{
         int iRet;
         String SQL = "";
@@ -381,18 +413,20 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " ,[ControllerId] ";
             SQL = SQL + " ,[DetectorID] ";
             SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
             SQL = SQL + " ,[TaskType] ";
             SQL = SQL + " ,[TaskStatus] ";
             SQL = SQL + " ,[Created] ";
             SQL = SQL + " ,[Updated] ";
             SQL = SQL + " ,[WorkCreated]) ";
             SQL = SQL + "select ";
-            SQL = SQL + " [MeasurementTask_idindex] ";
+            SQL = SQL + " Top 1 [MeasurementTask_idindex] ";
             SQL = SQL + " ,[OmniaCode] ";
             SQL = SQL + " ,[IntersectionID] ";
             SQL = SQL + " ,[ControllerId] ";
             SQL = SQL + " ,[DetectorID] ";
             SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
             SQL = SQL + " ,[TaskType] ";
             SQL = SQL + " ,[TaskStatus] ";
             SQL = SQL + " ,[Created] ";
@@ -400,8 +434,8 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " , GETDATE() ";
             SQL = SQL + " from TRPX_MeasurementTask  ";
             SQL = SQL + "where TaskType = 'DETECTORDATACHANGE' and  " ;
-            SQL = SQL +  " DetectorMeasuresTimestamp = ";
-            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where  TaskType = 'DETECTORDATACHANGE'  order by DetectorMeasuresTimestamp asc) ";
+            SQL = SQL +  " PermanentDataTimestamp  = ";
+            SQL = SQL + " (select top 1 PermanentDataTimestamp  from TRPX_MeasurementTask where  TaskType = 'DETECTORDATACHANGE'  order by PermanentDataTimestamp  asc) ";
             logger.info("SQL = " + SQL);
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
@@ -435,6 +469,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " ,[ControllerId] ";
             SQL = SQL + " ,[DetectorID] ";
             SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
             SQL = SQL + " ,[TaskType] ";
             SQL = SQL + " ,[TaskStatus] ";
             SQL = SQL + " ,[Created] ";
@@ -447,6 +482,63 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " ,[ControllerId] ";
             SQL = SQL + " ,[DetectorID] ";
             SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
+            SQL = SQL + " ,[TaskType] ";
+            SQL = SQL + " ,[TaskStatus] ";
+            SQL = SQL + " ,[Created] ";
+            SQL = SQL + " ,GETDATE() ";
+            SQL = SQL + " , GETDATE() ";
+            SQL = SQL + " from TRPX_MeasurementTask  ";
+            SQL = SQL + "where TaskType = 'MEASUREMENTDATAINSERT' and  " ;
+            SQL = SQL +  " DetectorMeasuresTimestamp = ";
+            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where  TaskType = 'MEASUREMENTDATAINSERT'  order by DetectorMeasuresTimestamp asc) ";
+            logger.info("SQL = " + SQL);
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            logger.info("Lines inserted iRet = " + iRet);
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = TASK_TRANSFER_ERROR;
+                return iRet;
+            }
+            return TASK_TRANSFER_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return TASK_TRANSFER_ERROR;
+        }
+    }
+    public int TransferMeasurementTasksToWorkQueueOld() throws SQLException{
+        int iRet;
+        String SQL = "";
+        try {
+            SQL = "insert into TRPX_MeasurementTask_Work ";
+            SQL = SQL + " ([MeasurementTask_idindex] ";
+            SQL = SQL + " ,[OmniaCode] ";
+            SQL = SQL + " ,[IntersectionID] ";
+            SQL = SQL + " ,[ControllerId] ";
+            SQL = SQL + " ,[DetectorID] ";
+            SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
+            SQL = SQL + " ,[TaskType] ";
+            SQL = SQL + " ,[TaskStatus] ";
+            SQL = SQL + " ,[Created] ";
+            SQL = SQL + " ,[Updated] ";
+            SQL = SQL + " ,[WorkCreated]) ";
+            SQL = SQL + "select ";
+            SQL = SQL + " [MeasurementTask_idindex] ";
+            SQL = SQL + " ,[OmniaCode] ";
+            SQL = SQL + " ,[IntersectionID] ";
+            SQL = SQL + " ,[ControllerId] ";
+            SQL = SQL + " ,[DetectorID] ";
+            SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
             SQL = SQL + " ,[TaskType] ";
             SQL = SQL + " ,[TaskStatus] ";
             SQL = SQL + " ,[Created] ";
@@ -489,6 +581,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " ,[ControllerId] ";
             SQL = SQL + " ,[DetectorID] ";
             SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
             SQL = SQL + " ,[TaskType] ";
             SQL = SQL + " ,[TaskStatus] ";
             SQL = SQL + " ,[Created] ";
@@ -501,6 +594,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " ,[ControllerId] ";
             SQL = SQL + " ,[DetectorID] ";
             SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
             SQL = SQL + " ,[TaskType] ";
             SQL = SQL + " ,[TaskStatus] ";
             SQL = SQL + " ,[Created] ";
@@ -571,6 +665,86 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return FILL_UP_TASK_ERROR;
         }
     }
+    public int FillUpControllerTasks() throws SQLException{
+        int iRet;  //RETHINK 14.10 2019
+        String SQL = "";
+        try {
+            SQL = " update TRPX_MeasurementTask_Work ";
+            SQL = SQL + " set TRPX_MeasurementTask_Work.OmniaCode  = TRPX_Super2.OmniaCode,  ";
+            SQL = SQL + " TRPX_MeasurementTask_Work.IntersectionID = TRPX_Super2.IntersectionID, ";
+            SQL = SQL + " TRPX_MeasurementTask_Work.ControllerId = TRPX_Super2.ControllerId, ";
+            SQL = SQL + "TRPX_MeasurementTask_Work.TaskStatus=1, ";
+            SQL = SQL + "TRPX_MeasurementTask_Work.Updated=getdate() ";
+            SQL = SQL + "from TRPX_MeasurementTask_Work ";
+            SQL = SQL + "join TRPX_Super2  on TRPX_MeasurementTask_Work.ControllerID=TRPX_Super2.ControllerID ";
+            SQL = SQL + "where  TRPX_MeasurementTask_Work.TaskType='CONTROLLERDATACHANGE' and ";
+            SQL = SQL + "TRPX_MeasurementTask_Work.TaskStatus=0 and ";
+            SQL = SQL + "TRPX_MeasurementTask_Work.DetectorMeasuresTimestamp = ";
+            SQL = SQL + "  (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask_Work ";
+            SQL = SQL + "where  TaskType='CONTROLLERDATACHANGE' and ";
+            SQL = SQL + " TaskStatus=0 ";
+            SQL = SQL + "order by DetectorMeasuresTimestamp desc); ";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            logger.info("Lines updated  iRet = " + iRet);
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = FILL_UP_TASK_ERROR;
+                return iRet;
+            }
+            return FILL_UP_TASK_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return FILL_UP_TASK_ERROR;
+        }
+    }
+    public int FillUpDetectorTasks() throws SQLException{
+        int iRet;  //RETHINK 14.10 2019
+        String SQL = "";
+        try {
+            SQL = " update TRPX_MeasurementTask_Work ";
+            SQL = SQL + " set TRPX_MeasurementTask_Work.OmniaCode  = TRPX_Super2.OmniaCode,  ";
+            SQL = SQL + " TRPX_MeasurementTask_Work.IntersectionID = TRPX_Super2.IntersectionID, ";
+            SQL = SQL + " TRPX_MeasurementTask_Work.ControllerId = TRPX_Super2.ControllerId, ";
+            SQL = SQL + "TRPX_MeasurementTask_Work.TaskStatus=1, ";
+            SQL = SQL + "TRPX_MeasurementTask_Work.Updated=getdate() ";
+            SQL = SQL + "from TRPX_MeasurementTask_Work ";
+            SQL = SQL + "join TRPX_Super2  on TRPX_MeasurementTask_Work.DetectorID=TRPX_Super2.DetectorID ";
+            SQL = SQL + "where  TRPX_MeasurementTask_Work.TaskType='DETECTORDATACHANGE' and ";
+            SQL = SQL + "TRPX_MeasurementTask_Work.TaskStatus=0 and ";
+            SQL = SQL + "TRPX_MeasurementTask_Work.DetectorMeasuresTimestamp = ";
+            SQL = SQL + "  (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask_Work ";
+            SQL = SQL + "where  TaskType='DETECTORDATACHANGE' and ";
+            SQL = SQL + " TaskStatus=0 ";
+            SQL = SQL + "order by DetectorMeasuresTimestamp desc); ";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            logger.info("Lines updated  iRet = " + iRet);
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = FILL_UP_TASK_ERROR;
+                return iRet;
+            }
+            return FILL_UP_TASK_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return FILL_UP_TASK_ERROR;
+        }
+    }
     public int FillUpTasks() throws SQLException{
         int iRet;
         String SQL = "";
@@ -583,11 +757,11 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + "TRPX_MeasurementTask_Work.Updated=getdate() ";
             SQL = SQL + "from TRPX_MeasurementTask_Work ";
             SQL = SQL + "join TRPX_Super2  on TRPX_MeasurementTask_Work.DetectorId=TRPX_Super2.DetectorID ";
-            SQL = SQL + "where  TRPX_MeasurementTask_Work.TaskType='NOTDEFINED' and ";
+            SQL = SQL + "where  TRPX_MeasurementTask_Work.TaskType='MEASUREMENTDATAINSERT' and ";
             SQL = SQL + "TRPX_MeasurementTask_Work.TaskStatus=0 and ";
             SQL = SQL + "TRPX_MeasurementTask_Work.DetectorMeasuresTimestamp = ";
             SQL = SQL + "  (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask_Work ";
-            SQL = SQL + "where  TaskType='NOTDEFINED' and ";
+            SQL = SQL + "where  TaskType='MEASUREMENTDATAINSERT' and ";
             SQL = SQL + " TaskStatus=0 ";
             SQL = SQL + "order by DetectorMeasuresTimestamp desc); ";
             java.sql.PreparedStatement stmt;
@@ -675,7 +849,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return DELETE_UNFILLABLE_TASK_ERROR;
         }
     }
-    public int DeleteNotDetectorTasks() throws SQLException{
+    public int DeleteNotFilledDetectorTasks() throws SQLException{
         int iRet;
         String SQL = "";
         try {
@@ -719,7 +893,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " select MeasurementTask_idindex from TRPX_MeasurementTask Task  ";
             SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid   ";
             SQL = SQL + " where  DetectorMeasuresTimestamp = ";
-            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where  TaskType = 'NOTDEFINED'  order by DetectorMeasuresTimestamp asc))";
+            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where  TaskType = 'MEASUREMENTDATAINSERT'  order by DetectorMeasuresTimestamp asc))";
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
@@ -751,7 +925,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " select MeasurementTask_idindex from TRPX_MeasurementTask_Work Task  ";
             SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid   ";
             SQL = SQL + " where  DetectorMeasuresTimestamp = ";
-            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask_work where  TaskType = 'NOTDEFINED'  order by DetectorMeasuresTimestamp asc))";
+            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask_work where  TaskType = 'MEASUREMENTDATAINSERT'  order by DetectorMeasuresTimestamp asc))";
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
@@ -782,7 +956,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " OmniaCode=7777 and  ";
             SQL = SQL + " IntersectionID=7777 and  ";
             SQL = SQL + " ControllerId=7777 and  ";
-            SQL = SQL + " TaskType='NOTDEFINED' and  ";
+            SQL = SQL + " TaskType='MEASUREMENTDATAINSERT' and  ";
             SQL = SQL + " TaskStatus=0;  ";
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
@@ -829,7 +1003,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL +" join TRPX_MeasurementTask_Work work on  ";
             SQL = SQL + " work.DetectorID=task.DetectorID and ";
             SQL = SQL + " work.DetectorMeasuresTimestamp = task.DetectorMeasuresTimestamp ";
-            SQL = SQL +  " where work.TaskType='NOTDEFINED' and ";
+            SQL = SQL +  " where work.TaskType='MEASUREMENTDATAINSERT' and ";
             SQL = SQL +" work.OmniaCode=2 and  ";
             SQL = SQL +" work.IntersectionID= " + ce.getIntersectionId()   +  " and ";
             SQL = SQL +" work.ControllerID=  " + ce.getControllerId()   + " and ";
@@ -865,7 +1039,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             SQL = " delete from TRPX_MeasurementTask ";
             SQL = SQL + "where TaskType='INTERSECTIONDATACHANGE'  and ";
-            SQL = SQL + "  DetectorMeasuresTimestamp = (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where TaskType='INTERSECTIONDATACHANGE' order by   DetectorMeasuresTimestamp asc);";
+            SQL = SQL + "  PermanentDataTimestamp  = (select top 1 PermanentDataTimestamp  from TRPX_MeasurementTask where TaskType='INTERSECTIONDATACHANGE' order by   PermanentDataTimestamp  asc);";
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
@@ -895,7 +1069,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             SQL = " delete from TRPX_MeasurementTask ";
             SQL = SQL + "where TaskType='CONTROLLERDATACHANGE'  and ";
-            SQL = SQL + "  DetectorMeasuresTimestamp = (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where TaskType='CONTROLLERDATACHANGE' order by   DetectorMeasuresTimestamp asc);";
+            SQL = SQL + "  PermanentDataTimestamp  = (select top 1 PermanentDataTimestamp  from TRPX_MeasurementTask where TaskType='CONTROLLERDATACHANGE' order by PermanentDataTimestamp  asc);";
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
@@ -924,7 +1098,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             SQL = " delete from TRPX_MeasurementTask ";
             SQL = SQL + "where TaskType='DETECTORDATACHANGE'  and ";
-            SQL = SQL + "  DetectorMeasuresTimestamp = (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where TaskType='DETECTORDATACHANGE' order by   DetectorMeasuresTimestamp asc);";
+            SQL = SQL + "  PermanentDataTimestamp  = (select top 1 PermanentDataTimestamp  from TRPX_MeasurementTask where TaskType='DETECTORDATACHANGE' order by  PermanentDataTimestamp  asc);";
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
@@ -952,8 +1126,8 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         try {
             java.sql.PreparedStatement stmt;
             SQL = " delete from TRPX_MeasurementTask ";
-            SQL = SQL + "where TaskType='NOTDEFINED'  and ";
-            SQL = SQL + "  DetectorMeasuresTimestamp = (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where TaskType='NOTDEFINED' order by   DetectorMeasuresTimestamp asc);";
+            SQL = SQL + "where TaskType='MEASUREMENTDATAINSERT'  and ";
+            SQL = SQL + "  DetectorMeasuresTimestamp = (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where TaskType='MEASUREMENTDATAINSERT' order by   DetectorMeasuresTimestamp asc);";
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
@@ -1085,6 +1259,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             stmt.close();
             while (rs.next()) {
                 strRet = rs.getString(1);
+                rs.close();   // RETHINK should work JIs 22.10 2019
                 return strRet;
             }
         } catch (SQLException e) {
@@ -1113,6 +1288,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             stmt.close();
             while (rs.next()) {
                 strRet = rs.getString(1);
+                rs.close();
                 return strRet;
             }
         } catch (SQLException e) {
@@ -1157,6 +1333,30 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         iRet = oi.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
         if (iRet == DATABASE_CONNECTION_OK) {
             strRet = oi.GetMeasurementsDataString(plngIntersectionId, plngControllerId, pstrTimestamp);
+        }
+        return strRet;
+    }
+    public String getDetectorSqlData(long plngDetectorId, String pstrTimestamp) throws SQLException{
+        String SQL = "";
+        String strRet = NO_VALUE;
+        int iRet = 0;
+        java.sql.PreparedStatement stmt;
+        OmniaDetectorClientDatalevel oi = new OmniaDetectorClientDatalevel();
+        iRet = oi.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        if (iRet == DATABASE_CONNECTION_OK) {
+            strRet = oi.GetDetectorJsonData(plngDetectorId,  pstrTimestamp);
+        }
+        return strRet;
+    }
+    public String getIntersectionControllerSqlData(long plngIntersectionId,long plngControllerId, String pstrTimestamp) throws SQLException{
+        String SQL = "";
+        String strRet = NO_VALUE;
+        int iRet = 0;
+        java.sql.PreparedStatement stmt;
+        OmniaIntesectionControllerClientDatalevel oi = new OmniaIntesectionControllerClientDatalevel();
+        iRet = oi.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        if (iRet == DATABASE_CONNECTION_OK) {
+            strRet = oi.GetIntersectionControllerJsonData(plngIntersectionId,plngControllerId,  pstrTimestamp);
         }
         return strRet;
     }

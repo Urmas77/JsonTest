@@ -3,7 +3,7 @@ import com.google.gson.*;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.pojos.oLdPojos.DetectorMeasurements;
-import fi.swarco.dataHandling.queriesSql.mySQL.DetectorMeasurementsMySqlSelect;
+import fi.swarco.dataHandling.queriesSql.mySQL.SelectDetectorMeasurementsMySql;
 import fi.swarco.messageHandling.ParameterWrapper;
 import org.apache.log4j.Logger;
 import java.sql.Connection;
@@ -77,7 +77,7 @@ public class DetectorMeasurementsDataLevel {
         String SQL="";
         java.sql.PreparedStatement stmt;
         logger.info("Start ");
-        DetectorMeasurementsMySqlSelect st = new DetectorMeasurementsMySqlSelect();
+        SelectDetectorMeasurementsMySql st = new SelectDetectorMeasurementsMySql();
         SQL =st.getStatement() + strWhere ;
         logger.info("SQL = " +SQL);
         DetectorMeasurements ce;
@@ -126,7 +126,7 @@ public class DetectorMeasurementsDataLevel {
         java.sql.PreparedStatement stmt;
         logger.info(" SqlConnectionType =" + SqlConnectionType);
         logger.info("Start ");
-        DetectorMeasurementsMySqlSelect st = new DetectorMeasurementsMySqlSelect();
+        SelectDetectorMeasurementsMySql st = new SelectDetectorMeasurementsMySql();
         SQL =st.getStatement() ;
         logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
         logger.info("SQL = " +SQL);

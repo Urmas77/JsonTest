@@ -1,24 +1,13 @@
 package fi.swarco.omniaDataTransferServices;
-
-import com.sun.org.apache.regexp.internal.REUtil;
-import fi.swarco.dataHandling.MakeSendJsonOperations;
 import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static fi.swarco.CONSTANT.ASCII_CTRL_STRING_DC2;
-import static fi.swarco.CONSTANT.NO_VALUE;
-
+import static fi.swarco.CONSTANT.*;
 // Warning these function are only used for OmniaDatatransfer procedures
-// "Single string solution", "own decoding for json because lack of knowled from json/http"
+// "Single string solution", "own decoding for json because lack of knowledge from json/http"
 // JIs 26.06 2019
 public class MessageUtils {
     static Logger logger = Logger.getLogger(MessageUtils.class.getName());
-
     public MessageUtils() {
     }
-
     // } --> %125
     // { --> %123
     // " ---> %34
@@ -45,7 +34,6 @@ public class MessageUtils {
        // logger.info(" from },{ --> }{ strHelp1 =" + strHelp1);
         return strHelp1;
     }
-
     public String reCreateJson(String pPseudoJson) {
         String strHelp1 = "";
         // ** --> }
@@ -104,6 +92,52 @@ public class MessageUtils {
     //    logger.info(" blanko to %32 strHelp2 =" + strHelp2);
         return strHelp2;
     }
+    public String CutJsonMessage(String pJson) {
+        String strHelp1 =NO_VALUE;
+        if (pJson.indexOf(TT_MEASUREMENT_DATA_INSERT) == 0) {
+            strHelp1 = pJson.substring(TT_MEASUREMENT_DATA_INSERT.length(),pJson.length());
+            return strHelp1;
+        }
+        if (pJson.indexOf(TT_INTERSECTION_DATA_CHANGE) == 0) {
+            strHelp1 = pJson.substring(TT_INTERSECTION_DATA_CHANGE.length(),pJson.length());
+            return strHelp1;
+        }
+        if (pJson.indexOf(TT_CONTROLLER_DATA_CHANGE) == 0) {
+            strHelp1 = pJson.substring(TT_CONTROLLER_DATA_CHANGE.length(),pJson.length());
+            return strHelp1;
+        }
+        if (pJson.indexOf(TT_DETECTOR_DATA_CHANGE) == 0) {
+            strHelp1 = pJson.substring(TT_DETECTOR_DATA_CHANGE.length(),pJson.length());
+            return strHelp1;
+        }
+        if (pJson.indexOf(TT_NOT_DEFINED) == 0)    {
+            strHelp1 = pJson.substring(TT_NOT_DEFINED.length(),pJson.length());
+            return strHelp1;
+        }
+        return pJson ;   // current situation nothing to cut RETHINK JIs 15.10 2019
+    }
+    public String GetJsonMessageType(String pJson) {
+//        public static final String  TT_MEASUREMENT_DATA_INSERT="MEASUREMENTDATAINSERT";
+//        public static final String  TT_CONTROLLER_DATA_CHANGE="CONTROLLERDATACHANGE";
+//        public static final String  TT_DETECTOR_DATA_CHANGE="DETECTORDATACHANGE";                    //  1234567890123456789012345678901234567890
+//        public static final String  TT_NOT_DEFINED="NOTDEFINED";
+        if (pJson.indexOf(TT_MEASUREMENT_DATA_INSERT) == 0) {
+            return TT_MEASUREMENT_DATA_INSERT;
+        }
+        if (pJson.indexOf(TT_INTERSECTION_DATA_CHANGE) == 0) {
+            return TT_INTERSECTION_DATA_CHANGE;
+        }
+        if (pJson.indexOf(TT_CONTROLLER_DATA_CHANGE) == 0) {
+            return TT_CONTROLLER_DATA_CHANGE;
+        }
+        if (pJson.indexOf(TT_DETECTOR_DATA_CHANGE) == 0) {
+           return TT_DETECTOR_DATA_CHANGE;
+        }
+        if (pJson.indexOf(TT_NOT_DEFINED) == 0)    {
+        return TT_NOT_DEFINED ;
+        }
+        return TT_NOT_DEFINED ;
+    }
 
     public JsonWrapper SplitJson(String pJson) {
 // separate permanent and measurement data
@@ -138,6 +172,18 @@ public class MessageUtils {
         String strHelp2 = strHelp1.replace("]", "");
      //   logger.info("]-->'' strHelp2 =" + strHelp2);
         return strHelp2;
+    }
+
+
+    public String ThrowChecksumAway(String pJson) {
+        String strHelp1 =NO_VALUE;
+        int iSep = pJson.indexOf("}&chk");
+        if (iSep == -1) {
+            return pJson;
+        }  else {
+            strHelp1 = pJson.substring(0,pJson.indexOf("}&chk")+1);
+            return strHelp1;
+        }
     }
     public String StripDC2(String pJson) {
         String strHelp1 = "";

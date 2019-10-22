@@ -1,4 +1,4 @@
-package fi.swarco.dataHandling;
+package fi.swarco.dataHandling.omniaServerDataHandling;
 import java.sql.*;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -8,9 +8,9 @@ import com.google.gson.JsonParser;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.pojos.OmniaIntersectionData;
-import fi.swarco.dataHandling.queriesSql.mySQL.InsertOmniaIntersectionDataMySql;
+import fi.swarco.dataHandling.queriesSql.mySQL.InsertIntersectionDataMySql;
 import fi.swarco.dataHandling.queriesSql.sqlServer.OmniaIntersectionDataSqlServerSelectJson;
-import fi.swarco.dataHandling.queriesSql.mySQL.SelectOmniaIntersectionDataMySqlWhere;
+import fi.swarco.dataHandling.queriesSql.mySQL.SelectIntersectionDataMySqlWhere;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
 import fi.swarco.omniaDataTransferServices.SwarcoTimeUtilities;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -100,7 +100,7 @@ public class OmniaIntersectionListDataLevel {
         oi.MakeEmptyElement();
         setFoundRec(oi);
         try {
-            SelectOmniaIntersectionDataMySqlWhere st = new SelectOmniaIntersectionDataMySqlWhere();
+            SelectIntersectionDataMySqlWhere st = new SelectIntersectionDataMySqlWhere();
             SQL =st.getStatement();
             ResultSet rs;
             stmt = gSqlCon.prepareStatement(SQL);
@@ -237,7 +237,7 @@ public class OmniaIntersectionListDataLevel {
         String SQL="";
         java.sql.PreparedStatement stmt;
         try {
-            InsertOmniaIntersectionDataMySql st = new InsertOmniaIntersectionDataMySql();
+            InsertIntersectionDataMySql st = new InsertIntersectionDataMySql();
             SQL =st.getStatement();
 //            logger.info("SQL = " + SQL);
 //            logger.info("pOmniaIntersectionData.toString()=" + pOmniaIntersectionData.toString());

@@ -15,12 +15,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import fi.swarco.SwarcoEnumerations;
+import fi.swarco.dataHandling.omniaServerDataHandling.OmniaIntersectionListDataLevel;
+import fi.swarco.dataHandling.omniaServerDataHandling.OmniaMeasurementListDataLevel;
 import fi.swarco.dataHandling.pojos.OmniaIntersectionData;
 import fi.swarco.dataHandling.pojos.OmniaMeasurementData;
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-
-import static fi.swarco.CONSTANT.UNSUCCESSFUL_DATABASE_OPERATION;
 
 public class ReandJsonfromOmniaDb {
     static Logger logger = Logger.getLogger(ReandJsonfromOmniaDb.class.getName());

@@ -108,6 +108,7 @@ public class OmniaCloudHTTPServer {
                     // MakeReceiveJsonOperations hd = new MakeReceiveJsonOperations();
                     hd.setPseudoJsonData(uquery);
                     try {
+
                         iRet = hd.MakeReceiveOmniaOperations();
                     } catch (SQLException e) {
                         logger.info(ExceptionUtils.getRootCauseMessage(e));

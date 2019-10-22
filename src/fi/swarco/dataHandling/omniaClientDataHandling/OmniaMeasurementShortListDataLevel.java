@@ -7,17 +7,18 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
+import fi.swarco.dataHandling.omniaServerDataHandling.OmniaMeasurementListDataLevel;
 import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShort;
 import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShortJson;
 import fi.swarco.dataHandling.queriesSql.mySQL.InsertOmniaMeasurementDataShortMySql;
-import fi.swarco.dataHandling.queriesSql.mySQL.OmniaMeasurementDataShortMySqlSelectWhere;
+import fi.swarco.dataHandling.queriesSql.mySQL.SelectMeasurementDataShortMySqlWhere;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
 import fi.swarco.omniaDataTransferServices.SwarcoTimeUtilities;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
 public class OmniaMeasurementShortListDataLevel {
-    static Logger logger = Logger.getLogger(fi.swarco.dataHandling.OmniaMeasurementListDataLevel.class.getName());
+    static Logger logger = Logger.getLogger(OmniaMeasurementListDataLevel.class.getName());
     List<OmniaMeasurementDataShort> OmniaMeasurementDataUnits = Collections.synchronizedList(new LinkedList<OmniaMeasurementDataShort>());  // ????
     static Connection gSqlCon;
     private SwarcoEnumerations.ConnectionType SqlConnectionType=SwarcoEnumerations.ConnectionType.NOT_DEFINED;
@@ -48,7 +49,7 @@ public class OmniaMeasurementShortListDataLevel {
         oi.MakeEmptyElement();
         setFoundRec(oi);
         try {
-            OmniaMeasurementDataShortMySqlSelectWhere st = new OmniaMeasurementDataShortMySqlSelectWhere();
+            SelectMeasurementDataShortMySqlWhere st = new SelectMeasurementDataShortMySqlWhere();
             SQL =st.getStatement();
             ResultSet rs;
             stmt = gSqlCon.prepareStatement(SQL);
@@ -235,6 +236,9 @@ public class OmniaMeasurementShortListDataLevel {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();
             strHelp1 = mu.StripFileStartEnd(pMeasurementsDataShort);
+            if (strHelp1.equals(NO_VALUE)) {
+                return INT_RET_NOT_OK;
+            }
             int iHere = strHelp1.indexOf("}");
             int iRound =1;
             int iHereOld=0;
@@ -281,7 +285,7 @@ public class OmniaMeasurementShortListDataLevel {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
             gSqlCon.close();
-            return iRet;
+            return INT_RET_NOT_OK;
         }
         return iRet;
     }

@@ -1,4 +1,4 @@
-package fi.swarco.dataHandling;
+package fi.swarco.dataHandling.omniaServerDataHandling;
 import java.sql.*;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -8,9 +8,8 @@ import com.google.gson.JsonParser;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.pojos.OmniaMeasurementData;
-import fi.swarco.dataHandling.queriesSql.mySQL.InsertOmniaMeasurementDataMySql;
-import fi.swarco.dataHandling.queriesSql.mySQL.OmniaMeasurementDataMySqlSelectWhere;
-import fi.swarco.dataHandling.queriesSql.sqlServer.OmniaMeasurementDataSqlServerSelectJson;
+import fi.swarco.dataHandling.queriesSql.mySQL.InsertMeasurementDataMySql;
+import fi.swarco.dataHandling.queriesSql.mySQL.SelectMeasurementDataMySqlWhere;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
 import fi.swarco.omniaDataTransferServices.SwarcoTimeUtilities;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -48,7 +47,7 @@ public class OmniaMeasurementListDataLevel {
         oi.MakeEmptyElement();
         setFoundRec(oi);
         try {
-            OmniaMeasurementDataMySqlSelectWhere st = new OmniaMeasurementDataMySqlSelectWhere();
+            SelectMeasurementDataMySqlWhere st = new SelectMeasurementDataMySqlWhere();
             SQL =st.getStatement();
             ResultSet rs;
             //logger.info("SQL = " + SQL);
@@ -208,7 +207,7 @@ public class OmniaMeasurementListDataLevel {
         String SQL="";
         java.sql.PreparedStatement stmt;
         try {
-            InsertOmniaMeasurementDataMySql st = new InsertOmniaMeasurementDataMySql();
+            InsertMeasurementDataMySql st = new InsertMeasurementDataMySql();
             SQL =st.getStatement();
             stmt = gSqlCon.prepareStatement(SQL);
             int pos=0;

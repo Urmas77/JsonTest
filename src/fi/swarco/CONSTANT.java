@@ -3,6 +3,8 @@ public class CONSTANT {
 private CONSTANT(){}
 public static final String NO_VALUE ="novalue";
 public static final int NO_IDENTITY =-1;
+public static final int INT_EMPTY_ELEMENT =-99999;  //EMPTY_ELEMENT
+
 public static final int NO_OMNIA = -444;
 public static final int NO_INTERSECTION_ID = -445;
 public static final int NO_CONTROLLER_ID = -446;
@@ -79,6 +81,7 @@ public static final String  TT_DETECTOR_DATA_CHANGE="DETECTORDATACHANGE";       
 public static final String  TT_LOAD_CURRENT_CONTROLLER_INTERSECTION_DATA="LOADCURRENTCONTROLLERINTERSECTIONDATA";
 public static final String  TT_LOAD_CURRENT_DETECTORS_DATA="LOADCURRENTDETECTORSDATA";
 public static final String  TT_NOT_DEFINED="NOTDEFINED";
+public static final String  TT_NO_WORK="NO_WORK";
 //
 public static final double  DOUBLE_LONG_MULTIPLIER = 10000000.0;
 }

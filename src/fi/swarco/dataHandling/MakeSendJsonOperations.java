@@ -4,17 +4,15 @@ import fi.swarco.dataHandling.pojos.TRPXMeasurementTaskData;
 import fi.swarco.omniaDataTransferServices.LogUtilities;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-
 import java.sql.SQLException;
-
 import static fi.swarco.CONSTANT.*;
 public class MakeSendJsonOperations  {
     static Logger logger = Logger.getLogger(MakeSendJsonOperations.class.getName());
     private static String jSonPermanentData = "novalue";
-    public static String getJSonPermanentData() {
+    private static String getJSonPermanentData() {
         return jSonPermanentData;
     }
-    public static void setjSonPermanentData(String pJSonPermanentData) {
+    private static void setjSonPermanentData(String pJSonPermanentData) {
         jSonPermanentData = pJSonPermanentData;
     }
     private static int intSleep =5000;
@@ -25,11 +23,18 @@ public class MakeSendJsonOperations  {
          intSleep=pSleep;
     }
     private static String jSonMeasurementData = "novalue";
-    public static String getJSonMeasurementData() {
+    private static String getJSonMeasurementData() {
         return jSonMeasurementData;
     }
-    public static void setjSonMeasurementData(String pJSonMeasurementData) {
+    private static void setjSonMeasurementData(String pJSonMeasurementData) {
         jSonMeasurementData = pJSonMeasurementData;
+    }
+    private static String jSonDataForTransfer = NO_VALUE;
+    public static String getJSonDataForTransfer () {
+        return jSonDataForTransfer ;
+    }
+    public static void setJSonDataForTransfer(String pJSonDataForTransfer ) {
+        jSonDataForTransfer  = pJSonDataForTransfer ;
     }
     private static TRPXMeasurementTaskData TaskUnderWork = null;
     public static TRPXMeasurementTaskData getTaskUnderWork() {
@@ -38,11 +43,19 @@ public class MakeSendJsonOperations  {
     public static void setTaskUnderWork(TRPXMeasurementTaskData pTaskUnderWork) {
         TaskUnderWork = pTaskUnderWork;
     }
-    private static MeasurementTaskHandling th = new MeasurementTaskHandling();
+   private static String workType =TT_NO_WORK;
+   public static String getWorkType() {
+        return workType;
+    }
+    public static void setWorkType(String pWorkType) {
+        workType = pWorkType;
+    }
+   private static MeasurementTaskHandling th = new MeasurementTaskHandling();
     private int MakeClearanceOperations(TRPXMeasurementTaskData pCe) throws SQLException {
         String strHelp1 = NO_VALUE;
         int iRet = INT_RET_NOT_OK;
         LogUtilities mfl = new LogUtilities();
+
         iRet = th.UpdateTaskFromDbForClearance(pCe);
         if (iRet < 0) {
             logger.info("database update error iRet = " + iRet);
@@ -102,6 +115,7 @@ public class MakeSendJsonOperations  {
                         logger.info("Task Transfer error iRet = " + iRet);
                         return iRet;
                     }
+                    setWorkType(TT_INTERSECTION_DATA_CHANGE);
                     // update work from super
                     iRet = th.FillUpIntersectionTasks();
                     if (iRet != FILL_UP_TASK_OK) {
@@ -110,7 +124,6 @@ public class MakeSendJsonOperations  {
                     }
                     // because Intersection or controller is not visible
                     iRet = th.DeleteNotFilledIntersectionTasks();
-                    //iRet = th.DeleteNotFilledTasks();
                     if (iRet != DELETE_UNFILLABLE_TASK_OK) {
                         logger.info("Fill UpTask error iRet = " + iRet);
                         return iRet;
@@ -129,14 +142,15 @@ public class MakeSendJsonOperations  {
                         logger.info("Task Transfer error iRet = " + iRet);
                         return iRet;
                     }
+                    setWorkType(TT_CONTROLLER_DATA_CHANGE);
                     // update work from super
-               //     iRet = th.FillUpControllerTasks();
+                    iRet = th.FillUpControllerTasks();
                     if (iRet != FILL_UP_TASK_OK) {
                         logger.info("Fill UpTask error iRet = " + iRet);
                         return iRet;
                     }
                     // because Intersection or controller is not visible
-                    iRet = th.DeleteNotFilledTasks();
+                    iRet = th.DeleteNotFilledControllerTasks();
                     if (iRet != DELETE_UNFILLABLE_TASK_OK) {
                         logger.info("Fill UpTask error iRet = " + iRet);
                         return iRet;
@@ -155,14 +169,16 @@ public class MakeSendJsonOperations  {
                         logger.info("Task Transfer error iRet = " + iRet);
                         return iRet;
                     }
+                    setWorkType(TT_DETECTOR_DATA_CHANGE);
                     // update work from super
-              //      iRet = th.FillUpDetectorTasks();
+
+                     iRet = th.FillUpDetectorTasks();
                     if (iRet != FILL_UP_TASK_OK) {
                         logger.info("Fill UpTask error iRet = " + iRet);
                         return iRet;
                     }
                     // because Intersection or controller is not visible
-                    iRet = th.DeleteNotFilledTasks();
+                    iRet = th.DeleteNotFilledDetectorTasks();
                     if (iRet != DELETE_UNFILLABLE_TASK_OK) {
                         logger.info("Fill UpTask error iRet = " + iRet);
                         return iRet;
@@ -189,6 +205,7 @@ public class MakeSendJsonOperations  {
                         logger.info("Task Transfer error iRet = " + iRet);
                         return iRet;
                     }
+                    setWorkType(TT_MEASUREMENT_DATA_INSERT);
                 // update work from super
                     iRet = th.FillUpTasks();
                     if (iRet != FILL_UP_TASK_OK) {
@@ -236,40 +253,59 @@ public class MakeSendJsonOperations  {
                         }
                     }
                 }
-                ce = th.GetFirstUndoneTaskFromList();
+                ce = th.GetFirstUndoneTaskFromList();   // -Work table
+                setWorkType(ce.getTaskType());    //
                 if (ce.getMeasurementTaskIdindex() == EMPTY_ELEMENT) {
                     logger.info("Empty task list wait 1 s ");
                     iRound = iRound + 1;
                     return OMNIA_EMPTY_WORK_LIST;   // HERE HERE
                 }
-                strHelp1 = th.getPermanentSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
-                logger.info("strHelp1 = " + strHelp1);
-                logger.info("strHelp1.lenght()  = " + strHelp1.length());
-                if (strHelp1.equals(NO_VALUE)) {
-                    iRet = MakeSpareOperations(ce);
-                    if (iRet < 0) {
-                        logger.info("log write error  iRet = " + iRet);
+// here logic what type work logic there are only one type of task on _work   table
+                if (getWorkType().equals(TT_MEASUREMENT_DATA_INSERT)) {
+                    strHelp1 = th.getMeasurementShortSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
+                    logger.info("strHelp1 = " + strHelp1);
+                    logger.info("strHelp1.length()  = " + strHelp1.length());
+                    if (strHelp1.equals(NO_VALUE)) {
+                        // RETHINK update task state and write to log
+                        iRet = MakeClearanceOperations(ce);
+                        logger.info("No JsonMeasurementData! ");
+                        return iRet;
+                    } else {
+                        setjSonMeasurementData(strHelp1);
+                        setJSonDataForTransfer(TT_MEASUREMENT_DATA_INSERT+ getJSonMeasurementData());
+                        setTaskUnderWork(ce);
                     }
-                    logger.info("No JsonPermanentData ");
-                    return OMNIA_DATA_PICK_NOT_OK;
                 }
-                setjSonPermanentData(strHelp1);
-                //strHelp1 = th.getMeasurementSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
-                strHelp1 = th.getMeasurementShortSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
-                logger.info("strHelp1 = " + strHelp1);
-                logger.info("strHelp1.length()  = " + strHelp1.length());
-                if (strHelp1.equals(NO_VALUE)) {
-                    // REHINK update task state and write to log
-                    iRet = MakeClearanceOperations(ce);
-                    logger.info("No JsonMeasurementData! ");
-                    return iRet;
-                } else {
-                    setjSonMeasurementData(strHelp1);
-                    setTaskUnderWork(ce);
+                if  ((getWorkType().equals(TT_INTERSECTION_DATA_CHANGE))|| (getWorkType().equals(TT_CONTROLLER_DATA_CHANGE))) {
+                    strHelp1 = th.getIntersectionControllerSqlData(ce.getIntersectionId(),ce.getControllerId(),ce.getPermanentDataTimestamp());
+                    logger.info("strHelp1 = " + strHelp1);
+                    logger.info("strHelp1.length()  = " + strHelp1.length());
+                    if (strHelp1.equals(NO_VALUE)) {
+                        // RETHINK update task state and write to log
+                        iRet = MakeClearanceOperations(ce);
+                        logger.info("No JsonMeasurementData! ");
+                        return iRet;
+                    } else {
+                        setJSonDataForTransfer(TT_INTERSECTION_DATA_CHANGE+strHelp1);
+                        setTaskUnderWork(ce);
+                    }
+                }  if  ((getWorkType().equals(TT_DETECTOR_DATA_CHANGE))) {
+                    strHelp1 = th.getDetectorSqlData(ce.getDetectorId(), ce.getPermanentDataTimestamp());
+                    logger.info("strHelp1 = " + strHelp1);
+                    logger.info("strHelp1.length()  = " + strHelp1.length());
+                    if (strHelp1.equals(NO_VALUE)) {
+                        // RETHINK update task state and write to log
+                        iRet = MakeClearanceOperations(ce);
+                        logger.info("No JsonMeasurementData! ");
+                        return iRet;
+                    } else {
+                        setJSonDataForTransfer(TT_DETECTOR_DATA_CHANGE+strHelp1);
+                        setTaskUnderWork(ce);
+                    }
                 }
                 if (iRound  >= 2) {
-                    Thread.sleep(getSleep());
-                    iRound = 0;
+                  Thread.sleep(getSleep());
+                  iRound = 0;
                 }
             } catch (Exception e) {
                 logger.info(ExceptionUtils.getRootCauseMessage(e));
@@ -297,4 +333,25 @@ public class MakeSendJsonOperations  {
       }
       return INT_RET_OK;
    }
+    public String MakeMessageToBeSended() throws SQLException {
+        String strHelp1 = NO_VALUE;
+        String strHelp2 = NO_VALUE;
+        TRPXMeasurementTaskData ce = getTaskUnderWork();
+        if (getWorkType().equals(TT_NOT_DEFINED)) {
+            strHelp1 = getJSonPermanentData();
+            strHelp2 = getJSonMeasurementData();
+            strHelp1 = strHelp1+strHelp2;
+            return strHelp1;
+        }
+        if ((getWorkType().equals(TT_INTERSECTION_DATA_CHANGE)) ||
+           (getWorkType().equals(TT_CONTROLLER_DATA_CHANGE)))  {
+            strHelp1 = th.getIntersectionControllerSqlData(ce.getIntersectionId(),ce.getControllerId(),ce.getDetectorMeasuresTimestamp());
+            return strHelp1;
+        }
+        if ((getWorkType().equals(TT_DETECTOR_DATA_CHANGE))) {
+            strHelp1 = th.getDetectorSqlData(ce.getDetectorId(), ce.getDetectorMeasuresTimestamp());
+            return strHelp1;
+        }
+        return strHelp1;
+    }
 }

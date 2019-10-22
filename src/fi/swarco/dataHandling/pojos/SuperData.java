@@ -1,9 +1,11 @@
 package fi.swarco.dataHandling.pojos;
 import org.apache.log4j.Logger;
+
+import static fi.swarco.CONSTANT.INT_EMPTY_ELEMENT;
 import static fi.swarco.CONSTANT.NO_VALUE;
 public class SuperData {
     private static Logger logger = Logger.getLogger(SuperData.class.getName());
-    private long OmniaCode=Long.valueOf(0);
+    private long OmniaCode=INT_EMPTY_ELEMENT;
     private String OmniaName=NO_VALUE;
     private long IntersectionId=Long.valueOf(0);
     private long ControllerId=Long.valueOf(0);
@@ -53,7 +55,7 @@ public class SuperData {
                 ", DetectorId =" + DetectorId + "]";
     }
     public void MakeEmptyElement() {
-        OmniaCode =Long.valueOf(0);
+        OmniaCode =INT_EMPTY_ELEMENT;
         OmniaName=NO_VALUE;
         IntersectionId=Long.valueOf(0);
         ControllerId=Long.valueOf(0);

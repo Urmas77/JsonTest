@@ -1,7 +1,7 @@
 package fi.swarco.dataHandling.queriesSql.mySQL;
 import org.apache.log4j.Logger;
-public class DetectorMeasurementsMySqlSelect {
-    static Logger logger = Logger.getLogger(DetectorMeasurementsMySqlSelect.class.getName());
+public class SelectDetectorMeasurementsMySql {
+    static Logger logger = Logger.getLogger(SelectDetectorMeasurementsMySql.class.getName());
     String statement="";
     public String getStatement() {
         buildStatement ();

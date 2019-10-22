@@ -1,9 +1,11 @@
 package fi.swarco.dataHandling.pojos;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.DOUBLE_LONG_MULTIPLIER;
+import static fi.swarco.CONSTANT.INT_EMPTY_ELEMENT;
+
 public class OmniaMeasurementDataShortJson {
      static Logger logger = Logger.getLogger(OmniaMeasurementDataShortJson.class.getName());
-     private long OmniaCode;
+     private long OmniaCode=INT_EMPTY_ELEMENT;
      private long IntersectionId;
      private long ControllerId;
      private String MeasurementTime;
@@ -112,7 +114,7 @@ public class OmniaMeasurementDataShortJson {
                  ", AccurancyJson = " + AccurancyJson + "]";
      }
      public void MakeEmptyElement() {
-         OmniaCode = Long.valueOf(0);
+         OmniaCode =INT_EMPTY_ELEMENT;
          IntersectionId = Long.valueOf(0);
          ControllerId = Long.valueOf(0);
          MeasurementTime = "1970-01-01 00:00:00";

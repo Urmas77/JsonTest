@@ -1,9 +1,10 @@
 package fi.swarco.dataHandling.pojos;
-import static fi.swarco.CONSTANT.NO_IDENTITY;
-import static fi.swarco.CONSTANT.NO_VALUE;
+
+import static fi.swarco.CONSTANT.*;
+
 public class RawData {
-    private long rawdataid;
-    private long rawdatasourceid;
+    private long rawdataid=NO_IDENTITY;
+    private long rawdatasourceid=INT_EMPTY_ELEMENT;
     private String rawdatatimestamp;
     private long rawdatastatus;
     private String rawdatastatusstring;
@@ -167,7 +168,7 @@ public class RawData {
     }
     public void MakeEmptyElement() {
         rawdataid=Long.valueOf(NO_IDENTITY);
-        rawdatasourceid=Long.valueOf(0);
+        rawdatasourceid=INT_EMPTY_ELEMENT;
         rawdatatimestamp="1970-01-01 00:00:00";
         rawdatastatus=Long.valueOf(0);
         rawdatastatusstring="NOT_DEFINED";

@@ -1,10 +1,8 @@
 package fi.swarco.dataHandling.pojos;
 import org.apache.log4j.Logger;
-
 import static fi.swarco.CONSTANT.*;
-
-public class OmniaDetector {
-    static Logger logger = Logger.getLogger(fi.swarco.dataHandling.pojos.OmniaDetector.class.getName());
+public class OmniaDetectorServer {
+    static Logger logger = Logger.getLogger(fi.swarco.dataHandling.pojos.OmniaDetectorServer.class.getName());
     private long omniaCode=Long.valueOf(0);
     private String omniaName=NO_VALUE;
     private long omniaPublicationStatus=Long.valueOf(0);
@@ -29,8 +27,8 @@ public class OmniaDetector {
     private java.sql.Timestamp createdSql=java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
     private long detectorObjectPriorityId=Long.valueOf(0);
     private long detectorParkingHouseId=Long.valueOf(0);
-    public  OmniaDetector() {}
-    public OmniaDetector(
+    public  OmniaDetectorServer() {}
+    public OmniaDetectorServer(
             long omniaCode,
             String omniaName,
             long omniaPublicationStatus,
@@ -95,7 +93,7 @@ public class OmniaDetector {
         return omniaPublicationStatus;
     }
     public void setOmniaPublicationStatus(long pOmniaPublicationStatus) {
-        this.omniaPublicationStatus = pOmniaPublicationStatus;
+        this.omniaPublicationStatus = omniaPublicationStatus;
     }
     public long getIntersectionId() {
         return intersectionId;
@@ -107,13 +105,13 @@ public class OmniaDetector {
         return controllerId;
     }
     public void setControllerId(long pControllerId) {
-        this.controllerId = pControllerId;
+        this.controllerId = controllerId;
     }
     public long getDetectorId() {
         return detectorId;
     }
     public void setDetectorId(long pDetectorId) {
-        this.detectorId = pDetectorId;
+        this.detectorId = detectorId;
     }
     public long getDetectorTypeId() {
         return detectorTypeId;
@@ -149,6 +147,7 @@ public class OmniaDetector {
         return detectorSubSystemId;
     }
     public void setDetectorSubSystemId(long pDetectorSubSystemId) {
+        //  logger.info("pDetectorTypeId =" + pDetectorTypeId);
         this.detectorSubSystemId = pDetectorSubSystemId;
     }
     public long getDetectorUnitId() {
@@ -257,7 +256,7 @@ public class OmniaDetector {
     }
     @Override
     public String toString() {
-        return 	"OmniaMeasurementData [omniaCode = " +omniaCode  +
+        return 	"OmniaDetectorServer [omniaCode = " +omniaCode  +
                 ", omniaName = " + omniaName +
                 ", omniaPublicationStatus = " +omniaPublicationStatus +
                 ", intersectionId = " + intersectionId +
@@ -310,3 +309,5 @@ public class OmniaDetector {
         createdSql =java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
     }
 }
+
+

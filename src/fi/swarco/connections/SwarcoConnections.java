@@ -45,7 +45,7 @@ public class SwarcoConnections {
             }
         }
         int iRet = 1;
-        int maxRound = 3;
+        int maxRound = 5;
         int round = 0;
         iRet = SeekProperties();
         if (iRet != INT_RET_OK) {
@@ -106,7 +106,14 @@ public class SwarcoConnections {
                 }
             }
             if (iRet !=INT_RET_OK) {
+
+
                 logger.info("Ei saatu MySql connectia");
+                if (round==maxRound){
+                    logger.info("**********************************************************************Ei connectia tapetaan prosessi");
+                    System.exit(0); // prosessi starts again automatically in prosudction
+                    // Make same with SQLSERVER later JIs 21.10.2019
+                }
                 return iRet;
             }
             logger.info("Saatiin MySql connectti");

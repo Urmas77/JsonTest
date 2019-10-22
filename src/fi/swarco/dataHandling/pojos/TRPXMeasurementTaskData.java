@@ -1,15 +1,19 @@
 package fi.swarco.dataHandling.pojos;
 import fi.swarco.SwarcoEnumerations;
-import static fi.swarco.CONSTANT.EMPTY_ELEMENT;
+
+import static fi.swarco.CONSTANT.*;
+
 public class TRPXMeasurementTaskData {
-    private long measurementTaskIdindex;
-    private long omniaCode;
+    private long measurementTaskIdindex=NO_IDENTITY;
+    private long omniaCode=INT_EMPTY_ELEMENT;
     private long intersectionId;
     private long controllerId;
     private long detectorId;
     private String detectorMeasuresTimestamp;
     private java.sql.Timestamp detectorMeasuresTimestampSql;
-    private String taskType;
+    private String permanentDataTimestamp;
+    private java.sql.Timestamp permanentDataTimestampSql;
+    private String taskType=TT_NOT_DEFINED;
     private long taskStatus;
     private String created;
     private java.sql.Timestamp createdSql;
@@ -22,6 +26,7 @@ public class TRPXMeasurementTaskData {
             long controllerId,
             long detectorId,
             String detectorMeasuresTimestamp,
+            String permanentDataTimestamp,
             String  taskType,
             long taskStatus,
             String created
@@ -33,17 +38,19 @@ public class TRPXMeasurementTaskData {
         this.controllerId=controllerId;
         this.detectorId=detectorId;
         this.detectorMeasuresTimestamp=detectorMeasuresTimestamp;
+        this.permanentDataTimestamp=  permanentDataTimestamp;
         this.taskType=taskType;
         this.taskStatus=taskStatus;
         this.created=created;
         this.detectorMeasuresTimestampSql=java.sql.Timestamp.valueOf(detectorMeasuresTimestamp);
+        this.permanentDataTimestampSql=java.sql.Timestamp.valueOf(permanentDataTimestamp);
         this.createdSql=java.sql.Timestamp.valueOf(created);
     }
     public long getMeasurementTaskIdindex() {
         return measurementTaskIdindex;
     }
-    public void setMeasurementTaskIdindex(long measurementTaskIdindex) {
-        this.measurementTaskIdindex = measurementTaskIdindex;
+    public void setMeasurementTaskIdindex(long pMeasurementTaskIdindex) {
+        this.measurementTaskIdindex = pMeasurementTaskIdindex;
     }
     public long getOmniaCode() {
         return omniaCode;
@@ -66,9 +73,13 @@ public class TRPXMeasurementTaskData {
     public long getDetectorId() {
         return detectorId;
     }
-    public void setDetectorId(long detectorId) {
-        this.detectorId = detectorId;
+    public void setDetectorId(long pDetectorId) {
+        this.detectorId = pDetectorId;
     }
+
+
+
+
     public java.sql.Timestamp getDetectorMeasuresTimestampSql() {
         if (detectorMeasuresTimestampSql == null) {
             if (!(detectorMeasuresTimestamp == null)) {
@@ -97,17 +108,45 @@ public class TRPXMeasurementTaskData {
             detectorMeasuresTimestampSql=java.sql.Timestamp.valueOf(detectorMeasuresTimestamp);
         }
     }
+    public java.sql.Timestamp getPermanentDataTimestampSql() {
+        if (permanentDataTimestampSql == null) {
+            if (!(permanentDataTimestamp == null)) {
+                permanentDataTimestampSql=java.sql.Timestamp.valueOf(permanentDataTimestamp);
+            }
+        }
+        return permanentDataTimestampSql;
+    }
+    public void setPermanentDataTimestampSql(java.sql.Timestamp pPermanentDataTimestampSql) {
+        this.detectorMeasuresTimestampSql = pPermanentDataTimestampSql;
+        if (!(this.permanentDataTimestampSql == null)) {
+            this.permanentDataTimestamp=this.permanentDataTimestampSql.toString().substring(0, 19);
+        }
+    }
+    public String getPermanentDataTimestamp() {
+        if (permanentDataTimestamp == null) {
+            if (!(permanentDataTimestampSql==null)) {
+                permanentDataTimestamp=permanentDataTimestampSql.toString().substring(0, 19);
+            }
+        }
+        return permanentDataTimestamp;
+    }
+    public void setPermanentDataTimestamp(String pPermanentDataTimestamp) {
+        this.permanentDataTimestamp = pPermanentDataTimestamp;
+        if (!(permanentDataTimestamp == null )) {
+            permanentDataTimestampSql=java.sql.Timestamp.valueOf(permanentDataTimestamp);
+        }
+    }
     public String getTaskType() {
         return taskType;
     }
     public void setTaskType(String pTaskType) {
-        this.taskType = taskType;
+        this.taskType = pTaskType;
     }
     public long getTaskStatus() {
         return taskStatus;
     }
-    public void setTaskStatus(long taskStatus) {
-        this.taskStatus = taskStatus;
+    public void setTaskStatus(long pTaskStatus) {
+        this.taskStatus = pTaskStatus;
     }
     public String getCreated() {
         if (this.created == null) {
@@ -146,20 +185,24 @@ public class TRPXMeasurementTaskData {
                 ", detectorId = " +detectorId  +
                 ", detectorMeasuresTimestamp = " + detectorMeasuresTimestamp +
                 ", detectorMeasuresTimestampSql = " + detectorMeasuresTimestampSql +
+                ", permanentDataTimestamp = " + permanentDataTimestamp +
+                ", permanentDataTimestampSql = " + permanentDataTimestampSql +
                 ", taskType = " +  taskType +
                 ", taskStatus = " +  taskStatus +
                 ", created =" + created +
                 ", createdSql =" + createdSql +"]";
     }
     public void MakeEmptyElement() {
-        measurementTaskIdindex=Long.valueOf(EMPTY_ELEMENT);
-        omniaCode=Long.valueOf(0);
+        measurementTaskIdindex=EMPTY_ELEMENT;
+        omniaCode=INT_EMPTY_ELEMENT;
         intersectionId=Long.valueOf(0);
         controllerId=Long.valueOf(0);
         detectorId=Long.valueOf(0);
         detectorMeasuresTimestamp="1970-01-01 00:00:00";
         detectorMeasuresTimestampSql=java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
-        taskType = SwarcoEnumerations.TRPXTaskTypes.NOT_DEFINED.toString();
+        permanentDataTimestamp ="1970-01-01 00:00:00";
+        permanentDataTimestampSql =java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
+        taskType = TT_NOT_DEFINED;
         taskStatus=Long.valueOf(0);
         created="1970-01-01 00:00:00";
         createdSql =java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
