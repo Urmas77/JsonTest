@@ -114,11 +114,7 @@ public class DetectorMeasurementsShortClientDataLevel {
         for (int i = 0; i < DmUnits.size(); i++) {
             aDetMea = DmUnits.get(i);
             aDetTran=aDetMea.SetJsonTransferItem();
-         //   logger.info("aDetMea = " + aDetMea);
-         //   logger.info("aDetTran = " + aDetTran);
             logger.info("aDetTran.toString().length() = " + aDetTran.toString().length());
-            //       logger.info("i,DmUnits.toString() = " + i + "," + DmUnits.toString());
-           // strHelp1 = myGson.toJson(aDetMea);
             strHelp1 = myGson.toJson(aDetTran);
             strHelp2 = strHelp2 + strHelp1;
             aDetMea.MakeEmptyElement();

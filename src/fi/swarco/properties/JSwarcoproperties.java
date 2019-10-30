@@ -172,10 +172,58 @@ public class JSwarcoproperties {
     public void setFilePathStringOmniaCustomerClient(String pFilePathStringOmniaCustomerClient) {
         FilePathStringOmniaCustomerClient = pFilePathStringOmniaCustomerClient;
     }
-
+    private String Log4JPathAndFileName;
+    public String getLog4JPathAndFileName() {
+        return Log4JPathAndFileName;
+    }
+    public void setLog4JPathAndFileName(String pLog4JPathAndFileName) {
+        Log4JPathAndFileName= pLog4JPathAndFileName;
+    }
 
     private Properties prop;
-    public int getSwarcoProperties() {
+
+    public int getLog4JProperties() {
+        prop = new Properties();
+        InputStream input = null;
+        try {
+            String filename = "log4j.properties";  // old one Swarco.
+            input = JSwarcoproperties.class.getClassLoader().getResourceAsStream(filename);
+            logger.info("input = " + input);
+            if (input != null) {
+                prop.load(input);
+            } else {
+                logger.info("Sorry, unable to find " + filename);
+                return INT_RET_NOT_OK;
+            }
+            int iRet = setLog4jProps();
+            if (iRet != 1) {
+                logger.info("No log4J props in this environment!");
+            }
+
+            return INT_RET_OK;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return INT_RET_OK;
+    }
+    private int setLog4jProps() {
+        setLog4JPathAndFileName(prop.getProperty("log4j.appender.R.File"));
+        return INT_RET_OK;
+    }
+
+
+
+
+
+        public int getSwarcoProperties() {
         prop = new Properties();
         InputStream input = null;
         try {

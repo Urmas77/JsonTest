@@ -51,8 +51,6 @@ public class MakeReceiveJsonOperations {
     public static int MakeReceiveOmniaOperations()  throws SQLException {
         int iRet=0;
         FileOperations fo = new  FileOperations();
- //       JsonWrapper jsw = new JsonWrapper();
- //       jsw.MakeEmptyElement();
 // get data to be handled
         String strWholeRawData = getPseudoJSonData();
         MessageUtils mu = new MessageUtils();
@@ -122,11 +120,13 @@ public class MakeReceiveJsonOperations {
                 MakeLogFileOperations("error##" + strWhoJsonData);
             } else {  // do db operations
                 iRet = mm.JsonDetectorSql(strHelp1);
-                if (iRet != INT_RET_OK) {
-                    logger.info("Unsuccesful insert iRet=" + iRet);
-                    MakeLogFileOperations("error##" + strHelp1);
-                } else {
+                if (iRet==INT_RET_OK)   {
                     MakeLogFileOperations("ok##" + strHelp1);
+                } else if  (iRet==NOT_CHANGED) {
+                    MakeLogFileOperations("ok##" + "Not Changed " +strHelp1);
+                } else {
+                    logger.info("Unsuccesful insert iRet=" + iRet);
+                    MakeLogFileOperations("error##" + iRet + " " + strHelp1);
                 }
             }
         }

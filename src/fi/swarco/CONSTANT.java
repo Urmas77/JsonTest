@@ -2,6 +2,8 @@ package fi.swarco;
 public class CONSTANT {
 private CONSTANT(){}
 public static final String NO_VALUE ="novalue";
+public static final String ERROR_VALUE ="errorvalue";
+
 public static final int NO_IDENTITY =-1;
 public static final int INT_EMPTY_ELEMENT =-99999;  //EMPTY_ELEMENT
 
@@ -50,6 +52,8 @@ public static final int  DELETE_UNFILLABLE_TASK_OK=5996;
 public static final int  DELETE_UNFILLABLE_TASK_ERROR=-5996;
 public static final int  DELETE_TRASH_TASK_OK =5995;
 public static final int  DELETE_TRASH_TASK_ERROR =-5995;
+public static final int  EXTRACLEANUP_TASK_OK=5994;
+public static final int  EXTRACLEANUP_DELETE_TASK_ERROR=-5994;
 public static final int  OMNIA_EMPTY_WORK_LIST = -4999;
 public static final String QUERY_CURRENTSTATE="CURRENTSTATE";
 public static final String QUERY_HISTORYSTATE="HISTORYSTATE";
@@ -82,6 +86,7 @@ public static final String  TT_LOAD_CURRENT_CONTROLLER_INTERSECTION_DATA="LOADCU
 public static final String  TT_LOAD_CURRENT_DETECTORS_DATA="LOADCURRENTDETECTORSDATA";
 public static final String  TT_NOT_DEFINED="NOTDEFINED";
 public static final String  TT_NO_WORK="NO_WORK";
+public static final long    NO_WORK_INDEX=-5678;
 //
 public static final double  DOUBLE_LONG_MULTIPLIER = 10000000.0;
 }

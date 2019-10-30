@@ -86,6 +86,7 @@ public class OmniaMeasurementDataShortJson {
          return MeanVehicleSpeedJson;
      }
      public void setMeanVehicleSpeedJson(long pMeanVehicleSpeedJson) {
+         logger.info("pMeanVehicleSpeedJson = "+ pMeanVehicleSpeedJson);
          this.MeanVehicleSpeedJson = pMeanVehicleSpeedJson;
      }
      public long getOccupancyProcentJson() {
@@ -138,12 +139,15 @@ public class OmniaMeasurementDataShortJson {
         long lngHelp1 = 0;
 //      receiver
 //      dblHelp3 =  lngHelp1/(DOUBLE_LONG_MULTIPLIER);
+        logger.info("getMeanVehicleSpeedJson() = " + getMeanVehicleSpeedJson());
         dblHelp3 = getMeanVehicleSpeedJson()/(DOUBLE_LONG_MULTIPLIER);
+        logger.info("getMeanVehicleSpeedJson() dblHelp3  = " + dblHelp3);
         ce.setMeanVehicleSpeed(dblHelp3);
         dblHelp3 =getOccupancyProcentJson()/(DOUBLE_LONG_MULTIPLIER);
         ce.setOccupancyProcent(dblHelp3);
         dblHelp3 =getAccurancyJson()/(DOUBLE_LONG_MULTIPLIER);
         ce.setAccurancy(dblHelp3);
-        return ce;
+        logger.info("from MakeItemFromJsonTransferItem  ce.toString()" + ce.toString());
+         return ce;
     }
 }

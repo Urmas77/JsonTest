@@ -312,10 +312,10 @@ public class IntersectionControllerListDatalevel {
         if (!(pC1.getControllerGuid().equals(pC2.getControllerGuid()))) {
             iRet =  CHANGED;
         }
-//        if (iRet==CHANGED) {
-//            logger.info("***Changed1  pC1.toString()" + pC1.toString());
-//            logger.info("***Changed2  pC2.toString()" + pC2.toString());
-//        }
+       if (iRet==CHANGED) {
+            logger.info("***Changed1  pC1.toString()" + pC1.toString());
+            logger.info("***Changed2  pC2.toString()" + pC2.toString());
+        }
         return iRet;
     }
     public int MakeDeleteInsert(IntersectionControllerDataServer pC1) throws SQLException {
@@ -468,7 +468,7 @@ public class IntersectionControllerListDatalevel {
             iRet= DoesLineAlreadyExist(aOmniaIntersection1);
             if (iRet==INT_RET_NOT_FOUND) {
                 iRet=AddNewOmniaIntersectionControllerData(aOmniaIntersection1);
-                logger.info("  one line inserted iRet = " + iRet);
+                logger.info(" One line inserted iRet = " + iRet);
                 if (iRet!=INT_RET_OK) {
                     logger.info("Unsuccessful OmniaIntersectionData insert iRet = " + iRet);
                 }

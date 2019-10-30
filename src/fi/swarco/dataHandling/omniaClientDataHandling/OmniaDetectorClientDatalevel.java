@@ -111,8 +111,6 @@ public class OmniaDetectorClientDatalevel {
     public String GetDetectorJsonData(long plngDetectorId, String pstrTimestamp) throws SQLException {
         OmniaDetector ce = GetOmniaDetectorData(plngDetectorId, pstrTimestamp);
         String strHelp1 = GetDetectorJsonString(ce);
-
-
         return strHelp1;
     }
 }

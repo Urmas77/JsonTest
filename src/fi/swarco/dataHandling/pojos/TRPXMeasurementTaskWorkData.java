@@ -1,7 +1,8 @@
 package fi.swarco.dataHandling.pojos;
 import static fi.swarco.CONSTANT.*;
-public class TRPXMeasurementTaskData {
-    private long measurementTaskIdindex=NO_IDENTITY;
+public class TRPXMeasurementTaskWorkData {
+    private long workIdIndex=NO_IDENTITY;
+    private long measurementTaskIdIndex=NO_IDENTITY;
     private long omniaCode=INT_EMPTY_ELEMENT;
     private long intersectionId;
     private long controllerId;
@@ -14,9 +15,12 @@ public class TRPXMeasurementTaskData {
     private long taskStatus;
     private String created;
     private java.sql.Timestamp createdSql;
-    public TRPXMeasurementTaskData(){}
-    public TRPXMeasurementTaskData(
-            long measurementTaskIdindex,
+    private String workCreated;
+    private java.sql.Timestamp workCreatedSql;
+    public TRPXMeasurementTaskWorkData(){}
+    public TRPXMeasurementTaskWorkData(
+            long workIdIndex,
+            long measurementTaskIdIndex,
             long omniaCode,
             long intersectionId,
             long controllerId,
@@ -25,10 +29,12 @@ public class TRPXMeasurementTaskData {
             String permanentDataTimestamp,
             String  taskType,
             long taskStatus,
-            String created
+            String created,
+            String workCreated
     ){
         super();
-        this.measurementTaskIdindex=measurementTaskIdindex;
+        this.workIdIndex=workIdIndex;
+        this.measurementTaskIdIndex=measurementTaskIdIndex;
         this.omniaCode=omniaCode;
         this.intersectionId=intersectionId;
         this.controllerId=controllerId;
@@ -38,15 +44,23 @@ public class TRPXMeasurementTaskData {
         this.taskType=taskType;
         this.taskStatus=taskStatus;
         this.created=created;
+        this.workCreated=workCreated;
         this.detectorMeasuresTimestampSql=java.sql.Timestamp.valueOf(detectorMeasuresTimestamp);
         this.permanentDataTimestampSql=java.sql.Timestamp.valueOf(permanentDataTimestamp);
         this.createdSql=java.sql.Timestamp.valueOf(created);
+        this.workCreatedSql =java.sql.Timestamp.valueOf(workCreated);
     }
-    public long getMeasurementTaskIdindex() {
-        return measurementTaskIdindex;
+    public long getWorkIdIndex() {
+        return workIdIndex;
     }
-    public void setMeasurementTaskIdindex(long pMeasurementTaskIdindex) {
-        this.measurementTaskIdindex = pMeasurementTaskIdindex;
+    public void setWorkIdIndex(long pWorkIdIndex) {
+        this.workIdIndex = pWorkIdIndex;
+    }
+    public long getMeasurementTaskIdIndex() {
+        return measurementTaskIdIndex;
+    }
+    public void setMeasurementTaskIdIndex(long pMeasurementTaskIdIndex) {
+        this.measurementTaskIdIndex = pMeasurementTaskIdIndex;
     }
     public long getOmniaCode() {
         return omniaCode;
@@ -92,7 +106,7 @@ public class TRPXMeasurementTaskData {
                 detectorMeasuresTimestamp=detectorMeasuresTimestampSql.toString().substring(0, 19);
             }
         }
-    	return detectorMeasuresTimestamp;
+        return detectorMeasuresTimestamp;
     }
     public void setDetectorMeasuresTimestamp(String pDetectorMeasuresTimestamp) {
         this.detectorMeasuresTimestamp = pDetectorMeasuresTimestamp;
@@ -168,9 +182,38 @@ public class TRPXMeasurementTaskData {
             this.created=this.createdSql.toString().substring(0, 19);
         }
     }
+    public String getWworkCreated() {
+        if (this.workCreated == null) {
+            if (!(this.workCreatedSql==null)) {
+                this.workCreated=this.workCreatedSql.toString().substring(0, 19);
+            }
+        }
+        return workCreated;
+    }
+    public void setWorkCreated(String pWorkCreated) {
+        this.created = pWorkCreated;
+        if (!(this.workCreated == null )) {
+            this.workCreatedSql=java.sql.Timestamp.valueOf(this.workCreated);
+        }
+    }
+    public java.sql.Timestamp getWorkCreatedSql() {
+        if (this.workCreatedSql == null) {
+            if (!(this.workCreated == null)) {
+                this.workCreatedSql=java.sql.Timestamp.valueOf(this.workCreated);
+            }
+        }
+        return this.createdSql;
+    }
+    public void setWorkCreatedSql(java.sql.Timestamp pWorkCreatedSql) {
+        this.createdSql = pWorkCreatedSql;
+        if (!(this.workCreatedSql == null)) {
+            this.workCreated=this.workCreatedSql.toString().substring(0, 19);
+        }
+    }
     @Override
     public String toString() {
-        return "JiMeasurementTaskData [measurementTaskIdindex = " +measurementTaskIdindex +
+        return "TRPXMeasurementTaskWorkData [" + "workIdIndex = " + workIdIndex +
+                "measurementTaskIdIndex = " + measurementTaskIdIndex +
                 ", omniaCode = " + omniaCode  +
                 ", intersectionId = " + intersectionId  +
                 ", controllerId = " + controllerId  +
@@ -181,11 +224,14 @@ public class TRPXMeasurementTaskData {
                 ", permanentDataTimestampSql = " + permanentDataTimestampSql +
                 ", taskType = " +  taskType +
                 ", taskStatus = " +  taskStatus +
-                ", created =" + created +
-                ", createdSql =" + createdSql +"]";
+                ", created = " + created +
+                ", createdSql = " + createdSql +
+                ", workCreated = " + workCreated +
+                ", workCreatedSql = " + workCreatedSql + "]";
     }
     public void MakeEmptyElement() {
-        measurementTaskIdindex=EMPTY_ELEMENT;
+        workIdIndex =EMPTY_ELEMENT;
+        measurementTaskIdIndex=EMPTY_ELEMENT;
         omniaCode=INT_EMPTY_ELEMENT;
         intersectionId=Long.valueOf(0);
         controllerId=Long.valueOf(0);
@@ -198,8 +244,11 @@ public class TRPXMeasurementTaskData {
         taskStatus=Long.valueOf(0);
         created="1970-01-01 00:00:00";
         createdSql =java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
+        workCreated="1970-01-01 00:00:00";
+        workCreatedSql =java.sql.Timestamp.valueOf("1970-01-01 00:00:00");
     }
 }
+
 
 
 

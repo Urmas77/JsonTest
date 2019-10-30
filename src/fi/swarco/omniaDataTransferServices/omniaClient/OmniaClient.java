@@ -14,6 +14,7 @@ import fi.swarco.dataHandling.MakeSendJsonOperations;
 import fi.swarco.properties.JSwarcoproperties;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
 public class OmniaClient {
     static Logger logger = Logger.getLogger(OmniaClient.class.getName());
@@ -27,9 +28,24 @@ public class OmniaClient {
                 logger.info(" Error reading Swarco properties ! ");
                 System.exit(1);
             }
+           //  /*
+           StartOmniaClient start = new StartOmniaClient();
+            try {
+                iRett = start.ClearWorkTable();
+                if (iRett != INT_RET_OK) {
+                   logger.info(" Error clearing WorkTable iRett =  " + iRett);
+                   System.exit(1);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                logger.info(ExceptionUtils.getRootCauseMessage(e));
+                logger.info(ExceptionUtils.getFullStackTrace(e));
+            } // */
             sendGetOmniaData();
         } catch (IOException e) {
             e.printStackTrace();
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
         }
     }    // HTTP GET request
     private static void sendGetOmniaData() throws IOException {

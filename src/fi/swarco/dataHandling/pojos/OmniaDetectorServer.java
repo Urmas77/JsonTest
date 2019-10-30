@@ -3,7 +3,7 @@ import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
 public class OmniaDetectorServer {
     static Logger logger = Logger.getLogger(fi.swarco.dataHandling.pojos.OmniaDetectorServer.class.getName());
-    private long omniaCode=Long.valueOf(0);
+    private long omniaCode=0;
     private String omniaName=NO_VALUE;
     private long omniaPublicationStatus=Long.valueOf(0);
     private long intersectionId=Long.valueOf(0);
@@ -93,7 +93,7 @@ public class OmniaDetectorServer {
         return omniaPublicationStatus;
     }
     public void setOmniaPublicationStatus(long pOmniaPublicationStatus) {
-        this.omniaPublicationStatus = omniaPublicationStatus;
+        this.omniaPublicationStatus = pOmniaPublicationStatus;
     }
     public long getIntersectionId() {
         return intersectionId;
@@ -105,13 +105,13 @@ public class OmniaDetectorServer {
         return controllerId;
     }
     public void setControllerId(long pControllerId) {
-        this.controllerId = controllerId;
+        this.controllerId = pControllerId;
     }
     public long getDetectorId() {
         return detectorId;
     }
     public void setDetectorId(long pDetectorId) {
-        this.detectorId = detectorId;
+        this.detectorId = pDetectorId;
     }
     public long getDetectorTypeId() {
         return detectorTypeId;

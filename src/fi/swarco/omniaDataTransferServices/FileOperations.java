@@ -24,6 +24,48 @@ public class FileOperations {
     public int initFileOperations(){
         return SeekProperties();
     }
+    public int closeAndDeleteFile(String pPathAndFileName ) {
+        File myFile = new File(pPathAndFileName);
+        String strHelp1 = NO_VALUE;
+        int index =-1;
+        try {
+            logger.info("pPathAndFileName = " + pPathAndFileName);
+            System.out.println("fo pPathAndFileName = " + pPathAndFileName);
+            index = pPathAndFileName.indexOf(".log");
+            System.out.println("fo index = " +index);
+            if (index >0) {
+                strHelp1 = pPathAndFileName.substring(0, index) + ".ttt";
+                System.out.println(" fofofo strHelp1 ="+ strHelp1);
+                File myFileDest = new File(strHelp1);
+                boolean success =myFile.renameTo(myFileDest);
+                if (success) {
+                    System.out.println(" fo succes myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                } else {
+                    System.out.println(" fo not success myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                }
+            }
+            myFile= new File(strHelp1);
+            if (myFile.exists() ) {
+                if (myFile.delete()) {
+                    System.out.println("File is deleted myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                    logger.info("File is deleted myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                } else {
+                    System.out.println("Unsuccesfull File delete operation myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                    logger.info("Unsuccesfull File delete operation myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                }
+            } else {
+                System.out.println("File not found myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                logger.info("File not found myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+            }
+            return INT_RET_OK;
+        }  catch(Exception ex) {
+            logger.info("Error deleting file  '" + pPathAndFileName + "'");
+            logger.info(ExceptionUtils.getRootCauseMessage(ex));
+            logger.info(ExceptionUtils.getFullStackTrace(ex));
+            ex.printStackTrace();
+            return INT_RET_NOT_OK;
+        }
+    }
     public int addOmniaClientJsonLine(String pstrJson,String pJsonFileName ) {
         String fileName=swarvop.getFilePathStringOmniaClient() + pJsonFileName +".txt";
         String wtext;

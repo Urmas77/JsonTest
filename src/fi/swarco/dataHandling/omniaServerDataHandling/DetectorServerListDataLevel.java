@@ -102,7 +102,7 @@ public class DetectorServerListDataLevel {
             return ce;
         }
     }
-    public int OmniaIntersectionDataList () throws SQLException {
+    public int OmniaDetectorDataList () throws SQLException {
         OmniaDetectorDataUnits.clear();
         String SQL="";
         java.sql.PreparedStatement stmt;
@@ -178,6 +178,9 @@ public class DetectorServerListDataLevel {
             stmt = gSqlCon.prepareStatement(SQL);
             stmt.setLong(1,pOmniaData.getOmniaCode());
             stmt.setLong(2,pOmniaData.getDetectorId());
+            logger.info("pOmniaData.getOmniaCode() =" + pOmniaData.getOmniaCode());
+            logger.info("pOmniaData.getDetectorId() =" + pOmniaData.getDetectorId());
+
             rs = stmt.executeQuery();
             OmniaDetectorServer cc;
             while (rs.next()) {
@@ -204,8 +207,12 @@ public class DetectorServerListDataLevel {
                 cc.setCreated(rs.getString(20));
                 cc.setDetectorObjectPriorityId(rs.getLong(21));
                 cc.setDetectorParkingHouseId(rs.getLong(22));
+                logger.info("pOmniaData.getOmniaCode() =" + pOmniaData.getOmniaCode());
+                logger.info("pOmniaData.getDetectorId() =" + pOmniaData.getDetectorId());
+                logger.info("cc.getOmniaCode() =" + cc.getOmniaCode());
+                logger.info("cc.getDetectorId() =" + cc.getDetectorId());
                 if (((cc.getOmniaCode()==(pOmniaData.getOmniaCode()) &&
-                   (cc.getIntersectionId()==(pOmniaData.getDetectorId()) )))) {
+                   (cc.getDetectorId()==(pOmniaData.getDetectorId()) )))) {
                     logger.info("löyty");
                     setFoundRec(cc);
                     stmt.close();
@@ -247,13 +254,13 @@ public class DetectorServerListDataLevel {
         if (!(pC1.getDetectorProgressId()==(pC2.getDetectorProgressId()))) {
             iRet =  CHANGED;
         }
-        if (!(pC1.getDetectorMaintenanceCode()==pC2.getDetectorMaintenanceCode())) {
+        if (!(pC1.getDetectorMaintenanceCode().equals(pC2.getDetectorMaintenanceCode()))) {
             iRet =  CHANGED;
         }
         if (!(pC1.getDetectorMeasurementStationId()==pC2.getDetectorMeasurementStationId())) {
             iRet =  CHANGED;
         }
-        if (!(pC1.getDetectorExternalCode()==pC2.getDetectorExternalCode())) {
+        if (!(pC1.getDetectorExternalCode().equals(pC2.getDetectorExternalCode()))) {
             iRet =  CHANGED;
         }
         if (!(pC1.getDetectorSubSystemId()==(pC2.getDetectorSubSystemId()))) {
@@ -271,28 +278,28 @@ public class DetectorServerListDataLevel {
         if (!(pC1.getDetectorDataPreviousUpdate().equals(pC2.getDetectorDataPreviousUpdate()))) {
             iRet =  CHANGED;
         }
-        if (!(pC1.getDetectorGuid()==(pC2.getDetectorGuid()))) {
+        if (!(pC1.getDetectorGuid().equals(pC2.getDetectorGuid()))) {
             iRet =  CHANGED;
         }
-        if (!(pC1.getDetectorDescription()==(pC2.getDetectorDescription()))) {
+        if (!(pC1.getDetectorDescription().equals(pC2.getDetectorDescription()))) {
             iRet =  CHANGED;
         }
         if (!(pC1.getDetectorAreaId()==(pC2.getDetectorAreaId()))) {
             iRet =  CHANGED;
         }
-        if (!(pC1.getCreated().equals(pC2.getCreated()))) {
-            iRet =  CHANGED;
-        }
-        if (!(pC1.getDetectorObjectPriorityId ()==(pC2.getDetectorObjectPriorityId ()))) {
+    //    if (!(pC1.getCreated().equals(pC2.getCreated()))) {
+    //        iRet =  CHANGED;
+    //    }  RETHINK created during and because data transfer
+        if (!(pC1.getDetectorObjectPriorityId()==(pC2.getDetectorObjectPriorityId()))) {
             iRet =  CHANGED;
         }
         if (!(pC1.getDetectorParkingHouseId()==(pC2.getDetectorParkingHouseId()))) {
             iRet =  CHANGED;
         }
-        //        if (iRet==CHANGED) {
-//            logger.info("***Changed1  pC1.toString()" + pC1.toString());
-//            logger.info("***Changed2  pC2.toString()" + pC2.toString());
-//        }
+        if (iRet==CHANGED) {
+           logger.info("***Changed1  pC1.toString()" + pC1.toString());
+           logger.info("***Changed2  pC2.toString()" + pC2.toString());
+        }
         return iRet;
     }
     public int MakeDeleteInsert(OmniaDetectorServer pC1) throws SQLException {
@@ -319,8 +326,7 @@ public class DetectorServerListDataLevel {
         try {
             java.sql.PreparedStatement stmt;
             SQL = " delete from DetectorData ";
-            SQL = SQL + "where OmniaCode = " + pC1.getOmniaCode() + " and " +
-                    " IntersectionId = " + pC1.getDetectorId() +  ";";
+            SQL = SQL + "where OmniaCode = " + pC1.getOmniaCode() + " and " + " DetectorId = " + pC1.getDetectorId() + ";";
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
