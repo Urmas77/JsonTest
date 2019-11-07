@@ -16,14 +16,14 @@ import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
 public class MeasurementTaskWorkHandling {
     private static Logger logger = Logger.getLogger(MeasurementTaskWorkHandling.class.getName());
-    private List<TRPXMeasurementTaskWorkData> TaskUnits = Collections.synchronizedList(new LinkedList<TRPXMeasurementTaskWorkData>());  // ????
+    private List<TRPXMeasurementTaskWorkData> TaskUnits = Collections.synchronizedList(new LinkedList<>());  // ????
     static Connection gSqlCon;
     private static SwarcoEnumerations.ConnectionType SqlConnectionType = SwarcoEnumerations.ConnectionType.NOT_DEFINED;
-    SwarcoEnumerations.RequestOriginType requestOrigin = SwarcoEnumerations.RequestOriginType.NORMALROAD;
+    private SwarcoEnumerations.RequestOriginType requestOrigin = SwarcoEnumerations.RequestOriginType.NORMALROAD;
     public void setRequestOrigin(SwarcoEnumerations.RequestOriginType prequestOrigin) {
         requestOrigin = prequestOrigin;
     }
-    public static int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon) throws SQLException {
+    public static int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon)  {
         SwarcoConnections vg = new SwarcoConnections();
         logger.info("pSqlCon = " + pSqlCon);
         int iRet = vg.MakeConnection(pSqlCon);
@@ -37,11 +37,10 @@ public class MeasurementTaskWorkHandling {
     }
     public int MeasurementTaskWorkDataList() throws SQLException {
         TaskUnits.clear();
-        String SQL = "";
         java.sql.PreparedStatement stmt;
         ResultSet rs;
         JiMeasurementTaskWorkSelectSqlServer st = new JiMeasurementTaskWorkSelectSqlServer();
-        SQL = st.getStatement();
+        String SQL = st.getStatement();
         logger.info("SqlConnectionTypeyyyy= " + SqlConnectionType);
         logger.info("SQL = " + SQL);
         TRPXMeasurementTaskWorkData ce;
@@ -67,7 +66,7 @@ public class MeasurementTaskWorkHandling {
             }
             stmt.close();
             rs.close();
-            if (TaskUnits.isEmpty() == true) {
+            if (TaskUnits.isEmpty()) {
                 ce = new TRPXMeasurementTaskWorkData();
                 ce.MakeEmptyElement();
                 TaskUnits.add(ce);
@@ -99,9 +98,8 @@ public class MeasurementTaskWorkHandling {
     }
     public int AnyWorkWork() throws SQLException{
         int iRet = INT_RET_NOT_OK;
-        String SQL = "";
         try {
-            SQL = "select count(*) from TRPX_MeasurementTask_Work;";
+            String SQL = "select count(*) from TRPX_MeasurementTask_Work;";
             logger.info("SQL = " + SQL);
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
@@ -129,21 +127,21 @@ public class MeasurementTaskWorkHandling {
     }
     public TRPXMeasurementTaskWorkData GetFirstWorkTask() throws SQLException{
        int iRet =  MeasurementTaskWorkDataList();
+        TRPXMeasurementTaskWorkData tr;
        if (iRet<0) {
-           TRPXMeasurementTaskWorkData tr = new TRPXMeasurementTaskWorkData();
+           tr = new TRPXMeasurementTaskWorkData();
            tr.MakeEmptyElement();
            return tr;
        }
-        TRPXMeasurementTaskWorkData tr =GetFirstTaskWorkFromList();
+        tr =GetFirstTaskWorkFromList();
         return tr;
     }
     public String  GetWorkTaskType() throws SQLException {
-        String SQL = "";
-        String strRet = NO_VALUE;
+        String strRet;
         int iRet = 0;
         java.sql.PreparedStatement stmt;
         try {
-            SQL = " select [dbo].[GetWorkTaskType]() ";
+            String SQL = " select [dbo].[TRPX_GetWorkTaskType]() ";
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             ResultSet rs;
@@ -167,10 +165,9 @@ public class MeasurementTaskWorkHandling {
     public int DeleteTasksFromWorkDb() throws SQLException{
         // RETHINK TaskType
         int iRet;
-        String SQL = "";
         try {
             java.sql.PreparedStatement stmt;
-            SQL = " delete from TRPX_MeasurementTask_Work ";
+            String SQL = " delete from TRPX_MeasurementTask_Work ";
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             logger.info("Lines deleted iRet = " + iRet);
@@ -192,15 +189,9 @@ public class MeasurementTaskWorkHandling {
         }
     }
     public int ExtraCleanUp() throws SQLException{
-        //  -- extra clean up statement JIs 29.10 2019 klo 14.54
-        // if somebody create tasks using sql
-        //  delete  from  TRPX_MeasurementTask where detectorId in
-        //          (select distinct tr.detectorid  from TRPX_MeasurementTask tr
-        //  join detectors de on de.detectorId=tr.detectorid and (visible=0 or deleted=1))
         int iRet;
-        String SQL = "";
         try {
-            SQL = "delete from TRPX_MeasurementTask  ";
+            String SQL = "delete from TRPX_MeasurementTask  ";
             SQL = SQL + " where  detectorId in ";
             SQL = SQL + " (select distinct tr.detectorid  from TRPX_MeasurementTask tr  ";
             SQL = SQL + " join detectors de on de.detectorId=tr.detectorid and (visible=0 or deleted=1))";
@@ -225,13 +216,11 @@ public class MeasurementTaskWorkHandling {
             return EXTRACLEANUP_DELETE_TASK_ERROR;
         }
     }
-
-    public int ReCreateIntersectionTask(TRPXMeasurementTaskWorkData pCe) throws SQLException {
+   public int ReCreateIntersectionTask(TRPXMeasurementTaskWorkData pCe) throws SQLException {
         int iRet;
-        String SQL = "";
         try {
             java.sql.PreparedStatement stmt;
-            SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask] ( ";
+            String SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask] ( ";
             SQL = SQL + " [OmniaCode] ";
             SQL = SQL + " ,[IntersectionID] ";
             SQL = SQL + " ,[ControllerId] ";
@@ -276,10 +265,9 @@ public class MeasurementTaskWorkHandling {
     }
     public int ReCreateMeasurementsTasks(TRPXMeasurementTaskWorkData pCe) throws SQLException {
         int iRet;
-        String SQL = "";
         try {
             java.sql.PreparedStatement stmt;
-            SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask]( ";
+            String SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask]( ";
             SQL = SQL + " [OmniaCode] ";
             SQL = SQL + " ,[IntersectionID] ";
             SQL = SQL + " ,[ControllerId] ";
@@ -323,10 +311,9 @@ public class MeasurementTaskWorkHandling {
     }
     public int ReCreateControllerTask(TRPXMeasurementTaskWorkData pCe) throws SQLException {
         int iRet;
-        String SQL = "";
         try {
             java.sql.PreparedStatement stmt;
-            SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask] ( ";
+            String SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask] ( ";
             SQL = SQL + " [OmniaCode] ";
             SQL = SQL + " ,[IntersectionID] ";
             SQL = SQL + " ,[ControllerId] ";
@@ -371,10 +358,9 @@ public class MeasurementTaskWorkHandling {
     }
     public int ReCreateDetectorTask(TRPXMeasurementTaskWorkData pCe) throws SQLException {
         int iRet;
-        String SQL = "";
         try {
             java.sql.PreparedStatement stmt;
-            SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask] ( ";
+            String SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask] ( ";
             SQL = SQL + " [OmniaCode] ";
             SQL = SQL + " ,[IntersectionID] ";
             SQL = SQL + " ,[ControllerId] ";

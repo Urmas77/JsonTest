@@ -2,7 +2,6 @@ package fi.swarco.dataHandling.pojos;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.DOUBLE_LONG_MULTIPLIER;
 import static fi.swarco.CONSTANT.INT_EMPTY_ELEMENT;
-
 public class OmniaMeasurementDataShortJson {
      static Logger logger = Logger.getLogger(OmniaMeasurementDataShortJson.class.getName());
      private long OmniaCode=INT_EMPTY_ELEMENT;
@@ -86,7 +85,7 @@ public class OmniaMeasurementDataShortJson {
          return MeanVehicleSpeedJson;
      }
      public void setMeanVehicleSpeedJson(long pMeanVehicleSpeedJson) {
-         logger.info("pMeanVehicleSpeedJson = "+ pMeanVehicleSpeedJson);
+//         logger.info("pMeanVehicleSpeedJson = "+ pMeanVehicleSpeedJson);
          this.MeanVehicleSpeedJson = pMeanVehicleSpeedJson;
      }
      public long getOccupancyProcentJson() {
@@ -116,15 +115,15 @@ public class OmniaMeasurementDataShortJson {
      }
      public void MakeEmptyElement() {
          OmniaCode =INT_EMPTY_ELEMENT;
-         IntersectionId = Long.valueOf(0);
-         ControllerId = Long.valueOf(0);
+         IntersectionId = 0;
+         ControllerId = 0;
          MeasurementTime = "1970-01-01 00:00:00";
-         DetectorId = Long.valueOf(0);
+         DetectorId = 0;
          DetectorExternalCode = "novalue";
-         VehicleCount = Long.valueOf(0);
-         MeanVehicleSpeedJson = Long.valueOf(0);
-         OccupancyProcentJson = Long.valueOf(0);
-         AccurancyJson = Long.valueOf(0);
+         VehicleCount = 0;
+         MeanVehicleSpeedJson = 0;
+         OccupancyProcentJson = 0;
+         AccurancyJson = 0;
      }
      public  OmniaMeasurementDataShort MakeItemFromJsonTransferItem() {
         OmniaMeasurementDataShort ce = new OmniaMeasurementDataShort();
@@ -135,19 +134,18 @@ public class OmniaMeasurementDataShortJson {
         ce.setDetectorId(getDetectorId());
         ce.setDetectorExternalCode(getDetectorExternalCode());
         ce.setVehicleCount(getVehicleCount());
-        double dblHelp3 = 0.0;
-        long lngHelp1 = 0;
+        double dblHelp3;
 //      receiver
 //      dblHelp3 =  lngHelp1/(DOUBLE_LONG_MULTIPLIER);
-        logger.info("getMeanVehicleSpeedJson() = " + getMeanVehicleSpeedJson());
+    //    logger.info("getMeanVehicleSpeedJson() = " + getMeanVehicleSpeedJson());
         dblHelp3 = getMeanVehicleSpeedJson()/(DOUBLE_LONG_MULTIPLIER);
-        logger.info("getMeanVehicleSpeedJson() dblHelp3  = " + dblHelp3);
+     //   logger.info("getMeanVehicleSpeedJson() dblHelp3  = " + dblHelp3);
         ce.setMeanVehicleSpeed(dblHelp3);
         dblHelp3 =getOccupancyProcentJson()/(DOUBLE_LONG_MULTIPLIER);
         ce.setOccupancyProcent(dblHelp3);
         dblHelp3 =getAccurancyJson()/(DOUBLE_LONG_MULTIPLIER);
         ce.setAccurancy(dblHelp3);
-        logger.info("from MakeItemFromJsonTransferItem  ce.toString()" + ce.toString());
+      //  logger.info("from MakeItemFromJsonTransferItem  ce.toString()" + ce.toString());
          return ce;
     }
 }

@@ -5,15 +5,16 @@ import fi.swarco.dataHandling.pojos.TRPXMeasurementTaskWorkData;
 import org.apache.log4j.Logger;
 import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
+import static fi.swarco.CONSTANT.INT_RET_OK;
 public class StartOmniaClient {
-    static Logger logger = Logger.getLogger(StartOmniaClient.class.getName());
+    private static Logger logger = Logger.getLogger(StartOmniaClient.class.getName());
     public  StartOmniaClient() {}
     public int ClearWorkTable() throws SQLException {
         StartWrapper stw = new StartWrapper();
         stw.MakeEmptyElement();
         TRPXMeasurementTaskWorkData trp = new TRPXMeasurementTaskWorkData();
         MeasurementTaskWorkHandling mth =new MeasurementTaskWorkHandling();
-        int iRet = mth.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        int iRet = MeasurementTaskWorkHandling.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
         if (iRet != INT_RET_OK) {
             logger.info("Ei kantayhteytt� lopetetaan");
             return OMNIA_DATA_PICK_NOT_OK;
@@ -48,7 +49,7 @@ public class StartOmniaClient {
     }
     private int ReCreateTasks(TRPXMeasurementTaskWorkData pThh,String pTaskType) throws SQLException {
         MeasurementTaskWorkHandling mth = new MeasurementTaskWorkHandling();
-        int iRet = mth.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        int iRet = MeasurementTaskWorkHandling.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
         if (iRet != INT_RET_OK) {
            logger.info("Ei kantayhteytt� lopetetaan");
            return OMNIA_DATA_PICK_NOT_OK;

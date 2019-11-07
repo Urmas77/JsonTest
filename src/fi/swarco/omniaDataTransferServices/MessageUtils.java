@@ -13,7 +13,7 @@ public class MessageUtils {
     // " ---> %34
     // ' ' = %32
     public String reCreateJsonDecimal(String pPseudoJson) {
-        String strHelp1 = "";
+        String strHelp1; // = "";
         // %125 -->    }
         // %123  -->   {
         // %34  --->  "
@@ -34,28 +34,9 @@ public class MessageUtils {
        // logger.info(" from },{ --> }{ strHelp1 =" + strHelp1);
         return strHelp1;
     }
-    public String reCreateJson(String pPseudoJson) {
-        String strHelp1 = "";
-        // ** --> }
-        // * --> {
-        // ' ---> "
-        // %32  --> blankko/space
-       // logger.info("pPseudoJson = " + pPseudoJson);
-        strHelp1 = pPseudoJson.replace("**", "}");
-       // logger.info("** strHelp1 = " + strHelp1);
-        String strHelp2 = strHelp1.replace("*", "{");
-      //  logger.info("* strHelp2 = " + strHelp2);
-        char ch = '"';
-        String charToString = Character.toString(ch);
-        strHelp1 = strHelp2.replace("'", charToString);
-      //  logger.info(" hipsu strHelp1 = " + strHelp1);
-        strHelp2 = strHelp1.replace("%32", " ");
-     //   logger.info(" from %32 to blankko strHelp2 =" + strHelp2);
-        return strHelp1;
-    }
 
     public String DecodeJson(String pJson) {
-        String strHelp1 = "";
+        String strHelp1;
         // } --> **
         // { --> *
         // " ---> '
@@ -74,7 +55,7 @@ public class MessageUtils {
         return strHelp2;
     }
     public String DecodeJsonPercentDecimal(String pJson) {
-        String strHelp1 = "";
+        String strHelp1;
         // } --> %125
         // { --> %123
         // " ---> %34
@@ -93,25 +74,25 @@ public class MessageUtils {
         return strHelp2;
     }
     public String CutJsonMessage(String pJson) {
-        String strHelp1 =NO_VALUE;
+        String strHelp1;
         if (pJson.indexOf(TT_MEASUREMENT_DATA_INSERT) == 0) {
-            strHelp1 = pJson.substring(TT_MEASUREMENT_DATA_INSERT.length(),pJson.length());
+            strHelp1 = pJson.substring(TT_MEASUREMENT_DATA_INSERT.length());
             return strHelp1;
         }
         if (pJson.indexOf(TT_INTERSECTION_DATA_CHANGE) == 0) {
-            strHelp1 = pJson.substring(TT_INTERSECTION_DATA_CHANGE.length(),pJson.length());
+            strHelp1 = pJson.substring(TT_INTERSECTION_DATA_CHANGE.length());
             return strHelp1;
         }
         if (pJson.indexOf(TT_CONTROLLER_DATA_CHANGE) == 0) {
-            strHelp1 = pJson.substring(TT_CONTROLLER_DATA_CHANGE.length(),pJson.length());
+            strHelp1 = pJson.substring(TT_CONTROLLER_DATA_CHANGE.length());
             return strHelp1;
         }
         if (pJson.indexOf(TT_DETECTOR_DATA_CHANGE) == 0) {
-            strHelp1 = pJson.substring(TT_DETECTOR_DATA_CHANGE.length(),pJson.length());
+            strHelp1 = pJson.substring(TT_DETECTOR_DATA_CHANGE.length());
             return strHelp1;
         }
         if (pJson.indexOf(TT_NOT_DEFINED) == 0)    {
-            strHelp1 = pJson.substring(TT_NOT_DEFINED.length(),pJson.length());
+            strHelp1 = pJson.substring(TT_NOT_DEFINED.length());
             return strHelp1;
         }
         return pJson ;   // current situation nothing to cut RETHINK JIs 15.10 2019
@@ -163,20 +144,20 @@ public class MessageUtils {
         return jsw;
     }
     public String StripFileStartEnd(String pJson) {
-        String strHelp1 = "";
+        String strHelp1;
         // [ --> ""
         // ] --> ""
       //  logger.info("pJson =" + pJson);
         strHelp1 = pJson.replace("[", "");
       //  logger.info(" [ --> '' strHelp1 =" + strHelp1);
-        String strHelp2 = strHelp1.replace("]", "");
+        strHelp1 = strHelp1.replace("]", "");
      //   logger.info("]-->'' strHelp2 =" + strHelp2);
-        return strHelp2;
+        return strHelp1;
     }
 
 
     public String ThrowChecksumAway(String pJson) {
-        String strHelp1 =NO_VALUE;
+        String strHelp1;
         int iSep = pJson.indexOf("}&chk");
         if (iSep == -1) {
             return pJson;
@@ -186,13 +167,13 @@ public class MessageUtils {
         }
     }
     public String StripDC2(String pJson) {
-        String strHelp1 = "";
+        String strHelp1;
         //DC2--->""
         strHelp1 = pJson.replace(ASCII_CTRL_STRING_DC2, "");
         return strHelp1;
     }
     public String AddBrackets(String pJson) {
-        String strHelp1 = "";
+        String strHelp1;
         //   kkkk --> [ kkkk ] ""
        // logger.info("pJson =" + pJson);
         strHelp1 = "[" +  pJson +"]";

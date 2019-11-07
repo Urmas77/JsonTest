@@ -19,7 +19,7 @@ import static fi.swarco.CONSTANT.*;
 import static fi.swarco.CONSTANT.UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
 public class IntersectionControllerListDatalevel {
     private static Logger logger = Logger.getLogger(IntersectionControllerListDatalevel.class.getName());
-    List<IntersectionControllerDataServer> OmniaIntersectionControllerDataUnits = Collections.synchronizedList(new LinkedList<IntersectionControllerDataServer>());  // ????
+    List<IntersectionControllerDataServer> OmniaIntersectionControllerDataUnits = Collections.synchronizedList(new LinkedList<>());  // ????
     private IntersectionControllerDataServer foundRec = new IntersectionControllerDataServer();
     public IntersectionControllerDataServer getFoundRec() { return foundRec;}
     public  void setFoundRec(IntersectionControllerDataServer pFoundRec) {foundRec=pFoundRec;}
@@ -38,16 +38,14 @@ public class IntersectionControllerListDatalevel {
         return DATABASE_CONNECTION_OK;
     }
     private IntersectionControllerDataServer GetOmniaIntesectionControllerData (long plngIntersectionId, long plngControllerId , String pstrTimestamp) throws SQLException {
-// there is only one element
-        String SQL="";
         java.sql.PreparedStatement stmt;
         logger.info(" SqlConnectionType =" + SqlConnectionType);
         logger.info("Start ");
         SelectIntersectionControllerDataMySql st = new SelectIntersectionControllerDataMySql();
-        SQL =st.getStatement() ;
+        String SQL =st.getStatement() ;
         logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
         logger.info("SQL = " +SQL);
-        int pos=0;
+        int pos;
         IntersectionControllerDataServer ce;
         try {
             stmt = gSqlCon.prepareStatement(SQL);
@@ -110,12 +108,11 @@ public class IntersectionControllerListDatalevel {
     }
     public int OmniaIntersectionDataList () throws SQLException {
         OmniaIntersectionControllerDataUnits.clear();
-        String SQL="";
         java.sql.PreparedStatement stmt;
         logger.info(" SqlConnectionType =" + SqlConnectionType);
         logger.info("Start ");
         SelectIntersectionControllerDataMySql st = new SelectIntersectionControllerDataMySql();
-        SQL =st.getStatement() ;
+        String SQL =st.getStatement() ;
         logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
         logger.info("SQL = " +SQL);
         IntersectionControllerDataServer ce;
@@ -156,7 +153,7 @@ public class IntersectionControllerListDatalevel {
             }
             stmt.close();
             rs.close();
-            if (OmniaIntersectionControllerDataUnits.isEmpty()==true) {
+            if (OmniaIntersectionControllerDataUnits.isEmpty()) {
                 ce= new IntersectionControllerDataServer();
                 ce.MakeEmptyElement();
                 OmniaIntersectionControllerDataUnits.add(ce);
@@ -176,18 +173,17 @@ public class IntersectionControllerListDatalevel {
         }
     }
     public int DoesLineAlreadyExist(IntersectionControllerDataServer pIntersectionData) throws SQLException {
-        String SQL="";
-        java.sql.PreparedStatement stmt=null;
+        java.sql.PreparedStatement stmt;
         try {
             SelectIntersectionControllerDataMySqlWhere st = new SelectIntersectionControllerDataMySqlWhere();
-            SQL =st.getStatement();
+            String SQL =st.getStatement();
             ResultSet rs;   // seuraavalta lentää
             stmt = gSqlCon.prepareStatement(SQL);
             stmt.setLong(1,pIntersectionData.getOmniaCode());
             stmt.setLong(2,pIntersectionData.getIntersectionId());
             stmt.setLong(3,pIntersectionData.getControllerId());
             rs = stmt.executeQuery();
-            IntersectionControllerDataServer cc=new IntersectionControllerDataServer();;
+            IntersectionControllerDataServer cc=new IntersectionControllerDataServer();
             while (rs.next()) {
                 cc.setOmniaCode(rs.getLong(1));
                 cc.setOmniaName(rs.getString(2));
@@ -319,7 +315,7 @@ public class IntersectionControllerListDatalevel {
         return iRet;
     }
     public int MakeDeleteInsert(IntersectionControllerDataServer pC1) throws SQLException {
-        int iRet = INT_RET_OK;
+        int iRet;
         iRet = DeleteOldIntersectionControllerDataLineFromDb(pC1);
         if (iRet < 0) {
             logger.info("iRet = " + iRet);
@@ -338,10 +334,9 @@ public class IntersectionControllerListDatalevel {
     }
     private int DeleteOldIntersectionControllerDataLineFromDb(IntersectionControllerDataServer pC1 ) throws SQLException {
         int iRet;
-        String SQL = "";
         try {
             java.sql.PreparedStatement stmt;
-            SQL = " delete from IntersectionControllerData ";
+            String SQL = "delete from IntersectionControllerData ";
             SQL = SQL + "where OmniaCode = " + pC1.getOmniaCode() + " and " +
                     " IntersectionId = " + pC1.getIntersectionId() + " and " +
                     " ControllerId = " + pC1.getControllerId() +  ";";
@@ -369,15 +364,14 @@ public class IntersectionControllerListDatalevel {
     }
     public  int AddNewOmniaIntersectionControllerData(IntersectionControllerDataServer pOmniaData) throws SQLException {
         int iRet;
-        String SQL="";
         java.sql.PreparedStatement stmt;
         try {
             InsertIntersectionControllerDataMySql st = new InsertIntersectionControllerDataMySql();
-            SQL =st.getStatement();
+            String SQL =st.getStatement();
 //            logger.info("SQL = " + SQL);
 //            logger.info("pOmniaIntersectionData.toString()=" + pOmniaIntersectionData.toString());
             stmt = gSqlCon.prepareStatement(SQL);
-            int pos=0;
+            int pos;
             pos=1;
             stmt.setLong(pos,pOmniaData.getOmniaCode());
             pos=pos+1;
@@ -440,8 +434,8 @@ public class IntersectionControllerListDatalevel {
         }
     }
     public List<IntersectionControllerDataServer> GetOmniaIntersectionDataList()  {
-        IntersectionControllerDataServer cc = new IntersectionControllerDataServer();
-        if (OmniaIntersectionControllerDataUnits.isEmpty()==true) {
+        IntersectionControllerDataServer cc;
+        if (OmniaIntersectionControllerDataUnits.isEmpty()) {
             cc= new IntersectionControllerDataServer();
             cc.MakeEmptyElement();
             OmniaIntersectionControllerDataUnits.add(cc);
@@ -449,8 +443,8 @@ public class IntersectionControllerListDatalevel {
         return OmniaIntersectionControllerDataUnits;
     }
     public  int JsonOmniaIntersectionControllerSql(String pPermanentData) throws SQLException{
-        int iRet=0;
-        String strHelp1=NO_VALUE;
+        int iRet;
+        String strHelp1;
         try {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();

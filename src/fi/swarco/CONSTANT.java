@@ -36,7 +36,7 @@ public static final int NOT_CHANGED =888;
 public static final int CHANGED=-888;
 
 public static final byte ASCII_CONTROL_DC2	= 0x12;
-public static final String ASCII_CTRL_STRING_DC2		= "DC2".intern();
+public static final String ASCII_CTRL_STRING_DC2		= "DC2";
 
 public static final int MEASUREMENT_TASK_STATUS_CREATED =0;
 public static final int MEASUREMENT_TASK_STATUS_OK =1;    // old value was 0

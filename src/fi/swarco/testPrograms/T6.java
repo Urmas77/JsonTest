@@ -1,17 +1,19 @@
 package fi.swarco.testPrograms;
-import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShort;
-import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShortJson;
 import fi.swarco.omniaDataTransferServices.FileOperations;
 import fi.swarco.properties.JSwarcoproperties;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import static fi.swarco.CONSTANT.DOUBLE_LONG_MULTIPLIER;
 import static fi.swarco.CONSTANT.INT_RET_OK;
     public class T6 {
         static Logger logger = Logger.getLogger(fi.swarco.testPrograms.T6.class.getName());
-        public static void main (String[] args) throws java.lang.Exception
+        public static void main (String[] args)
         {
             JSwarcoproperties swp = new JSwarcoproperties();
-          //  logger.info("***************************************************************");
+            String log4jConfPath = "log4j.properties";
+            PropertyConfigurator.configure(log4jConfPath);
+
+            //  logger.info("***************************************************************");
             int iRet = swp.getLog4JProperties();
             if (iRet != INT_RET_OK) {
                 System.out.println("Ei saatu propertyjä!");

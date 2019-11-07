@@ -16,8 +16,8 @@ import java.util.List;
 import static fi.swarco.CONSTANT.*;
 public class DetectorMeasurementsShortClientDataLevel {
     private static Logger logger = Logger.getLogger(DetectorMeasurementsShortClientDataLevel.class.getName());
-    private List<OmniaMeasurementDataShort> DmUnits = Collections.synchronizedList(new LinkedList<OmniaMeasurementDataShort>());  // ????
-    static Connection gSqlCon;
+    private List<OmniaMeasurementDataShort> DmUnits = Collections.synchronizedList(new LinkedList<>());  // ????
+    private static Connection gSqlCon;
     private SwarcoEnumerations.ConnectionType SqlConnectionType=SwarcoEnumerations.ConnectionType.NOT_DEFINED;
     private SwarcoEnumerations.RequestOriginType requestOrigin= SwarcoEnumerations.RequestOriginType.NORMALROAD;
     public void setRequestOrigin(SwarcoEnumerations.RequestOriginType prequestOrigin) {
@@ -45,16 +45,12 @@ public class DetectorMeasurementsShortClientDataLevel {
     }
     private int GetOmniaMeasurementsDataShort(long plngIntersectionId, long plngControllerId,String pstrTimestamp) throws SQLException{
         DmUnits.clear();
-        String SQL="";
         java.sql.PreparedStatement stmt;
-        logger.info(" SqlConnectionType =" + SqlConnectionType);
         logger.info("Start ");
         GetMeasurementShortSqlServerData st= new GetMeasurementShortSqlServerData();
-        SQL =st.getStatement() ;
-        logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
-        logger.info("SQL = " +SQL);
+        String SQL = st.getStatement();
         OmniaMeasurementDataShort cc;
-        int pos=0;
+        int pos;
         try {
             stmt = gSqlCon.prepareStatement(SQL);
             pos=1;
@@ -90,7 +86,7 @@ public class DetectorMeasurementsShortClientDataLevel {
                 DmUnits.add(cc);
                 return INT_RET_NOT_OK;
             }
-            logger.info("bef ret iRet OK");
+   //         logger.info("bef ret iRet OK");
             return INT_RET_OK;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,7 +98,7 @@ public class DetectorMeasurementsShortClientDataLevel {
             return INT_RET_NOT_OK;
         }
     }
-    private String GetMeasurementsDataShortJsonString( ) throws SQLException{
+    private String GetMeasurementsDataShortJsonString( ){
         Gson myGson = new Gson();
         MessageUtils mu = new MessageUtils();
         String strHelp1 = NO_VALUE;
@@ -111,10 +107,10 @@ public class DetectorMeasurementsShortClientDataLevel {
         OmniaMeasurementDataShortJson aDetTran = new OmniaMeasurementDataShortJson();
         aDetMea.MakeEmptyElement();
         aDetTran.MakeEmptyElement();
-        for (int i = 0; i < DmUnits.size(); i++) {
-            aDetMea = DmUnits.get(i);
-            aDetTran=aDetMea.SetJsonTransferItem();
-            logger.info("aDetTran.toString().length() = " + aDetTran.toString().length());
+        for (OmniaMeasurementDataShort dmUnit : DmUnits) {
+            aDetMea = dmUnit;
+            aDetTran = aDetMea.SetJsonTransferItem();
+            //           logger.info("aDetTran.toString().length() = " + aDetTran.toString().length());
             strHelp1 = myGson.toJson(aDetTran);
             strHelp2 = strHelp2 + strHelp1;
             aDetMea.MakeEmptyElement();
@@ -126,7 +122,7 @@ public class DetectorMeasurementsShortClientDataLevel {
         return strHelp2;
     }
     public  List<OmniaMeasurementDataShort> GetDetectorMeasurementsDataList()  {
-        OmniaMeasurementDataShort cc = new OmniaMeasurementDataShort();
+        OmniaMeasurementDataShort cc;
         if (DmUnits.isEmpty()) {
             cc= new OmniaMeasurementDataShort();
             cc.MakeEmptyElement();

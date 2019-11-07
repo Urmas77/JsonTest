@@ -13,7 +13,7 @@ public class T5 {
     private static Connection gSqlCon;
     private static Logger logger = Logger.getLogger(T5.class.getName());
     private static SwarcoEnumerations.ConnectionType SqlConnectionType = SwarcoEnumerations.ConnectionType.NOT_DEFINED;
-    SwarcoEnumerations.RequestOriginType requestOrigin = SwarcoEnumerations.RequestOriginType.NORMALROAD;
+    private SwarcoEnumerations.RequestOriginType requestOrigin = SwarcoEnumerations.RequestOriginType.NORMALROAD;
     public void setRequestOrigin(SwarcoEnumerations.RequestOriginType prequestOrigin) {
         requestOrigin = prequestOrigin;
     }
@@ -29,10 +29,8 @@ public class T5 {
         gSqlCon = vg.getSqlCon();
         return INT_RET_OK;
     }
-    public static void main(String[] args) throws IOException, InterruptedException{
+    public static void main(String[] args){
         try {
-
-
             logger.info("Heippa");
             int iRet = MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
             if (iRet != INT_RET_OK) {
@@ -40,11 +38,9 @@ public class T5 {
                 System.exit(0);
             }
             logger.info("KantaYhteys OK! jippii");
-
             gSqlCon.close();
             logger.info("KantaYhteys katkaistu yritetään uutta ");
-
-            Thread.currentThread().sleep(5000); // 10 seconds delay before restart
+            Thread.sleep(5000); // 10 seconds delay before restart
             if (!(gSqlCon.isValid(0))) {
                 logger.info("KantaYhteys ei ollu validi yritetään uutta !");
                 iRet = MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
