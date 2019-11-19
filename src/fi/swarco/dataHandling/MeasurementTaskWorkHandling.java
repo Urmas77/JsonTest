@@ -1,4 +1,3 @@
-//MeasurementTaskWorkHandling
 package fi.swarco.dataHandling;
 import java.sql.*;
 import java.util.Collections;
@@ -6,10 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
-import fi.swarco.dataHandling.omniaClientDataHandling.*;
-import fi.swarco.dataHandling.pojos.TRPXMeasurementTaskData;
 import fi.swarco.dataHandling.pojos.TRPXMeasurementTaskWorkData;
-import fi.swarco.dataHandling.queriesSql.sqlServer.JiMeasurementTaskSelectSqlServer;
 import fi.swarco.dataHandling.queriesSql.sqlServer.JiMeasurementTaskWorkSelectSqlServer;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
@@ -127,7 +123,7 @@ public class MeasurementTaskWorkHandling {
     }
     public TRPXMeasurementTaskWorkData GetFirstWorkTask() throws SQLException{
        int iRet =  MeasurementTaskWorkDataList();
-        TRPXMeasurementTaskWorkData tr;
+       TRPXMeasurementTaskWorkData tr;
        if (iRet<0) {
            tr = new TRPXMeasurementTaskWorkData();
            tr.MakeEmptyElement();
@@ -188,18 +184,73 @@ public class MeasurementTaskWorkHandling {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int ExtraCleanUp() throws SQLException{
+    private int CountTrashTasksBeforeDelete() throws SQLException{
+// Take first count  RETHINK Jis 18.11 2019     copied also to MeasurementTaskHandling
         int iRet;
         try {
+            String SQL = " select count(*) from TRPX_MeasurementTask task";
+            SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid";
+            String strRet;
+            java.sql.PreparedStatement stmt;
+            logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
+                return iRet;
+            }
+        } catch (SQLException e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            e.printStackTrace();
+            gSqlCon.close();
+            return INT_RET_NOT_OK;
+        }
+        return INT_RET_NOT_OK;
+    }
+    private int DeleteTrashTasksAfterHandFromTaskList() throws SQLException{
+// clean also task list if other error message is given RETHINK Jis 18.11 2019 copied from to MeasurementTaskHandling
+        int iRet = CountTrashTasksBeforeDelete();
+        if (iRet == 0) {   // nothing to delete
+            return DELETE_TRASH_TASKTASK_OK;
+        }
+        if (iRet  < 0) {   // nothing to delete
+            logger.info(" Count error iRet =" + iRet);
+            return DELETE_TRASH_TASKTASK_OK;
+        }
+        try {
             String SQL = "delete from TRPX_MeasurementTask  ";
-            SQL = SQL + " where  detectorId in ";
-            SQL = SQL + " (select distinct tr.detectorid  from TRPX_MeasurementTask tr  ";
-            SQL = SQL + " join detectors de on de.detectorId=tr.detectorid and (visible=0 or deleted=1))";
+            SQL = SQL + " where MeasurementTask_idindex in (   ";
+            SQL = SQL + " select MeasurementTask_idindex from TRPX_MeasurementTask task";
+            SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid)";
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted  iRet = " + iRet);
+            logger.info("Lines deleted ************************** iRet = " + iRet);
             stmt.close();
+            if (iRet < 0) {
+                iRet = DELETE_TRASH_TASKTASK_ERROR;
+                gSqlCon.close();
+                return iRet;
+            }
+            return DELETE_TRASH_TASKTASK_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return DELETE_TRASH_TASK_ERROR ;
+        }
+    }
+    public int ExtraCleanUp() throws SQLException{
+        int iRet;
+        try {
+           iRet = DeleteTrashTasksAfterHandFromTaskList();
             if (iRet < 0) {
                 gSqlCon.close();
                 iRet = EXTRACLEANUP_DELETE_TASK_ERROR;

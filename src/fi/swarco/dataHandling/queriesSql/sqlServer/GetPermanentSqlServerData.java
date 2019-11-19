@@ -8,7 +8,6 @@ public class GetPermanentSqlServerData {
         buildStatement();
         return statement;
     }
-
     private void buildStatement() {
         statement = " exec dbo.TRPX_GetPermanentDataSql ";
         statement = statement + "?,";
@@ -16,6 +15,3 @@ public class GetPermanentSqlServerData {
         statement = statement + "?;";
     }
 }
-//SQL = SQL + plngIntersectionId + ",";
-//SQL = SQL + plngControllerId +  ",";
-//SQL = SQL + "'" + pstrTimestamp + "')";

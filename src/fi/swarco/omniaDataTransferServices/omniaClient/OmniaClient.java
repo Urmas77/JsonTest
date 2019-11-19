@@ -9,8 +9,8 @@ public class OmniaClient {
     public static void main(String[] args) {
         int iRett;
         System.out.println("Heippa  !!!!");
-        System.out.println("args.length =" + args.length);
         if (args.length > 0) {
+            System.out.println("args.length =" + args.length);
             String strHelp22 = args[0];
             System.out.println("strHelp22 =" + strHelp22);
             DeleteLog dd = new DeleteLog();

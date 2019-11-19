@@ -111,15 +111,12 @@ public class OmniaMeasurementDataShort {
     public double getOccupancyProcent() {
         return OccupancyProcent;
     }
-
     public void setOccupancyProcent(double OccupancyProcent) {
         this.OccupancyProcent = OccupancyProcent;
     }
-
     public double getAccurancy() {
         return Accurancy;
     }
-
     public void setAccurancy(double Accurancy) {
         this.Accurancy = Accurancy;
     }
@@ -140,15 +137,15 @@ public class OmniaMeasurementDataShort {
 
     public void MakeEmptyElement() {
         OmniaCode = INT_EMPTY_ELEMENT;
-        IntersectionId = Long.valueOf(0);
-        ControllerId = Long.valueOf(0);
+        IntersectionId = 0;
+        ControllerId = 0;
         MeasurementTime = "1970-01-01 00:00:00";
-        DetectorId = Long.valueOf(0);
+        DetectorId = 0;
         DetectorExternalCode = NO_VALUE;
-        VehicleCount = Long.valueOf(0);
-        MeanVehicleSpeed = Double.valueOf(0.0);
-        OccupancyProcent = Double.valueOf(0.0);
-        Accurancy = Double.valueOf(0.0);
+        VehicleCount = 0;
+        MeanVehicleSpeed = 0.0;
+        OccupancyProcent = 0.0;
+        Accurancy = 0.0;
     }
    public OmniaMeasurementDataShortJson SetJsonTransferItem() {
         OmniaMeasurementDataShortJson ce = new OmniaMeasurementDataShortJson();
@@ -159,9 +156,9 @@ public class OmniaMeasurementDataShort {
         ce.setDetectorId(getDetectorId());
         ce.setDetectorExternalCode(getDetectorExternalCode());
         ce.setVehicleCount(getVehicleCount());
-        double dblHelp1 = 0.0;
-        double dblHelp2 = 0.0;
-        long lngHelp1 = 0;
+        double dblHelp1;
+        double dblHelp2;
+        long lngHelp1;
         // sender
         dblHelp1 = getMeanVehicleSpeed();
         dblHelp2 = dblHelp1 * DOUBLE_LONG_MULTIPLIER;

@@ -53,14 +53,14 @@ public class CustomerRequestMapHandle {
     public Map<String, String> MapQueryParametersString() {
         int iCount;
         String strHelp1 = getQueryParameters();
-        logger.info("strHelp1 = " + strHelp1);
+      //  logger.info("strHelp1 = " + strHelp1);
         MapUtilities mu = new MapUtilities();
         currentMap = mu.SeqDataToMap(strHelp1);
         iCount=0;
         Iterator<Map.Entry<String, String>> entries = currentMap.entrySet().iterator();
         while (entries.hasNext()) {
             Map.Entry<String, String> entry = entries.next();
-            logger.info("currenQuery Key = " + entry.getKey() + ", Value = " + entry.getValue() + " iCount = " + iCount);
+    //        logger.info("currenQuery Key = " + entry.getKey() + ", Value = " + entry.getValue() + " iCount = " + iCount);
             iCount = iCount+1;
         }
         return currentMap; // RETHINK ????????
@@ -73,7 +73,7 @@ public class CustomerRequestMapHandle {
         Iterator<Map.Entry<String, String>> entries = pQp.entrySet().iterator();
         while (entries.hasNext()) {
             Map.Entry<String, String> entry = entries.next();
-            logger.info("currenQuery Key = " + entry.getKey() + ", Value = " + entry.getValue() + " iCount = " + iCount);
+   //         logger.info("currenQuery Key = " + entry.getKey() + ", Value = " + entry.getValue() + " iCount = " + iCount);
             iCount = iCount+1;
             retWrap.StoreFieldToWrapper(entry.getKey(),entry.getValue());
         }

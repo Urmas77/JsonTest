@@ -24,7 +24,7 @@ public class LogUtilities {
     public int MakeFullLogOperations(SwarcoEnumerations.LoggingDestinationType pDestination,
                                      SwarcoEnumerations.ApiMessageCodes pSuccessCode,
                                      String pLogline) {
-        int iRet = INT_RET_OK;
+        int iRet;
         FileOperations fo = new FileOperations();
         iRet = fo.initFileOperations();
         if (iRet == UNSUCCESSFUL_FILE_OPERATION) {
@@ -33,7 +33,7 @@ public class LogUtilities {
         }
         SwarcoTimeUtilities tt = new SwarcoTimeUtilities();
         String strTime = tt.GetNow();
-        logger.info("strTime=" + strTime);
+//        logger.info("strTime=" + strTime);
         String destinationFileName = "";
         SwarcoEnumerations.ConnectionType destinationDatabaseName = NOT_DEFINED;
         if (pDestination.equals(API_CLIENT)) {
@@ -52,10 +52,7 @@ public class LogUtilities {
         }
         RawDataDataListLevel rd = new RawDataDataListLevel();
         iRet = rd.MakeConnection(destinationDatabaseName);
-        if (iRet != DATABASE_CONNECTION_OK) {
-            logger.info("No Database conncetion iRet =" + iRet);
-        } else {
-            logger.info("Rawdata start");
+        if (iRet == DATABASE_CONNECTION_OK) {
             RawData rData = new RawData();
             rData.MakeEmptyElement();
             rData.setRawDataSourceId(1);   // RETHINK get real source values here
@@ -80,7 +77,7 @@ public class LogUtilities {
     public int MakeOnlyLogFileOperations(SwarcoEnumerations.LoggingDestinationType pDestination,
                                          SwarcoEnumerations.ApiMessageCodes pSuccessCode,
                                          String pLogline) {
-        int iRet = INT_RET_OK;
+        int iRet;
         FileOperations fo = new FileOperations();
         iRet = fo.initFileOperations();
         if (iRet == UNSUCCESSFUL_FILE_OPERATION) {
@@ -105,7 +102,7 @@ public class LogUtilities {
     public int MakeOnlyLogDatabaseOperations(SwarcoEnumerations.LoggingDestinationType pDestination,
                                              SwarcoEnumerations.ApiMessageCodes pSuccessCode,
                                               String pLogline) {
-        int iRet = INT_RET_OK;
+        int iRet;
         SwarcoTimeUtilities tt = new SwarcoTimeUtilities();
         String strTime = tt.GetNow();
         logger.info("strTime=" + strTime);

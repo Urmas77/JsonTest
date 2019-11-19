@@ -71,12 +71,12 @@ public class DetectorMeasurementsShortClientDataLevel {
                 cc.setControllerId(rs.getLong(3));
                 cc.setMeasurementTime(rs.getString(4));
                 cc.setDetectorId(rs.getLong(5));
-                cc.setDetectorExternalCode(rs.getString(5));
+                cc.setDetectorExternalCode(rs.getString(6));   // old column value was 5   = DetectorId
                 cc.setVehicleCount(rs.getLong(7));
                 cc.setMeanVehicleSpeed(rs.getDouble(8));
                 cc.setOccupancyProcent(rs.getDouble(9));
                 cc.setAccurancy(rs.getDouble(10));
-                DmUnits.add(cc);
+                 DmUnits.add(cc);
             }
             stmt.close();
             rs.close();

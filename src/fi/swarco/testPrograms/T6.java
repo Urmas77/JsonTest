@@ -3,7 +3,7 @@ import fi.swarco.omniaDataTransferServices.FileOperations;
 import fi.swarco.properties.JSwarcoproperties;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import static fi.swarco.CONSTANT.DOUBLE_LONG_MULTIPLIER;
+
 import static fi.swarco.CONSTANT.INT_RET_OK;
     public class T6 {
         static Logger logger = Logger.getLogger(fi.swarco.testPrograms.T6.class.getName());

@@ -71,7 +71,7 @@ public class FileOperations {
         String wtext;
         File myFile = new File(fileName);
         try {
-            logger.info("fileName = " + fileName);
+ //           logger.info("fileName = " + fileName);
             if (!myFile.exists() && !myFile.isDirectory()) {
                 myFile.createNewFile();
                 logger.info("File does not exists create new filename ="+ fileName);

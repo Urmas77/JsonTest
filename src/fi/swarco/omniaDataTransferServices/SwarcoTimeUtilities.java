@@ -11,7 +11,7 @@ public class SwarcoTimeUtilities {
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(pattern);
         simpleDateFormat1.setTimeZone(TimeZone.getTimeZone("Europe/Helsinki"));
         Calendar calendar = new GregorianCalendar();
-        logger.info("calendar.getTime() = " + simpleDateFormat1.format(calendar.getTime()));
+   //     logger.info("calendar.getTime() = " + simpleDateFormat1.format(calendar.getTime()));
         // logger.info("strTime=" + strTime);
         return simpleDateFormat1.format(calendar.getTime());
     }

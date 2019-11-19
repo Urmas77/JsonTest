@@ -14,12 +14,12 @@ public class MakeReceiveJsonOperations {
     static Logger logger = Logger.getLogger(MakeReceiveJsonOperations.class.getName());
     private static String pseudoJsonData = NO_VALUE;
     public static String getPseudoJSonData() {
-        logger.info("get jjjjjj  pseudoJsonData = " + pseudoJsonData);
+       // logger.info("get jjjjjj  pseudoJsonData = " + pseudoJsonData);
         return pseudoJsonData;
     }
     public static void setPseudoJsonData(String pPseudoJsonData) {
         pseudoJsonData = pPseudoJsonData;
-        logger.info("set jjjjjj  pseudoJsonData = " + pseudoJsonData);
+     //   logger.info("set jjjjjj  pseudoJsonData = " + pseudoJsonData);
     }
     private static String fullJsonData = NO_VALUE;
     //public static String getFullJsonData() {
@@ -73,8 +73,12 @@ public class MakeReceiveJsonOperations {
                 String strHelp1 = mu.CutJsonMessage(strWhoJsonData);
                 iRet = mm.JsonOmniaMeasurementShortSql(strHelp1);
                 if (iRet != INT_RET_OK) {
-                    logger.info("Unsuccesful insert iRet=" + iRet);
-                    MakeLogFileOperations("error##" + strWhoJsonData);
+                    if (iRet == NOT_CHANGED) {
+                        MakeLogFileOperations("ok##" + strWhoJsonData);
+                    } else {
+                        logger.info("Unsuccesful insert iRet=" + iRet);
+                        MakeLogFileOperations("error##" + strWhoJsonData);
+                    }
                 } else {
                     MakeLogFileOperations("ok##" + strWhoJsonData);
                 }
@@ -135,7 +139,7 @@ public class MakeReceiveJsonOperations {
     private static int MakeLogOperations(String pWdata) throws SQLException {
         int iRet=0;
         FileOperations fo = new  FileOperations();
-        logger.info("Unsuccesful insert iRet=" + iRet);
+  //      logger.info("Unsuccesful insert iRet=" + iRet);
         iRet = fo.initFileOperations();
         iRet = fo.addOmniaCloudJsonLine(pWdata, "OwmMachineCloudServer");
         if (iRet == UNSUCCESSFUL_FILE_OPERATION) {
@@ -146,7 +150,7 @@ public class MakeReceiveJsonOperations {
         if (iRet != DATABASE_CONNECTION_OK) {
            logger.info("No Database conncetion iRet =" + iRet);
         } else {
-           logger.info("Rawdata start");
+//           logger.info("Rawdata start");
            RawData rData = new RawData();
            rData.MakeEmptyElement();
            rData.setRawDataSourceId(1);   // RETHINK get real source values here
@@ -155,9 +159,9 @@ public class MakeReceiveJsonOperations {
            String strHelp1 = "";
            SwarcoTimeUtilities swt = new SwarcoTimeUtilities();
            strHelp1 = swt.GetNow();
-           logger.info("strHelp1=" + strHelp1);
+  //         logger.info("strHelp1=" + strHelp1);
            rData.setTimestamp(strHelp1);
-           logger.info(" bef AddNewRawData");
+   //        logger.info(" bef AddNewRawData");
            iRet = rd.AddNewRawData(rData);
            if (iRet != 1) {
               logger.info("Unsuccessful RawData Db operation iRet=" + iRet);

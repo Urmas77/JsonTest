@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
 public class RawDataDataListLevel {
     private static Logger logger = Logger.getLogger(RawDataDataListLevel.class.getName());
-    List<RawData> RawDataUnits = Collections.synchronizedList(new LinkedList<RawData>());  // ????
+    List<RawData> RawDataUnits = Collections.synchronizedList(new LinkedList<>());  // ????
     static Connection gSqlCon;
     private SwarcoEnumerations.ConnectionType SqlConnectionType=SwarcoEnumerations.ConnectionType.NOT_DEFINED;
     public SwarcoEnumerations.ConnectionType getSqlConnectionType() {
@@ -28,19 +28,15 @@ public class RawDataDataListLevel {
     }
     public  int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon) {
         SwarcoConnections vg = new SwarcoConnections();
-        logger.info("pSqlCon = "+ pSqlCon);
         int iRet = vg.MakeConnection(pSqlCon);
         if (iRet!=INT_RET_OK) {
             return iRet;
         }
         setSqlConnectionType(pSqlCon);
-        logger.info("  rawdata SqlConnectionType = " + SqlConnectionType);
-        logger.info(" getSqlConnectionType() =  " +getSqlConnectionType());
         gSqlCon = vg.getSqlCon();
         return DATABASE_CONNECTION_OK;
     }
     public  RawDataDataListLevel () {}
-
     public int AddNewRawData(RawData pRawData) throws SQLException{
         int iRet;
         String SQL="";

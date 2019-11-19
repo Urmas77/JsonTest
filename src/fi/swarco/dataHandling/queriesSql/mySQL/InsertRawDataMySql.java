@@ -25,6 +25,6 @@ public class InsertRawDataMySql {
         statement = statement +  "?,";
         statement = statement +  "?,";
         statement = statement + "now())";
-        logger.info("statement = " + statement);
+      //  logger.info("statement = " + statement);
     }
 }

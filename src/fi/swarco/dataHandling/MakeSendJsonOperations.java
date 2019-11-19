@@ -60,7 +60,7 @@ public class MakeSendJsonOperations {
     private static MeasurementTaskHandling th = new MeasurementTaskHandling();
     private int MakeClearanceOperations(TRPXMeasurementTaskData pCe) throws SQLException {
         String strHelp1 = NO_VALUE;
-        int iRet = INT_RET_NOT_OK;
+        int iRet;
         LogUtilities mfl = new LogUtilities();
         iRet = th.UpdateTaskFromDbForClearance(pCe);
         if (iRet < 0) {
@@ -77,8 +77,8 @@ public class MakeSendJsonOperations {
         return OMNIA_DATA_PICK_NOT_OK;
     }
     private int MakeSpareOperations(TRPXMeasurementTaskData pCe) throws SQLException {
-        String strHelp1 = NO_VALUE;
-        int iRet = INT_RET_NOT_OK;
+        String strHelp1;
+        int iRet;
         LogUtilities mfl = new LogUtilities();
         strHelp1 = th.getPermanentSqlDataSpare(pCe.getIntersectionId(), pCe.getControllerId());
         logger.info("spare strHelp1 = " + strHelp1);
@@ -98,11 +98,11 @@ public class MakeSendJsonOperations {
         }
         return OMNIA_DATA_PICK_NOT_OK;
     }
-    public int PollOfWorks() throws SQLException {
+    public int PollOfWorks()  {
         // check is ther work is if it is transfer them to work queue
         int iloop = 1;
         int intSleep = 0;
-        int iRet = INT_RET_NOT_OK;
+        int iRet;
         iRet = MeasurementTaskHandling.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
         if (iRet != INT_RET_OK) {
             logger.info("Ei kantayhteytt� lopetetaan");
@@ -217,16 +217,16 @@ public class MakeSendJsonOperations {
         while (iloop == 1) {
             try {
                 // do work   "old way"
+                iRet2 = th.DeleteTrashTasksAfterHandFromTaskList();
                 iRet = th.MeasurementTaskDataList();
                 if (iRet != INT_RET_OK) {
                     if (iRet == NO_TASK_LIST) {
                         logger.info("Other error iRet = " + iRet);
                         iRet2 = th.DeleteTrashTasksAfterHand();
-                        //th.FillUpTasks()
-                        if (iRet2 != DELETE_TRASH_TASK_OK) {
-                            return OMNIA_DATA_PICK_NOT_OK;
-                        }
                         logger.info("Successful task delete afterhand continue");
+//   Delete lines also from Task list RETHINK JIs 18.11 2019
+                        iRet2 = th.DeleteTrashTasksAfterHandFromTaskList();
+// do  not Handle iRet2 codes   RETHINK JIs 18.11 2019
                         iRet = th.MeasurementTaskDataList();
                         if (iRet != INT_RET_OK) {
                             return OMNIA_DATA_PICK_NOT_OK;

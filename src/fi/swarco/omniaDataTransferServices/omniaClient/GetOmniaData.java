@@ -1,5 +1,4 @@
 package fi.swarco.omniaDataTransferServices.omniaClient;
-
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.dataHandling.MakeSendJsonOperations;
 import fi.swarco.omniaDataTransferServices.FileOperations;
@@ -9,7 +8,6 @@ import fi.swarco.properties.JSwarcoproperties;
 import fi.swarco.omniaDataTransferServices.XORChecksumShort;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.CONSTANT.INT_RET_OK;
 public class GetOmniaData {
@@ -32,14 +29,12 @@ public class GetOmniaData {
         LogUtilities mfl = new LogUtilities();
         int responseCode;
         BufferedReader in;
-        logger.info("moi Start");
         JSwarcoproperties sw = new JSwarcoproperties();
         iRet =sw.getSwarcoProperties();
         if (iRet != INT_RET_OK) {
             System.out.println(" Error reading Swarco properties ! ");
             System.exit(1);
         }
-
         FileOperations fo = new  FileOperations();
         iRet=fo.initFileOperations();
         if (iRet == UNSUCCESSFUL_FILE_OPERATION ) {
@@ -120,14 +115,14 @@ public class GetOmniaData {
                             }
                         }
                     }
-                    logger.info("bef sleep");
-                    logger.info(" sw.getOmniaClientSleepMs() = " + sw.getOmniaClientSleepMs());
+  //                  logger.info("bef sleep");
+ //                   logger.info(" sw.getOmniaClientSleepMs() = " + sw.getOmniaClientSleepMs());
                     intSleep = Integer.valueOf(sw.getOmniaClientSleepMs());
                     if (intSleep <=100) {
                         intSleep=200;
                     }
                     Thread.sleep(intSleep);   // 200 ms
-                    logger.info("after sleep");
+//                    logger.info("after sleep");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
