@@ -30,6 +30,12 @@ public class JSwarcoproperties {
     public void setOmniaClientSleepMs(String pOmniaClientSleepMs) {
         OmniaClientSleepMs = pOmniaClientSleepMs;
     }
+    //OmniaClientDetectorDataTime
+    private String OmniaClientDetectorDataTime;
+    public String getOmniaClientDetectorDataTime() { return OmniaClientDetectorDataTime;}
+    public void setOmniaClientDetectorDataTime(String pOmniaClientDetectorDataTime)
+    {OmniaClientDetectorDataTime=pOmniaClientDetectorDataTime;}
+
     private String[] timeFormat = new String[16];
     public String[] getTimeFormat() {
         return timeFormat;
@@ -224,7 +230,7 @@ public class JSwarcoproperties {
         try {
             String filename = "swarco.properties";  // old one Swarco.
             input = JSwarcoproperties.class.getClassLoader().getResourceAsStream(filename);
-           logger.info("input = " + input);
+        //   logger.info("input = " + input);
          //  System.out.println("input = " + input);
             if (input != null) {
                 prop.load(input);
@@ -282,11 +288,11 @@ public class JSwarcoproperties {
         strHelp1 = strHelp1 + "password=" + getSqlServerpassword();
         setSqlServerConnUrlWhole(strHelp1);
         logger.info("SqlServerConnUrlStart = " + prop.getProperty("SqlServerConnectionUrlStart"));
-        logger.info("SqlServerPort = "+ prop.getProperty("SqlServerPort"));
-        logger.info("SqlServerpassword = " + prop.getProperty("SqlServerpassword"));
-        logger.info("SqlServerdatabase = " + prop.getProperty("SqlServerdatabase"));
-        logger.info("SqlServerdbuser = " + prop.getProperty("SqlServerdbuser"));
-        logger.info("getpSqlServerConnUrlWhole() = " + getSqlServerConnUrlWhole());
+        //logger.info("SqlServerPort = "+ prop.getProperty("SqlServerPort"));
+        //logger.info("SqlServerpassword = " + prop.getProperty("SqlServerpassword"));
+        //logger.info("SqlServerdatabase = " + prop.getProperty("SqlServerdatabase"));
+        //logger.info("SqlServerdbuser = " + prop.getProperty("SqlServerdbuser"));
+        //logger.info("getpSqlServerConnUrlWhole() = " + getSqlServerConnUrlWhole());
         return INT_RET_OK;
     }
     private int setMySqlProps() {
@@ -306,11 +312,11 @@ public class JSwarcoproperties {
         //   strHelp1 = strHelp1 + "password=" + getMySqlpassword();
            setMySqlConnUrlWhole(strHelp1);
           logger.info("MySqlConnUrlStart = " + prop.getProperty("MySqlConnectionUrlStart"));
-          logger.info("MySqlpassword = " + prop.getProperty("MySqlpassword"));
-          logger.info("MySqldatabase = " + prop.getProperty("MySqldatabase"));
-          logger.info("MySqldbuser = " + prop.getProperty("MySqldbuser"));
-          logger.info("MySqlServerTimeZone = " + prop.getProperty("MySqlServerTimeZone"));
-          logger.info("getpMySqlConnUrlWhole() = " + getMySqlConnUrlWhole());
+      //    logger.info("MySqlpassword = " + prop.getProperty("MySqlpassword"));
+      //    logger.info("MySqldatabase = " + prop.getProperty("MySqldatabase"));
+      //    logger.info("MySqldbuser = " + prop.getProperty("MySqldbuser"));
+      //    logger.info("MySqlServerTimeZone = " + prop.getProperty("MySqlServerTimeZone"));
+      //    logger.info("getpMySqlConnUrlWhole() = " + getMySqlConnUrlWhole());
         return INT_RET_OK;
     }
     private int setFileProps() {
@@ -342,16 +348,18 @@ public class JSwarcoproperties {
         timeFormat[14] = prop.getProperty("TimeF15");
         timeFormat[15] = prop.getProperty("TimeF16");
         String theString = Arrays.toString(timeFormat);
-        logger.info("TimeArray[] theString = " + theString);
+    //    logger.info("TimeArray[] theString = " + theString);
         return INT_RET_OK;
     }
     private int setOmniaClientProps(){
         setOmniaClientUrl(prop.getProperty("OmniaClientUrl")) ;
-        logger.info("getOmniaClientUrl()= " + getOmniaClientUrl());
+    //    logger.info("getOmniaClientUrl()= " + getOmniaClientUrl());
         setOmniaClientSleepMs(prop.getProperty("OmniaClientSleepMs"));
-       logger.info("getOmniaClientSleepMs() = " + getOmniaClientSleepMs());
+    //    logger.info("getOmniaClientSleepMs() = " + getOmniaClientSleepMs());
         setOmniaClientWorkWaitSleep(prop.getProperty("OmniaClientWorkWaitSleep"));
-       logger.info("getOmniaClientWorkWaitSleep() = " + getOmniaClientWorkWaitSleep());
+    //    logger.info("getOmniaClientWorkWaitSleep() = " + getOmniaClientWorkWaitSleep());
+        setOmniaClientDetectorDataTime(prop.getProperty("OmniaClientDetectorDataTime"));
+        logger.info("getOmniaClientDetectorDataTime() = " + getOmniaClientDetectorDataTime());
         return INT_RET_OK;
     }
 }

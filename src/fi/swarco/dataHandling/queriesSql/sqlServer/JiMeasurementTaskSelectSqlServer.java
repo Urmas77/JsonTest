@@ -24,7 +24,7 @@ public class JiMeasurementTaskSelectSqlServer {
    //    statement = statement + " TaskType='NOTDEFINED' and ";     // there are also othet task types
         statement = statement + "MeasurementTask_idindex=(select min(MeasurementTask_idindex) from  TRPX_MeasurementTask_Work where  OmniaCode = (select dbo.TRPX_getOmniaCode()) and TaskStatus=1) ";
         statement = statement + " order by DetectorMeasuresTimestamp;";
-        logger.info("statement = " + statement);
+    //    logger.info("statement = " + statement);
     }
 }
 

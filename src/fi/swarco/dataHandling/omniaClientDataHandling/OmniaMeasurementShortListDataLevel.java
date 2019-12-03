@@ -158,7 +158,7 @@ public class OmniaMeasurementShortListDataLevel {
         String SQL;
         try {
             java.sql.PreparedStatement stmt;
-            SQL = " delete from OmniameasurementdataShort ";
+            SQL = " delete from OmniaMeasurementDataShort ";
             SQL = SQL + "where OmniaCode = " + pC1.getOmniaCode() + " and " +
                     " IntersectionId = " + pC1.getIntersectionId() + " and " +
                     " ControllerId = " + pC1.getControllerId() + " and " +
@@ -235,7 +235,7 @@ public class OmniaMeasurementShortListDataLevel {
     }
     public  List<OmniaMeasurementDataShort> GetOmniaMeasurementDataList()  {
         OmniaMeasurementDataShort cc = new OmniaMeasurementDataShort();
-        if (OmniaMeasurementDataUnits.isEmpty()==true) {
+        if (OmniaMeasurementDataUnits.isEmpty()) {
             cc= new OmniaMeasurementDataShort();
             cc.MakeEmptyElement();
             OmniaMeasurementDataUnits.add(cc);
@@ -264,8 +264,8 @@ public class OmniaMeasurementShortListDataLevel {
                 JsonParser jsonParser = new JsonParser();
                    ceJson = myGson.fromJson(strHelp2, OmniaMeasurementDataShortJson.class);
                    aO1=ceJson.MakeItemFromJsonTransferItem();
-                  logger.info("ceJson.toString().length() = " + ceJson.toString().length());
-                   logger.info("aO1.toString() = " +aO1.toString());
+ //                 logger.info("ceJson.toString().length() = " + ceJson.toString().length());
+ //                  logger.info("aO1.toString() = " +aO1.toString());
                    iRet= DoesLineAlreadyExist(aO1);
                 if (iRet==INT_RET_NOT_FOUND) {
                     iRet=AddNewOmniaMeasurementDataShort(aO1);

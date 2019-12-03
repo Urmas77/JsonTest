@@ -22,7 +22,7 @@ public class JiMeasurementTaskWorkSelectSqlServer {
         statement = statement + "Created,";
         statement = statement + "WorkCreated";
         statement = statement + " from TRPX_MeasurementTask_Work ";
-        logger.info("statement = " + statement);
+    //    logger.info("statement = " + statement);
     }
 }
 

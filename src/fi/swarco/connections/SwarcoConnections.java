@@ -32,8 +32,8 @@ public class SwarcoConnections {
             if (curSqlCon != null) {
                 try {
                     if (curSqlCon.isValid(0)) {
-                        logger.info("sqlconnect on validi curSqlConnectionType =" + curSqlConnectionType);
-                        logger.info("curSqlCon.getMetaData() = " + curSqlCon.getMetaData());
+                  //      logger.info("sqlconnect on validi curSqlConnectionType =" + curSqlConnectionType);
+                  //      logger.info("curSqlCon.getMetaData() = " + curSqlCon.getMetaData());
                         return INT_RET_OK;
                     }
                 } catch (SQLException e) {
@@ -125,7 +125,7 @@ public class SwarcoConnections {
                 logger.info("CurConnection is null make totally new connection!");
   //              logger.info("not used Connected.swarvop.getSqlServerConnUrlWhole() = " + swarvop.getSqlServerConnUrlWhole());
   //             logger.info("swarvop.getSqlServerConnUrlStart() = " + swarvop.getSqlServerConnUrlStart());
-                logger.info("swarvop.getSqlServerdatabase() = " + swarvop.getSqlServerdatabase());
+  //              logger.info("swarvop.getSqlServerdatabase() = " + swarvop.getSqlServerdatabase());
   //              logger.info("swarvop.getSqlServerdbuser() = " + swarvop.getSqlServerdbuser());
   //              logger.info("swarvop.getSqlServerpassword() = " + swarvop.getSqlServerpassword());
                 String strHelp1=swarvop.getSqlServerConnUrlStart() +";database=" + swarvop.getSqlServerdatabase() +";";
@@ -162,7 +162,7 @@ public class SwarcoConnections {
         try {
             if (curSqlCon == null) {
                 logger.info("CurConnection is null make totally new connection!");
-                logger.info("swarvop.getMySqlConnUrlStartDbase() = " + swarvop.getMySqlConnUrlStartDbase());
+    //            logger.info("swarvop.getMySqlConnUrlStartDbase() = " + swarvop.getMySqlConnUrlStartDbase());
          //       logger.info("swarvop.getMySqldbuser() = " + swarvop.getMySqldbuser());
          //       logger.info("swarvop.getMySqlpassword() = " + swarvop.getMySqlpassword());
          //       logger.info("swarvop.getMySqlServerTimeZone() = " + swarvop.getMySqlServerTimeZone());
@@ -203,7 +203,7 @@ public class SwarcoConnections {
             } else {
                 if (!curSqlCon.isValid(0)) {
                     logger.info("CurConnection is not valid make new one!");
-                    logger.info("swarvop.getMySqlConnUrlStartDbase() = " + swarvop.getMySqlConnUrlStartDbase());
+      //              logger.info("swarvop.getMySqlConnUrlStartDbase() = " + swarvop.getMySqlConnUrlStartDbase());
                //     logger.info("swarvop.getMySqldbuser() = " + swarvop.getMySqldbuser());
                //     logger.info("swarvop.getMySqlpassword() = " + swarvop.getMySqlpassword());
                     curSqlCon = DriverManager.getConnection(swarvop.getMySqlConnUrlStartDbase(),swarvop.getMySqldbuser(),swarvop.getMySqlpassword());

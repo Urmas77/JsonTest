@@ -25,13 +25,13 @@ public class DetectorMeasurementsShortClientDataLevel {
     }
     public  int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon) {
         SwarcoConnections vg = new SwarcoConnections();
-        logger.info("pSqlCon = "+ pSqlCon);
+ //       logger.info("pSqlCon = "+ pSqlCon);
         int iRet = vg.MakeConnection(pSqlCon);
         if (iRet!=1) {
             return iRet;
         }
         SqlConnectionType=pSqlCon;
-        logger.info("SqlConnectionType = " + SqlConnectionType);
+ //       logger.info("SqlConnectionType = " + SqlConnectionType);
         gSqlCon = vg.getSqlCon();
         return DATABASE_CONNECTION_OK;
     }
@@ -62,7 +62,7 @@ public class DetectorMeasurementsShortClientDataLevel {
             stmt.setTimestamp(pos,tStamp);
             ResultSet rs;
             rs = stmt.executeQuery();
-            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+  //          logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 cc= new OmniaMeasurementDataShort();
                 cc.MakeEmptyElement();

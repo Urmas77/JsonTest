@@ -15,10 +15,8 @@ public class OmniaMeasurementDataShort {
     private double MeanVehicleSpeed;
     private double OccupancyProcent;
     private double Accurancy;
-
     public OmniaMeasurementDataShort() {
     }
-
     public OmniaMeasurementDataShort(
             long omniaCode,
             long intersectionId,
@@ -47,67 +45,51 @@ public class OmniaMeasurementDataShort {
     public long getOmniaCode() {
         return OmniaCode;
     }
-
     public void setOmniaCode(long omniaCode) {
         this.OmniaCode = omniaCode;
     }
-
     public long getIntersectionId() {
         return IntersectionId;
     }
-
     public void setIntersectionId(long intersectionId) {
         this.IntersectionId = intersectionId;
     }
-
     public long getControllerId() {
         return ControllerId;
     }
-
     public void setControllerId(long controllerId) {
         this.ControllerId = controllerId;
     }
-
     public String getMeasurementTime() {
         return MeasurementTime;
     }
-
     public void setMeasurementTime(String pMeasurementTime) {
         this.MeasurementTime = pMeasurementTime;
     }
-
     public long getDetectorId() {
         return DetectorId;
     }
-
     public void setDetectorId(long detectorId) {
         this.DetectorId = detectorId;
     }
-
     public String getDetectorExternalCode() {
         return DetectorExternalCode;
     }
-
     public void setDetectorExternalCode(String detectorExternalCode) {
         this.DetectorExternalCode = detectorExternalCode;
     }
-
     public long getVehicleCount() {
         return VehicleCount;
     }
-
     public void setVehicleCount(long VehicleCount) {
         this.VehicleCount = VehicleCount;
     }
-
     public double getMeanVehicleSpeed() {
         return MeanVehicleSpeed;
     }
-
     public void setMeanVehicleSpeed(double MeanVehicleSpeed) {
         this.MeanVehicleSpeed = MeanVehicleSpeed;
     }
-
     public double getOccupancyProcent() {
         return OccupancyProcent;
     }
@@ -120,7 +102,6 @@ public class OmniaMeasurementDataShort {
     public void setAccurancy(double Accurancy) {
         this.Accurancy = Accurancy;
     }
-
     @Override
     public String toString() {
         return "OmniaMeasurementDataShort [OmniaCode = " + OmniaCode +

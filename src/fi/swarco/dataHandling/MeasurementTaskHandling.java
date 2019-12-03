@@ -803,7 +803,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid";
             String strRet;
             java.sql.PreparedStatement stmt;
-                logger.info("SQL = " + SQL);
+//                logger.info("SQL = " + SQL);
                 stmt = gSqlCon.prepareStatement(SQL);
                 ResultSet rs;
                 rs = stmt.executeQuery();

@@ -25,6 +25,6 @@ public class InsertRawDataSqlServer {
         statement = statement + "?,";
         statement = statement + "?,";
         statement = statement + "getdate())";
-        logger.info("statement = " + statement);
+      //  logger.info("statement = " + statement);
     }
 }

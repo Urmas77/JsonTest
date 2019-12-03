@@ -60,7 +60,7 @@ public class LogUtilities {
             rData.setRawDataStatus(1);   // RETHINK put real status value here see bellow this maybe not neede field
             rData.setRawDataStatusString(pSuccessCode.toString());   //
             rData.setTimestamp(strTime);
-            logger.info("bef AddNewRawData");
+  //          logger.info("bef AddNewRawData");
             try {
             iRet = rd.AddNewRawData(rData);
             } catch (SQLException e) {

@@ -221,7 +221,7 @@ public class MakeSendJsonOperations {
                 iRet = th.MeasurementTaskDataList();
                 if (iRet != INT_RET_OK) {
                     if (iRet == NO_TASK_LIST) {
-                        logger.info("Other error iRet = " + iRet);
+   //                     logger.info("Other error iRet = " + iRet);
                         iRet2 = th.DeleteTrashTasksAfterHand();
                         logger.info("Successful task delete afterhand continue");
 //   Delete lines also from Task list RETHINK JIs 18.11 2019

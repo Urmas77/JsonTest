@@ -1,7 +1,8 @@
 package fi.swarco.dataHandling.pojos;
 import org.apache.log4j.Logger;
-import static fi.swarco.CONSTANT.DOUBLE_LONG_MULTIPLIER;
-import static fi.swarco.CONSTANT.INT_EMPTY_ELEMENT;
+
+import static fi.swarco.CONSTANT.*;
+
 public class OmniaMeasurementDataShortJson {
      static Logger logger = Logger.getLogger(OmniaMeasurementDataShortJson.class.getName());
      private long OmniaCode=INT_EMPTY_ELEMENT;
@@ -119,7 +120,7 @@ public class OmniaMeasurementDataShortJson {
          ControllerId = 0;
          MeasurementTime = "1970-01-01 00:00:00";
          DetectorId = 0;
-         DetectorExternalCode = "novalue";
+         DetectorExternalCode = NO_VALUE;
          VehicleCount = 0;
          MeanVehicleSpeedJson = 0;
          OccupancyProcentJson = 0;

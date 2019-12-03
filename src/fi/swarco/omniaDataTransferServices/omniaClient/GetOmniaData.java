@@ -9,7 +9,6 @@ import fi.swarco.omniaDataTransferServices.XORChecksumShort;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -19,8 +18,11 @@ import static fi.swarco.CONSTANT.*;
 import static fi.swarco.CONSTANT.INT_RET_OK;
 public class GetOmniaData {
     private static Logger logger = Logger.getLogger(GetOmniaData.class.getName());
+    private static boolean TodayDone = false; // true if no need to tranfer detectordata today
     public static void sendGetOmniaData()  {
         int intSleep;
+        String strJobTime;
+        String strTime;
         String url1;
         String inputLine;
         int iRet;
@@ -52,11 +54,16 @@ public class GetOmniaData {
                         if (iRet != OMNIA_DATA_PICK_OK) {
                             // update task and write log *********************************************
                             if (iRet != OMNIA_EMPTY_WORK_LIST) {
-                                iRet = mfl.MakeFullLogOperations(
-                                        SwarcoEnumerations.LoggingDestinationType.OMNIA_CLIENT,
-                                        SwarcoEnumerations.ApiMessageCodes.DATAERROR,
-                                        "Unsuccessful data send ");
-                                logger.info("Unsuccessful data send ");
+                                if (iRet != INT_RET_OK) {
+                                    if (iRet != OMNIA_DATA_PICK_NOT_OK) {
+                                        logger.info("Unsuccessful data send1 iRet = " + iRet);
+                                        iRet = mfl.MakeFullLogOperations(
+                                                SwarcoEnumerations.LoggingDestinationType.OMNIA_CLIENT,
+                                                SwarcoEnumerations.ApiMessageCodes.DATAERROR,
+                                                "Unsuccessful data send ");
+                                        logger.info("Unsuccessful data send iRet = " + iRet);
+                                    }
+                                }
                             }
                         } else {
                             // if no value do not send RETHINK
@@ -115,14 +122,48 @@ public class GetOmniaData {
                             }
                         }
                     }
-  //                  logger.info("bef sleep");
- //                   logger.info(" sw.getOmniaClientSleepMs() = " + sw.getOmniaClientSleepMs());
+                   logger.info("bef sleep");
                     intSleep = Integer.valueOf(sw.getOmniaClientSleepMs());
                     if (intSleep <=100) {
                         intSleep=200;
                     }
                     Thread.sleep(intSleep);   // 200 ms
-//                    logger.info("after sleep");
+                    strJobTime=sw.getOmniaClientDetectorDataTime();
+                    strTime = java.time.LocalTime.now().toString();
+                    strTime= strTime.substring(0,5);
+               //     logger.info(" strTime= " + strTime);
+                //    strJobTime="06:34";
+                    logger.info(" strTime= " + strTime);
+                    logger.info(" strJobTime= " + strJobTime);
+                    if (strJobTime.equals(strTime)) {
+                        if (!(TodayDone)) {
+//     getOmniaClientDetectorDataTime() if time >   getOmniaClientDetectorDataTime()
+                            //dootrick
+                           //  if ok
+                            GetDetectorData dd = new  GetDetectorData();
+                            iRet= dd.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+                            if (iRet == DATABASE_CONNECTION_OK) {
+                                iRet =dd.AddDetectorDataLines();
+                                if (iRet>=0) {
+                                    logger.info("Detector lines were added successfully iRet =" + iRet);
+                                } else {
+                                    logger.info("Detector lines were added Unsuccessfully iRet =" + iRet);
+                                }
+                                iRet =dd.AddIntersectionControllerDataLines();
+                                if (iRet>=0) {
+                                    logger.info("IntersectionController lines were added successfully iRet =" + iRet);
+                                } else {
+                                    logger.info("IntersectionController lines were added unsuccessfully iRet =" + iRet);
+                                }
+                                } else {
+                                logger.info("No database connection! ");
+                            }
+                           TodayDone=true;
+                        }
+                    }
+                    if (strTime.equals("00:00")) {
+                        TodayDone=false;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
