@@ -1,12 +1,10 @@
 package fi.swarco.testPrograms;
 import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShort;
 import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShortJson;
-import fi.swarco.omniaDataTransferServices.SwarcoTimeUtilities;
 import fi.swarco.properties.JSwarcoproperties;
 import org.apache.log4j.Logger;
 
 import static fi.swarco.CONSTANT.DOUBLE_LONG_MULTIPLIER;
-import static fi.swarco.CONSTANT.INT_RET_OK;
 
 public class t3 {
     static Logger logger = Logger.getLogger(t3.class.getName());

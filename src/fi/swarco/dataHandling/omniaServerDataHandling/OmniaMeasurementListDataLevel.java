@@ -11,7 +11,7 @@ import fi.swarco.dataHandling.pojos.OmniaMeasurementData;
 import fi.swarco.dataHandling.queriesSql.mySQL.InsertMeasurementDataMySql;
 import fi.swarco.dataHandling.queriesSql.mySQL.SelectMeasurementDataMySqlWhere;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
-import fi.swarco.omniaDataTransferServices.SwarcoTimeUtilities;
+import fi.swarco.serviceOperations.SwarcoTimeUtilities;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;

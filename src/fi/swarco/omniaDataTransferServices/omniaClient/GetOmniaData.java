@@ -5,7 +5,7 @@ import fi.swarco.omniaDataTransferServices.FileOperations;
 import fi.swarco.omniaDataTransferServices.LogUtilities;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
 import fi.swarco.properties.JSwarcoproperties;
-import fi.swarco.omniaDataTransferServices.XORChecksumShort;
+import fi.swarco.serviceOperations.XORChecksumShort;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import java.io.BufferedReader;
@@ -78,7 +78,7 @@ public class GetOmniaData {
                                 strHelp1 = mu.DecodeJsonPercentDecimal(strHelp1);
                                 strHelp1 = URLEncoder.encode(strHelp1, StandardCharsets.UTF_8.toString());
                                 url1 = sw.getOmniaClientUrl();
-                 //               logger.info("moi url1 =" + url1);
+                                logger.info("moi url1 =" + url1);
                                 url1 = url1 + strHelp1;
                                 bXorResult = XORChecksumShort.xor(url1);
                                 url1 = url1 + "&chk=" + bXorResult;

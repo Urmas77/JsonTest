@@ -4,25 +4,11 @@ package fi.swarco.omniaDataTransferServices.omniaClient;
 import fi.swarco.CONSTANT;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
-import fi.swarco.dataHandling.MakeSendJsonOperations;
-import fi.swarco.dataHandling.pojos.RawData;
-import fi.swarco.dataHandling.queriesSql.mySQL.InsertRawDataMySql;
 import fi.swarco.dataHandling.queriesSql.sqlServer.InsertDetectorTasks;
 import fi.swarco.dataHandling.queriesSql.sqlServer.InsertIntersectionTasks;
-import fi.swarco.dataHandling.queriesSql.sqlServer.InsertRawDataSqlServer;
-import fi.swarco.omniaDataTransferServices.FileOperations;
-import fi.swarco.omniaDataTransferServices.LogUtilities;
-import fi.swarco.omniaDataTransferServices.MessageUtils;
-import fi.swarco.properties.JSwarcoproperties;
-import fi.swarco.omniaDataTransferServices.XORChecksumShort;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 

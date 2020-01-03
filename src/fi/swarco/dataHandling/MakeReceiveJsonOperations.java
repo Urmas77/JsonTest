@@ -5,7 +5,7 @@ import fi.swarco.dataHandling.omniaServerDataHandling.DetectorServerListDataLeve
 import fi.swarco.dataHandling.pojos.RawData;
 import fi.swarco.omniaDataTransferServices.FileOperations;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
-import fi.swarco.omniaDataTransferServices.SwarcoTimeUtilities;
+import fi.swarco.serviceOperations.SwarcoTimeUtilities;
 import org.apache.log4j.Logger;
 import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;

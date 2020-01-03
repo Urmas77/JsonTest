@@ -29,7 +29,7 @@ import static fi.swarco.CONSTANT.*;
             SwarcoConnections vg = new SwarcoConnections();
             logger.info("pSqlCon = "+ pSqlCon);
             int iRet = vg.MakeConnection(pSqlCon);
-            if (iRet!=1) {
+            if (iRet!=INT_RET_OK) {
                 return iRet;
             }
             SqlConnectionType=pSqlCon;
@@ -56,10 +56,11 @@ import static fi.swarco.CONSTANT.*;
                 while (rs.next()) {
                     ce= new SuperData();
                     ce.setOmniaCode(rs.getLong(1));
-                    ce.setIntersectionId(rs.getLong(4));
-                    ce.setControllerId(rs.getLong(9));
-                    ce.setDetectorId(rs.getLong(10));
+                    ce.setIntersectionId(rs.getLong(2));
+                    ce.setControllerId(rs.getLong(3));
+                    ce.setDetectorId(rs.getLong(4));
                     SuperDataUnits.add(ce);
+                    logger.info("ce.toString() = "+ ce.toString());
                 }
                 stmt.close();
                 rs.close();
@@ -67,7 +68,7 @@ import static fi.swarco.CONSTANT.*;
                     ce= new SuperData();
                     ce.MakeEmptyElement();
                     SuperDataUnits.add(ce);
-                    return -1;
+                    return INT_RET_NOT_OK;
                 }
                 logger.info("bef ret iRet OK");
                 return INT_RET_OK;
@@ -79,7 +80,7 @@ import static fi.swarco.CONSTANT.*;
                 ce.MakeEmptyElement();
                 SuperDataUnits.add(ce);
                 gSqlCon.close();
-                return -1;
+                return INT_RET_NOT_OK;
             }
         }
         public SuperData GetSuperUsingDetectorId(int pDetectorId) {
@@ -88,10 +89,10 @@ import static fi.swarco.CONSTANT.*;
             logger.info("SuperDataUnits.size()= " +SuperDataUnits.size());
             for (int i = 0; i < SuperDataUnits.size(); i++) {
                 ff=SuperDataUnits.get(i);
-                logger.debug("ff.toString() =" + ff.toString());
+                logger.info("ff.toString() =" + ff.toString());
                 if (ff.getDetectorId()==(pDetectorId)) {
-                    logger.debug("löytyi ff.getDetectorId =" + ff.getDetectorId());
-                    logger.debug("löytyi");
+                    logger.info("löytyi ff.getDetectorId =" + ff.getDetectorId());
+                    logger.info("löytyi");
                     return ff;
                 }
             }
@@ -109,11 +110,3 @@ import static fi.swarco.CONSTANT.*;
             return SuperDataUnits;
         }
     }
-
-
-
-
-
-
-
-

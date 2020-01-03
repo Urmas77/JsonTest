@@ -13,7 +13,7 @@ import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShortJson;
 import fi.swarco.dataHandling.queriesSql.mySQL.InsertOmniaMeasurementDataShortMySql;
 import fi.swarco.dataHandling.queriesSql.mySQL.SelectMeasurementDataShortMySqlWhere;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
-import fi.swarco.omniaDataTransferServices.SwarcoTimeUtilities;
+import fi.swarco.serviceOperations.SwarcoTimeUtilities;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;

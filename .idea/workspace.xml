@@ -9,30 +9,272 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="Eka committi">
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/InsertDetectorTasks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/InsertIntersectionTasks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetDetectorData.java" afterDir="false" />
+    <list default="true" id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="Eka uudella jidealla tulostuksia poistettu mini Jarrit tuotantoon">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/com_squareup_moshi_moshi_1_9_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/com_squareup_retrofit2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/com_squareup_retrofit2_converter_moshi_2_7_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_msgpack_jackson_dataformat_msgpack_0_8_20.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/adapter-guava-2.7.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/animal-sniffer-annotations-1.18.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/checker-qual-2.8.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/converter-moshi-2.7.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/error_prone_annotations-2.3.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/failureaccess-1.0.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/guava-28.1-jre.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/j2objc-annotations-1.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jackson-annotations-2.9.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jackson-core-2.8.7.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jackson-core-2.9.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jackson-databind-2.9.9.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jackson-dataformat-msgpack-0.8.20.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jackson-jr-objects-2.8.7.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jackson-jr-retrofit2-2.8.7.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/jsr305-3.0.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/logging-interceptor-3.14.4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/moshi-1.8.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/moshi-1.9.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/msgpack-core-0.8.20.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/okhttp-3.14.4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/okhttp-3.2.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/okio-1.16.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/okio-1.17.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/okio-1.6.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/retrofit-2.0.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/retrofit-2.7.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/AdapterMethodsFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/ArrayJsonAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/ClassFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/ClassJsonAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/CollectionJsonAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/FromJson.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/Json.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonDataException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonEncodingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonQualifier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonScope.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonUtf8Reader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonUtf8Writer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonValueReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonValueWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/JsonWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/LinkedHashTreeMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/MapJsonAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/Moshi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/StandardJsonAdapters.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/ToJson.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/Types.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/internal/NonNullJsonAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/internal/NullSafeJsonAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/internal/Util.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/squareup/moshi/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeTimeSeriesOperations.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/TimeSeriesClientDataLevel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/influx/InfluxSqlToTimeSerie.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetOldestUnusedTimeStampFromMeasurements.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetTimeSerieSqlServerData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetVisibleDetectorsSqlServerData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/influxoperations/InfluxControllerDataPump.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/influxoperations/InfluxDBOwn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/influxoperations/InfluxDataPump.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/InfluxUtilities.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/GetCurrentTimeStamp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/GetSwarcoTimeStamp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/KKKK.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/RandomString.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/SegFileSetter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/ShowHumanTime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/TTT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/TimestampHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/testPrograms/ITeJI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/testPrograms/InfluxDBTestJI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/BatchOptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/BuilderException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/InfluxDB.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/InfluxDBException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/InfluxDBFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/InfluxDBIOException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/InfluxDBMapperException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/annotation/Column.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/annotation/Measurement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/annotation/TimeColumn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/dto/BatchPoints.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/dto/BoundParameterQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/dto/Point.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/dto/Pong.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/dto/Query.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/dto/QueryResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/BasicAuthInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/BatchProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/BatchWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/GzipRequestInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/InfluxDBImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/InfluxDBMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/InfluxDBResultMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/InfluxDBService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/OneShotBatchWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/Preconditions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/RetryCapableBatchWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/impl/TimeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/msgpack/MessagePackConverterFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/msgpack/MessagePackResponseBodyConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/msgpack/MessagePackTraverser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/msgpack/QueryResultModelPath.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Aggregations.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Alias.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Appendable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Appender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/BuiltQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Column.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Distinct.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Function.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/FunctionFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Operations.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Ordering.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/QueryStringBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/RawText.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Select.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/SelectCoreImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/SelectQueryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/SelectSubQueryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/SelectWithSubquery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Selection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/SelectionCoreImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/SelectionQueryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/SelectionSubQueryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/SubQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/TimeZone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/Where.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/WhereCoreImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/WhereNested.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/WhereQueryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/WhereSubQueryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/WithInto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/WithSubquery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/AbstractClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/AddRelativeTimeClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/AndConjunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/Clause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/Conjunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/ConjunctionClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/ContainsClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/FromClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/MultipleFromClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/NegativeRegexClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/NestedClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/OperationClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/OrConjunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/RawFromClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/RawTextClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/RegexClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/RelativeTimeClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/SelectRegexClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/SimpleClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/SimpleFromClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/SubQueryFromClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/clauses/SubRelativeTimeClause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/time/DurationLiteral.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/influxdb/querybuilder/time/TimeInterval.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/ExtensionTypeHeader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessageBufferPacker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessageFormat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessageFormatException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessageInsufficientBufferException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessageIntegerOverflowException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessageNeverUsedFormatException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessagePack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessagePackException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessagePacker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessageSizeException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessageStringCodingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessageTypeCastException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessageTypeException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/MessageUnpacker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/Preconditions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/annotations/Nullable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/annotations/VisibleForTesting.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/ArrayBufferInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/ArrayBufferOutput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/ByteBufferInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/ChannelBufferInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/ChannelBufferOutput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/DirectBufferAccess.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/InputStreamBufferInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/MessageBuffer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/MessageBufferBE.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/MessageBufferInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/MessageBufferOutput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/MessageBufferU.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/core/buffer/OutputStreamBufferOutput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ArrayValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/BinaryValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/BooleanValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ExtensionValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/FloatValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableArrayValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableBinaryValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableBooleanValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableExtensionValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableFloatValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableIntegerValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableMapValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableNilValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableNumberValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableRawValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableStringValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ImmutableValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/IntegerValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/MapValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/NilValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/NumberValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/RawValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/StringValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/Value.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ValueFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/ValueType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/Variable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/AbstractImmutableRawValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/AbstractImmutableValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/ImmutableArrayValueImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/ImmutableBigIntegerValueImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/ImmutableBinaryValueImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/ImmutableBooleanValueImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/ImmutableDoubleValueImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/ImmutableExtensionValueImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/ImmutableLongValueImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/ImmutableMapValueImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/ImmutableNilValueImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/msgpack/value/impl/ImmutableStringValueImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JsonTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JsonTest.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/CONSTANT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/CONSTANT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/SwarcoEnumerations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/SwarcoEnumerations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskWorkHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskWorkHandling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/RawDataDataListLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/RawDataDataListLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsShortClientDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsShortClientDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaDetectorClientDatalevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaDetectorClientDatalevel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementDataShort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementDataShort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementDataShortJson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementDataShortJson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectMeasurementDataShortMySqlWhere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectMeasurementDataShortMySqlWhere.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/InsertRawDataSqlServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/InsertRawDataSqlServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/JiMeasurementTaskSelectSqlServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/JiMeasurementTaskSelectSqlServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/JiMeasurementTaskWorkSelectSqlServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/JiMeasurementTaskWorkSelectSqlServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/SuperClientDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/SuperClientDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/IntersectionControllerListDatalevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/IntersectionControllerListDatalevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/OmniaIntersectionListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/OmniaIntersectionListDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/OmniaMeasurementListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/OmniaMeasurementListDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaDetectorServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaDetectorServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/SuperData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/SuperData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/LogUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/LogUtilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/SCPInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/SCPInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/SwarcoTimeUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/SwarcoTimeUtilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/XORChecksumShort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/XORChecksumShort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/customerClient/CustomerClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/customerClient/CustomerClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetDetectorData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetDetectorData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/test.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/testPrograms/T6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/testPrograms/T6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/testPrograms/Test2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/testPrograms/Test2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/testPrograms/Test2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/testPrograms/t3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/testPrograms/t3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/log4j.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/swarco.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/swarco.properties" afterDir="false" />
     </list>
@@ -67,6 +309,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -98,6 +341,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="AnalyzeApkAction.lastApkPath" value="$PROJECT_DIR$" />
     <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
@@ -106,13 +350,13 @@
     <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="T6bb" />
     <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="true" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
-    <property name="last_opened_file_path" value="C:/T6Jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -122,29 +366,85 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.368" />
+    <property name="project.structure.side.proportion" value="0.22088724" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="Shelf.Project.Settings" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\TFS\IntelliJ\JsonTest\src" />
+      <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco\influxdb" />
+      <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco\Influxdb" />
       <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco" />
-      <recent name="C:\TFS\IntelliJ\JsonTest\lib" />
-      <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco\dataHandling" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="fi.swarco.influxoperations" />
       <recent name="fi.swarco.omniaDataTransferServices.omniaClient" />
       <recent name="fi.swarco.dataHandling" />
       <recent name="fi.swarco" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\TFS\IntelliJ\JsonTest\src" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco\serviceoperations" />
+      <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco\dataHandling\omniaClientDataHandling" />
       <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco" />
+      <recent name="C:\TFS\IntelliJ\JsonTest\src" />
+      <recent name="C:\TFS\IntelliJ\JsonTest\lib" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.OmniaClient">
+  <component name="RunManager" selected="Application.InfluxControllerDataPump">
+    <configuration name="ITeJI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fi.swarco.testPrograms.ITeJI" />
+      <module name="JsonTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fi.swarco.testPrograms.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InfluxControllerDataPump" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fi.swarco.influxoperations.InfluxControllerDataPump" />
+      <module name="JsonTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fi.swarco.influxoperations.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InfluxDataPump" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fi.swarco.influxoperations.InfluxDataPump" />
+      <module name="JsonTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fi.swarco.influxoperations.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KKKK" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fi.swarco.serviceOperations.KKKK" />
+      <module name="JsonTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fi.swarco.serviceOperations.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MakeSendJsonOperations" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="fi.swarco.dataHandling.MakeSendJsonOperations" />
       <module name="JsonTest" />
@@ -160,64 +460,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OmniaCloudHTTPServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer.OmniaCloudHTTPServer" />
+    <configuration name="TTT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fi.swarco.serviceOperations.TTT" />
       <module name="JsonTest" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="fi.swarco.omniaDataTransferServices.omniaClient.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="T4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fi.swarco.testPrograms.T4" />
-      <module name="JsonTest" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="fi.swarco.testPrograms.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="T6" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fi.swarco.testPrograms.T6" />
-      <module name="JsonTest" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="fi.swarco.testPrograms.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="T7" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fi.swarco.testPrograms.T7" />
-      <module name="JsonTest" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="fi.swarco.testPrograms.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fi.swarco.testPrograms.Test2" />
-      <module name="JsonTest" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="fi.swarco.testPrograms.*" />
+          <option name="PATTERN" value="fi.swarco.serviceOperations.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -228,19 +476,19 @@
     <list>
       <item itemvalue="Application.MakeSendJsonOperations" />
       <item itemvalue="Application.OmniaClient" />
-      <item itemvalue="Application.OmniaCloudHTTPServer" />
-      <item itemvalue="Application.T4" />
-      <item itemvalue="Application.T6" />
-      <item itemvalue="Application.T7" />
-      <item itemvalue="Application.Test2" />
+      <item itemvalue="Application.ITeJI" />
+      <item itemvalue="Application.InfluxDataPump" />
+      <item itemvalue="Application.TTT" />
+      <item itemvalue="Application.KKKK" />
+      <item itemvalue="Application.InfluxControllerDataPump" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.OmniaCloudHTTPServer" />
-        <item itemvalue="Application.T6" />
-        <item itemvalue="Application.Test2" />
-        <item itemvalue="Application.T4" />
-        <item itemvalue="Application.T7" />
+        <item itemvalue="Application.InfluxControllerDataPump" />
+        <item itemvalue="Application.TTT" />
+        <item itemvalue="Application.InfluxDataPump" />
+        <item itemvalue="Application.KKKK" />
+        <item itemvalue="Application.ITeJI" />
       </list>
     </recent_temporary>
   </component>
@@ -444,7 +692,20 @@
       <workItem from="1574668222006" duration="4815000" />
       <workItem from="1574677320246" duration="5926000" />
       <workItem from="1575274006005" duration="3937000" />
-      <workItem from="1575361820393" duration="1974000" />
+      <workItem from="1575361820393" duration="14436000" />
+      <workItem from="1576155322249" duration="1980000" />
+      <workItem from="1576238993668" duration="4837000" />
+      <workItem from="1576245034555" duration="2252000" />
+      <workItem from="1576480536769" duration="549000" />
+      <workItem from="1576481118828" duration="14586000" />
+      <workItem from="1576566493330" duration="30227000" />
+      <workItem from="1576734706988" duration="5923000" />
+      <workItem from="1576747562657" duration="1132000" />
+      <workItem from="1576831053477" duration="1411000" />
+      <workItem from="1576832907238" duration="9427000" />
+      <workItem from="1576851377390" duration="599000" />
+      <workItem from="1577689191876" duration="33704000" />
+      <workItem from="1577948403060" duration="40267000" />
     </task>
     <task id="LOCAL-00001" summary="Eka committi">
       <created>1569300763657</created>
@@ -516,7 +777,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573114791542</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Eka uudella jidealla tulostuksia poistettu mini Jarrit tuotantoon">
+      <created>1575364091862</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1575364091862</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -549,6 +817,7 @@
     <option name="USE_CUSTOM_SHELF_PATH" value="true" />
     <option name="CUSTOM_SHELF_PATH" value="E:/TFS/IntelliJ/JsonTest/.idea/shelf" />
     <option name="MOVE_SHELVES" value="true" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="true" />
     <MESSAGE value="Eka committi" />
     <MESSAGE value="On production Before &quot;!Loop resend&quot; version JIs" />
@@ -564,25 +833,83 @@
     <MESSAGE value="gggg" />
     <MESSAGE value="OmniaClient  and OmniaCloudHttpServer jar are built &#10;Code cleaned" />
     <MESSAGE value="Jar files are OK &#10;DetectorExternalCode error fixed &#10;Just before &quot;big Delivery&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Jar files are OK &#10;DetectorExternalCode error fixed &#10;Just before &quot;big Delivery&quot;" />
+    <MESSAGE value="Eka uudella jidealla tulostuksia poistettu mini Jarrit tuotantoon" />
+    <option name="LAST_COMMIT_MESSAGE" value="Eka uudella jidealla tulostuksia poistettu mini Jarrit tuotantoon" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1340" height="384" key="GridCell.Tab.0.bottom" timestamp="1575363592953">
+    <state x="546" y="202" width="1290" height="678" key="#Project_Structure" timestamp="1576752425738">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1340" height="384" key="GridCell.Tab.0.bottom/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1575363592953" />
-    <state width="1340" height="384" key="GridCell.Tab.0.center" timestamp="1575363592953">
+    <state x="1005" y="202" key="#Project_Structure/0.0.1920.1160/1920.0.1920.1160/3840.0.1920.1040@0.0.1920.1160" timestamp="1576483687396" />
+    <state x="546" y="202" width="1290" height="678" key="#Project_Structure/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1576752425738" />
+    <state x="920" y="329" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1576752420267">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1340" height="384" key="GridCell.Tab.0.center/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1575363592953" />
-    <state width="1340" height="384" key="GridCell.Tab.0.left" timestamp="1575363592953">
+    <state x="920" y="329" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1576752420267" />
+    <state x="1193" y="374" width="398" height="266" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1577953246476">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1340" height="384" key="GridCell.Tab.0.left/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1575363592953" />
-    <state width="1340" height="384" key="GridCell.Tab.0.right" timestamp="1575363592953">
+    <state x="1193" y="374" width="398" height="266" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1577953246476" />
+    <state x="1128" y="513" key="FileChooserDialogImpl" timestamp="1576247078142">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1340" height="384" key="GridCell.Tab.0.right/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1575363592953" />
+    <state x="1128" y="513" key="FileChooserDialogImpl/0.0.1920.1160/1920.0.1920.1160/3840.0.1920.1040@0.0.1920.1160" timestamp="1576247078142" />
+    <state width="1567" height="723" key="GridCell.Tab.0.bottom" timestamp="1578060720216">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1567" height="723" key="GridCell.Tab.0.bottom/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578060720216" />
+    <state width="1567" height="723" key="GridCell.Tab.0.center" timestamp="1578060720216">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1567" height="723" key="GridCell.Tab.0.center/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578060720216" />
+    <state width="1567" height="723" key="GridCell.Tab.0.left" timestamp="1578060720215">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1567" height="723" key="GridCell.Tab.0.left/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578060720215" />
+    <state width="1567" height="723" key="GridCell.Tab.0.right" timestamp="1578060720216">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1567" height="723" key="GridCell.Tab.0.right/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578060720216" />
+    <state width="1567" height="185" key="GridCell.Tab.1.bottom" timestamp="1578059876306">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1567" height="185" key="GridCell.Tab.1.bottom/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578059876306" />
+    <state width="1567" height="185" key="GridCell.Tab.1.center" timestamp="1578059876306">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1567" height="185" key="GridCell.Tab.1.center/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578059876306" />
+    <state width="1567" height="185" key="GridCell.Tab.1.left" timestamp="1578059876306">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1567" height="185" key="GridCell.Tab.1.left/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578059876306" />
+    <state width="1567" height="185" key="GridCell.Tab.1.right" timestamp="1578059876306">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1567" height="185" key="GridCell.Tab.1.right/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578059876306" />
+    <state x="495" y="219" key="SettingsEditor" timestamp="1576481879962">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state x="495" y="219" key="SettingsEditor/0.0.1920.1160/1920.0.1920.1160/3840.0.1920.1040@0.0.1920.1160" timestamp="1576481879962" />
+    <state x="824" y="412" key="classpath-attribute-editor" timestamp="1576746889533">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state x="824" y="412" key="classpath-attribute-editor/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1576746889533" />
+    <state x="92" y="92" width="1736" height="976" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1577713104042">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state x="92" y="92" width="1736" height="976" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1577713104042" />
+    <state x="1126" y="404" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1576481859902">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state x="1126" y="404" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1160/1920.0.1920.1160/3840.0.1920.1040@0.0.1920.1160" timestamp="1576481859902" />
+    <state x="814" y="480" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578060707824">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state x="814" y="480" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578060707824" />
+    <state x="659" y="262" key="run.anything.popup" timestamp="1578052430122">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state x="659" y="262" key="run.anything.popup/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578052430122" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -610,7 +937,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java</url>
-          <line>34</line>
+          <line>36</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -754,11 +1081,6 @@
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/testPrograms/Test2.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="116" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
           <line>33</line>
           <option name="timeStamp" value="117" />
@@ -767,11 +1089,6 @@
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/OmniaIntersectionListDataLevel.java</url>
           <line>151</line>
           <option name="timeStamp" value="123" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/testPrograms/Test2.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="129" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java</url>
@@ -807,11 +1124,6 @@
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/MessageUtils.java</url>
           <line>127</line>
           <option name="timeStamp" value="167" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/SuperClientDataLevel.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="169" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
@@ -935,7 +1247,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaDetectorClientDatalevel.java</url>
-          <line>111</line>
+          <line>235</line>
           <option name="timeStamp" value="224" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1079,7 +1391,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java</url>
-          <line>191</line>
+          <line>200</line>
           <option name="timeStamp" value="268" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1103,14 +1415,39 @@
           <option name="timeStamp" value="284" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/testPrograms/Test2.java</url>
-          <line>8</line>
-          <option name="timeStamp" value="285" />
+          <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetDetectorData.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="287" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetDetectorData.java</url>
-          <line>56</line>
-          <option name="timeStamp" value="287" />
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetTimeSerieSqlServerData.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="289" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/TimeSeriesClientDataLevel.java</url>
+          <line>113</line>
+          <option name="timeStamp" value="290" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/influxoperations/InfluxDataPump.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="296" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/influxoperations/InfluxDataPump.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="297" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/serviceOperations/SwarcoTimeUtilities.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="299" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/influx/InfluxSqlToTimeSerie.java</url>
+          <line>133</line>
+          <option name="timeStamp" value="300" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

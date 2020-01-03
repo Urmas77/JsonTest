@@ -1,15 +1,15 @@
 package fi.swarco.dataHandling.pojos;
 import org.apache.log4j.Logger;
 
-import static fi.swarco.CONSTANT.INT_EMPTY_ELEMENT;
-import static fi.swarco.CONSTANT.NO_VALUE;
+import static fi.swarco.CONSTANT.*;
+
 public class SuperData {
     private static Logger logger = Logger.getLogger(SuperData.class.getName());
     private long OmniaCode=INT_EMPTY_ELEMENT;
     private String OmniaName=NO_VALUE;
-    private long IntersectionId=Long.valueOf(0);
-    private long ControllerId=Long.valueOf(0);
-    private long DetectorId=Long.valueOf(0);
+    private long IntersectionId=NO_INTERSECTION_ID;
+    private long ControllerId=NO_CONTROLLER_ID;
+    private long DetectorId=NO_DETECTOR_ID;
     public SuperData(){}
     public SuperData(
             long omniaCode,
@@ -26,26 +26,26 @@ public class SuperData {
     public long getOmniaCode() {
         return OmniaCode;
     }
-    public void setOmniaCode(long omniaCode) {
-        this.OmniaCode = omniaCode;
+    public void setOmniaCode(long pOmniaCode) {
+        this.OmniaCode = pOmniaCode;
     }
     public long getIntersectionId() {
         return IntersectionId;
     }
-    public void setIntersectionId(long intersectionId) {
-        this.IntersectionId = intersectionId;
+    public void setIntersectionId(long pIntersectionId) {
+        this.IntersectionId = pIntersectionId;
     }
     public long getControllerId() {
         return ControllerId;
     }
-    public void setControllerId(long controllerId) {
-        this.ControllerId = controllerId;
+    public void setControllerId(long pControllerId) {
+        this.ControllerId = pControllerId;
     }
         public long getDetectorId() {
             return DetectorId;
         }
-        public void setDetectorId(long controllerId) {
-            this.ControllerId = DetectorId;
+        public void setDetectorId(long pDetectorId) {
+            this.DetectorId = pDetectorId;
         }
     @Override
     public String toString() {
@@ -57,8 +57,8 @@ public class SuperData {
     public void MakeEmptyElement() {
         OmniaCode =INT_EMPTY_ELEMENT;
         OmniaName=NO_VALUE;
-        IntersectionId=Long.valueOf(0);
-        ControllerId=Long.valueOf(0);
-        DetectorId=Long.valueOf(0);
+        IntersectionId=NO_INTERSECTION_ID;
+        ControllerId=NO_CONTROLLER_ID;
+        DetectorId=NO_DETECTOR_ID;
     }
 }

@@ -3,7 +3,7 @@ import fi.swarco.messageHandling.HtppRequestWrapper;
 import fi.swarco.messageHandling.ParameterWrapper;
 import fi.swarco.messageHandling.ReturnWrapper;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
-import fi.swarco.omniaDataTransferServices.XORChecksumShort;
+import fi.swarco.serviceOperations.XORChecksumShort;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import java.io.BufferedReader;

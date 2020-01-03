@@ -2,12 +2,14 @@ package fi.swarco.connections;
 import java.sql.*;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.properties.JSwarcoproperties;
+import fi.swarco.testPrograms.InfluxDBTestJI;
 import org.apache.log4j.Logger;
 
 import static fi.swarco.CONSTANT.*;
 public class SwarcoConnections {
     static Logger logger = Logger.getLogger(SwarcoConnections.class.getName());
     static Connection curSqlCon;
+    InfluxDBTestJI curInfluxDB;
     static SwarcoEnumerations.ConnectionType curSqlConnectionType = SwarcoEnumerations.ConnectionType.NOT_DEFINED;
     public Connection getSqlCon() {
         return curSqlCon;
@@ -222,4 +224,32 @@ public class SwarcoConnections {
             return UNSUCCESSFUL_DATABASE_CONNECTION_OPERATION;
         }
     }
+
+    //*********************************************************************************************
+    public int MakeTimeSeriesConnection() {
+        int iRet;
+        try {
+            iRet=SeekProperties();
+            if (iRet!=1) {
+                return iRet;
+            }
+            logger.debug("Start 1");
+            logger.debug("swarvop.getInfluxConnUrlStart() = "+ swarvop.getInfluxConnUrlStart());
+            logger.debug("swarvop.getInfluxdbuser() = " + swarvop.getInfluxdbuser() );
+            logger.debug("swarvop.getInfluxpassword() =" + swarvop.getInfluxpassword() );
+            InfluxDBTestJI it = new  InfluxDBTestJI();
+            it.setInfluxConnUrlStart(swarvop.getInfluxConnUrlStart());
+            it.setInfluxdbuser(swarvop.getInfluxdbuser());
+            it.setInfluxpassword(swarvop.getInfluxpassword());
+            it.setUp1();
+            curInfluxDB =it;
+        } catch(Exception e) {
+            logger.info(" influx catch 11");
+            e.printStackTrace();
+        }
+        return 1;
+    }
 }
+
+
+

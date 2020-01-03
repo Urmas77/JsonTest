@@ -6,7 +6,7 @@ import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.pojos.IntersectionControllerDataServer;
 import fi.swarco.dataHandling.queriesSql.mySQL.*;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
-import fi.swarco.omniaDataTransferServices.SwarcoTimeUtilities;
+import fi.swarco.serviceOperations.SwarcoTimeUtilities;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import java.sql.Connection;

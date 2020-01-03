@@ -1,23 +1,38 @@
 package fi.swarco.dataHandling.omniaClientDataHandling;
+        import java.io.IOException;
         import java.sql.*;
-        import com.google.gson.Gson;
+        import java.util.Collections;
+        import java.util.LinkedList;
+        import java.util.List;
+       import com.google.gson.Gson;
         import com.google.gson.JsonParser;
         import fi.swarco.SwarcoEnumerations;
         import fi.swarco.connections.SwarcoConnections;
         import fi.swarco.dataHandling.pojos.OmniaDetector;
+        import fi.swarco.dataHandling.pojos.OmniaDetectorServer;
+        import fi.swarco.dataHandling.pojos.influx.InfluxSqlToTimeSerie;
         import fi.swarco.dataHandling.queriesSql.sqlServer.GetDetectorSqlServerData;
+        import fi.swarco.dataHandling.queriesSql.sqlServer.GetVisibleDetectorsSqlServerData;
+        import fi.swarco.influxoperations.InfluxDBOwn;
         import fi.swarco.omniaDataTransferServices.MessageUtils;
+        import fi.swarco.properties.JSwarcoproperties;
         import org.apache.commons.lang.exception.ExceptionUtils;
         import org.apache.log4j.Logger;
         import static fi.swarco.CONSTANT.*;
+        import static fi.swarco.SwarcoEnumerations.ConnectionType.INFLUX_LOCAL;
+        import static fi.swarco.SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST;
+
 public class OmniaDetectorClientDatalevel {
     private static Logger logger = Logger.getLogger(OmniaDetectorClientDatalevel.class.getName());
+    List<OmniaDetectorServer> DataUnits = Collections.synchronizedList(new LinkedList<OmniaDetectorServer>()); // ????
     static Connection gSqlCon;
+    int iRet;
+    InfluxDBOwn ts = new InfluxDBOwn();
     private SwarcoEnumerations.ConnectionType SqlConnectionType=SwarcoEnumerations.ConnectionType.NOT_DEFINED;
     public  int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon) {
         SwarcoConnections vg = new SwarcoConnections();
         logger.info("pSqlCon = "+ pSqlCon);
-        int iRet = vg.MakeConnection(pSqlCon);
+        iRet = vg.MakeConnection(pSqlCon);
         if (iRet!=1) {
             return iRet;
         }
@@ -25,6 +40,115 @@ public class OmniaDetectorClientDatalevel {
         logger.info("SqlConnectionType = " + SqlConnectionType);
         gSqlCon = vg.getSqlCon();
         return DATABASE_CONNECTION_OK;
+    }
+    public  int MakeConnection2(SwarcoEnumerations.ConnectionType pSqlCon1,SwarcoEnumerations.ConnectionType pSqlCon2) {
+        JSwarcoproperties swarcop = new JSwarcoproperties();
+        SwarcoConnections vg = new SwarcoConnections();
+        try {
+            iRet = swarcop.getSwarcoProperties();
+            if (iRet != 1) {
+                logger.info ("Ei saatu properteja");
+                return iRet;
+            }
+            if ((pSqlCon1.equals(INFLUX_LOCAL) || (pSqlCon2.equals(INFLUX_LOCAL)))) {
+                ts.setInfluxConnUrlStart(swarcop.getInfluxConnUrlStart());
+                ts.setInfluxdbuser(swarcop.getInfluxdbuser());
+                ts.setInfluxpassword(swarcop.getInfluxdbuser());
+                ts.setUp1();
+            }
+            if ((pSqlCon1.equals(SQLSERVER_LOCAL_JOMNIATEST) || (pSqlCon2.equals(SQLSERVER_LOCAL_JOMNIATEST)))) {
+                int iRet = vg.MakeConnection(SQLSERVER_LOCAL_JOMNIATEST);
+                if (iRet!=INT_RET_OK) {
+                    return iRet;
+                }
+                SqlConnectionType=SQLSERVER_LOCAL_JOMNIATEST;
+                logger.info("SqlConnectionType = " + SqlConnectionType);
+                gSqlCon = vg.getSqlCon();
+                return DATABASE_CONNECTION_OK;
+            }
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+        return INT_RET_OK;
+    }
+    public int GetVisibleDetectorsData () throws SQLException {
+        DataUnits.clear();
+        String SQL="";
+        java.sql.PreparedStatement stmt;
+        logger.info(" SqlConnectionType =" + SqlConnectionType);
+        logger.info("Start ");
+        GetVisibleDetectorsSqlServerData st = new GetVisibleDetectorsSqlServerData();
+        SQL =st.getStatement() ;
+        OmniaDetectorServer ce;
+        try {
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+            while (rs.next()) {
+                ce = new OmniaDetectorServer();
+                ce.setOmniaCode(rs.getLong(1));
+                ce.setOmniaName(rs.getString(2));
+                ce.setOmniaPublicationStatus(rs.getLong(3));
+                ce.setIntersectionId(rs.getLong(4));
+                ce.setControllerId(rs.getLong(5));
+                ce.setDetectorId(rs.getLong(6));
+                ce.setDetectorTypeId(rs.getLong(7));
+                ce.setDetectorProgressId(rs.getLong(8));
+                ce.setDetectorMaintenanceCode(rs.getString(9));
+                ce.setDetectorMeasurementStationId(rs.getLong(10));
+                ce.setDetectorExternalCode(rs.getString(11));
+                ce.setDetectorSubSystemId(rs.getLong(12));
+                ce.setDetectorUnitId(rs.getLong(13));
+                ce.setDetectorVisible(rs.getLong(14));
+                ce.setDetectorDeleted(rs.getLong(15));
+                ce.setDetectorDataPreviousUpdate(rs.getString(16));
+                ce.setDetectorGuid(rs.getString(17));
+                ce.setDetectorDescription(rs.getString(18));
+                ce.setDetectorAreaId(rs.getLong(19));
+                ce.setCreated(rs.getString(20));
+                ce.setDetectorObjectPriorityId(rs.getLong(21));
+                ce.setDetectorParkingHouseId(rs.getLong(22));
+                DataUnits.add(ce);
+                logger.info("ce.toString() = "+ ce.toString());
+            }
+            stmt.close();
+            rs.close();
+            if (DataUnits.isEmpty()==true) {
+                ce= new OmniaDetectorServer();
+                ce.MakeEmptyElement();
+                DataUnits.add(ce);
+                return INT_RET_NOT_OK;
+            }
+            logger.info("bef ret iRet OK");
+            return INT_RET_OK;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            ce= new OmniaDetectorServer();
+            ce.MakeEmptyElement();
+            DataUnits.add(ce);
+            gSqlCon.close();
+            return INT_RET_NOT_OK;
+        }
+    }
+    public int WriteDetectorsDataToInflux(){
+        InfluxDBOwn it  = new InfluxDBOwn();
+        int iRet=INT_RET_OK;
+        OmniaDetectorServer ce;
+        logger.info("DataUnits.size()= " + DataUnits.size());
+        for (int i = 0; i < DataUnits.size(); i++) {
+            ce=DataUnits.get(i);
+            logger.info("ce.GetDetectorNodeJsString(Controllers) = " + ce.GetDetectorNodeJsString("Controllers"));
+            iRet=ts.WriteSwarcoLineFromString("swarco_test",ce.GetDetectorNodeJsString("Controllers"));
+            if  (iRet!=INT_RET_OK) {
+                logger.info("unsuccessful influx write operation iRet = " + iRet);
+                return iRet;
+            }
+        }
+        return INT_RET_OK;
     }
     private OmniaDetector GetOmniaDetectorData (long plngDetectorId, String pstrTimestamp) throws SQLException {
 // there is only one element
@@ -112,5 +236,14 @@ public class OmniaDetectorClientDatalevel {
         OmniaDetector ce = GetOmniaDetectorData(plngDetectorId, pstrTimestamp);
         String strHelp1 = GetDetectorJsonString(ce);
         return strHelp1;
+    }
+    public  List<OmniaDetectorServer> GetOmniaSuperDataList()  {
+        OmniaDetectorServer cc = new OmniaDetectorServer();
+        if (DataUnits.isEmpty()==true) {
+            cc= new OmniaDetectorServer();
+            cc.MakeEmptyElement();
+            DataUnits.add(cc);
+        }
+        return DataUnits;
     }
 }

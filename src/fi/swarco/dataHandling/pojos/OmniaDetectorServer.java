@@ -1,5 +1,11 @@
 package fi.swarco.dataHandling.pojos;
+import fi.swarco.omniaDataTransferServices.InfluxUtilities;
+import fi.swarco.serviceOperations.SwarcoTimeUtilities;
 import org.apache.log4j.Logger;
+
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+
 import static fi.swarco.CONSTANT.*;
 public class OmniaDetectorServer {
     static Logger logger = Logger.getLogger(fi.swarco.dataHandling.pojos.OmniaDetectorServer.class.getName());
@@ -281,6 +287,32 @@ public class OmniaDetectorServer {
                 ", created = " + created +
                 ", createdSql = " + createdSql +"]";
 
+    }
+    public String GetDetectorNodeJsString(String pSerieName) {
+        String strHelp1,strHelp2;
+        String time;
+        if (pSerieName.equals(NO_VALUE)) {
+            return NO_VALUE;
+        }
+        InfluxUtilities aaa = new InfluxUtilities();
+        //logger.info("aaa.FilterInfluxFields(uuu,kkkk,cccc) = " + aaa.FilterInfluxFields("uuu,kkkk,cccc"));
+
+        ZoneOffset zoneOffSet= ZoneOffset.of("+02:00");
+        OffsetDateTime date = OffsetDateTime.now(zoneOffSet);
+        logger.info ("date.toString() = " +date.toString());
+        logger.info("date.toEpochSecond() = " + date.toEpochSecond());
+        logger.info ("date.getNano() = " + date.getNano());
+        strHelp2=String.valueOf(date.toEpochSecond()) +String.valueOf(date.getNano());
+        strHelp1 = pSerieName +",";
+        strHelp1 = strHelp1 +"OmniaCode="+ omniaCode + ",";
+        strHelp1 = strHelp1 + "IntersectionId=" +intersectionId +",";
+        strHelp1 = strHelp1 + "ControllerId="+  controllerId +",";
+        strHelp1 = strHelp1 + "DetectorId="+ detectorId +",";
+        strHelp1 = strHelp1 + "DetectorExternalCode="+ aaa.FilterInfluxFields(detectorExternalCode) +" ";
+        strHelp1 = strHelp1 + "Value=1" + " ";
+        strHelp1 = strHelp1 +   strHelp2;
+        logger.info("strHelp1 = "+ strHelp1);
+        return strHelp1;
     }
     public void MakeEmptyElement() {
         omniaCode =  INT_EMPTY_ELEMENT;

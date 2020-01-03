@@ -20,7 +20,7 @@
     <orderEntry type="library" exported="" name="org.apache.directory.studio:org.apache.httpcomponents.httpclient:4.1.2" level="project" />
     <orderEntry type="library" exported="" name="com.strategicgains:DateAdapterJ:1.1.4" level="project" />
     <orderEntry type="library" exported="" name="commons-lang-2.6" level="project" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/annotations-17.0.0.jar!/" />
@@ -29,5 +29,11 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="moshi-1.9.2" level="application" />
+    <orderEntry type="library" exported="" name="com.squareup.retrofit2" level="project" />
+    <orderEntry type="library" exported="" name="com.squareup.retrofit2:converter-moshi:2.7.0" level="project" />
+    <orderEntry type="library" exported="" name="com.squareup.okhttp3:logging-interceptor:3.14.4" level="application" />
+    <orderEntry type="library" exported="" name="com.squareup.moshi:moshi:1.9.2" level="project" />
+    <orderEntry type="library" exported="" name="org.msgpack:jackson-dataformat-msgpack:0.8.20" level="project" />
   </component>
 </module>

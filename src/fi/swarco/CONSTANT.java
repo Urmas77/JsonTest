@@ -17,6 +17,9 @@ public static final String RET_NOT_OK ="Not OK";
 public static final int INT_RET_OK = 1;
 public static final int INT_RET_NOT_OK = -111;
 public static final String UNIX_START_TIME ="1970-01-01 00:00:00";
+public static final String SWARCO_END_TIME="9999-01-01 00:00:00";
+//2069-04-25T15:51:00.000
+public static final String  SQL_SERVER_NULL_TIME ="2069-04-25T15:51:00.000";  // RETHINK
 public static final int    TOO_MANY_SIMILAR_PARAMETERS=-3333;
 public static final int NO_TASK_LIST =1234567;
 public static final int UNSUCCESSFUL_FILE_OPERATION =-9998;

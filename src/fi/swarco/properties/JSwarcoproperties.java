@@ -8,6 +8,15 @@ import static fi.swarco.CONSTANT.INT_RET_NOT_OK;
 import static fi.swarco.CONSTANT.INT_RET_OK;
 public class JSwarcoproperties {
     private static Logger logger = Logger.getLogger(JSwarcoproperties.class.getName());
+    private String InfluxConnUrlStart;
+    private String Influxdbuser;
+    private String Influxpassword;
+    public String getInfluxConnUrlStart() {return InfluxConnUrlStart;};
+    public void   setInfluxConnUrlStart(String pInfluxConnUrlStart) {InfluxConnUrlStart=pInfluxConnUrlStart;};
+    public String getInfluxdbuser() {return Influxdbuser;};
+    public void   setInfluxdbuser(String pInfluxdbuser) {Influxdbuser=pInfluxdbuser;};
+    public String getInfluxpassword() {return Influxpassword;};
+    public void   setInfluxpassword(String pInfluxpassword) {Influxpassword=pInfluxpassword;};
     private String OmniaClientUrl;
     public String getOmniaClientUrl() {
         return OmniaClientUrl;
@@ -248,6 +257,10 @@ public class JSwarcoproperties {
             if (iRet != 1) {
                 logger.info("No MySql props in this environment!");
             }
+            iRet = setInfluxProps();
+            if (iRet != 1) {
+                logger.info("No MySql props in this environment!");
+            }
             iRet = setFileProps();
             if (iRet != 1) {
                 logger.info("No flat file props in this environment!");
@@ -319,6 +332,16 @@ public class JSwarcoproperties {
       //    logger.info("getpMySqlConnUrlWhole() = " + getMySqlConnUrlWhole());
         return INT_RET_OK;
     }
+    private int setInfluxProps () {
+        setInfluxConnUrlStart(prop.getProperty("InfluxConnectionUrlStart"));
+        setInfluxdbuser(prop.getProperty("Influxdbuser"));
+        setInfluxpassword(prop.getProperty("Influxpassword"));
+        logger.info("getInfluxConnUrlStart() = " + getInfluxConnUrlStart());
+        logger.info("getInfluxdbuser() = " + getInfluxdbuser());
+        logger.info("getInfluxpassword() = " + getInfluxpassword());
+        return 1;
+    }
+
     private int setFileProps() {
         setFilePathString(prop.getProperty("FilePathString"));
        // logger.info("getFilePathString() = " + getFilePathString());
