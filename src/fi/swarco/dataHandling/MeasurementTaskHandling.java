@@ -8,6 +8,7 @@ import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.omniaClientDataHandling.*;
 import fi.swarco.dataHandling.pojos.TRPXMeasurementTaskData;
 import fi.swarco.dataHandling.queriesSql.sqlServer.JiMeasurementTaskSelectSqlServer;
+import fi.swarco.omniaDataTransferServices.FileOperations;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
@@ -15,11 +16,13 @@ public class MeasurementTaskHandling {
     private static Logger logger = Logger.getLogger(MeasurementTaskHandling.class.getName());
     private List<TRPXMeasurementTaskData> TaskUnits = Collections.synchronizedList(new LinkedList<>());  // ????
     private static Connection gSqlCon;
+    private  FileOperations fo =new FileOperations();
     private static SwarcoEnumerations.ConnectionType SqlConnectionType = SwarcoEnumerations.ConnectionType.NOT_DEFINED;
     private SwarcoEnumerations.RequestOriginType requestOrigin = SwarcoEnumerations.RequestOriginType.NORMALROAD;
     public void setRequestOrigin(SwarcoEnumerations.RequestOriginType prequestOrigin) {
         requestOrigin = prequestOrigin;
     }
+
     public static int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon)  {
         SwarcoConnections vg = new SwarcoConnections();
      //   logger.info("pSqlCon = " + pSqlCon);
@@ -870,7 +873,6 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-//            logger.info("SQL = " +SQL);
             logger.info("Lines deleted  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
@@ -887,8 +889,6 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return DELETE_TRASH_TASK_ERROR ;
         }
     }
-
-
     public int DeleteTrashTasksAfterHand() throws SQLException{
         int iRet;
         try {
@@ -961,7 +961,6 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         ce.MakeEmptyElement();
         return ce;
     }
-
     public int DeleteDoneTaskFromDb(TRPXMeasurementTaskData ce) throws SQLException{
         int iRet;
  //       logger.info("ce.toString()=" + ce.toString());
@@ -1034,7 +1033,6 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             String SQL = " delete from TRPX_MeasurementTask_Work ";
             SQL = SQL +  "where MeasurementTask_idindex   = "  + pIdentity ;
-//            logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             logger.info("Lines deleted iRet = " + iRet);
@@ -1210,7 +1208,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
    //         logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+    //        logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -1312,6 +1310,8 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         }
         return NO_VALUE;
     }
+
+
     public String getPermanentSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException  {
         String strRet = NO_VALUE;
         int iRet;
@@ -1333,6 +1333,33 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             strRet = oi.GetMeasurementsDataString(plngIntersectionId, plngControllerId, pstrTimestamp);
         }
         return strRet;
+    }
+    public int CreateInfluxWriteFile(List<String> pWriteList) {
+       fo.initFileOperations();
+       String strInfluxFileName = fo.getFullInfluxFileName();
+       int iRet =fo.closeAndDeleteNormalFile(strInfluxFileName);
+       logger.info("pWriteList.size()= " + pWriteList.size());
+       for (int i = 0; i < pWriteList.size(); i++) {
+           iRet = fo.addOmniaInfluxLine(pWriteList.get(i), strInfluxFileName);
+           if  (iRet!=INT_RET_OK) {
+               return iRet;
+           }
+      //     iRet = fo.addOmniaInfluxLine(NEW_LINE_LINUX, strInfluxFileName);
+      //     if (iRet!=INT_RET_OK) {
+      //         return iRet;
+      //     }
+       }
+       return INT_RET_OK;
+    }
+    public int buildMeasurementShortSqlDataFile(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException{
+        int iRet;
+        fo.initFileOperations();
+        String strInfluxFileName = fo.getFullInfluxFileName();
+        iRet =fo.closeAndDeleteNormalFile(strInfluxFileName);
+        iRet= fo.addOmniaInfluxLine("cpu_load_short,host=server111 value=0.12345 1422568543702900257","jatri1");
+        iRet= fo.addOmniaInfluxLine(NEW_LINE_LINUX,"jatri1");
+        iRet= fo.addOmniaInfluxLine("cpu_load_short,host=server02 value=0.678999 1422568543702900266","jatri1");
+       return iRet;
     }
     public String getMeasurementShortSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException{
         String strRet = NO_VALUE;

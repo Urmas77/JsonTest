@@ -66,6 +66,34 @@ public class FileOperations {
             return INT_RET_NOT_OK;
         }
     }
+    public int closeAndDeleteNormalFile(String pPathAndFileName ) {
+        File myFile = new File(pPathAndFileName);
+        String strHelp1 = NO_VALUE;
+        try {
+            logger.info("pPathAndFileName = " + pPathAndFileName);
+            System.out.println("fo pPathAndFileName = " + pPathAndFileName);
+            myFile= new File(pPathAndFileName);
+            if (myFile.exists() ) {
+                if (myFile.delete()) {
+                    System.out.println("File is deleted myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                    logger.info("File is deleted myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                } else {
+                    System.out.println("Unsuccesfull File delete operation myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                    logger.info("Unsuccesfull File delete operation myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                }
+            } else {
+                System.out.println("File not found myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+                logger.info("File not found myFile.getAbsolutePath() = " + myFile.getAbsolutePath());
+            }
+            return INT_RET_OK;
+        }  catch(Exception ex) {
+            logger.info("Error deleting file  '" + pPathAndFileName + "'");
+            logger.info(ExceptionUtils.getRootCauseMessage(ex));
+            logger.info(ExceptionUtils.getFullStackTrace(ex));
+            ex.printStackTrace();
+            return INT_RET_NOT_OK;
+        }
+    }
     public int addOmniaClientJsonLine(String pstrJson,String pJsonFileName ) {
         String fileName=swarvop.getFilePathStringOmniaClient() + pJsonFileName +".txt";
         String wtext;
@@ -136,4 +164,49 @@ public class FileOperations {
             return INT_RET_NOT_OK;
         }
     }
+    public String getFullInfluxFileNameOld(String pInfluxFileName) {
+        return swarvop.getFilePathStringOmniaInflux() + pInfluxFileName +".txt";
+    }
+    public String getFullInfluxFileName() {
+        return swarvop.getFilePathStringOmniaInflux() +swarvop.getFileNameInflux1() +".txt";
+    }
+    public int addOmniaInfluxLine(String pstrLine,String pInfluxFileName ) {
+        String fileName= pInfluxFileName; // this includes full path
+        String wtext;
+        File myFile = new File(fileName);
+        try {
+            //   logger.info("fileName = " + fileName);
+            if (!myFile.exists() && !myFile.isDirectory()) {
+                myFile.createNewFile();
+                logger.info("File does not exists create new filename ="+ fileName);
+                if (!myFile.exists()) {
+                    return FILE_NOT_EXIST;
+                }
+            }
+            // logger.info("File exists filename ="+ fileName);
+            if (myFile.canWrite()) {
+                FileWriter fileWriter = new FileWriter(fileName,true);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                wtext =pstrLine;
+                wtext = wtext +NEW_LINE_LINUX;
+                logger.info("File can write  writestr= "+ wtext);
+                // Note that write() does not automatically
+                // append a newline character.
+                bufferedWriter.write(wtext);
+               // bufferedWriter.newLine();
+                // Always close files.
+                bufferedWriter.close();
+            }
+            return INT_RET_OK;
+        }  catch(IOException ex) {
+            logger.info("Error writing to file '" + fileName + "'");
+            logger.info(ExceptionUtils.getRootCauseMessage(ex));
+            logger.info(ExceptionUtils.getFullStackTrace(ex));
+            ex.printStackTrace();
+            return INT_RET_NOT_OK;
+        }
+    }
+
+
+
 }

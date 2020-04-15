@@ -3,10 +3,14 @@ public class CONSTANT {
 private CONSTANT(){}
 public static final String NO_VALUE ="novalue";
 public static final String ERROR_VALUE ="errorvalue";
-
+public static final String JOB_DONE ="JOB_DONE";
+public static final String  NO_TIME_SERIE_STRING ="NO_TIME_SERIE_STRING";
+public static int SERIENAMES_CREATED_OK=45987;
+public static int SERIENAMES_CREATED_NOT_OK=-45987;
 public static final int NO_IDENTITY =-1;
-public static final int INT_EMPTY_ELEMENT =-99999;  //EMPTY_ELEMENT
-
+public static final int INT_FIELD_NOT_IN_USE =-9999999;
+public static final double DOUBLE_FIELD_NOT_IN_USE =-9999999.99;
+;public static final int INT_EMPTY_ELEMENT =-99999;  //EMPTY_ELEMENT
 public static final int NO_OMNIA = -444;
 public static final int NO_INTERSECTION_ID = -445;
 public static final int NO_CONTROLLER_ID = -446;
@@ -19,7 +23,8 @@ public static final int INT_RET_NOT_OK = -111;
 public static final String UNIX_START_TIME ="1970-01-01 00:00:00";
 public static final String SWARCO_END_TIME="9999-01-01 00:00:00";
 //2069-04-25T15:51:00.000
-public static final String  SQL_SERVER_NULL_TIME ="2069-04-25T15:51:00.000";  // RETHINK
+public static final String  SQL_SERVER_NULL_TIME ="2069-04-25 15:51:00.0";  // RETHINK
+public static final String  SERIENAME_TIMESTAMP ="1576591469228722464";
 public static final int    TOO_MANY_SIMILAR_PARAMETERS=-3333;
 public static final int NO_TASK_LIST =1234567;
 public static final int UNSUCCESSFUL_FILE_OPERATION =-9998;
@@ -37,14 +42,14 @@ public static final int INT_RET_FOUND =777;
 public static final int INT_RET_NOT_FOUND=-777;
 public static final int NOT_CHANGED =888;
 public static final int CHANGED=-888;
-
 public static final byte ASCII_CONTROL_DC2	= 0x12;
 public static final String ASCII_CTRL_STRING_DC2		= "DC2";
-
+public final static char CR  = (char) 0x0D;
+public final static char LF  = (char) 0x0A;
+public final static String NEW_LINE_LINUX = "\n";
 public static final int MEASUREMENT_TASK_STATUS_CREATED =0;
 public static final int MEASUREMENT_TASK_STATUS_OK =1;    // old value was 0
 public static final int MEASUREMENT_TASK_STATUS_CLEARING =-9999;
-
 public static final int FILL_UP_TASK_ERROR =-5999;
 public static final int FILL_UP_TASK_OK =5999;
 public static final int TASK_TRANSFER_ERROR =-5998;
@@ -62,19 +67,18 @@ public static final int DELETE_TRASH_TASKTASK_OK=5992;
 public static final int  OMNIA_EMPTY_WORK_LIST = -4999;
 public static final String QUERY_CURRENTSTATE="CURRENTSTATE";
 public static final String QUERY_HISTORYSTATE="HISTORYSTATE";
-// Omnia inteface  publication statuses Jis 10.6 2019
-//     OFF :   No data send
-//     SWARCO  : Data is sent  Swarco cloud  for swarco and "test use"
-//     ON      : Data can be send to Swarco cloud  for Public use
 public static final int PUBLICATION_STATUS_OFF =-1;
 public static final int PUBLICATION_STATUS_SWARCO =1;
 public static final int PUBLICATION_STATUS_ON =2;
+public static final int SERIENAME_ERROR = -5678;
+public static final int SERIENAME_IS_ON_USE = 5678;
+public static final int SERIENAME_IS_FREE = 5679;
 //
 public static final int NEW_DATATRANSFER_TASK =0;
 public static final int READY_DATATRANSFER_TASK =-999;
 public static final int DATABASE_CONNECTION_OK =111;
 //
-public static final int  FILE_NOT_EXIST = -9998;
+public static final int FILE_NOT_EXIST = -9998;
 public static final int OMNIA_DATA_PICK_OK =2222;
 public static final int OMNIA_DATA_PICK_NOT_OK =-777;
 public static final int CLOUD_DATA_PICK_NOT_OK=-778;
@@ -92,6 +96,8 @@ public static final String  TT_LOAD_CURRENT_DETECTORS_DATA="LOADCURRENTDETECTORS
 public static final String  TT_NOT_DEFINED="NOTDEFINED";
 public static final String  TT_NO_WORK="NO_WORK";
 public static final long    NO_WORK_INDEX=-5678;
-//
+public static final long    TWO_HOURS_MS=7200000;
+public static final long    THREE_HOURS_MS=10800000;
+public static final long    TWENTYSEVEN_HOURS_MS=97200000;
 public static final double  DOUBLE_LONG_MULTIPLIER = 10000000.0;
 }

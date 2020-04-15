@@ -22,13 +22,11 @@ public class TTT {
 	        String strHelp1 = Long.toString(lngHelp1); 
 	         return strHelp1; 
 	    }
-	    
 	    public static Integer jjjGetFromTimeStampUnixTime(String finTimeStr) {
 	        String strHelp1 ="";
 	        if(finTimeStr == null) return null;
 	        logger.info("******finTimeStr = " + finTimeStr);
-
-	        strHelp1= finTimeStr.replace("Z",".000-0000");  
+	        strHelp1= finTimeStr.replace("Z",".000-0000");
 	        logger.info("*******strHelp1 = " + strHelp1);
 		 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSZ");
 		 	Date dt;
@@ -220,7 +218,6 @@ public class TTT {
 	//	logger.info("tu.ToNanoSec8601("+  strHelp1 + ")= " + tu.ToNanoSec8601(strHelp1));
 		logger.info("***************tu.ToNanoSec8601Str("+  strHelp1 + ")= " + tu.ToNanoSec8601Str(strHelp1));
 		String strHelp3=tu.ToNanoSec8601Str(strHelp1);
-
 		logger.info("******strHelp3 ="+ strHelp3);
 		logger.info("*************************************************");
 	//	String strHelp56=org.influxdb.impl.TimeUtil.toInfluxDBTimeFormat(Long.valueOf(strHelp3));
@@ -231,8 +228,6 @@ public class TTT {
         logger.info ("date.toString() = " +date.toString());
 		logger.info ("date.toEpochSecond() = " + date.toEpochSecond());
 		logger.info ("date.getNano() = " + date.getNano());
-
-
 		Thread.sleep(3000);
 		date = OffsetDateTime.now(zoneOffSet);
 		logger.info ("date.toEpochSecond() = " + date.toEpochSecond());
@@ -260,14 +255,6 @@ public class TTT {
 //        logger.info(1. strHelp1 = " + strHelp1);
 //		strHelp1=strHelp1+".000-0000";
 //		logger.info(1. strHelp1 = " + strHelp1);
-
-
-
-
-
-
-
-
 	/*	String strHelpTextDate40="2016-12-10T12:00:01.000-0000";
 		String strHelpTextDate56="2016-12-11T11:59:59Z";
 		strHelpTextDate56=strHelpTextDate56.replace("Z",".000-0000");
@@ -275,7 +262,6 @@ public class TTT {
 		logger.info("jjjGetFromTimeStampUnixTime(" + strHelpTextDate56 +")= " + jjjGetFromTimeStampUnixTime(strHelpTextDate56));
 		logger.info("tsToSec8601("+  strHelpTextDate40 + ")= " + tsToSec8601(strHelpTextDate40));
 		strHelpTextDate56="2016-12-11T12:00:00Z";
-		
 		strHelpTextDate56=strHelpTextDate56.replace("Z",".000-0000");
 		strHelpTextDate40="2016-12-11T12:00:00.000-0000";
 		logger.info("jjjGetFromTimeStampUnixTime(" + strHelpTextDate56 +")= " + jjjGetFromTimeStampUnixTime(strHelpTextDate56));
@@ -285,14 +271,6 @@ public class TTT {
 		strHelpTextDate40="2016-12-11T12:00:01.000-0000";                       
 		logger.info("jjjGetFromTimeStampUnixTime(" + strHelpTextDate56 +")= " + jjjGetFromTimeStampUnixTime(strHelpTextDate56));
 		logger.info("tsToSec8601("+  strHelpTextDate40 + ")= " + tsToSec8601(strHelpTextDate40));
- 
 */
-	
-	
-	}	  
+	}
 }
-	
-	
-	
-	
-

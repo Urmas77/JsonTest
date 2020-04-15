@@ -3,6 +3,7 @@ import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.pojos.SuperData;
 import fi.swarco.dataHandling.queriesSql.sqlServer.SuperDataSqlServerSelect;
+import fi.swarco.dataHandling.queriesSql.sqlServer.SuperDataSqlServerSelectDetectorId;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import java.sql.Connection;
@@ -60,6 +61,53 @@ import static fi.swarco.CONSTANT.*;
                     ce.setControllerId(rs.getLong(3));
                     ce.setDetectorId(rs.getLong(4));
                     SuperDataUnits.add(ce);
+//                    logger.info("ce.toString() = "+ ce.toString());
+                }
+                stmt.close();
+                rs.close();
+                if (SuperDataUnits.isEmpty()==true) {
+                    ce= new SuperData();
+                    ce.MakeEmptyElement();
+                    SuperDataUnits.add(ce);
+                    return INT_RET_NOT_OK;
+                }
+                logger.info("bef ret iRet OK");
+                return INT_RET_OK;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                logger.info(ExceptionUtils.getRootCauseMessage(e));
+                logger.info(ExceptionUtils.getFullStackTrace(e));
+                ce= new SuperData();
+                ce.MakeEmptyElement();
+                SuperDataUnits.add(ce);
+                gSqlCon.close();
+                return INT_RET_NOT_OK;
+            }
+        }
+        public int MakeOmniaSuperDataListGEDetectorId (long plngDetectorId) throws SQLException {
+            SuperDataUnits.clear();
+            String SQL="";
+            java.sql.PreparedStatement stmt;
+            logger.info(" SqlConnectionType =" + SqlConnectionType);
+            logger.info("Start ");
+            SuperDataSqlServerSelectDetectorId st = new SuperDataSqlServerSelectDetectorId();
+            SQL =st.getStatement() ;
+            logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
+            logger.info("SQL = " +SQL);
+            SuperData ce;
+            try {
+                stmt = gSqlCon.prepareStatement(SQL);
+                stmt.setLong(1,plngDetectorId);
+                ResultSet rs;
+                rs = stmt.executeQuery();
+                logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+                while (rs.next()) {
+                    ce= new SuperData();
+                    ce.setOmniaCode(rs.getLong(1));
+                    ce.setIntersectionId(rs.getLong(2));
+                    ce.setControllerId(rs.getLong(3));
+                    ce.setDetectorId(rs.getLong(4));
+                    SuperDataUnits.add(ce);
                     logger.info("ce.toString() = "+ ce.toString());
                 }
                 stmt.close();
@@ -83,8 +131,11 @@ import static fi.swarco.CONSTANT.*;
                 return INT_RET_NOT_OK;
             }
         }
+
+
+
         public SuperData GetSuperUsingDetectorId(int pDetectorId) {
-            logger.debug("pDetectorId =" + pDetectorId);
+            logger.info("pDetectorId =" + pDetectorId);
             SuperData ff = new SuperData();
             logger.info("SuperDataUnits.size()= " +SuperDataUnits.size());
             for (int i = 0; i < SuperDataUnits.size(); i++) {

@@ -233,10 +233,10 @@ public class SwarcoConnections {
             if (iRet!=1) {
                 return iRet;
             }
-            logger.debug("Start 1");
-            logger.debug("swarvop.getInfluxConnUrlStart() = "+ swarvop.getInfluxConnUrlStart());
-            logger.debug("swarvop.getInfluxdbuser() = " + swarvop.getInfluxdbuser() );
-            logger.debug("swarvop.getInfluxpassword() =" + swarvop.getInfluxpassword() );
+      //      logger.debug("Start 1");
+      //      logger.debug("swarvop.getInfluxConnUrlStart() = "+ swarvop.getInfluxConnUrlStart());
+      //      logger.debug("swarvop.getInfluxdbuser() = " + swarvop.getInfluxdbuser() );
+      //      logger.debug("swarvop.getInfluxpassword() =" + swarvop.getInfluxpassword() );
             InfluxDBTestJI it = new  InfluxDBTestJI();
             it.setInfluxConnUrlStart(swarvop.getInfluxConnUrlStart());
             it.setInfluxdbuser(swarvop.getInfluxdbuser());

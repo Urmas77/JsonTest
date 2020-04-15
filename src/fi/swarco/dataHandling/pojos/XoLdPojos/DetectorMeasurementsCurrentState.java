@@ -1,6 +1,6 @@
-package fi.swarco.dataHandling.pojos.oLdPojos;
+package fi.swarco.dataHandling.pojos.XoLdPojos;
 import static fi.swarco.CONSTANT.NO_VALUE;
-public class DetectorMeasurementsHistoryState {
+public class DetectorMeasurementsCurrentState {
     private long omniaCode;
     private long intersectionId;
     private long controllerId;
@@ -10,7 +10,7 @@ public class DetectorMeasurementsHistoryState {
     private String intersectionPublicName;
     private String detectorPublicName;
     private int intValue;
-    private  double dblValue;
+    private double dblValue;
     private String strValue;
     private double latitude;
     private double longitude;
@@ -25,9 +25,8 @@ public class DetectorMeasurementsHistoryState {
     private double measurementMeanVehicleSpeed;
     private double measurementOccupancyProcent;
     private double measurementAccurancy;
-    public  DetectorMeasurementsHistoryState() {}
-    public DetectorMeasurementsHistoryState(
-            long identity,
+    public  DetectorMeasurementsCurrentState() {}
+    public DetectorMeasurementsCurrentState(
             long omniaCode,
             long intersectionId,
             long controllerId,
@@ -224,12 +223,12 @@ public class DetectorMeasurementsHistoryState {
     }
     @Override
     public String toString() {
-        return "DetectorMeasurementsHistoryState [omniaCode = " + omniaCode +
+        return "DetectorMeasurementsCurrentState [omniaCode = " + omniaCode +
                 ", intersectionId = " + intersectionId +
                 ", controllerId =" + controllerId +
                 ", detectorId =" + detectorId +
                 ",omniaPublicName  =" + omniaPublicName +
-                ",controllerPublicName =" +controllerPublicName +
+                ",controllerPublivName=" + controllerPublicName +
                 ",intersectionPublicName  =" + intersectionPublicName +
                 ",detectorPublicName  =" + detectorPublicName +
                 ",intValue  =" + intValue +
@@ -276,6 +275,3 @@ public class DetectorMeasurementsHistoryState {
         measurementAccurancy= Double.valueOf(0.0);
     }
 }
-
-
-

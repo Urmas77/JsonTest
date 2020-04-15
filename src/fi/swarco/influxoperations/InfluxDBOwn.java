@@ -1,5 +1,6 @@
 package fi.swarco.influxoperations;
 
+import okhttp3.OkHttpClient;
 import org.apache.log4j.Logger;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
@@ -8,7 +9,9 @@ import org.influxdb.dto.Query;
 import org.influxdb.dto.QueryResult;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static fi.swarco.CONSTANT.INT_RET_OK;
@@ -29,7 +32,20 @@ public class InfluxDBOwn {
         // logger.info("Influxdbuser = " + Influxdbuser);
         //  logger.info("Influxpassword = " + Influxpassword);
         //this.influxDB = InfluxDBFactory.connect("http://localhost:8086","root", "root");
-        this.influxDB = InfluxDBFactory.connect(InfluxConnUrlStart,Influxdbuser,Influxpassword);
+        OkHttpClient.Builder jisClient = new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(5, TimeUnit.MINUTES)
+                .writeTimeout(5, TimeUnit.MINUTES)
+                .retryOnConnectionFailure(true);
+          String strHelp5 = "OkHttpClient.Builder jisClient = new OkHttpClient.Builder()";
+                 strHelp5 = strHelp5 +".connectTimeout(5, TimeUnit.MINUTES)";
+                 strHelp5 = strHelp5 +".readTimeout(5, TimeUnit.MINUTES)";
+                 strHelp5 = strHelp5 +".writeTimeout(5, TimeUnit.MINUTES)";
+                 strHelp5 = strHelp5 +".retryOnConnectionFailure(true);";
+                 logger.info("*********************************************************************************");
+                 logger.info("strHelp5 = " + strHelp5);
+       // InfluxDB influxDB = InfluxDBFactory.connect("http://localhost:8086", client);
+        this.influxDB = InfluxDBFactory.connect(InfluxConnUrlStart,Influxdbuser,Influxpassword,jisClient);
         boolean influxDBstarted = false;
         do {
             Pong response;
@@ -94,6 +110,16 @@ public class InfluxDBOwn {
         return result;
     }
     //********************************************************************************
+    public QueryResult readInfluxSeriesDataLine(String pdbName,String pSerieName) {
+         String statement = "select SerieName,ControllerId,DetectorId,IntersectionId,OmniaCode,Value  FROM SerieName where SerieName=" + pSerieName;
+        logger.info("statement = "+ statement);
+        Query query = new Query(statement, pdbName);
+        QueryResult result = this.influxDB.query(query,TimeUnit.MILLISECONDS);
+        //  logger.info("result =" + result.toString());
+        result.getResults();
+        return result;
+    }
+    //********************************************************************************************'**
     public QueryResult readInfluxMeasurementDataLine(String pdbName,
                                                      String PDevice_Id,
                                                      String pDevpoint) {
@@ -105,7 +131,6 @@ public class InfluxDBOwn {
         result.getResults();
         return result;
     }
-    //********************************************************************************************'**
     public QueryResult readInfluxMeasurementDataLineVT2(String pdbName,
                                                         String pDevice_Id,
                                                         String pDevpoint) {
@@ -221,6 +246,11 @@ public class InfluxDBOwn {
         this.influxDB.write(dbName, "autogen", InfluxDB.ConsistencyLevel.ONE, Arrays.asList(sLine));
         return 1;
     }
+    public int WriteSingleSerialLine2(String pDataBase, String pLine) {
+        logger.info("pLine = "+ pLine);
+        this.influxDB.write(pDataBase, "autogen", InfluxDB.ConsistencyLevel.ONE, Arrays.asList(pLine));
+        return INT_RET_OK;   // RETHINK retcode Try/catch someting
+    }
     //********************************************************************************************************************
     public void testWriteStringData() {
         String dbName = "write_unittest_" + System.currentTimeMillis();
@@ -247,11 +277,16 @@ public class InfluxDBOwn {
         ));
     }
     public int WriteSwarcoLineFromString(String pDbName, String pLine) {
-        logger.info("pLine = "+ pLine);
-        logger.info("InfluxDB.ConsistencyLevel.ONE = " + InfluxDB.ConsistencyLevel.ONE);
+     //     logger.info("pLine = "+ pLine);
+ //       logger.info("InfluxDB.ConsistencyLevel.ONE = " + InfluxDB.ConsistencyLevel.ONE);
         this.influxDB.write(pDbName, "autogen", InfluxDB.ConsistencyLevel.ONE, Arrays.asList(pLine));
         return INT_RET_OK;
     }
+     public int WriteListOfSwarcosLineFromString(String pDbName, List<String> pLines) throws InterruptedException, SocketTimeoutException {
+         this.influxDB.write(pDbName, "autogen", InfluxDB.ConsistencyLevel.ONE, pLines);
+         //this.influxDB.write(pDbName, "autogen", InfluxDB.ConsistencyLevel.ONE, Arrays.asList(pLine));
+         return INT_RET_OK;
+     }
     public int jisWriteSerialLine(String device, String time, String mpoint, String mValue ) {
         String dbName = "jatri5";
         String sLine = "D" + device +",devpoint="+ mpoint +   " voltage=" + mValue +" " + time;

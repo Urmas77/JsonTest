@@ -244,7 +244,7 @@ public class MakeSendJsonOperations {
                 if (getWorkType().equals(TT_MEASUREMENT_DATA_INSERT)) {
                     strHelp1 = th.getMeasurementShortSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
                     logger.info("strHelp1 = " + strHelp1);
-                    logger.info("strHelp1.length()  = " + strHelp1.length());
+                //    logger.info("strHelp1.length()  = " + strHelp1.length());
                     if (strHelp1.equals(NO_VALUE)) {
                         iRet = MakeClearanceOperations(ce);
                         logger.info("No JsonMeasurementData! ");
@@ -312,6 +312,9 @@ public class MakeSendJsonOperations {
         } // polling loop while end
         return OMNIA_DATA_PICK_OK;
     }
+
+
+    // *******************Make own class *****/
     public int DeleteDoneTaskFromWorkDb() throws SQLException {
         TRPXMeasurementTaskData ce = getTaskUnderWork();
         long doneWorkIndex = 0;
@@ -354,6 +357,9 @@ public class MakeSendJsonOperations {
         }
         return iRet;
     }
+    //*******************************************************
+
+
     public String MakeMessageToBeSended() throws SQLException {
         String strHelp1 = NO_VALUE;
         String strHelp2 = NO_VALUE;

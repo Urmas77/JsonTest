@@ -9,7 +9,7 @@ public class GetOldestUnusedTimeStampFromMeasurements {
     private void  buildStatement () {
         statement = "select  isnull(min(dm.MeasurementTime),cast('2069-04-25T15:51:00.000' as smalldatetime)) ";
         statement = statement +"from  TRPX_OmniaOut dm ";
-        statement = statement +"where dm.DetectorId=? and dm.measurementtime>=?;";
+        statement = statement +"where dm.DetectorId=? and dm.measurementtime>?;";
         logger.info("statement = " + statement);
     }
 }

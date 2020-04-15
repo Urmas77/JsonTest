@@ -1,8 +1,10 @@
 package fi.swarco.dataHandling.pojos.influx;
+import fi.swarco.omniaDataTransferServices.InfluxUtilities;
 import fi.swarco.serviceOperations.SwarcoTimeUtilities;
 import org.apache.log4j.Logger;
-import static fi.swarco.CONSTANT.INT_EMPTY_ELEMENT;
-import static fi.swarco.CONSTANT.NO_VALUE;
+
+import static fi.swarco.CONSTANT.*;
+
 public class InfluxSqlToTimeSerie {
     private static Logger logger = Logger.getLogger(fi.swarco.dataHandling.pojos.influx.InfluxSqlToTimeSerie.class.getName());
     private String SerieName=NO_VALUE;
@@ -126,8 +128,9 @@ public class InfluxSqlToTimeSerie {
     public String GetTimeSerieString() {
         String strHelp1;
         String time;
+        InfluxUtilities aaa = new InfluxUtilities();
         if (SerieName.equals(NO_VALUE)) {
-            return NO_VALUE;
+            return NO_TIME_SERIE_STRING;
         }
         SwarcoTimeUtilities tu = new SwarcoTimeUtilities();
         String strHelp2;
@@ -137,13 +140,13 @@ public class InfluxSqlToTimeSerie {
         strHelp1 = strHelp1 + "IntersectionId=" +IntersectionId +",";
         strHelp1 = strHelp1 + "ControllerId="+  ControllerId +",";
         strHelp1 = strHelp1 + "DetectorId="+ DetectorId +",";
-        strHelp1 = strHelp1 + "DetectorExternalCode="+ DetectorExternalCode +" ";
+        strHelp1 = strHelp1 + "DetectorExternalCode="+ aaa.FilterInfluxFields(DetectorExternalCode) +" ";
         strHelp1 = strHelp1 + "VehicleCount="+ VehicleCount+",";
         strHelp1 = strHelp1 + "MeanVehicleSpeed="+ MeanVehicleSpeed +",";
         strHelp1 = strHelp1 +  "OccupancyProcent="+OccupancyProcent +",";
         strHelp1 = strHelp1 +  "Accurancy="+Accurancy+" ";
         strHelp1 = strHelp1 +   strHelp2;
-        logger.info("strHelp1 = "+ strHelp1);
+    //    logger.info("strHelp1 = "+ strHelp1);
         return strHelp1;
     }
     public void MakeEmptyElement() {

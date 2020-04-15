@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import org.apache.log4j.Logger;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.BatchPoints;
@@ -27,13 +29,26 @@ public class InfluxDBTestJI {
         setInfluxConnUrlStart("http://192.168.111.121:8086");
        // setInfluxConnUrlStart("http://localhost:8086");
         // setInfluxConnUrlStart("http://194.100.23.105:8086");
+        OkHttpClient.Builder jisClient = new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(5, TimeUnit.MINUTES)
+                .writeTimeout(5, TimeUnit.MINUTES)
+                .retryOnConnectionFailure(true);
         setInfluxdbuser("root");
         setInfluxpassword("root");
         logger.info("SETUP 1 InfluxConnUrlStart =" + InfluxConnUrlStart);
         logger.info("Influxdbuser = " + Influxdbuser);
         logger.info("Influxpassword = " + Influxpassword);
+        String strHelp5 = "OkHttpClient.Builder jisClient = new OkHttpClient.Builder()";
+        strHelp5 = strHelp5 +".connectTimeout(5, TimeUnit.MINUTES)";
+        strHelp5 = strHelp5 +".readTimeout(5, TimeUnit.MINUTES)";
+        strHelp5 = strHelp5 +".writeTimeout(5, TimeUnit.MINUTES)";
+        strHelp5 = strHelp5 +".retryOnConnectionFailure(true);";
+        logger.info("*********************************************************************************");
+        logger.info("strHelp5 = " + strHelp5);
+
         //this.influxDB = InfluxDBFactory.connect("http://localhost:8086","root", "root");
-       this.influxDB = InfluxDBFactory.connect(InfluxConnUrlStart,Influxdbuser,Influxpassword);
+       this.influxDB = InfluxDBFactory.connect(InfluxConnUrlStart,Influxdbuser,Influxpassword,jisClient);
      //   this.influxDB = InfluxDBFactory.connect("http://194.100.23.105:8086","root", "root");
         boolean influxDBstarted = false;
         do {

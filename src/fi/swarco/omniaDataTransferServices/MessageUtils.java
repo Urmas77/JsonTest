@@ -34,7 +34,17 @@ public class MessageUtils {
        // logger.info(" from },{ --> }{ strHelp1 =" + strHelp1);
         return strHelp1;
     }
-
+    // Not tested RETHINK
+    private String numberToLetter(int pNumber) {
+        String[] letters = {"A", "B","C","D","E","F","G","H","I","K"};
+        if (pNumber<0) {
+            return "S";
+        }
+        if (pNumber>9) {
+            return "M";
+        }
+        return letters[pNumber];
+    }
     public String DecodeJson(String pJson) {
         String strHelp1;
         // } --> **

@@ -17,6 +17,9 @@ public class JSwarcoproperties {
     public void   setInfluxdbuser(String pInfluxdbuser) {Influxdbuser=pInfluxdbuser;};
     public String getInfluxpassword() {return Influxpassword;};
     public void   setInfluxpassword(String pInfluxpassword) {Influxpassword=pInfluxpassword;};
+    private String InfluxDbName1;
+    public String getInfluxDbName1() {return InfluxDbName1;};
+    public void   setInfluxDbName1(String pInfluxDbName1) {InfluxDbName1=pInfluxDbName1;};
     private String OmniaClientUrl;
     public String getOmniaClientUrl() {
         return OmniaClientUrl;
@@ -187,6 +190,18 @@ public class JSwarcoproperties {
     public void setFilePathStringOmniaCustomerClient(String pFilePathStringOmniaCustomerClient) {
         FilePathStringOmniaCustomerClient = pFilePathStringOmniaCustomerClient;
     }
+    private String FilePathStringOmniaInflux;
+    public String getFilePathStringOmniaInflux(){return FilePathStringOmniaInflux;}
+    public void setFilePathStringOmniaInflux(String pFilePathStringOmniaInflux) {
+        FilePathStringOmniaInflux = pFilePathStringOmniaInflux;
+    }
+    private  String FileNameInflux1;
+    public String getFileNameInflux1(){return FileNameInflux1;}
+    public void setFileNameInflux1(String pFileNameInflux1) {
+        FileNameInflux1 = pFileNameInflux1;
+    }
+
+
     private String Log4JPathAndFileName;
     public String getLog4JPathAndFileName() {
         return Log4JPathAndFileName;
@@ -194,7 +209,6 @@ public class JSwarcoproperties {
     public void setLog4JPathAndFileName(String pLog4JPathAndFileName) {
         Log4JPathAndFileName= pLog4JPathAndFileName;
     }
-
     private Properties prop;
 
     public int getLog4JProperties() {
@@ -300,7 +314,7 @@ public class JSwarcoproperties {
         strHelp1 = strHelp1 + "user=" + getSqlServerdbuser() + ",";
         strHelp1 = strHelp1 + "password=" + getSqlServerpassword();
         setSqlServerConnUrlWhole(strHelp1);
-        logger.info("SqlServerConnUrlStart = " + prop.getProperty("SqlServerConnectionUrlStart"));
+      //  logger.info("SqlServerConnUrlStart = " + prop.getProperty("SqlServerConnectionUrlStart"));
         //logger.info("SqlServerPort = "+ prop.getProperty("SqlServerPort"));
         //logger.info("SqlServerpassword = " + prop.getProperty("SqlServerpassword"));
         //logger.info("SqlServerdatabase = " + prop.getProperty("SqlServerdatabase"));
@@ -324,7 +338,7 @@ public class JSwarcoproperties {
         //   strHelp1 = strHelp1 + "user=" + getMySqldbuser() +",";
         //   strHelp1 = strHelp1 + "password=" + getMySqlpassword();
            setMySqlConnUrlWhole(strHelp1);
-          logger.info("MySqlConnUrlStart = " + prop.getProperty("MySqlConnectionUrlStart"));
+    //      logger.info("MySqlConnUrlStart = " + prop.getProperty("MySqlConnectionUrlStart"));
       //    logger.info("MySqlpassword = " + prop.getProperty("MySqlpassword"));
       //    logger.info("MySqldatabase = " + prop.getProperty("MySqldatabase"));
       //    logger.info("MySqldbuser = " + prop.getProperty("MySqldbuser"));
@@ -336,12 +350,13 @@ public class JSwarcoproperties {
         setInfluxConnUrlStart(prop.getProperty("InfluxConnectionUrlStart"));
         setInfluxdbuser(prop.getProperty("Influxdbuser"));
         setInfluxpassword(prop.getProperty("Influxpassword"));
-        logger.info("getInfluxConnUrlStart() = " + getInfluxConnUrlStart());
-        logger.info("getInfluxdbuser() = " + getInfluxdbuser());
-        logger.info("getInfluxpassword() = " + getInfluxpassword());
+        setInfluxDbName1(prop.getProperty("InfluxDbName1"));
+      //  logger.info("getInfluxConnUrlStart() = " + getInfluxConnUrlStart());
+      //  logger.info("getInfluxdbuser() = " + getInfluxdbuser());
+      //  logger.info("getInfluxpassword() = " + getInfluxpassword());
+      //  logger.info("getInfluxDbName1() = " + getInfluxDbName1());
         return 1;
     }
-
     private int setFileProps() {
         setFilePathString(prop.getProperty("FilePathString"));
        // logger.info("getFilePathString() = " + getFilePathString());
@@ -351,6 +366,10 @@ public class JSwarcoproperties {
        // logger.info("getFilePathStringOmniaCloud() = " + getFilePathStringOmniaCloud());
         setFilePathStringOmniaCustomerClient(prop.getProperty("FilePathStringOmniaCustomerClient"));
        // logger.info("getFilePathStringOmniaCustomerClient() = " + getFilePathStringOmniaCustomerClient());
+        setFilePathStringOmniaInflux(prop.getProperty("FilePathStringOmniaInflux"));
+        //logger.info("getFilePathStringOmniaInflux() = " + getFilePathStringOmniaInflux());
+        setFileNameInflux1(prop.getProperty("FileNameInflux1"));
+        //logger.info("getFileNameInflux1() = " + getFileNameInflux1());
         return INT_RET_OK;
     }
    private int setTimeFormatProps() {
@@ -382,7 +401,7 @@ public class JSwarcoproperties {
         setOmniaClientWorkWaitSleep(prop.getProperty("OmniaClientWorkWaitSleep"));
     //    logger.info("getOmniaClientWorkWaitSleep() = " + getOmniaClientWorkWaitSleep());
         setOmniaClientDetectorDataTime(prop.getProperty("OmniaClientDetectorDataTime"));
-        logger.info("getOmniaClientDetectorDataTime() = " + getOmniaClientDetectorDataTime());
+       // logger.info("getOmniaClientDetectorDataTime() = " + getOmniaClientDetectorDataTime());
         return INT_RET_OK;
     }
 }

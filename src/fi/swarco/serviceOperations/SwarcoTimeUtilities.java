@@ -10,8 +10,8 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import java.time.*;
 
-import static fi.swarco.CONSTANT.INT_RET_NOT_OK;
-import static fi.swarco.CONSTANT.NO_VALUE;
+import static fi.swarco.CONSTANT.*;
+
 public class SwarcoTimeUtilities {
     static Logger logger = Logger.getLogger(SwarcoTimeUtilities.class.getName());
     public String GetNow() {
@@ -48,14 +48,12 @@ public class SwarcoTimeUtilities {
        //"yyyy-MM-dd HH:mm:ss"  -->yyyy-MM-ddTHH:mm:ss.mmm-0000"
         //2016-12-21T12:10:42.610 ---> 2016-12-21 12:10:42.610
         String strHelp1;
-        logger.info("pTime = " +pTime);
         strHelp1=pTime.replace(" ","T");
         int index1= strHelp1.indexOf(".");
         if ((index1==-1) && (!(pTime.length()==19))) {
             System.exit(1);
         }
         strHelp1=strHelp1 + ".000-0000";
-        logger.info("strHelp1  = " +strHelp1);
         return strHelp1;
     }
     public static int ToSec8601(String timestamp){
@@ -103,30 +101,34 @@ public class SwarcoTimeUtilities {
         strHelp1 = pTimestamp.substring(0,index1);
         return strHelp1;
     }
-    public String ToNanoSec8601Str(String pTimestamp){
-        String strHelp1,strHelp2,strHelp3;
-        if(pTimestamp == null) return NO_VALUE;
+    public String ToNanoSec8601Str(String pTimestamp) {
+        String strHelp1, strHelp2, strHelp3;
+        if (pTimestamp == null) return NO_VALUE;
         //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS-0000");
         Date dt;
-        long lngEpoch=0L;
+        long lngEpoch = 0L;
         try {
-            logger.info("pTimestamp = "+ pTimestamp);
-            strHelp3 =EatPointFromTime(pTimestamp);
-            strHelp2 =FromSwarcoTimeToInfluxMills(strHelp3);
-            logger.info("strHelp2 = "+ strHelp2);
+//            logger.info("pTimestamp = "+ pTimestamp);
+            strHelp3 = EatPointFromTime(pTimestamp);
+            strHelp2 = FromSwarcoTimeToInfluxMills(strHelp3);
+            //         logger.info("strHelp2 = "+ strHelp2);
             dt = sdf.parse(strHelp2);
             lngEpoch = dt.getTime();
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        BigInteger biEpoch =BigInteger.valueOf(lngEpoch*1000000);
+
+       // lngEpoch = lngEpoch +THREE_HOURS_MS;
+         lngEpoch = lngEpoch +TWO_HOURS_MS;
+        BigInteger A =BigInteger.valueOf(lngEpoch*1000000);
+        //BigInteger B =BigInteger.valueOf(TWENTYSEVEN_HOURS_MS);
+    //    BigInteger B =BigInteger.valueOf(THREE_HOURS_MS);
+    //    BigInteger biEpoch = A.add(B);
+        BigInteger biEpoch=A;
         strHelp1=biEpoch.toString();
+   //     logger.info("strHelp1 = "+ strHelp1);
         return strHelp1;
     }
-
-
-
-
 }

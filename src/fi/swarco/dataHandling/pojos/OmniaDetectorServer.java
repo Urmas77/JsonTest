@@ -2,10 +2,8 @@ package fi.swarco.dataHandling.pojos;
 import fi.swarco.omniaDataTransferServices.InfluxUtilities;
 import fi.swarco.serviceOperations.SwarcoTimeUtilities;
 import org.apache.log4j.Logger;
-
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-
 import static fi.swarco.CONSTANT.*;
 public class OmniaDetectorServer {
     static Logger logger = Logger.getLogger(fi.swarco.dataHandling.pojos.OmniaDetectorServer.class.getName());
@@ -296,7 +294,6 @@ public class OmniaDetectorServer {
         }
         InfluxUtilities aaa = new InfluxUtilities();
         //logger.info("aaa.FilterInfluxFields(uuu,kkkk,cccc) = " + aaa.FilterInfluxFields("uuu,kkkk,cccc"));
-
         ZoneOffset zoneOffSet= ZoneOffset.of("+02:00");
         OffsetDateTime date = OffsetDateTime.now(zoneOffSet);
         logger.info ("date.toString() = " +date.toString());

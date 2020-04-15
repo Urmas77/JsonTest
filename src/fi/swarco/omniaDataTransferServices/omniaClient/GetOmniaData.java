@@ -1,5 +1,6 @@
 package fi.swarco.omniaDataTransferServices.omniaClient;
 import fi.swarco.SwarcoEnumerations;
+import fi.swarco.controlandalarms.AlarmHandling;
 import fi.swarco.dataHandling.MakeSendJsonOperations;
 import fi.swarco.omniaDataTransferServices.FileOperations;
 import fi.swarco.omniaDataTransferServices.LogUtilities;
@@ -19,14 +20,17 @@ import static fi.swarco.CONSTANT.INT_RET_OK;
 public class GetOmniaData {
     private static Logger logger = Logger.getLogger(GetOmniaData.class.getName());
     private static boolean TodayDone = false; // true if no need to tranfer detectordata today
+    private static boolean HourDone = false; // true if no need to run check queries
     public static void sendGetOmniaData()  {
         int intSleep;
         String strJobTime;
         String strTime;
+        String strMinute;
         String url1;
         String inputLine;
         int iRet;
         MakeSendJsonOperations ms = new MakeSendJsonOperations();
+        AlarmHandling ah = new AlarmHandling();
         MessageUtils mu = new MessageUtils();
         LogUtilities mfl = new LogUtilities();
         int responseCode;
@@ -131,6 +135,7 @@ public class GetOmniaData {
                     strJobTime=sw.getOmniaClientDetectorDataTime();
                     strTime = java.time.LocalTime.now().toString();
                     strTime= strTime.substring(0,5);
+                    strMinute=strTime.substring(4);
                //     logger.info(" strTime= " + strTime);
                 //    strJobTime="06:34";
                     logger.info(" strTime= " + strTime);
@@ -161,6 +166,21 @@ public class GetOmniaData {
                            TodayDone=true;
                         }
                     }
+                    // hour job if here
+                    if (HourDone==false) {
+                        iRet= ah.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+                        if (iRet == INT_RET_OK) {
+                            iRet = ah.SendAlarm();
+                            if (iRet ==INT_RET_OK) {
+                                HourDone=true;
+                            }
+                        }
+                    }
+                    // hour job functionality enf
+                    if (strMinute.equals("00")) {
+                       HourDone=false;
+                    }
+
                     if (strTime.equals("00:00")) {
                         TodayDone=false;
                     }

@@ -9,6 +9,7 @@ import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.pojos.RawData;
 import fi.swarco.dataHandling.queriesSql.mySQL.InsertRawDataMySql;
 import fi.swarco.dataHandling.queriesSql.sqlServer.InsertRawDataSqlServer;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
 public class RawDataDataListLevel {
@@ -38,40 +39,41 @@ public class RawDataDataListLevel {
     }
     public  RawDataDataListLevel () {}
     public int AddNewRawData(RawData pRawData) throws SQLException{
-                int iRet;
-                String SQL="";
-                java.sql.PreparedStatement stmt;
-                try {
-                    if (getSqlConnectionType().equals(SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2)) {
-                        InsertRawDataMySql st = new InsertRawDataMySql();
-                        SQL =st.getStatement();
-                    } else if (getSqlConnectionType().equals(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST)) {
-                        InsertRawDataSqlServer st = new InsertRawDataSqlServer();
-                        SQL =st.getStatement();
-                    }
-                    stmt = gSqlCon.prepareStatement(SQL);
-                    int pos=0;
-                    pos=1;
-                    stmt.setLong(pos,pRawData.getRawDataSourceId());
-                    pos=pos+1;
-                    stmt.setLong(pos,pRawData.getRawDataStatus());
-                    pos=pos+1;
-                    stmt.setString(pos,pRawData.getRawDataStatusString());
-                    pos=pos+1;
-                    stmt.setString(pos,pRawData.getRawDataLine());
-                    pos=pos+1;
-                    stmt.setString(pos,pRawData.getTimestamp());
-                    iRet = stmt.executeUpdate();
-                    stmt.close();
-                    if (iRet!=1) {
-                        iRet= CONSTANT.UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
-                        return iRet;
-                    }
-                    return iRet;
+        int iRet;
+        String SQL="";
+        java.sql.PreparedStatement stmt;
+        try {
+            if (getSqlConnectionType().equals(SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2)) {
+               InsertRawDataMySql st = new InsertRawDataMySql();
+               SQL =st.getStatement();
+            } else if (getSqlConnectionType().equals(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST)) {
+               InsertRawDataSqlServer st = new InsertRawDataSqlServer();
+               SQL =st.getStatement();
+            }
+           stmt = gSqlCon.prepareStatement(SQL);
+           int pos=0;
+           pos=1;
+           stmt.setLong(pos,pRawData.getRawDataSourceId());
+           pos=pos+1;
+           stmt.setLong(pos,pRawData.getRawDataStatus());
+           pos=pos+1;
+           stmt.setString(pos,pRawData.getRawDataStatusString());
+           pos=pos+1;
+           stmt.setString(pos,pRawData.getRawDataLine());
+           pos=pos+1;
+           stmt.setString(pos,pRawData.getTimestamp());
+           iRet = stmt.executeUpdate();
+           stmt.close();
+           if (iRet!=1) {
+               iRet= CONSTANT.UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
+               return iRet;
+           }
+           return iRet;
         } catch(Exception e) {
-            logger.info(" catch 11");
-            logger.info(e.getMessage());
-            e.printStackTrace();
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+             e.printStackTrace();
+           // stmt.close();    RETHINK ????
             gSqlCon.close();
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }

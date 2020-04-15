@@ -85,13 +85,13 @@ public class OmniaMeasurementShortListDataLevel {
   //              logger.info("DetectorId p  = " + pOmniaMeasurementDataShort.getDetectorId() + " cc " + cc.getDetectorId());
   //              logger.info("MeasurementTime p  = " + pOmniaMeasurementDataShort.getMeasurementTime() + " cc " + cc.getMeasurementTime());
                  sWarcoTime  =stu.ToSwarcoTime( pOmniaMeasurementDataShort.getMeasurementTime());
-                logger.info("MeasurementTime sWarcoTime  = " + sWarcoTime + " cc " + cc.getMeasurementTime());
+     //           logger.info("MeasurementTime sWarcoTime  = " + sWarcoTime + " cc " + cc.getMeasurementTime());
                 if (((cc.getOmniaCode()==(pOmniaMeasurementDataShort.getOmniaCode())) &&
                    (cc.getIntersectionId()==(pOmniaMeasurementDataShort.getIntersectionId()) &&
                    (cc.getControllerId()==(pOmniaMeasurementDataShort.getControllerId())) &&
                    (cc.getDetectorId()==(pOmniaMeasurementDataShort.getDetectorId())) &&
                    (cc.getMeasurementTime().equals(sWarcoTime))))) {
-                    logger.info(" l�yty  cc.toString()= " + cc.toString());
+       //             logger.info(" l�yty  cc.toString()= " + cc.toString());
                     setFoundRec(cc);
                     stmt.close();
                     rs.close();
@@ -130,8 +130,8 @@ public class OmniaMeasurementShortListDataLevel {
             iRet =  CHANGED;
         }
         if (iRet==CHANGED) {
-            logger.info("***Changed1  pC1Neww.toString()" + pC1Neww.toString());
-            logger.info("***Changed2  pC2Old.toString()" + pC2Old.toString());
+  //          logger.info("***Changed1  pC1Neww.toString()" + pC1Neww.toString());
+  //          logger.info("***Changed2  pC2Old.toString()" + pC2Old.toString());
         }
         return iRet;
     }

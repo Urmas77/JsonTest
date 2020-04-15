@@ -62,7 +62,7 @@ public class DetectorMeasurementsShortClientDataLevel {
             stmt.setTimestamp(pos,tStamp);
             ResultSet rs;
             rs = stmt.executeQuery();
-  //          logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 cc= new OmniaMeasurementDataShort();
                 cc.MakeEmptyElement();
@@ -103,6 +103,7 @@ public class DetectorMeasurementsShortClientDataLevel {
         MessageUtils mu = new MessageUtils();
         String strHelp1 = NO_VALUE;
         String strHelp2 = "";
+        String strHelpSpare="";
         OmniaMeasurementDataShort aDetMea = new OmniaMeasurementDataShort();
         OmniaMeasurementDataShortJson aDetTran = new OmniaMeasurementDataShortJson();
         aDetMea.MakeEmptyElement();
@@ -112,7 +113,17 @@ public class DetectorMeasurementsShortClientDataLevel {
             aDetTran = aDetMea.SetJsonTransferItem();
             //           logger.info("aDetTran.toString().length() = " + aDetTran.toString().length());
             strHelp1 = myGson.toJson(aDetTran);
-            strHelp2 = strHelp2 + strHelp1;
+            if (strHelpSpare.equals(strHelp1)) {
+                logger.info("**** not addaed got it strHelpSpare = " + strHelpSpare);
+                logger.info("**** not added got it strHelp1 = " + strHelp1);
+                // do not add anything here
+                // System.exit(99);
+            } else {
+               // strHelpSpare = strHelp1;
+                logger.info("evevery ****** strHelpSpare = " + strHelpSpare);
+                strHelp2 = strHelp2 + strHelp1;
+            }
+            strHelpSpare = strHelp1;
             aDetMea.MakeEmptyElement();
         }
         if (strHelp1.equals(NO_VALUE)) {
