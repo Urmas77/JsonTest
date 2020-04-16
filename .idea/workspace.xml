@@ -9,55 +9,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="Eka uudella jidealla tulostuksia poistettu mini Jarrit tuotantoon">
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/controlandalarms/AlarmHandling.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/SerieLinkClientDataLevel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/SerieLink.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/influx/InfluxSeriesName.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/CheckWorkQueue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetNoNameSerieLinkSqlServerData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetTimeSerieControllerSqlServerData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/InsertSeriesLinkDataSqlServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/SerieLinkSqlServerSelect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/SuperDataSqlServerSelectDetectorId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/influxoperations/InfluxJavaWrite.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/influxoperations/InfluxSerieLinkDataPump.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/omniaInfluxClient/OmniaInfluxClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/DeleteDoneTasks.java" afterDir="false" />
+    <list default="true" id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="15.04.2020 Kaikki talteen uusia bugfixejä omniaclientiin toimivat">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/CONSTANT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/CONSTANT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeTimeSeriesOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendTimeSeriesOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/RawDataDataListLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/RawDataDataListLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/oldDataHandling/DetectorMeasurementsDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/oldDataHandling/DetectorMeasurementsDataLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/oldDataHandling/MakeResponseToCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/oldDataHandling/MakeResponseToCustomer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsShortClientDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsShortClientDataLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/SuperClientDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/SuperClientDataLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/TimeSeriesClientDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/TimeSeriesClientDataLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaDetectorServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaDetectorServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementDataShort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementDataShort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/influx/InfluxSqlToTimeSerie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/influx/InfluxSqlToTimeSerie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/oLdPojos/DetectorMeasurements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/XoLdPojos/DetectorMeasurements.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/oLdPojos/DetectorMeasurementsCurrentState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/XoLdPojos/DetectorMeasurementsCurrentState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/oLdPojos/DetectorMeasurementsHistoryState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/XoLdPojos/DetectorMeasurementsHistoryState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/oLdPojos/DetectorPermanentData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/XoLdPojos/DetectorPermanentData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetOldestUnusedTimeStampFromMeasurements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetOldestUnusedTimeStampFromMeasurements.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetTimeSerieSqlServerData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetTimeSerieSqlServerData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/influxoperations/InfluxDBOwn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/influxoperations/InfluxDBOwn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/influxoperations/InfluxDataPump.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/influxoperations/InfluxDataPump.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/FileOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/FileOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/MessageUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/MessageUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/SwarcoTimeUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/SwarcoTimeUtilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/TTT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/TTT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/testPrograms/ITeJI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/testPrograms/ITeJI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/testPrograms/InfluxDBTestJI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/testPrograms/InfluxDBTestJI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/swarco.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/swarco.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,13 +57,6 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IgnoredFileRootStore">
-    <option name="generatedRoots">
-      <set>
-        <option value="C:\TFS\IntelliJ\JsonTest" />
-      </set>
-    </option>
-  </component>
   <component name="ProjectId" id="1OVVhVipmapTEUdifBHH05qFgP2" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -118,7 +64,6 @@
   <component name="ProjectViewState">
     <option name="foldersAlwaysOnTop" value="false" />
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -272,18 +217,6 @@
         <item itemvalue="Application.ITeJI" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -528,6 +461,8 @@
       <workItem from="1586246720292" duration="609000" />
       <workItem from="1586252385692" duration="16000" />
       <workItem from="1586272514783" duration="190000" />
+      <workItem from="1586957775392" duration="466000" />
+      <workItem from="1586958561878" duration="22000" />
     </task>
     <task id="LOCAL-00001" summary="Eka committi">
       <created>1569300763657</created>
@@ -606,7 +541,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575364091862</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="15.04.2020 Kaikki talteen uusia bugfixejä omniaclientiin toimivat">
+      <created>1586958077499</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1586958077499</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -656,7 +598,8 @@
     <MESSAGE value="OmniaClient  and OmniaCloudHttpServer jar are built &#10;Code cleaned" />
     <MESSAGE value="Jar files are OK &#10;DetectorExternalCode error fixed &#10;Just before &quot;big Delivery&quot;" />
     <MESSAGE value="Eka uudella jidealla tulostuksia poistettu mini Jarrit tuotantoon" />
-    <option name="LAST_COMMIT_MESSAGE" value="Eka uudella jidealla tulostuksia poistettu mini Jarrit tuotantoon" />
+    <MESSAGE value="15.04.2020 Kaikki talteen uusia bugfixejä omniaclientiin toimivat" />
+    <option name="LAST_COMMIT_MESSAGE" value="15.04.2020 Kaikki talteen uusia bugfixejä omniaclientiin toimivat" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="241" key="#Plugins" timestamp="1583921028642">
@@ -671,6 +614,10 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="920" y="329" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1582026426609" />
+    <state x="449" y="151" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1586958160170">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="449" y="151" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/-2880.0.1920.1047/0.0.1536.824@0.0.1536.824" timestamp="1586958160170" />
     <state x="1193" y="374" width="398" height="266" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1579091339341">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -723,6 +670,10 @@
     </state>
     <state width="1877" height="482" key="GridCell.Tab.1.right/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1583841670641" />
     <state width="1980" height="458" key="GridCell.Tab.1.right/0.0.1920.1160/1920.0.1920.1160@1920.0.1920.1160" timestamp="1579088658804" />
+    <state x="361" y="148" key="Vcs.Push.Dialog.v2" timestamp="1586958124776">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="148" key="Vcs.Push.Dialog.v2/-2880.0.1920.1047/0.0.1536.824@0.0.1536.824" timestamp="1586958124776" />
     <state x="-522" y="464" width="1736" height="976" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1578994298703">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -1349,14 +1300,14 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/JsonTest$T7.ic" NAME="T7 Coverage Results" MODIFIED="1572442915880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>fi.swarco.testPrograms.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/JsonTest$ReandJsonfromOmniaDb.ic" NAME="ReandJsonfromOmniaDb Coverage Results" MODIFIED="1560854127673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>fi.swarco.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/JsonTest$OmniaCloudHTTPServer.ic" NAME="OmniaCloudHTTPServer Coverage Results" MODIFIED="1561466397306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>fi.swarco.omniaDataTransferServices.*</FILTER>
-    </SUITE>
-    <SUITE FILE_PATH="coverage/JsonTest$T7.ic" NAME="T7 Coverage Results" MODIFIED="1572442915880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>fi.swarco.testPrograms.*</FILTER>
     </SUITE>
   </component>
 </project>
