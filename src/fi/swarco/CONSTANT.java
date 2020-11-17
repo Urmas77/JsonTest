@@ -1,7 +1,7 @@
 package fi.swarco;
 public class CONSTANT {
 private CONSTANT(){}
-public static final String NO_VALUE ="novalue";
+public static final String NO_VALUE ="novalue";   //moi moi
 public static final String ERROR_VALUE ="errorvalue";
 public static final String JOB_DONE ="JOB_DONE";
 public static final String  NO_TIME_SERIE_STRING ="NO_TIME_SERIE_STRING";
@@ -10,7 +10,7 @@ public static int SERIENAMES_CREATED_NOT_OK=-45987;
 public static final int NO_IDENTITY =-1;
 public static final int INT_FIELD_NOT_IN_USE =-9999999;
 public static final double DOUBLE_FIELD_NOT_IN_USE =-9999999.99;
-;public static final int INT_EMPTY_ELEMENT =-99999;  //EMPTY_ELEMENT
+public static final int INT_EMPTY_ELEMENT =-99999;  //EMPTY_ELEMENT
 public static final int NO_OMNIA = -444;
 public static final int NO_INTERSECTION_ID = -445;
 public static final int NO_CONTROLLER_ID = -446;

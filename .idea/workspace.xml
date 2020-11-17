@@ -8,9 +8,14 @@
       <artifact name="OmniaClient" />
     </artifacts-to-build>
   </component>
+  <component name="BranchesTreeState">
+    <expand />
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="15.04.2020 Kaikki talteen uusia bugfixejä omniaclientiin toimivat">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/CONSTANT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/CONSTANT.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,9 +42,6 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="FavoritesManager">
-    <favorites_list name="JsonTest" />
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -54,6 +56,11 @@
         <option name="argument" value="--tags" />
         <option name="title" value="All" />
       </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -218,6 +225,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="" />
@@ -463,6 +471,39 @@
       <workItem from="1586272514783" duration="190000" />
       <workItem from="1586957775392" duration="466000" />
       <workItem from="1586958561878" duration="22000" />
+      <workItem from="1587024107887" duration="748000" />
+      <workItem from="1587026325199" duration="618000" />
+      <workItem from="1587623806190" duration="11000" />
+      <workItem from="1587998937030" duration="3280000" />
+      <workItem from="1588757049143" duration="599000" />
+      <workItem from="1589375394204" duration="631000" />
+      <workItem from="1590477342498" duration="218000" />
+      <workItem from="1591958000954" duration="94000" />
+      <workItem from="1591958317535" duration="1505000" />
+      <workItem from="1592487319343" duration="404000" />
+      <workItem from="1594029933441" duration="70000" />
+      <workItem from="1594030056927" duration="281000" />
+      <workItem from="1595222944375" duration="111000" />
+      <workItem from="1595224341543" duration="513000" />
+      <workItem from="1596002502870" duration="46000" />
+      <workItem from="1596002821554" duration="292000" />
+      <workItem from="1596003610808" duration="224000" />
+      <workItem from="1597753236819" duration="539000" />
+      <workItem from="1598252518620" duration="75000" />
+      <workItem from="1598252619047" duration="71000" />
+      <workItem from="1600070869648" duration="139000" />
+      <workItem from="1600071115240" duration="90000" />
+      <workItem from="1600237491794" duration="607000" />
+      <workItem from="1600764211951" duration="1189000" />
+      <workItem from="1601361446790" duration="643000" />
+      <workItem from="1601894258411" duration="568000" />
+      <workItem from="1601964383808" duration="5000" />
+      <workItem from="1602052158196" duration="1194000" />
+      <workItem from="1602057251476" duration="632000" />
+      <workItem from="1603798871142" duration="382000" />
+      <workItem from="1603803147073" duration="16000" />
+      <workItem from="1604608640946" duration="6000" />
+      <workItem from="1605601813923" duration="1825000" />
     </task>
     <task id="LOCAL-00001" summary="Eka committi">
       <created>1569300763657</created>
@@ -548,11 +589,18 @@
       <option name="project" value="LOCAL" />
       <updated>1586958077499</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="15.04.2020 Kaikki talteen uusia bugfixejä omniaclientiin toimivat">
+      <created>1587024212097</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1587024212097</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
@@ -567,15 +615,56 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/TFS/IntelliJ/JsonTest/lib" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>
-              <option name="COLUMN_ORDER" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="JatriHelsinki" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
             </State>
           </value>
         </entry>
       </map>
     </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="USE_CUSTOM_SHELF_PATH" value="true" />
@@ -602,96 +691,22 @@
     <option name="LAST_COMMIT_MESSAGE" value="15.04.2020 Kaikki talteen uusia bugfixejä omniaclientiin toimivat" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="241" key="#Plugins" timestamp="1583921028642">
-      <screen x="0" y="0" width="1920" height="1160" />
+    <state x="561" y="191" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1600070953258">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="241" key="#Plugins/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1583921028642" />
-    <state x="557" y="100" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582026463909">
-      <screen x="0" y="0" width="1920" height="1160" />
+    <state x="561" y="191" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600070953258" />
+    <state x="426" y="219" key="FileChooserDialogImpl" timestamp="1605601859797">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="557" y="100" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1582026463909" />
-    <state x="920" y="329" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1582026426609">
-      <screen x="0" y="0" width="1920" height="1160" />
+    <state x="426" y="219" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1605601859797" />
+    <state x="822" y="345" key="Vcs.Push.Dialog.v2" timestamp="1605604973874">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="920" y="329" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1582026426609" />
-    <state x="449" y="151" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1586958160170">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="822" y="345" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605604973874" />
+    <state x="1047" y="526" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605605018509">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="449" y="151" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/-2880.0.1920.1047/0.0.1536.824@0.0.1536.824" timestamp="1586958160170" />
-    <state x="1193" y="374" width="398" height="266" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1579091339341">
-      <screen x="0" y="0" width="1920" height="1160" />
-    </state>
-    <state x="1193" y="374" width="398" height="266" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1579091339341" />
-    <state x="1128" y="513" key="FileChooserDialogImpl" timestamp="1578993333167">
-      <screen x="0" y="0" width="1920" height="1160" />
-    </state>
-    <state x="1128" y="513" key="FileChooserDialogImpl/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578993333167" />
-    <state width="1860" height="524" key="GridCell.Tab.0.bottom" timestamp="1584009231512">
-      <screen x="1920" y="0" width="1920" height="1160" />
-    </state>
-    <state width="1877" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1579758359052" />
-    <state width="1877" height="545" key="GridCell.Tab.0.bottom/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1583841678543" />
-    <state width="1860" height="524" key="GridCell.Tab.0.bottom/0.0.1920.1160/1920.0.1920.1160@1920.0.1920.1160" timestamp="1584009231512" />
-    <state width="1860" height="524" key="GridCell.Tab.0.center" timestamp="1584009231512">
-      <screen x="1920" y="0" width="1920" height="1160" />
-    </state>
-    <state width="1877" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1579758359052" />
-    <state width="1877" height="545" key="GridCell.Tab.0.center/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1583841678543" />
-    <state width="1860" height="524" key="GridCell.Tab.0.center/0.0.1920.1160/1920.0.1920.1160@1920.0.1920.1160" timestamp="1584009231512" />
-    <state width="1860" height="524" key="GridCell.Tab.0.left" timestamp="1584009231511">
-      <screen x="1920" y="0" width="1920" height="1160" />
-    </state>
-    <state width="1877" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1579758359052" />
-    <state width="1877" height="545" key="GridCell.Tab.0.left/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1583841678543" />
-    <state width="1860" height="524" key="GridCell.Tab.0.left/0.0.1920.1160/1920.0.1920.1160@1920.0.1920.1160" timestamp="1584009231511" />
-    <state width="1860" height="524" key="GridCell.Tab.0.right" timestamp="1584009231512">
-      <screen x="1920" y="0" width="1920" height="1160" />
-    </state>
-    <state width="1877" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1579758359052" />
-    <state width="1877" height="545" key="GridCell.Tab.0.right/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1583841678543" />
-    <state width="1860" height="524" key="GridCell.Tab.0.right/0.0.1920.1160/1920.0.1920.1160@1920.0.1920.1160" timestamp="1584009231512" />
-    <state width="1877" height="482" key="GridCell.Tab.1.bottom" timestamp="1583841670641">
-      <screen x="0" y="0" width="1920" height="1160" />
-    </state>
-    <state width="1877" height="482" key="GridCell.Tab.1.bottom/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1583841670641" />
-    <state width="1980" height="458" key="GridCell.Tab.1.bottom/0.0.1920.1160/1920.0.1920.1160@1920.0.1920.1160" timestamp="1579088658804" />
-    <state width="1877" height="482" key="GridCell.Tab.1.center" timestamp="1583841670641">
-      <screen x="0" y="0" width="1920" height="1160" />
-    </state>
-    <state width="1877" height="482" key="GridCell.Tab.1.center/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1583841670641" />
-    <state width="1980" height="458" key="GridCell.Tab.1.center/0.0.1920.1160/1920.0.1920.1160@1920.0.1920.1160" timestamp="1579088658804" />
-    <state width="1877" height="482" key="GridCell.Tab.1.left" timestamp="1583841670641">
-      <screen x="0" y="0" width="1920" height="1160" />
-    </state>
-    <state width="1877" height="482" key="GridCell.Tab.1.left/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1583841670641" />
-    <state width="1980" height="458" key="GridCell.Tab.1.left/0.0.1920.1160/1920.0.1920.1160@1920.0.1920.1160" timestamp="1579088658804" />
-    <state width="1877" height="482" key="GridCell.Tab.1.right" timestamp="1583841670641">
-      <screen x="0" y="0" width="1920" height="1160" />
-    </state>
-    <state width="1877" height="482" key="GridCell.Tab.1.right/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1583841670641" />
-    <state width="1980" height="458" key="GridCell.Tab.1.right/0.0.1920.1160/1920.0.1920.1160@1920.0.1920.1160" timestamp="1579088658804" />
-    <state x="361" y="148" key="Vcs.Push.Dialog.v2" timestamp="1586958124776">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="361" y="148" key="Vcs.Push.Dialog.v2/-2880.0.1920.1047/0.0.1536.824@0.0.1536.824" timestamp="1586958124776" />
-    <state x="-522" y="464" width="1736" height="976" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1578994298703">
-      <screen x="0" y="0" width="1920" height="1160" />
-    </state>
-    <state x="-522" y="464" width="1736" height="976" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1578994298703" />
-    <state x="718" y="391" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586957805381">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="718" y="391" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-2880.0.1920.1047/0.0.1536.824@0.0.1536.824" timestamp="1586957805381" />
-    <state x="139" y="210" width="1625" height="453" key="dock-window-1" timestamp="1580303815042">
-      <screen x="0" y="0" width="1920" height="1160" />
-    </state>
-    <state x="940" y="356" width="787" height="407" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1579700244749" />
-    <state x="139" y="210" width="1625" height="453" key="dock-window-1/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1580303815042" />
-    <state x="365" y="278" width="672" height="757" key="search.everywhere.popup" timestamp="1583920847894">
-      <screen x="0" y="0" width="1920" height="1160" />
-    </state>
-    <state x="365" y="249" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1578657851205" />
-    <state x="365" y="278" width="672" height="757" key="search.everywhere.popup/0.0.1920.1160/1920.0.1920.1160@0.0.1920.1160" timestamp="1583920847894" />
+    <state x="1047" y="526" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605605018509" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
