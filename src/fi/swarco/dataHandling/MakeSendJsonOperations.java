@@ -6,6 +6,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
+import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
 public class MakeSendJsonOperations {
     static Logger logger = Logger.getLogger(MakeSendJsonOperations.class.getName());
     private static String jSonPermanentData = "novalue";
@@ -103,7 +104,9 @@ public class MakeSendJsonOperations {
         int iloop = 1;
         int intSleep = 0;
         int iRet;
-        iRet = MeasurementTaskHandling.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        SwarcoEnumerations.ConnectionType oConnType;
+        oConnType = getSqlServerConnectionType() ;
+        iRet = th.MakeConnection(oConnType);
         if (iRet != INT_RET_OK) {
             logger.info("Ei kantayhteytt� lopetetaan");
             return OMNIA_DATA_PICK_NOT_OK;
@@ -204,7 +207,9 @@ public class MakeSendJsonOperations {
     }
     public int MakeSendOmniaOperations() throws SQLException {
         LogUtilities mfl = new LogUtilities();
-        int iRet = MeasurementTaskHandling.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        int iRet = th.MakeConnection(oConnType);
         if (iRet != INT_RET_OK) {
             logger.info("Ei kantayhteytt� lopetetaan");
             return OMNIA_DATA_PICK_NOT_OK;

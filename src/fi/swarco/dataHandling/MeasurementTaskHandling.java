@@ -472,7 +472,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL +  " DetectorMeasuresTimestamp = ";
             SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where  TaskType = 'MEASUREMENTDATAINSERT') ";
             SQL = SQL + " order by DetectorMeasuresTimestamp asc ";
-//            logger.info("SQL = " + SQL);
+              logger.info("SQL = " + SQL);
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
@@ -973,12 +973,12 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " work.DetectorID=task.DetectorID and ";
             SQL = SQL + " work.DetectorMeasuresTimestamp = task.DetectorMeasuresTimestamp ";
             SQL = SQL +  " where work.TaskType='MEASUREMENTDATAINSERT' and ";
-            SQL = SQL +" work.OmniaCode=2 and  ";
+            SQL = SQL +" work.OmniaCode= "  +  ce.getOmniaCode()  + "and  ";
             SQL = SQL +" work.IntersectionID= " + ce.getIntersectionId()   +  " and ";
             SQL = SQL +" work.ControllerID=  " + ce.getControllerId()   + " and ";
             SQL = SQL +" work.TaskStatus=1 and ";
             SQL = SQL +" work.DetectorMeasuresTimestamp =  " +  "'" + ce.getDetectorMeasuresTimestamp() + "');";
-   //         logger.info("SQL = " + SQL);
+            logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             logger.info("Lines deleted iRet = " + iRet);

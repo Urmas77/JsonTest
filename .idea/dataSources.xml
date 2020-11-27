@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="jatrihelsinki@localhost" uuid="1b3011e2-4852-4a02-9c4e-5609973e346d">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/jatrihelsinki</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="jatrihelsinki@localhost [2]" uuid="c99dacb3-8832-4cad-b554-83d7df623e98">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/jatrihelsinki</jdbc-url>
+    </data-source>
+  </component>
+</project>

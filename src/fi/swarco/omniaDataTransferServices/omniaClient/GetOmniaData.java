@@ -17,6 +17,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.CONSTANT.INT_RET_OK;
+import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.GHTTPOmniaClientPort;
+import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
 public class GetOmniaData {
     private static Logger logger = Logger.getLogger(GetOmniaData.class.getName());
     private static boolean TodayDone = false; // true if no need to tranfer detectordata today
@@ -29,6 +31,7 @@ public class GetOmniaData {
         String url1;
         String inputLine;
         int iRet;
+        SwarcoEnumerations.ConnectionType  oConnType;
         MakeSendJsonOperations ms = new MakeSendJsonOperations();
         AlarmHandling ah = new AlarmHandling();
         MessageUtils mu = new MessageUtils();
@@ -80,14 +83,17 @@ public class GetOmniaData {
                                 logger.info("no data to send  strHelp1 = " + strHelp1);
                             } else {
                                 strHelp1 = mu.DecodeJsonPercentDecimal(strHelp1);
+                              //  strHelp1="OK";   //RETHINK
                                 strHelp1 = URLEncoder.encode(strHelp1, StandardCharsets.UTF_8.toString());
-                                url1 = sw.getOmniaClientUrl();
-                                logger.info("moi url1 =" + url1);
+
+                                //url1 = sw.getOmniaClientUrl();
+                                url1 ="http://localhost:" +GHTTPOmniaClientPort +  "/?";
+                                logger.info("moi2 url1 =" + url1);
                                 url1 = url1 + strHelp1;
+                                logger.info("moi2 url1 =" + url1);
                                 bXorResult = XORChecksumShort.xor(url1);
                                 url1 = url1 + "&chk=" + bXorResult;
                                 logger.info("****** Length of url1.length() =" + url1.length());
-               //                 logger.info("moi \"&chk=\" =" + bXorResult);
                                 URL obj = new URL(url1);
                                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
                                 con.setRequestProperty("Content-Type", "application/json,charset=UTF-8");
@@ -146,7 +152,9 @@ public class GetOmniaData {
                             //dootrick
                            //  if ok
                             GetDetectorData dd = new  GetDetectorData();
-                            iRet= dd.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+                            oConnType=getSqlServerConnectionType();
+                            iRet= dd.MakeConnection(oConnType);
+                            //iRet= dd.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
                             if (iRet == DATABASE_CONNECTION_OK) {
                                 iRet =dd.AddDetectorDataLines();
                                 if (iRet>=0) {
@@ -168,7 +176,10 @@ public class GetOmniaData {
                     }
                     // hour job if here
                     if (HourDone==false) {
-                        iRet= ah.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+                        GetDetectorData dd = new  GetDetectorData();
+                        oConnType=getSqlServerConnectionType();
+                        iRet= dd.MakeConnection(oConnType);
+//                        iRet= ah.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
                         if (iRet == INT_RET_OK) {
                             iRet = ah.SendAlarm();
                             if (iRet ==INT_RET_OK) {

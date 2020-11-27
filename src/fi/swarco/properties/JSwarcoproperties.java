@@ -3,9 +3,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Properties;
+
+import fi.swarco.SwarcoEnumerations;
+import fi.swarco.connections.ConWrapper;
 import org.apache.log4j.Logger;
-import static fi.swarco.CONSTANT.INT_RET_NOT_OK;
-import static fi.swarco.CONSTANT.INT_RET_OK;
+
+import static fi.swarco.CONSTANT.*;
+
 public class JSwarcoproperties {
     private static Logger logger = Logger.getLogger(JSwarcoproperties.class.getName());
     private String InfluxConnUrlStart;
@@ -155,6 +159,9 @@ public class JSwarcoproperties {
         MySqlServerTimeZone = pMySqlServerTimeZone;
     }
     public String getMySqlServerTimeZone() {
+        if (MySqlServerTimeZone==null) {
+            MySqlServerTimeZone=TT_NOT_DEFINED;
+        }
         return MySqlServerTimeZone;
     }
     public void setMySqlConnUrlWhole(String pMySqlConnUrlWhole) {
@@ -200,8 +207,6 @@ public class JSwarcoproperties {
     public void setFileNameInflux1(String pFileNameInflux1) {
         FileNameInflux1 = pFileNameInflux1;
     }
-
-
     private String Log4JPathAndFileName;
     public String getLog4JPathAndFileName() {
         return Log4JPathAndFileName;
@@ -267,10 +272,6 @@ public class JSwarcoproperties {
             if (iRet != 1) {
                 logger.info("No SqlServer props in this environment!");
             }
-            iRet = setMySqlProps();
-            if (iRet != 1) {
-                logger.info("No MySql props in this environment!");
-            }
             iRet = setInfluxProps();
             if (iRet != 1) {
                 logger.info("No MySql props in this environment!");
@@ -314,13 +315,99 @@ public class JSwarcoproperties {
         strHelp1 = strHelp1 + "user=" + getSqlServerdbuser() + ",";
         strHelp1 = strHelp1 + "password=" + getSqlServerpassword();
         setSqlServerConnUrlWhole(strHelp1);
-      //  logger.info("SqlServerConnUrlStart = " + prop.getProperty("SqlServerConnectionUrlStart"));
-        //logger.info("SqlServerPort = "+ prop.getProperty("SqlServerPort"));
-        //logger.info("SqlServerpassword = " + prop.getProperty("SqlServerpassword"));
-        //logger.info("SqlServerdatabase = " + prop.getProperty("SqlServerdatabase"));
-        //logger.info("SqlServerdbuser = " + prop.getProperty("SqlServerdbuser"));
-        //logger.info("getpSqlServerConnUrlWhole() = " + getSqlServerConnUrlWhole());
+ //       logger.info("SqlServerConnUrlStart = " + prop.getProperty("SqlServerConnectionUrlStart"));
+ //       logger.info("SqlServerPort = "+ prop.getProperty("SqlServerPort"));
+ //       logger.info("SqlServerpassword = " + prop.getProperty("SqlServerpassword"));
+ //       logger.info("SqlServerdatabase = " + prop.getProperty("SqlServerdatabase"));
+ //       logger.info("SqlServerdbuser = " + prop.getProperty("SqlServerdbuser"));
+ //       logger.info("getpSqlServerConnUrlWhole() = " + getSqlServerConnUrlWhole());
         return INT_RET_OK;
+    }
+    public ConWrapper FillServerWrapper(String pstrCity)  {
+        ConWrapper retWrapper;
+        retWrapper = new ConWrapper();
+        retWrapper.MakeEmptyElement();
+        if (pstrCity.equals("lahti")) {
+            retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartL"));
+            retWrapper.setDatabaseName(prop.getProperty("SqlServerdatabaseL"));
+            retWrapper.setDatabaseUserName(prop.getProperty("SqlServerdbuserL"));
+            retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordL"));
+            retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortL"));
+            retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
+            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+        }
+        if (pstrCity.equals("helsinki")) {
+            retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartH"));
+            retWrapper.setDatabaseName(prop.getProperty("SqlServerdatabaseH"));
+            retWrapper.setDatabaseUserName(prop.getProperty("SqlServerdbuserH"));
+            retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordH"));
+            retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortH"));
+            retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortH"));
+            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+        }
+        if (pstrCity.equals("helsinkiomniview")) {
+            retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartHOW"));
+            retWrapper.setDatabaseName(prop.getProperty("SqlServerdatabaseHOW"));
+            retWrapper.setDatabaseUserName(prop.getProperty("SqlServerdbuserHOW"));
+            retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordHOW"));
+            retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortHOW"));
+            retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortHOW"));
+            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+        }
+        logger.info("retWrapper.toString()  = " +retWrapper.toString());
+        return retWrapper;
+    }
+    public ConWrapper FillConnectionWrapper(SwarcoEnumerations.ConnectionType enConType)  {
+        ConWrapper retWrapper;
+        retWrapper = new ConWrapper();
+        retWrapper.MakeEmptyElement();
+        if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_lAHTI) {
+            retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartL"));
+            retWrapper.setDatabaseName(prop.getProperty("SqlServerdatabaseL"));
+            retWrapper.setDatabaseUserName(prop.getProperty("SqlServerdbuserL"));
+            retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordL"));
+            retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortL"));
+            retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
+            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+        }
+        if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_HELSINKI) {
+            retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartH"));
+            retWrapper.setDatabaseName(prop.getProperty("SqlServerdatabaseH"));
+            retWrapper.setDatabaseUserName(prop.getProperty("SqlServerdbuserH"));
+            retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordH"));
+            retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortH"));
+            retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortH"));
+            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+        }
+        if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_HELSINKI_OMNIVIEW) {
+            retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartHOW"));
+            retWrapper.setDatabaseName(prop.getProperty("SqlServerdatabaseHOW"));
+            retWrapper.setDatabaseUserName(prop.getProperty("SqlServerdbuserHOW"));
+            retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordHOW"));
+            retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortHOW"));
+            retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortHOW"));
+            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+        }
+        if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST) { // Lahti settings RETHINK
+            retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartL"));
+            retWrapper.setDatabaseName(prop.getProperty("SqlServerdatabaseL"));
+            retWrapper.setDatabaseUserName(prop.getProperty("SqlServerdbuserL"));
+            retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordL"));
+            retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortL"));
+            retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
+            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+        }
+        if (enConType==SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2) {
+            retWrapper.setConnUrlStart(prop.getProperty("MySqlConnectionUrlStart"));
+            retWrapper.setDatabaseName(prop.getProperty("MySqldatabase"));
+            retWrapper.setDatabaseUserName(prop.getProperty("MySqldbuser"));
+            retWrapper.setDbPassword(prop.getProperty("MySqlpassword"));
+            retWrapper.setHttpServerPort(TT_NOT_DEFINED);
+            retWrapper.setHttpClientPort(TT_NOT_DEFINED);
+            retWrapper.setServerTimeZone(prop.getProperty("MySqlServerTimeZone"));
+        }
+        logger.info("retWrapper.toString()  = " +retWrapper.toString());
+        return retWrapper;
     }
     private int setMySqlProps() {
         setMySqlDriver(prop.getProperty("MySqlDriver"));

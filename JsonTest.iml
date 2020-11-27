@@ -13,7 +13,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="org.apache.directory.studio:org.apache.logging.log4j:1.2.17" level="project" />
     <orderEntry type="library" exported="" name="com.google.code.gson:gson:2.8.5" level="project" />
-    <orderEntry type="library" exported="" name="mysql-connector-java-8.0.16" level="project" />
     <orderEntry type="library" exported="" name="mssql-jdbc-7.2.2.jre8" level="project" />
     <orderEntry type="library" exported="" name="commons-lang3-3.9" level="project" />
     <orderEntry type="library" exported="" name="javax.json:javax.json-api:1.1.4" level="project" />
@@ -35,5 +34,6 @@
     <orderEntry type="library" exported="" name="com.squareup.okhttp3:logging-interceptor:3.14.4" level="application" />
     <orderEntry type="library" exported="" name="com.squareup.moshi:moshi:1.9.2" level="project" />
     <orderEntry type="library" exported="" name="org.msgpack:jackson-dataformat-msgpack:0.8.20" level="project" />
+    <orderEntry type="library" exported="" name="mysql-connector-java-8.0.22" level="project" />
   </component>
 </module>

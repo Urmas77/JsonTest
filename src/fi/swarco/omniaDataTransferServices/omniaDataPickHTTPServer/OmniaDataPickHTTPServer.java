@@ -5,39 +5,57 @@ import java.net.InetSocketAddress;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import fi.swarco.connections.ConWrapper;
 import fi.swarco.dataHandling.oldDataHandling.MakeReceiveClientRequestOperations;
 import fi.swarco.dataHandling.MakeReceiveJsonOperations;
 import fi.swarco.messageHandling.MapHandle;
+import fi.swarco.properties.JSwarcoproperties;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-
 import static fi.swarco.CONSTANT.*;
-
 public class OmniaDataPickHTTPServer {
     static Logger logger = Logger.getLogger(OmniaDataPickHTTPServer.class.getName());
-
+    private static JSwarcoproperties swarvop;
     public static void main(String[] args) throws Exception {
+        int iRet =INT_RET_OK;
+        String strServer=NO_VALUE;
+        String strServerPort=NO_VALUE;
+        swarvop    = new JSwarcoproperties();
+        iRet = swarvop.getSwarcoProperties();
+        if (iRet != INT_RET_OK) {
+            logger.info ("Ei saatu properteja");
+            System.exit(0);
+        }
+        if (args.length==0) {
+            System.out.println("Ei argumentteja ");
+        } else if  (args.length==1) {
+            strServer = args[0];
+            System.out.println("strServer = " + strServer);
+        }
+        ConWrapper cW1 = new ConWrapper();
+        cW1 =swarvop.FillServerWrapper(strServer);
+        logger.info("cW1.getHttpServerPort() = " + cW1.getHttpServerPort());
+        strServerPort=cW1.getHttpServerPort();
+        if (strServerPort.equals(NO_VALUE)) {
+            logger.info ("Ei saatu porttia");
+            System.exit(0);
+        }
         try{
-        HttpServer server = HttpServer.create(new InetSocketAddress(8888), 0);
-        // server.createContext("/", new MyHandler3());
-        //server.createContext("/", new MyHandler());
-        //server.createContext("/", new MyHandler4.MyHandlerGetCloudRequest());
-        server.createContext("/", new MyHandlerGetCloudRequest());
-        //    server.createContext("/", new MyHandler2());
-        server.setExecutor(null); // creates a default executor
-        logger.info("Entering application.");
-        server.start();
-    } catch (Exception e) {
-           // logger.info("Huti pattern1=" + pattern1);
+            int intPort = Integer.parseInt(strServerPort);
+            HttpServer server = HttpServer.create(new InetSocketAddress(intPort), 0);
+            server.createContext("/", new MyHandlerGetCloudRequest());
+            server.setExecutor(null); // creates a default executor
+            logger.info("Entering application.");
+            server.start();
+       } catch (Exception e) {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
             logger.info("e.getMessage() =" + e.getMessage());
-        }
-        }
+       }
+    }
 
     // Only one path/method combination is allowed
     static class MyHandler implements HttpHandler {
@@ -72,7 +90,6 @@ public class OmniaDataPickHTTPServer {
             os.close();
         }
     }
-
     static class MyHandler2 implements HttpHandler {
         @Override
         // Timestamp request handler

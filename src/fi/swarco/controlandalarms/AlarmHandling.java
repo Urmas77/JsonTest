@@ -12,13 +12,11 @@ public class AlarmHandling {
     private static Logger logger = Logger.getLogger(AlarmHandling.class.getName());
     public static int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon)  {
         SwarcoConnections vg = new SwarcoConnections();
-        //   logger.info("pSqlCon = " + pSqlCon);
         int iRet = vg.MakeConnection(pSqlCon);
         if (iRet != INT_RET_OK) {
             return iRet;
         }
         SqlConnectionType = pSqlCon;
-        //    logger.info("SqlConnectionType = " + SqlConnectionType);
         gSqlCon = vg.getSqlCon();
         return INT_RET_OK;
     }

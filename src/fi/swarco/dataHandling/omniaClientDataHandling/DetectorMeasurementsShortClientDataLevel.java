@@ -99,7 +99,7 @@ public class DetectorMeasurementsShortClientDataLevel {
         }
     }
     private String GetMeasurementsDataShortJsonString( ){
-        Gson myGson = new Gson();
+        Gson myGson = new Gson();  //RETHINK NOT ADDED LOGIN
         MessageUtils mu = new MessageUtils();
         String strHelp1 = NO_VALUE;
         String strHelp2 = "";
@@ -114,13 +114,13 @@ public class DetectorMeasurementsShortClientDataLevel {
             //           logger.info("aDetTran.toString().length() = " + aDetTran.toString().length());
             strHelp1 = myGson.toJson(aDetTran);
             if (strHelpSpare.equals(strHelp1)) {
-                logger.info("**** not addaed got it strHelpSpare = " + strHelpSpare);
-                logger.info("**** not added got it strHelp1 = " + strHelp1);
+            //    logger.info("**** not addad got it strHelpSpare = " + strHelpSpare);
+            //    logger.info("**** not added got it strHelp1 = " + strHelp1);
                 // do not add anything here
                 // System.exit(99);
             } else {
                // strHelpSpare = strHelp1;
-                logger.info("evevery ****** strHelpSpare = " + strHelpSpare);
+              //  logger.info("evevery ****** strHelpSpare = " + strHelpSpare);
                 strHelp2 = strHelp2 + strHelp1;
             }
             strHelpSpare = strHelp1;

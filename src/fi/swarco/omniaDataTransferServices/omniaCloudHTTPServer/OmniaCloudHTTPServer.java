@@ -6,17 +6,45 @@ package fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer;
         import com.sun.net.httpserver.HttpExchange;
         import com.sun.net.httpserver.HttpHandler;
         import com.sun.net.httpserver.HttpServer;
+        import fi.swarco.connections.ConWrapper;
         import fi.swarco.dataHandling.MakeReceiveJsonOperations;
+        import fi.swarco.properties.JSwarcoproperties;
         import org.apache.commons.lang.exception.ExceptionUtils;
         import org.apache.log4j.Logger;
         import static fi.swarco.CONSTANT.MESSAGE_NOT_RECEIVED_OK;
         import static fi.swarco.CONSTANT.MESSAGE_RECEIVED_OK;
+        import static fi.swarco.CONSTANT.*;
 public class OmniaCloudHTTPServer {
     private static Logger logger = Logger.getLogger(OmniaCloudHTTPServer.class.getName());
-
+    private static JSwarcoproperties swarvop;
     public static void main(String[] args) {
+        int iRet =INT_RET_OK;
+        String strServer=NO_VALUE;
+        String strServerPort=NO_VALUE;
+        swarvop    = new JSwarcoproperties();
+        iRet = swarvop.getSwarcoProperties();
+        if (iRet != INT_RET_OK) {
+            logger.info ("Ei saatu properteja");
+            System.exit(0);
+        }
+        if (args.length==0) {
+            System.out.println("Ei argumentteja ");
+        } else if  (args.length==1) {
+            strServer = args[0];
+            System.out.println("strServer = " + strServer);
+        }
+        ConWrapper cW1 = new ConWrapper();
+        cW1 =swarvop.FillServerWrapper(strServer);
+        logger.info("cW1.getHttpServerPort() = " + cW1.getHttpServerPort());
+        strServerPort=cW1.getHttpServerPort();
+        if (strServerPort.equals(NO_VALUE)) {
+            logger.info ("Ei saatu porttia");
+            System.exit(0);
+        }
         try {
-            HttpServer server = HttpServer.create(new InetSocketAddress(8888), 0);
+            int intPort = Integer.parseInt(strServerPort);
+            HttpServer server = HttpServer.create(new InetSocketAddress(intPort), 0);
+//            HttpServer server = HttpServer.create(new InetSocketAddress(8888), 0);
             server.createContext("/", new MyHandlerOmniaJson());
             server.setExecutor(null); // creates a default executor
             logger.info("Entering application.");
@@ -59,9 +87,10 @@ public class OmniaCloudHTTPServer {
                 os.close();
             }
             if (messageReceived == MESSAGE_RECEIVED_OK) {
-                MakeReceiveJsonOperations.setPseudoJsonData(uquery);
+                  hd.setPseudoJsonData(uquery);
+             //   MakeReceiveJsonOperations.setPseudoJsonData(uquery);
                  try {
-                     iRet = MakeReceiveJsonOperations.MakeReceiveOmniaOperations();
+                     iRet = hd.MakeReceiveOmniaOperations();
                  } catch (SQLException e) {
                      logger.info(ExceptionUtils.getRootCauseMessage(e));
                      logger.info(ExceptionUtils.getFullStackTrace(e));

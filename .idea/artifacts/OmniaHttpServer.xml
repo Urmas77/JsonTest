@@ -5,7 +5,6 @@
       <element id="module-output" name="JsonTest" />
       <element id="library" level="project" name="org.apache.directory.studio:org.apache.logging.log4j:1.2.17" />
       <element id="library" level="project" name="com.google.code.gson:gson:2.8.5" />
-      <element id="library" level="project" name="mysql-connector-java-8.0.16" />
       <element id="library" level="project" name="mssql-jdbc-7.2.2.jre8" />
       <element id="library" level="project" name="commons-lang3-3.9" />
       <element id="library" level="project" name="javax.json:javax.json-api:1.1.4" />

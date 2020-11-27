@@ -63,8 +63,9 @@ public class OmniaMeasurementShortListDataLevel {
             stmt.setLong(3,pOmniaMeasurementDataShort.getControllerId());
             stmt.setLong(4,pOmniaMeasurementDataShort.getDetectorId());
             stmt.setString(5,pOmniaMeasurementDataShort.getMeasurementTime());
+            logger.info(" pOmniaMeasurementDataShort.toString() = " + pOmniaMeasurementDataShort.toString());
             rs = stmt.executeQuery();
-            OmniaMeasurementDataShort cc;
+           OmniaMeasurementDataShort cc;
             while (rs.next()) {
                 // logger.info("*****inside rsloop");
                 cc= new OmniaMeasurementDataShort();
@@ -81,17 +82,18 @@ public class OmniaMeasurementShortListDataLevel {
                 cc.setAccurancy(rs.getDouble(10));
   //              logger.info("OmniaCode p  = " + pOmniaMeasurementDataShort.getOmniaCode() + " cc " +  cc.getOmniaCode());
   //              logger.info("IntersectionId p  = " + pOmniaMeasurementDataShort.getIntersectionId() + " cc + "+  cc.getIntersectionId());
-  //              logger.info("ControllerId p  = " + pOmniaMeasurementDataShort.getControllerId() + " cc " + cc.getControllerId());
+  //             logger.info("ControllerId p  = " + pOmniaMeasurementDataShort.getControllerId() + " cc " + cc.getControllerId());
   //              logger.info("DetectorId p  = " + pOmniaMeasurementDataShort.getDetectorId() + " cc " + cc.getDetectorId());
   //              logger.info("MeasurementTime p  = " + pOmniaMeasurementDataShort.getMeasurementTime() + " cc " + cc.getMeasurementTime());
                  sWarcoTime  =stu.ToSwarcoTime( pOmniaMeasurementDataShort.getMeasurementTime());
-     //           logger.info("MeasurementTime sWarcoTime  = " + sWarcoTime + " cc " + cc.getMeasurementTime());
+  //               logger.info("MeasurementTime sWarcoTime  = " + sWarcoTime + " cc " + cc.getMeasurementTime());
                 if (((cc.getOmniaCode()==(pOmniaMeasurementDataShort.getOmniaCode())) &&
                    (cc.getIntersectionId()==(pOmniaMeasurementDataShort.getIntersectionId()) &&
                    (cc.getControllerId()==(pOmniaMeasurementDataShort.getControllerId())) &&
                    (cc.getDetectorId()==(pOmniaMeasurementDataShort.getDetectorId())) &&
                    (cc.getMeasurementTime().equals(sWarcoTime))))) {
-       //             logger.info(" l�yty  cc.toString()= " + cc.toString());
+                    logger.info(" löyty  cc.toString()= " + cc.toString());
+                    logger.info(" löyty  pOmniaMeasurementDataShort.toString()= " + pOmniaMeasurementDataShort.toString());
                     setFoundRec(cc);
                     stmt.close();
                     rs.close();
@@ -100,7 +102,7 @@ public class OmniaMeasurementShortListDataLevel {
             }
             stmt.close();
             rs.close();
-            //    logger.info("ei l�ytyny");
+               logger.info("ei l�ytyny");
             return INT_RET_NOT_FOUND;
         } catch(Exception e) {
             logger.info(" catch 11");

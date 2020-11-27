@@ -12,6 +12,7 @@ import static fi.swarco.CONSTANT.*;
 import static fi.swarco.SwarcoEnumerations.ConnectionType.*;
 import static fi.swarco.SwarcoEnumerations.ConnectionType.NOT_DEFINED;
 import static fi.swarco.SwarcoEnumerations.LoggingDestinationType.*;
+import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
 
 // class takes care of writing logging strings to file system and daatabses
 // Destination classes given//
@@ -52,7 +53,9 @@ public class LogUtilities {
             logger.info("Unsuccessful log file write iRet =" + iRet + "  " + pSuccessCode + strTime + "##" + pLogline + destinationFileName);
         }
         RawDataDataListLevel rd = new RawDataDataListLevel();
-        iRet = rd.MakeConnection(destinationDatabaseName);
+        SwarcoEnumerations.ConnectionType oConnType;
+        oConnType = getSqlServerConnectionType() ;
+        iRet = rd.MakeConnection(oConnType);
         if (iRet == DATABASE_CONNECTION_OK) {
             RawData rData = new RawData();
             rData.MakeEmptyElement();
@@ -104,6 +107,7 @@ public class LogUtilities {
                                              SwarcoEnumerations.ApiMessageCodes pSuccessCode,
                                               String pLogline) {
         int iRet;
+  // RETHINK db connection MYSql ???
         SwarcoTimeUtilities tt = new SwarcoTimeUtilities();
         String strTime = tt.GetNow();
         logger.info("strTime=" + strTime);
