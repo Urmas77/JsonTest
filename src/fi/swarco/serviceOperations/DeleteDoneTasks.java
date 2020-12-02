@@ -15,8 +15,6 @@ public class DeleteDoneTasks {
         TaskUnderWork = pTaskUnderWork;
         logger.info("TaskUnderWork.toString()=" + TaskUnderWork.toString());
     }
-
-
     private static String workType = TT_NO_WORK;
     public static String getWorkType() {
         return workType;

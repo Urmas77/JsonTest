@@ -14,6 +14,8 @@ import fi.swarco.omniaDataTransferServices.omniaClient.StartOmniaClient;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
+import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
+
 public class OmniaInfluxClient {
     private long Rounds = 100000000;
     private static Logger logger = Logger.getLogger(TimeSeriesClientDataLevel.class.getName());
@@ -89,11 +91,11 @@ public class OmniaInfluxClient {
 // do until all series are ready
 // create influx file and it lines
 // write using curl
-
-
 // handle response
-            SerieLinkClientDataLevel ts = new SerieLinkClientDataLevel();
-            iRet = ts.MakeConnection2(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST, SwarcoEnumerations.ConnectionType.INFLUX_LOCAL);
+        SerieLinkClientDataLevel ts = new SerieLinkClientDataLevel();
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = ts.MakeConnection2(oConnType, SwarcoEnumerations.ConnectionType.INFLUX_LOCAL);
             if (iRet != DATABASE_CONNECTION_OK) {
                 logger.info("No Database conncection iRet =" + iRet);
                 System.exit(0);
@@ -116,10 +118,6 @@ public class OmniaInfluxClient {
                   }
                }
             }
-
-
-
-
             fo.initFileOperations();
             // NEW_LINE_LINUX
             String strInfluxFileName = fo.getFullInfluxFileNameOld("jatri1");
@@ -128,10 +126,6 @@ public class OmniaInfluxClient {
             iRet = fo.addOmniaInfluxLine("cpu_load_short,host=server111 value=0.12345 1422568543702900257", "jatri1");
             iRet = fo.addOmniaInfluxLine(NEW_LINE_LINUX, "jatri1");
             iRet = fo.addOmniaInfluxLine("cpu_load_short,host=server02 value=0.678999 1422568543702900266", "jatri1");
-
-            //
-
-
             // String[] command = {"curl", "-k", "-v", "-u","admin2:0xdRv63RKq2MtA326BNGQAI6yA1QNGO09enamGxI",
             //         "-d", "{\"username\":\"test\",\"token_code\":\"246212\"}","-H", "Content-Type: application/json", "https://192.168.101.59/api/v1/auth/"};
             String[] command = {"curl", "-i", "-XPOST", "http://192.168.111.121:8086/write?db=Jatri62", "--data-binary", strInfluxFileName};
@@ -151,13 +145,11 @@ public class OmniaInfluxClient {
                 logger.info("curlResult ="+curlResult);
 
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             logger.info(ExceptionUtils.getRootCauseMessage(e));
             logger.info(ExceptionUtils.getFullStackTrace(e));
 
         }
-
     }
 }

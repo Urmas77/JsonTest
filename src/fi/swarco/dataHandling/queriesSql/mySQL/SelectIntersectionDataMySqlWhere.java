@@ -25,6 +25,6 @@ public class SelectIntersectionDataMySqlWhere {
         statement = statement + " where OmniaCode= ? and ";
         statement = statement + "IntersectionID = ? and ";
         statement = statement + "ControllerId = ?; ";
-        logger.info("statement = " + statement);
+   //     logger.info("statement = " + statement);
     }
 }

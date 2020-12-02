@@ -213,7 +213,7 @@ public class TRPXMeasurementTaskWorkData {
     @Override
     public String toString() {
         return "TRPXMeasurementTaskWorkData [" + "workIdIndex = " + workIdIndex +
-                "measurementTaskIdIndex = " + measurementTaskIdIndex +
+                ", measurementTaskIdIndex = " + measurementTaskIdIndex +
                 ", omniaCode = " + omniaCode  +
                 ", intersectionId = " + intersectionId  +
                 ", controllerId = " + controllerId  +

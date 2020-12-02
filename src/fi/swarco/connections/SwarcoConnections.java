@@ -111,7 +111,7 @@ public class SwarcoConnections {
        return iRet;
     }
     private int MakeSqlServerConnectionCity(SwarcoEnumerations.ConnectionType enConType) {
-        ConWrapper cW = new ConWrapper();
+        ConWrapper cW;
         try {
             logger.info("Start 2");
             cW =swarvop.FillConnectionWrapper(enConType);
@@ -119,28 +119,28 @@ public class SwarcoConnections {
             if (curSqlCon == null) {   // only one RSQSErver connection/ program JIs 23.11 2020 klo 13.20
                logger.info("CurConnection is null make totally new connection!");
                 //logger.info("not used Connected.swarvop.getSqlServerConnUrlWhole() = " + swarvop.getSqlServerConnUrlWhole());
-                logger.info("cW.getConnUrlStart() = " + cW.getConnUrlStart());
-                logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
-                logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
-                logger.info("cW.getDbPassword() = " + cW.getDbPassword());
+    //            logger.info("cW.getConnUrlStart() = " + cW.getConnUrlStart());
+    //            logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
+    //            logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
+    //            logger.info("cW.getDbPassword() = " + cW.getDbPassword());
 //                String strHelp1 = prop.getProperty("SqlServerConnectionUrlStart") + ";";
  //               strHelp1 = strHelp1 + "database=" + getSqlServerdatabase() + ";";    // +";";
                 String strHelp2 = cW.getConnUrlStart() +";" +"database=" + cW.getDatabaseName() +";";
-                logger.info("strHelp2 = " + strHelp2);
+   //             logger.info("strHelp2 = " + strHelp2);
                 curSqlCon = DriverManager.getConnection(strHelp2, cW.getDatabaseUserName(), cW.getDbPassword());
                if (curSqlCon.isValid(0)) {
                   return INT_RET_OK;
                }
             } else if (!curSqlCon.isValid(0)) {
-                logger.info("CurConnection is not valid make new one!");
-                logger.info("cW.getConnUrlStart() = " + cW.getConnUrlStart());
-                logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
-                logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
-                logger.info("cW.getDbPassword() = " + cW.getDbPassword());
+  //              logger.info("CurConnection is not valid make new one!");
+  //              logger.info("cW.getConnUrlStart() = " + cW.getConnUrlStart());
+  //              logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
+  //              logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
+  //              logger.info("cW.getDbPassword() = " + cW.getDbPassword());
 //                String strHelp1 = prop.getProperty("SqlServerConnectionUrlStart") + ";";
                 //               strHelp1 = strHelp1 + "database=" + getSqlServerdatabase() + ";";    // +";";
                 String strHelp2 = cW.getConnUrlStart() +";" +"database=" + cW.getDatabaseName() +";";
-                logger.info("strHelp2 = " + strHelp2);
+  //              logger.info("strHelp2 = " + strHelp2);
                 curSqlCon = DriverManager.getConnection(strHelp2, cW.getDatabaseUserName(), cW.getDbPassword());
              //  curSqlCon = DriverManager.getConnection(swarvop.getSqlServerConnUrlStart(), swarvop.getSqlServerdbuser(), swarvop.getSqlServerpassword());
                 if (curSqlCon.isValid(0)) {
@@ -199,19 +199,19 @@ public class SwarcoConnections {
        }
    }
    private int MakeMySqlConnection() {
-       ConWrapper cW = new ConWrapper();
-       String strHelp1="";
+       ConWrapper cW;
+       String strHelp1;
        cW =swarvop.FillConnectionWrapper(SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2);
-      logger.info("***moimmoi****");
+   //   logger.info("***moimmoi****");
 
        try {
            if (curSqlCon == null) {
-               logger.info("CurConnection is null make totally new connection!");
-               logger.info("cW.getConnUrlStart() = " + cW.getConnUrlStart());
-               logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
-               logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
-               logger.info("cW.getDbPassword() = " + cW.getDbPassword());
-               logger.info("cW.getServerTimeZone() = " + cW.getServerTimeZone());
+  //             logger.info("CurConnection is null make totally new connection!");
+  //             logger.info("cW.getConnUrlStart() = " + cW.getConnUrlStart());
+  //             logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
+  //             logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
+  //             logger.info("cW.getDbPassword() = " + cW.getDbPassword());
+  //             logger.info("cW.getServerTimeZone() = " + cW.getServerTimeZone());
                if (swarvop.getMySqlServerTimeZone().equals(TT_NOT_DEFINED)) {
 //                   setMySqlConnUrlStartDbase(prop.getProperty("MySqlConnectionUrlStart") + prop.getProperty("MySqldatabase"));
                    strHelp1=   cW.getConnUrlStart() + cW.getDatabaseName();
@@ -229,10 +229,10 @@ public class SwarcoConnections {
                    //        swarvop.getMySqlServerTimeZone();
                    strHelp1=   cW.getConnUrlStart() + cW.getDatabaseName();
                    strHelp1 = strHelp1  + "?serverTimezone=" + cW.getServerTimeZone();
-                   logger.info("strHelp1 = " + strHelp1);
-                   logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
-                   logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
-                   logger.info("cW.getDbPassword() = " + cW.getDbPassword());
+//                   logger.info("strHelp1 = " + strHelp1);
+//                   logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
+//                   logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
+//                   logger.info("cW.getDbPassword() = " + cW.getDbPassword());
                    curSqlCon = DriverManager.getConnection(strHelp1, cW.getDatabaseUserName(), cW.getDbPassword());
                    // curSqlCon = DriverManager.getConnection(strHelp1, swarvop.getMySqldbuser(), swarvop.getMySqlpassword());
                    // curSqlCon = DriverManager.getConnection(swarvop.getMySqlConnUrlStartDbase(), swarvop.getMySqldbuser(), swarvop.getMySqlpassword());
@@ -260,11 +260,11 @@ public class SwarcoConnections {
                    //              logger.info("swarvop.getMySqlConnUrlStartDbase() = " + swarvop.getMySqlConnUrlStartDbase());
                    //     logger.info("swarvop.getMySqldbuser() = " + swarvop.getMySqldbuser());
                    //     logger.info("swarvop.getMySqlpassword() = " + swarvop.getMySqlpassword());
-                   logger.info("cW.getConnUrlStart() = " + cW.getConnUrlStart());
-                   logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
-                   logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
-                   logger.info("cW.getDbPassword() = " + cW.getDbPassword());
-                   logger.info("cW.getServerTimeZone() = " + cW.getServerTimeZone());
+//                   logger.info("cW.getConnUrlStart() = " + cW.getConnUrlStart());
+//                   logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
+//                   logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
+//                   logger.info("cW.getDbPassword() = " + cW.getDbPassword());
+//                   logger.info("cW.getServerTimeZone() = " + cW.getServerTimeZone());
                    if (swarvop.getMySqlServerTimeZone().equals(TT_NOT_DEFINED)) {
 //                   setMySqlConnUrlStartDbase(prop.getProperty("MySqlConnectionUrlStart") + prop.getProperty("MySqldatabase"));
                        strHelp1 = cW.getConnUrlStart() + cW.getDatabaseName();
@@ -277,10 +277,10 @@ public class SwarcoConnections {
                        //        swarvop.getMySqlServerTimeZone();
                        strHelp1 = cW.getConnUrlStart() + cW.getDatabaseName();
                        strHelp1 = strHelp1 + "?serverTimezone=" + cW.getServerTimeZone();
-                       logger.info("strHelp1 = " + strHelp1);
-                       logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
-                       logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
-                       logger.info("cW.getDbPassword() = " + cW.getDbPassword());
+       //                logger.info("strHelp1 = " + strHelp1);
+       //                logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
+       //                logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
+       //                logger.info("cW.getDbPassword() = " + cW.getDbPassword());
                        curSqlCon = DriverManager.getConnection(strHelp1, cW.getDatabaseUserName(), cW.getDbPassword());
                    }
 

@@ -278,6 +278,7 @@ public class OmniaMeasurementListDataLevel {
         try {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();
+            JsonParser jsonParser;
             strHelp1 = mu.StripFileStartEnd(pMeasurementsData);
  //           logger.info("stripped strHelp1 = " + strHelp1);
             int iHere = strHelp1.indexOf("}");
@@ -288,13 +289,13 @@ public class OmniaMeasurementListDataLevel {
             SwarcoTimeUtilities sw = new  SwarcoTimeUtilities();
             String swarcoTime="";
             while  (iHere>0 ) {
-                JsonParser jsonParser = new JsonParser();
+                jsonParser = new JsonParser();
                 aO1 = myGson.fromJson(strHelp2, OmniaMeasurementData.class);
                 swarcoTime =sw.ToSwarcoTime(aO1.getDetectorDataPreviousUpdate());
                 aO1.setDetectorDataPreviousUpdate(swarcoTime);
                 iRet= DoesLineAlreadyExsist(aO1);
                 if (iRet==INT_RET_NOT_FOUND) {
-                    iRet=iRet = AddNewOmniaMeasurementData(aO1);
+                    iRet= AddNewOmniaMeasurementData(aO1);
                     //                  logger.info("  one line inserted iRet = " + iRet);
                     if (iRet!=INT_RET_OK) {
                         logger.info("Unsuccessful OmniameasurementData insert iRet = " + iRet);

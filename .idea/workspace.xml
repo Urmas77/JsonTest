@@ -16,33 +16,36 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="15.04.2020 Kaikki talteen uusia bugfixejä omniaclientiin toimivat">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_22.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/connections/ConWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/testPrograms/T10.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/OmniaClient.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/OmniaClient.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/OmniaHttpServer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/OmniaHttpServer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_16.xml" beforeDir="false" />
+    <list default="true" id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="Asennus tuotantolahteen 93.12 2020 versio">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/OmniaCloudHttpServer.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JsonTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JsonTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/SwarcoEnumerations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/SwarcoEnumerations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/controlandalarms/AlarmHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/controlandalarms/AlarmHandling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendTimeSeriesOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendTimeSeriesOperations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/RawDataDataListLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/RawDataDataListLevel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsShortClientDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsShortClientDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskWorkHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskWorkHandling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/ReandJsonfromOmniaDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/ReandJsonfromOmniaDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsClientDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsClientDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaDetectorClientDatalevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaDetectorClientDatalevel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/OmniaMeasurementListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/OmniaMeasurementListDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/TRPXMeasurementTaskWorkData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/TRPXMeasurementTaskWorkData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectDetectorDataMySqlWhere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectDetectorDataMySqlWhere.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectDetectorMeasurementsMySql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectDetectorMeasurementsMySql.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectIntersectionControllerDataMySql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectIntersectionControllerDataMySql.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectIntersectionControllerDataMySqlWhere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectIntersectionControllerDataMySqlWhere.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectIntersectionDataMySql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectIntersectionDataMySql.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectIntersectionDataMySqlWhere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectIntersectionDataMySqlWhere.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectMeasurementDataShortMySqlWhere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectMeasurementDataShortMySqlWhere.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/messageHandling/CustomerRequestMapHandle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/messageHandling/CustomerRequestMapHandle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/LogUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/LogUtilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/StartOmniaClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/StartOmniaClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaCloudHTTPServer/OmniaCloudHTTPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaCloudHTTPServer/OmniaCloudHTTPServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaDataPickHTTPServer/OmniaDataPickHTTPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaDataPickHTTPServer/OmniaDataPickHTTPServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaInfluxClient/OmniaInfluxClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaInfluxClient/OmniaInfluxClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/DeleteDoneTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/serviceOperations/DeleteDoneTasks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/swarco.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/swarco.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,7 +115,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.22088724" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -140,7 +143,7 @@
       <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.OmniaCloudHTTPServerLahti">
+  <component name="RunManager" selected="Application.OmniaClientHelsinki">
     <configuration name="InfluxControllerDataPump" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fi.swarco.influxoperations.InfluxControllerDataPump" />
       <module name="JsonTest" />
@@ -185,10 +188,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OmniaCloudHTTPServer" type="Application" factoryName="Application">
+    <configuration name="OmniaCloudHTTPServerHelsinki" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer.OmniaCloudHTTPServer" />
       <module name="JsonTest" />
-      <option name="PROGRAM_PARAMETERS" value="helsinkiomniview" />
+      <option name="PROGRAM_PARAMETERS" value="helsinki" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -257,36 +260,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name=".OmniaCloudHTTPServerHelsinki" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer.OmniaCloudHTTPServer" />
-      <module name="JsonTest" />
-      <option name="PROGRAM_PARAMETERS" value="helsinki" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.OmniacCientHelsinkiOmniview" />
-      <item itemvalue="Application.OmniaCloudHTTPServer" />
       <item itemvalue="Application.MakeSendJsonOperations" />
       <item itemvalue="Application.OmniaClient" />
       <item itemvalue="Application.OmniaClientLahti" />
       <item itemvalue="Application.OmniaClientHelsinki" />
       <item itemvalue="Application.OmniaCloudHTTPServerHelsinkiOmniview" />
-      <item itemvalue="Application..OmniaCloudHTTPServerHelsinki" />
+      <item itemvalue="Application.OmniaCloudHTTPServerHelsinki" />
       <item itemvalue="Application.OmniaCloudHTTPServerLahti" />
       <item itemvalue="Application.OmniaInfluxClient" />
       <item itemvalue="Application.InfluxControllerDataPump" />
@@ -591,7 +572,12 @@
       <workItem from="1606235338099" duration="16358000" />
       <workItem from="1606326378461" duration="40320000" />
       <workItem from="1606407131792" duration="995000" />
-      <workItem from="1606448369016" duration="360000" />
+      <workItem from="1606448369016" duration="1241000" />
+      <workItem from="1606463384357" duration="240000" />
+      <workItem from="1606463679642" duration="31231000" />
+      <workItem from="1606827832555" duration="3187000" />
+      <workItem from="1606831623219" duration="8136000" />
+      <workItem from="1606910008541" duration="2599000" />
     </task>
     <task id="LOCAL-00001" summary="Eka committi">
       <created>1569300763657</created>
@@ -691,7 +677,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605605533941</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Tää haara kaikki helsinki muutokset &quot;toimii&quot; omassa koneessa">
+      <created>1606448980202</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1606448980202</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -783,97 +776,9 @@
     <MESSAGE value="Jar files are OK &#10;DetectorExternalCode error fixed &#10;Just before &quot;big Delivery&quot;" />
     <MESSAGE value="Eka uudella jidealla tulostuksia poistettu mini Jarrit tuotantoon" />
     <MESSAGE value="15.04.2020 Kaikki talteen uusia bugfixejä omniaclientiin toimivat" />
-    <option name="LAST_COMMIT_MESSAGE" value="15.04.2020 Kaikki talteen uusia bugfixejä omniaclientiin toimivat" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="592" y="0" width="1092" height="1040" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606404047841">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="592" y="0" width="1092" height="1040" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606404047841" />
-    <state x="939" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606118515436">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="939" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1606118515436" />
-    <state x="985" y="285" width="804" height="591" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1606125827988">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="985" y="285" width="804" height="591" key="#com.intellij.ide.macro.MacrosDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606125827988" />
-    <state x="934" y="394" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1606327420217">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="934" y="394" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606327420217" />
-    <state x="561" y="191" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1600070953258">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="561" y="191" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600070953258" />
-    <state x="924" y="330" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1606123020948">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="924" y="330" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606123020948" />
-    <state x="170" y="101" width="1606" height="830" key="DiffContextDialog" timestamp="1606448732695">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="170" y="101" width="1606" height="830" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606448732695" />
-    <state x="426" y="219" key="FileChooserDialogImpl" timestamp="1606123127194">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="426" y="219" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1606123127194" />
-    <state width="1746" height="156" key="GridCell.Tab.0.bottom" timestamp="1606447913392">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1746" height="156" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606447913392" />
-    <state width="1746" height="156" key="GridCell.Tab.0.center" timestamp="1606447913392">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1746" height="156" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606447913392" />
-    <state width="1746" height="156" key="GridCell.Tab.0.left" timestamp="1606447913392">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1746" height="156" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606447913392" />
-    <state width="1746" height="156" key="GridCell.Tab.0.right" timestamp="1606447913392">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1746" height="156" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606447913392" />
-    <state width="1877" height="267" key="GridCell.Tab.1.bottom" timestamp="1606407087746">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="267" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606407087746" />
-    <state width="1877" height="267" key="GridCell.Tab.1.center" timestamp="1606407087746">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="267" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606407087746" />
-    <state width="1877" height="267" key="GridCell.Tab.1.left" timestamp="1606407087746">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="267" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606407087746" />
-    <state width="1877" height="267" key="GridCell.Tab.1.right" timestamp="1606407087746">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="267" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606407087746" />
-    <state x="438" y="148" key="SettingsEditor" timestamp="1606123193362">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="438" y="148" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1606123193362" />
-    <state x="822" y="345" key="Vcs.Push.Dialog.v2" timestamp="1606448707662">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="822" y="345" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606448707662" />
-    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1606292237886">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606292237886" />
-    <state x="534" y="24" width="1940" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1606406938169">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="534" y="24" width="1940" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606406938169" />
-    <state x="1047" y="526" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605605018509">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="1047" y="526" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1605605018509" />
-    <state x="349" y="211" width="1275" height="678" key="search.everywhere.popup" timestamp="1606401288973">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="349" y="211" width="1275" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1606401288973" />
+    <MESSAGE value="Tää haara kaikki helsinki muutokset &quot;toimii&quot; omassa koneessa" />
+    <MESSAGE value="Asennus tuotantolahteen 93.12 2020 versio" />
+    <option name="LAST_COMMIT_MESSAGE" value="Asennus tuotantolahteen 93.12 2020 versio" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -897,23 +802,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/ReandJsonfromOmniaDb.java</url>
-          <line>75</line>
+          <line>55</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/ReandJsonfromOmniaDb.java</url>
-          <line>88</line>
+          <line>68</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/ReandJsonfromOmniaDb.java</url>
-          <line>104</line>
+          <line>84</line>
           <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/ReandJsonfromOmniaDb.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
@@ -1076,11 +976,6 @@
           <option name="timeStamp" value="164" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="165" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/MessageUtils.java</url>
           <line>137</line>
           <option name="timeStamp" value="167" />
@@ -1132,47 +1027,47 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaCloudHTTPServer/OmniaCloudHTTPServer.java</url>
-          <line>92</line>
+          <line>93</line>
           <option name="timeStamp" value="213" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>430</line>
+          <line>429</line>
           <option name="timeStamp" value="214" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>184</line>
+          <line>183</line>
           <option name="timeStamp" value="215" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>450</line>
+          <line>449</line>
           <option name="timeStamp" value="217" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>306</line>
+          <line>305</line>
           <option name="timeStamp" value="218" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>313</line>
+          <line>312</line>
           <option name="timeStamp" value="219" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>369</line>
+          <line>368</line>
           <option name="timeStamp" value="220" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>353</line>
+          <line>352</line>
           <option name="timeStamp" value="221" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>432</line>
+          <line>431</line>
           <option name="timeStamp" value="222" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1217,7 +1112,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
-          <line>51</line>
+          <line>44</line>
           <option name="timeStamp" value="232" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1232,27 +1127,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>237</line>
+          <line>236</line>
           <option name="timeStamp" value="237" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>51</line>
+          <line>49</line>
           <option name="timeStamp" value="238" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>82</line>
+          <line>81</line>
           <option name="timeStamp" value="239" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>149</line>
+          <line>148</line>
           <option name="timeStamp" value="241" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>141</line>
+          <line>140</line>
           <option name="timeStamp" value="242" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1286,17 +1181,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaCloudHTTPServer/OmniaCloudHTTPServer.java</url>
-          <line>63</line>
+          <line>64</line>
           <option name="timeStamp" value="265" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaCloudHTTPServer/OmniaCloudHTTPServer.java</url>
-          <line>47</line>
+          <line>48</line>
           <option name="timeStamp" value="266" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaCloudHTTPServer/OmniaCloudHTTPServer.java</url>
-          <line>88</line>
+          <line>89</line>
           <option name="timeStamp" value="267" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1371,12 +1266,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaInfluxClient/OmniaInfluxClient.java</url>
-          <line>124</line>
+          <line>122</line>
           <option name="timeStamp" value="318" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaInfluxClient/OmniaInfluxClient.java</url>
-          <line>102</line>
+          <line>104</line>
           <option name="timeStamp" value="320" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1396,7 +1291,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaInfluxClient/OmniaInfluxClient.java</url>
-          <line>50</line>
+          <line>52</line>
           <option name="timeStamp" value="337" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1406,22 +1301,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaInfluxClient/OmniaInfluxClient.java</url>
-          <line>62</line>
+          <line>64</line>
           <option name="timeStamp" value="340" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendTimeSeriesOperations.java</url>
-          <line>221</line>
+          <line>229</line>
           <option name="timeStamp" value="341" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/serviceOperations/DeleteDoneTasks.java</url>
-          <line>29</line>
+          <line>27</line>
           <option name="timeStamp" value="344" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendTimeSeriesOperations.java</url>
-          <line>65</line>
+          <line>67</line>
           <option name="timeStamp" value="345" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1441,7 +1336,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java</url>
-          <line>177</line>
+          <line>174</line>
           <option name="timeStamp" value="350" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1466,7 +1361,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/StartOmniaClient.java</url>
-          <line>11</line>
+          <line>12</line>
           <option name="timeStamp" value="371" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1506,22 +1401,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java</url>
-          <line>40</line>
+          <line>42</line>
           <option name="timeStamp" value="394" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>216</line>
+          <line>217</line>
           <option name="timeStamp" value="395" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>221</line>
+          <line>222</line>
           <option name="timeStamp" value="396" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>108</line>
+          <line>109</line>
           <option name="timeStamp" value="398" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1541,7 +1436,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>209</line>
+          <line>210</line>
           <option name="timeStamp" value="405" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1551,7 +1446,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java</url>
-          <line>181</line>
+          <line>178</line>
           <option name="timeStamp" value="407" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1561,32 +1456,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java</url>
-          <line>112</line>
+          <line>111</line>
           <option name="timeStamp" value="410" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>323</line>
+          <line>324</line>
           <option name="timeStamp" value="411" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>48</line>
+          <line>49</line>
           <option name="timeStamp" value="412" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>51</line>
+          <line>52</line>
           <option name="timeStamp" value="413" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
-          <line>58</line>
+          <line>53</line>
           <option name="timeStamp" value="414" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>48</line>
+          <line>46</line>
           <option name="timeStamp" value="415" />
         </line-breakpoint>
       </breakpoints>
@@ -1601,6 +1496,7 @@
     <SUITE FILE_PATH="coverage/JsonTest$T10.ic" NAME="T10 Coverage Results" MODIFIED="1606222052476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>fi.swarco.testPrograms.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/JsonTest$OmniaClient.ic" NAME="OmniaClient Coverage Results" MODIFIED="1606125715434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/JsonTest$T7.ic" NAME="T7 Coverage Results" MODIFIED="1572442915880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>fi.swarco.testPrograms.*</FILTER>
     </SUITE>
@@ -1610,6 +1506,5 @@
     <SUITE FILE_PATH="coverage/JsonTest$OmniaCloudHTTPServer.ic" NAME="OmniaCloudHTTPServer Coverage Results" MODIFIED="1561466397306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>fi.swarco.omniaDataTransferServices.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/JsonTest$OmniaClient.ic" NAME="OmniaClient Coverage Results" MODIFIED="1606125715434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -21,6 +21,7 @@ public class OmniaCloudHTTPServer {
         int iRet =INT_RET_OK;
         String strServer=NO_VALUE;
         String strServerPort=NO_VALUE;
+        ConWrapper cW1;
         swarvop    = new JSwarcoproperties();
         iRet = swarvop.getSwarcoProperties();
         if (iRet != INT_RET_OK) {
@@ -33,7 +34,7 @@ public class OmniaCloudHTTPServer {
             strServer = args[0];
             System.out.println("strServer = " + strServer);
         }
-        ConWrapper cW1 = new ConWrapper();
+        cW1 = new ConWrapper();
         cW1 =swarvop.FillServerWrapper(strServer);
         logger.info("cW1.getHttpServerPort() = " + cW1.getHttpServerPort());
         strServerPort=cW1.getHttpServerPort();
@@ -65,8 +66,8 @@ public class OmniaCloudHTTPServer {
             String method = t.getRequestMethod();
             String path = t.getRequestURI().getPath();
             String uquery = t.getRequestURI().getQuery();
-            logger.info(" t.getRequestURI().getPath() path = " + path);
-            logger.info("uquery                            =" + uquery);
+         //   logger.info(" t.getRequestURI().getPath() path = " + path);
+         //   logger.info("uquery                            =" + uquery);
             logger.info("method =" + method);
             String response1 = "Hello, world!";
             String response2 = "Hello, wrong world!";

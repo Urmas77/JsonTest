@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
+import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.GSqlServerConnectionType;
 public class MakeSendJsonOperations {
     static Logger logger = Logger.getLogger(MakeSendJsonOperations.class.getName());
     private static String jSonPermanentData = "novalue";
@@ -228,7 +229,7 @@ public class MakeSendJsonOperations {
                     if (iRet == NO_TASK_LIST) {
    //                     logger.info("Other error iRet = " + iRet);
                         iRet2 = th.DeleteTrashTasksAfterHand();
-                        logger.info("Successful task delete afterhand continue");
+  //                      logger.info("Successful task delete afterhand continue");
 //   Delete lines also from Task list RETHINK JIs 18.11 2019
                         iRet2 = th.DeleteTrashTasksAfterHandFromTaskList();
 // do  not Handle iRet2 codes   RETHINK JIs 18.11 2019
@@ -248,7 +249,7 @@ public class MakeSendJsonOperations {
 // here logic what type work logic there are only one type of task on _work   table
                 if (getWorkType().equals(TT_MEASUREMENT_DATA_INSERT)) {
                     strHelp1 = th.getMeasurementShortSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
-                    logger.info("strHelp1 = " + strHelp1);
+      //              logger.info("strHelp1 = " + strHelp1);
                 //    logger.info("strHelp1.length()  = " + strHelp1.length());
                     if (strHelp1.equals(NO_VALUE)) {
                         iRet = MakeClearanceOperations(ce);
@@ -291,8 +292,8 @@ public class MakeSendJsonOperations {
                 }
                 if ((getWorkType().equals(TT_DETECTOR_DATA_CHANGE))) {
                     strHelp1 = th.getDetectorSqlData(ce.getDetectorId(), ce.getPermanentDataTimestamp());
-                    logger.info("strHelp1 = " + strHelp1);
-                    logger.info("strHelp1.length()  = " + strHelp1.length());
+                   //logger.info("strHelp1 = " + strHelp1);
+                   // logger.info("strHelp1.length()  = " + strHelp1.length());
                     if (strHelp1.equals(NO_VALUE)) {
                         // RETHINK update task state and write to log
                         iRet = MakeClearanceOperations(ce);

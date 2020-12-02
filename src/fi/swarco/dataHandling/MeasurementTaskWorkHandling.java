@@ -38,12 +38,12 @@ public class MeasurementTaskWorkHandling {
         JiMeasurementTaskWorkSelectSqlServer st = new JiMeasurementTaskWorkSelectSqlServer();
         String SQL = st.getStatement();
         logger.info("SqlConnectionTypeyyyy= " + SqlConnectionType);
-        logger.info("SQL = " + SQL);
+    //    logger.info("SQL = " + SQL);
         TRPXMeasurementTaskWorkData ce;
         try {
             stmt = gSqlCon.prepareStatement(SQL);
             rs = stmt.executeQuery();
-            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+      //      logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 ce = new TRPXMeasurementTaskWorkData();
                 ce.setWorkIdIndex(rs.getLong(1));
@@ -83,10 +83,10 @@ public class MeasurementTaskWorkHandling {
     }
     public TRPXMeasurementTaskWorkData GetFirstTaskWorkFromList() {
         TRPXMeasurementTaskWorkData ce = new TRPXMeasurementTaskWorkData();
-        logger.info("TaskUnits.size()= " + TaskUnits.size());
+ //       logger.info("TaskUnits.size()= " + TaskUnits.size());
         for (int i = 0; i < TaskUnits.size(); i++) {
             ce = TaskUnits.get(i);
-            logger.info("ce.toString()=" + ce.toString());
+      //      logger.info("ce.toString()=" + ce.toString());
             return ce;
         }
         ce.MakeEmptyElement();

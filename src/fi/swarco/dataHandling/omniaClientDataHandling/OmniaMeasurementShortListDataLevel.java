@@ -34,13 +34,11 @@ public class OmniaMeasurementShortListDataLevel {
     }
     public  int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon) {
         SwarcoConnections vg = new SwarcoConnections();
- //       logger.info("pSqlCon = "+ pSqlCon);
         int iRet = vg.MakeConnection(pSqlCon);
         if (iRet!=1) {
             return iRet;
         }
         SqlConnectionType=pSqlCon;
-  //      logger.info("SqlConnectionType = " + SqlConnectionType);
         gSqlCon = vg.getSqlCon();
         return DATABASE_CONNECTION_OK;
     }
@@ -51,6 +49,7 @@ public class OmniaMeasurementShortListDataLevel {
         String SQL;
         java.sql.PreparedStatement stmt;
         OmniaMeasurementDataShort oi = new OmniaMeasurementDataShort();
+        OmniaMeasurementDataShort cc;
         oi.MakeEmptyElement();
         setFoundRec(oi);
         try {
@@ -63,9 +62,9 @@ public class OmniaMeasurementShortListDataLevel {
             stmt.setLong(3,pOmniaMeasurementDataShort.getControllerId());
             stmt.setLong(4,pOmniaMeasurementDataShort.getDetectorId());
             stmt.setString(5,pOmniaMeasurementDataShort.getMeasurementTime());
-            logger.info(" pOmniaMeasurementDataShort.toString() = " + pOmniaMeasurementDataShort.toString());
+  //          logger.info(" pOmniaMeasurementDataShort.toString() = " + pOmniaMeasurementDataShort.toString());
             rs = stmt.executeQuery();
-           OmniaMeasurementDataShort cc;
+
             while (rs.next()) {
                 // logger.info("*****inside rsloop");
                 cc= new OmniaMeasurementDataShort();
@@ -93,7 +92,7 @@ public class OmniaMeasurementShortListDataLevel {
                    (cc.getDetectorId()==(pOmniaMeasurementDataShort.getDetectorId())) &&
                    (cc.getMeasurementTime().equals(sWarcoTime))))) {
                     logger.info(" löyty  cc.toString()= " + cc.toString());
-                    logger.info(" löyty  pOmniaMeasurementDataShort.toString()= " + pOmniaMeasurementDataShort.toString());
+              //      logger.info(" löyty  pOmniaMeasurementDataShort.toString()= " + pOmniaMeasurementDataShort.toString());
                     setFoundRec(cc);
                     stmt.close();
                     rs.close();
@@ -102,7 +101,7 @@ public class OmniaMeasurementShortListDataLevel {
             }
             stmt.close();
             rs.close();
-               logger.info("ei l�ytyny");
+//            logger.info("ei l�ytyny");
             return INT_RET_NOT_FOUND;
         } catch(Exception e) {
             logger.info(" catch 11");
@@ -169,7 +168,7 @@ public class OmniaMeasurementShortListDataLevel {
 //            logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+      //      logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 logger.info("iRet = " + iRet);
@@ -257,13 +256,14 @@ public class OmniaMeasurementShortListDataLevel {
             int iHere = strHelp1.indexOf("}");
             int iRound =1;
             int iHereOld=0;
+           // JsonParser jsonParser;
             String strHelp2 = strHelp1.substring(0, iHere + 1);
-            OmniaMeasurementDataShort aO1 = new OmniaMeasurementDataShort();
+            OmniaMeasurementDataShort aO1;
             OmniaMeasurementDataShortJson ceJson = new OmniaMeasurementDataShortJson();
             SwarcoTimeUtilities sw = new  SwarcoTimeUtilities();
             String swarcoTime="";
             while  (iHere>0 ) {
-                JsonParser jsonParser = new JsonParser();
+                 //  jsonParser = new JsonParser();
                    ceJson = myGson.fromJson(strHelp2, OmniaMeasurementDataShortJson.class);
                    aO1=ceJson.MakeItemFromJsonTransferItem();
  //                 logger.info("ceJson.toString().length() = " + ceJson.toString().length());

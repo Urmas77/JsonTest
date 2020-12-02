@@ -27,7 +27,7 @@ public class SelectMeasurementDataShortMySqlWhere {
         statement =	statement + " DetectorId  =  ? and  ";
         statement =	statement + " MeasurementTime= ? ";
         statement =	statement + ";";
-        logger.info(" hereherehere statement = " + statement);
+  //      logger.info(" hereherehere statement = " + statement);
     }
 }
 

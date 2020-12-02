@@ -35,6 +35,6 @@ public class SelectIntersectionControllerDataMySql {
         statement = statement + "ControllerGuid, ";
         statement = statement + "Created, ";
         statement = statement + " from IntersectionControllerData ";
-        logger.info("statement = " + statement);
+ //       logger.info("statement = " + statement);
     }
 }

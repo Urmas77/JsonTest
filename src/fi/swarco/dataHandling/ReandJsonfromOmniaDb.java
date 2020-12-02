@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
-//import pumpEquations1.PointType;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.dataHandling.omniaServerDataHandling.OmniaIntersectionListDataLevel;
 import fi.swarco.dataHandling.omniaServerDataHandling.OmniaMeasurementListDataLevel;
@@ -30,24 +28,6 @@ public class ReandJsonfromOmniaDb {
         this.jsonSource = jsonSource;
         this.sourceFromFile = sourceFromFile;
     }
-    //public static void main(String[] args){
-    //   try {
-    //       JsonOmniaMeasurementSql();
-    //       JsonOmniaIntersectionSql();
-    //   } catch(SQLException e) {
-    //       logger.info(ExceptionUtils.getRootCauseMessage(e));
-    //       logger.info(ExceptionUtils.getFullStackTrace(e));
-    //       logger.info( "failed! {}", e );
-    //       logger.info(" catch 11");
-    //       logger.info(e.getMessage());
-    //       e.printStackTrace();
-     //      System.exit(0);
-    // }
-    /**
-     * Obtain the JsonReader for the given source details.
-     * @return the JsonReader instance
-     * @throws FileNotFoundException
-     */
     private JsonReader getJsonReader () throws FileNotFoundException{
         JsonReader reader = null;
         if (sourceFromFile){

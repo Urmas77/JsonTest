@@ -22,6 +22,6 @@ public class SelectIntersectionDataMySql {
         statement = statement + "ifnull(ControllerExternalCode,'novalue') ,";
         statement = statement + "ifnull(ControllerDataPreviousUpdate,'novalue')";
         statement = statement + " from OmniaIntersectionData ";
-        logger.info("statement = " + statement);
+ //       logger.info("statement = " + statement);
     }
 }

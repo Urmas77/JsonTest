@@ -178,9 +178,8 @@ public class DetectorServerListDataLevel {
             stmt = gSqlCon.prepareStatement(SQL);
             stmt.setLong(1,pOmniaData.getOmniaCode());
             stmt.setLong(2,pOmniaData.getDetectorId());
-            logger.info("pOmniaData.getOmniaCode() =" + pOmniaData.getOmniaCode());
-            logger.info("pOmniaData.getDetectorId() =" + pOmniaData.getDetectorId());
-
+//            logger.info("pOmniaData.getOmniaCode() =" + pOmniaData.getOmniaCode());
+//            logger.info("pOmniaData.getDetectorId() =" + pOmniaData.getDetectorId());
             rs = stmt.executeQuery();
             OmniaDetectorServer cc;
             while (rs.next()) {
@@ -428,9 +427,9 @@ public class DetectorServerListDataLevel {
         try {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();
-            logger.info("pPermanentData = " + pPermanentData);
+//            logger.info("pPermanentData = " + pPermanentData);
             strHelp1 = mu.ThrowChecksumAway(pPermanentData);
-            logger.info("strHelp1 = " + strHelp1);
+//            logger.info("strHelp1 = " + strHelp1);
             JsonParser jsonParser = new JsonParser();
             OmniaDetectorServer aOmniaDetector1 = myGson.fromJson(strHelp1, OmniaDetectorServer.class);
             SwarcoTimeUtilities sw = new  SwarcoTimeUtilities();

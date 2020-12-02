@@ -14,6 +14,8 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.List;
 import static fi.swarco.CONSTANT.*;
+import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
+
 public class MakeSendTimeSeriesOperations {
     static Logger logger = Logger.getLogger(MakeSendTimeSeriesOperations.class.getName());
     private long currentWorkIndex = 0;
@@ -124,7 +126,9 @@ public class MakeSendTimeSeriesOperations {
         int iloop = 1;
         int intSleep = 0;
         int iRet;
-        iRet = MeasurementTaskHandling.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = th.MakeConnection(oConnType);
         if (iRet != INT_RET_OK) {
             logger.info("Ei kantayhteytt� lopetetaan");
             return OMNIA_DATA_PICK_NOT_OK;
@@ -169,7 +173,9 @@ public class MakeSendTimeSeriesOperations {
 
     public int MakeSendOmniaTimeSeriesOperations() throws SQLException {
         LogUtilities mfl = new LogUtilities();
-        int iRet = MeasurementTaskHandling.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        int iRet = th.MakeConnection(oConnType);
         if (iRet != INT_RET_OK) {
             logger.info("Ei kantayhteytt� lopetetaan");
             return OMNIA_DATA_PICK_NOT_OK;
@@ -203,7 +209,9 @@ public class MakeSendTimeSeriesOperations {
                 iRound = iRound + 1;
                 return OMNIA_EMPTY_WORK_LIST;   // HERE HERE
             }
-            iRet = tml.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST, SwarcoEnumerations.ConnectionType.INFLUX_LOCAL);
+        //    SwarcoEnumerations.ConnectionType  oConnType;
+            oConnType=getSqlServerConnectionType();
+            iRet = tml.MakeConnection(oConnType, SwarcoEnumerations.ConnectionType.INFLUX_LOCAL);
             if (iRet != DATABASE_CONNECTION_OK) {
                 logger.info("No Database conncection iRet =" + iRet);
                 System.exit(0);

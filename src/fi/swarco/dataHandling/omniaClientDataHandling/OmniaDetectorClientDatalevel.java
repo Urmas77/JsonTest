@@ -158,8 +158,8 @@ public class OmniaDetectorClientDatalevel {
         logger.info("Start ");
         GetDetectorSqlServerData st = new GetDetectorSqlServerData();
         SQL =st.getStatement() ;
-        logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
-        logger.info("SQL = " +SQL);
+ //       logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
+ //       logger.info("SQL = " +SQL);
         int pos=0;
         OmniaDetector ce;
         try {
@@ -221,7 +221,7 @@ public class OmniaDetectorClientDatalevel {
         try {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();
-            logger.info("pCe.toString() = "+ pCe.toString());
+     //       logger.info("pCe.toString() = "+ pCe.toString());
             JsonParser jsonParser = new JsonParser();
             strHelp1 = myGson.toJson(pCe);
             return strHelp1 ;

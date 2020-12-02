@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.CONSTANT.INT_RET_OK;
 import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.GSqlServerConnectionType;
+import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
 
 public class StartOmniaClient {
     private static Logger logger = Logger.getLogger(StartOmniaClient.class.getName());
@@ -16,7 +17,9 @@ public class StartOmniaClient {
         stw.MakeEmptyElement();
        // TRPXMeasurementTaskWorkData trp = new TRPXMeasurementTaskWorkData();
         MeasurementTaskWorkHandling mth =new MeasurementTaskWorkHandling();
-        int iRet = mth.MakeConnection(GSqlServerConnectionType);
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        int iRet = mth.MakeConnection(oConnType);
         if (iRet != INT_RET_OK) {
             logger.info("Ei kantayhteytt� lopetetaan");
             return OMNIA_DATA_PICK_NOT_OK;
@@ -51,7 +54,9 @@ public class StartOmniaClient {
     }
     private int ReCreateTasks(TRPXMeasurementTaskWorkData pThh,String pTaskType) throws SQLException {
         MeasurementTaskWorkHandling mth = new MeasurementTaskWorkHandling();
-        int iRet = mth.MakeConnection(GSqlServerConnectionType);
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        int iRet = mth.MakeConnection(oConnType);
         if (iRet != INT_RET_OK) {
            logger.info("Ei kantayhteytt� lopetetaan");
            return OMNIA_DATA_PICK_NOT_OK;

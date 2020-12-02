@@ -14,25 +14,18 @@ public class MakeReceiveJsonOperations {
     static Logger logger = Logger.getLogger(MakeReceiveJsonOperations.class.getName());
     private static String pseudoJsonData = NO_VALUE;
     public static String getPseudoJSonData() {
-       // logger.info("get jjjjjj  pseudoJsonData = " + pseudoJsonData);
         return pseudoJsonData;
     }
     public static void setPseudoJsonData(String pPseudoJsonData) {
         pseudoJsonData = pPseudoJsonData;
-     //   logger.info("set jjjjjj  pseudoJsonData = " + pseudoJsonData);
     }
     private static String fullJsonData = NO_VALUE;
-    //public static String getFullJsonData() {
-    //    return fullJsonData;
-   // }
-   // public static void setpFullJsonData(String pFullJsonData) { fullJsonData = pFullJsonData; }
     private static String permanentJsonData = NO_VALUE;
     public static String getPermanentJsonData() {
         return permanentJsonData;
     }
     public static void setPermanentJsonData(String pPermanentJsonData) {
         permanentJsonData = pPermanentJsonData;
- //       logger.info("jjjjjj   permanentJsonData = " + permanentJsonData);
     }
     private static String measurementsJsonData = NO_VALUE;
     public static String getMeasurementsJsonData() {
@@ -50,8 +43,10 @@ public class MakeReceiveJsonOperations {
     public MakeReceiveJsonOperations(){}
     public static int MakeReceiveOmniaOperations()  throws SQLException {
         int iRet=0;
+        String strHelp1;
         FileOperations fo = new  FileOperations();
-// get data to be handled
+        SwarcoTimeUtilities swt;
+        // get data to be handled
         String strWholeRawData = getPseudoJSonData();
         MessageUtils mu = new MessageUtils();
         String strWhoJsonData =mu.reCreateJsonDecimal(strWholeRawData);
@@ -70,7 +65,7 @@ public class MakeReceiveJsonOperations {
                 MakeLogFileOperations("error##" + strWhoJsonData);
                // MakeLogFileOperations("error##" + getMeasurementsJsonData());
             } else {  // do db operations
-                String strHelp1 = mu.CutJsonMessage(strWhoJsonData);
+                strHelp1 = mu.CutJsonMessage(strWhoJsonData);
                 iRet = mm.JsonOmniaMeasurementShortSql(strHelp1);
                 if (iRet != INT_RET_OK) {
                     if (iRet == NOT_CHANGED) {
@@ -87,7 +82,7 @@ public class MakeReceiveJsonOperations {
         }
         if ((getMessageType().equals(TT_INTERSECTION_DATA_CHANGE))||(getMessageType().equals(TT_CONTROLLER_DATA_CHANGE))) {
             // kirjoita kama lokiin
-            String strHelp1 = mu.CutJsonMessage(strWhoJsonData);
+            strHelp1 = mu.CutJsonMessage(strWhoJsonData);
             if (strHelp1.equals(NO_VALUE)) {
                 logger.info("Someting wrong in split");
                 iRet = MakeLogOperations("error##" + strWhoJsonData);
@@ -110,7 +105,7 @@ public class MakeReceiveJsonOperations {
             }
         }
         if (getMessageType().equals(TT_DETECTOR_DATA_CHANGE)) {
-            String strHelp1 = mu.CutJsonMessage(strWhoJsonData);
+            strHelp1 = mu.CutJsonMessage(strWhoJsonData);
             if (strHelp1.equals(NO_VALUE)) {
                 logger.info("Someting wrong in split");
                 iRet = MakeLogOperations("error##" + strWhoJsonData);
@@ -138,6 +133,8 @@ public class MakeReceiveJsonOperations {
     }
     private static int MakeLogOperations(String pWdata) throws SQLException {
         int iRet=0;
+        String strHelp1 = "";
+        SwarcoTimeUtilities swt;
         FileOperations fo = new  FileOperations();
   //      logger.info("Unsuccesful insert iRet=" + iRet);
         iRet = fo.initFileOperations();
@@ -150,18 +147,14 @@ public class MakeReceiveJsonOperations {
         if (iRet != DATABASE_CONNECTION_OK) {
            logger.info("No Database conncetion iRet =" + iRet);
         } else {
-//           logger.info("Rawdata start");
            RawData rData = new RawData();
            rData.MakeEmptyElement();
            rData.setRawDataSourceId(1);   // RETHINK get real source values here
            rData.setRawDataLine(pWdata);
            rData.setRawDataStatus(1);   // RETHINK put real status value here
-           String strHelp1 = "";
-           SwarcoTimeUtilities swt = new SwarcoTimeUtilities();
+           swt = new SwarcoTimeUtilities();
            strHelp1 = swt.GetNow();
-  //         logger.info("strHelp1=" + strHelp1);
            rData.setTimestamp(strHelp1);
-   //        logger.info(" bef AddNewRawData");
            iRet = rd.AddNewRawData(rData);
            if (iRet != 1) {
               logger.info("Unsuccessful RawData Db operation iRet=" + iRet);

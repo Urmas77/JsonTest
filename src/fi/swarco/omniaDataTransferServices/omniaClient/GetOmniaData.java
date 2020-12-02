@@ -25,12 +25,14 @@ public class GetOmniaData {
     private static boolean HourDone = false; // true if no need to run check queries
     public static void sendGetOmniaData()  {
         int intSleep;
+        String strHelp1;
         String strJobTime;
         String strTime;
         String strMinute;
         String url1;
         String inputLine;
         int iRet;
+        StringBuffer response;
         SwarcoEnumerations.ConnectionType  oConnType;
         MakeSendJsonOperations ms = new MakeSendJsonOperations();
         AlarmHandling ah = new AlarmHandling();
@@ -74,7 +76,7 @@ public class GetOmniaData {
                             }
                         } else {
                             // if no value do not send RETHINK
-                            String strHelp1 = MakeSendJsonOperations.getJSonDataForTransfer();
+                            strHelp1 = MakeSendJsonOperations.getJSonDataForTransfer();
                             if (strHelp1.equals(NO_VALUE)) {
                                 iRet = mfl.MakeFullLogOperations(
                                         SwarcoEnumerations.LoggingDestinationType.OMNIA_CLIENT,
@@ -85,12 +87,11 @@ public class GetOmniaData {
                                 strHelp1 = mu.DecodeJsonPercentDecimal(strHelp1);
                               //  strHelp1="OK";   //RETHINK
                                 strHelp1 = URLEncoder.encode(strHelp1, StandardCharsets.UTF_8.toString());
-
                                 //url1 = sw.getOmniaClientUrl();
                                 url1 ="http://localhost:" +GHTTPOmniaClientPort +  "/?";
-                                logger.info("moi2 url1 =" + url1);
+           //                     logger.info("moi2 url1 =" + url1);
                                 url1 = url1 + strHelp1;
-                                logger.info("moi2 url1 =" + url1);
+         //                       logger.info("moi2 url1 =" + url1);
                                 bXorResult = XORChecksumShort.xor(url1);
                                 url1 = url1 + "&chk=" + bXorResult;
                                 logger.info("****** Length of url1.length() =" + url1.length());
@@ -100,7 +101,7 @@ public class GetOmniaData {
                                 con.setDoOutput(true);
                                 con.setRequestMethod("GET");
                                 responseCode = con.getResponseCode();
-                                logger.info("bef Response Code : " + responseCode);
+                         //       logger.info("bef Response Code : " + responseCode);
                                 if (responseCode != 200) {
                                     in = new BufferedReader(new InputStreamReader(con.getErrorStream()));
                                     iRet = mfl.MakeFullLogOperations(
@@ -108,10 +109,7 @@ public class GetOmniaData {
                                             SwarcoEnumerations.ApiMessageCodes.ERROR,
                                             url1);
                                 } else {
-                                    // delete done task from db here RETHINK
-                                    // wrong place this must be done Imidiadly  after One tasks has been done
                                     iRet = ms.DeleteDoneTaskFromWorkDb();
-                                    //iRet = ms.DeleteDoneTaskFromWorkDbOLD();
                                     if (iRet != INT_RET_OK) {
                                         logger.info("Unsuccesfull delete from tasklist iRet = " + iRet);
                                     }
@@ -122,7 +120,7 @@ public class GetOmniaData {
                                             url1);
                                 }
                                 logger.info("jjjj after Response Code : " + responseCode);
-                                StringBuffer response = new StringBuffer();
+                                response = new StringBuffer();
                                 while ((inputLine = in.readLine()) != null) {
                                     response.append(inputLine);
                                     logger.info(" jjjjj inputLine = " + inputLine);
@@ -132,7 +130,7 @@ public class GetOmniaData {
                             }
                         }
                     }
-                   logger.info("bef sleep");
+            //       logger.info("bef sleep");
                     intSleep = Integer.valueOf(sw.getOmniaClientSleepMs());
                     if (intSleep <=100) {
                         intSleep=200;
@@ -144,8 +142,8 @@ public class GetOmniaData {
                     strMinute=strTime.substring(4);
                //     logger.info(" strTime= " + strTime);
                 //    strJobTime="06:34";
-                    logger.info(" strTime= " + strTime);
-                    logger.info(" strJobTime= " + strJobTime);
+                //    logger.info(" strTime= " + strTime);
+                //    logger.info(" strJobTime= " + strJobTime);
                     if (strJobTime.equals(strTime)) {
                         if (!(TodayDone)) {
 //     getOmniaClientDetectorDataTime() if time >   getOmniaClientDetectorDataTime()
@@ -154,20 +152,19 @@ public class GetOmniaData {
                             GetDetectorData dd = new  GetDetectorData();
                             oConnType=getSqlServerConnectionType();
                             iRet= dd.MakeConnection(oConnType);
-                            //iRet= dd.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
                             if (iRet == DATABASE_CONNECTION_OK) {
                                 iRet =dd.AddDetectorDataLines();
-                                if (iRet>=0) {
-                                    logger.info("Detector lines were added successfully iRet =" + iRet);
-                                } else {
-                                    logger.info("Detector lines were added Unsuccessfully iRet =" + iRet);
-                                }
+                             //   if (iRet>=0) {
+                             //       logger.info("Detector lines were added successfully iRet =" + iRet);
+                             //   } else {
+                             //       logger.info("Detector lines were added unsuccessfully iRet =" + iRet);
+                             //   }
                                 iRet =dd.AddIntersectionControllerDataLines();
-                                if (iRet>=0) {
-                                    logger.info("IntersectionController lines were added successfully iRet =" + iRet);
-                                } else {
-                                    logger.info("IntersectionController lines were added unsuccessfully iRet =" + iRet);
-                                }
+                               // if (iRet>=0) {
+                               //     logger.info("IntersectionController lines were added successfully iRet =" + iRet);
+                               // } else {
+                                //    logger.info("IntersectionController lines were added unsuccessfully iRet =" + iRet);
+                              //  }
                                 } else {
                                 logger.info("No database connection! ");
                             }
@@ -179,7 +176,6 @@ public class GetOmniaData {
                         GetDetectorData dd = new  GetDetectorData();
                         oConnType=getSqlServerConnectionType();
                         iRet= dd.MakeConnection(oConnType);
-//                        iRet= ah.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
                         if (iRet == INT_RET_OK) {
                             iRet = ah.SendAlarm();
                             if (iRet ==INT_RET_OK) {

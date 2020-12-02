@@ -46,12 +46,12 @@ public class DetectorMeasurementsClientDataLevel {
         DmUnits.clear();
         String SQL="";
         java.sql.PreparedStatement stmt;
-        logger.info(" SqlConnectionType =" + SqlConnectionType);
-        logger.info("Start ");
+    //    logger.info(" SqlConnectionType =" + SqlConnectionType);
+    //    logger.info("Start ");
         GetMeasurementSqlServerData st= new GetMeasurementSqlServerData();
         SQL =st.getStatement() ;
-        logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
-        logger.info("SQL = " +SQL);
+     //   logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
+     //   logger.info("SQL = " +SQL);
         //DetectorMeasurements ce;
         OmniaMeasurementData cc;
         int pos=0;
@@ -66,7 +66,7 @@ public class DetectorMeasurementsClientDataLevel {
             stmt.setTimestamp(pos,tStamp);
             ResultSet rs;
             rs = stmt.executeQuery();
-            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+         //   logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 cc= new OmniaMeasurementData();
                 cc.MakeEmptyElement();
@@ -97,7 +97,7 @@ public class DetectorMeasurementsClientDataLevel {
                 DmUnits.add(cc);
                 return INT_RET_NOT_OK;
             }
-            logger.info("bef ret iRet OK");
+       //     logger.info("bef ret iRet OK");
             return INT_RET_OK;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,7 +130,7 @@ public class DetectorMeasurementsClientDataLevel {
         return strHelp2;
     }
     public  List<OmniaMeasurementData> GetDetectorMeasurementsDataList()  {
-        OmniaMeasurementData cc = new OmniaMeasurementData();
+        OmniaMeasurementData cc;
         if (DmUnits.isEmpty()) {
             cc= new OmniaMeasurementData();
             cc.MakeEmptyElement();

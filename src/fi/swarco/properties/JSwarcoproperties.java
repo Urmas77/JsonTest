@@ -406,7 +406,7 @@ public class JSwarcoproperties {
             retWrapper.setHttpClientPort(TT_NOT_DEFINED);
             retWrapper.setServerTimeZone(prop.getProperty("MySqlServerTimeZone"));
         }
-        logger.info("retWrapper.toString()  = " +retWrapper.toString());
+  //      logger.info("retWrapper.toString()  = " +retWrapper.toString());
         return retWrapper;
     }
     private int setMySqlProps() {

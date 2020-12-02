@@ -12,6 +12,8 @@ import fi.swarco.omniaDataTransferServices.FileOperations;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
+import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
+
 public class MeasurementTaskHandling {
     private static Logger logger = Logger.getLogger(MeasurementTaskHandling.class.getName());
     private List<TRPXMeasurementTaskData> TaskUnits = Collections.synchronizedList(new LinkedList<>());  // ????
@@ -22,7 +24,6 @@ public class MeasurementTaskHandling {
     public void setRequestOrigin(SwarcoEnumerations.RequestOriginType prequestOrigin) {
         requestOrigin = prequestOrigin;
     }
-
     public static int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon)  {
         SwarcoConnections vg = new SwarcoConnections();
      //   logger.info("pSqlCon = " + pSqlCon);
@@ -31,7 +32,6 @@ public class MeasurementTaskHandling {
             return iRet;
         }
         SqlConnectionType = pSqlCon;
-    //    logger.info("SqlConnectionType = " + SqlConnectionType);
         gSqlCon = vg.getSqlCon();
         return INT_RET_OK;
     }
@@ -284,7 +284,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             stmt.close();
-            logger.info("Lines inserted iRet = " + iRet);
+  //          logger.info("Lines inserted iRet = " + iRet);
             if (iRet < 0) {
                 gSqlCon.close();
                 iRet = TASK_TRANSFER_ERROR;
@@ -337,7 +337,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines inserted iRet = " + iRet);
+          //  logger.info("Lines inserted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -362,11 +362,11 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         try {
             String SQL = " select  top 1 MeasurementTask_idindex  from TRPX_MeasurementTask_Work  where ";
             SQL = SQL + "TaskType IN ('DETECTORDATACHANGE','CONTROLLERDATACHANGE','INTERSECTIONDATACHANGE') AND TaskStatus=1 ";
-            logger.info("SQL = " + SQL);
+     //       logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             ResultSet rs;
             rs = stmt.executeQuery();
-            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+        //    logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 intRet = rs.getInt(1);
                 stmt.close();
@@ -416,11 +416,11 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL +  " PermanentDataTimestamp  = ";
             SQL = SQL + " (select top 1 PermanentDataTimestamp  from TRPX_MeasurementTask where  TaskType = 'DETECTORDATACHANGE') ";
             SQL = SQL + " order by PermanentDataTimestamp  asc ";
-            logger.info("SQL = " + SQL);
+         //   logger.info("SQL = " + SQL);
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines inserted iRet = " + iRet);
+          //  logger.info("Lines inserted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -476,7 +476,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines inserted iRet = " + iRet);
+         //   logger.info("Lines inserted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -530,7 +530,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines inserted iRet = " + iRet);
+          //  logger.info("Lines inserted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -569,7 +569,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines updated  iRet = " + iRet);
+         //   logger.info("Lines updated  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -608,7 +608,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines updated  iRet = " + iRet);
+         //   logger.info("Lines updated  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -647,7 +647,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines updated  iRet = " + iRet);
+          //  logger.info("Lines updated  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -686,8 +686,8 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("SQL = " + SQL);
-            logger.info("Lines updated  iRet = " + iRet);
+         //   logger.info("SQL = " + SQL);
+         //   logger.info("Lines updated  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -718,7 +718,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines updated  iRet = " + iRet);
+         //   logger.info("Lines updated  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -749,7 +749,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines updated  iRet = " + iRet);
+       //     logger.info("Lines updated  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 iRet = DELETE_UNFILLABLE_TASK_ERROR;
@@ -780,7 +780,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines updated  iRet = " + iRet);
+     //       logger.info("Lines updated  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -843,7 +843,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted ************************** iRet = " + iRet);
+     //       logger.info("Lines deleted ************************** iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 iRet = DELETE_TRASH_TASKTASK_ERROR;
@@ -873,7 +873,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted  iRet = " + iRet);
+      //      logger.info("Lines deleted  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 iRet = DELETE_TRASH_TASK_ERROR;
@@ -901,7 +901,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted  iRet = " + iRet);
+       //     logger.info("Lines deleted  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 iRet = DELETE_TRASH_TASK_ERROR;
@@ -932,7 +932,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines updated  iRet = " + iRet);
+      //      logger.info("Lines updated  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -952,7 +952,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
     }
     public TRPXMeasurementTaskData GetFirstUndoneTaskFromList() {
         TRPXMeasurementTaskData ce = new TRPXMeasurementTaskData();
-        logger.info("TaskUnits.size()= " + TaskUnits.size());
+   //     logger.info("TaskUnits.size()= " + TaskUnits.size());
         for (int i = 0; i < TaskUnits.size(); i++) {
             ce = TaskUnits.get(i);
 //            logger.info("ce.toString()=" + ce.toString());
@@ -978,10 +978,10 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL +" work.ControllerID=  " + ce.getControllerId()   + " and ";
             SQL = SQL +" work.TaskStatus=1 and ";
             SQL = SQL +" work.DetectorMeasuresTimestamp =  " +  "'" + ce.getDetectorMeasuresTimestamp() + "');";
-            logger.info("SQL = " + SQL);
+        //    logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+          //  logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -1008,7 +1008,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
   //          logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+            //logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -1035,7 +1035,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL +  "where MeasurementTask_idindex   = "  + pIdentity ;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+          //  logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -1060,10 +1060,10 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             String SQL = " delete from TRPX_MeasurementTask ";
             SQL = SQL + "where TaskType='INTERSECTIONDATACHANGE'  and ";
             SQL = SQL + "  PermanentDataTimestamp  = (select top 1 PermanentDataTimestamp  from TRPX_MeasurementTask where TaskType='INTERSECTIONDATACHANGE' order by   PermanentDataTimestamp  asc);";
-            logger.info("SQL = " + SQL);
+            //logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+           // logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 stmt.close();
@@ -1092,7 +1092,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
   //          logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+        //    logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -1120,7 +1120,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
     //        logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+       //     logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -1148,7 +1148,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
 //            logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+      //      logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -1237,7 +1237,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
       //      logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+     //       logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -1291,7 +1291,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             String SQL = " select dbo.TRPX_GetPermanentDataSpare( ";
             SQL = SQL + plngIntersectionId + ",";
             SQL = SQL + plngControllerId + ")";
-            logger.info("SQL = " + SQL);
+       //     logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             ResultSet rs;
             rs = stmt.executeQuery();
@@ -1310,14 +1310,14 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         }
         return NO_VALUE;
     }
-
-
     public String getPermanentSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException  {
         String strRet = NO_VALUE;
         int iRet;
         java.sql.PreparedStatement stmt;
         OmniaIntersectionListClientDataLevel oi = new OmniaIntersectionListClientDataLevel();
-        iRet = oi.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = oi.MakeConnection(oConnType);
         if (iRet == DATABASE_CONNECTION_OK) {
             strRet = oi.GetPermanentJsonData(plngIntersectionId, plngControllerId, pstrTimestamp);
         }
@@ -1328,7 +1328,9 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         int iRet;
         java.sql.PreparedStatement stmt;
         DetectorMeasurementsClientDataLevel oi = new DetectorMeasurementsClientDataLevel();
-        iRet = oi.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = oi.MakeConnection(oConnType);
         if (iRet == DATABASE_CONNECTION_OK) {
             strRet = oi.GetMeasurementsDataString(plngIntersectionId, plngControllerId, pstrTimestamp);
         }
@@ -1344,10 +1346,6 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
            if  (iRet!=INT_RET_OK) {
                return iRet;
            }
-      //     iRet = fo.addOmniaInfluxLine(NEW_LINE_LINUX, strInfluxFileName);
-      //     if (iRet!=INT_RET_OK) {
-      //         return iRet;
-      //     }
        }
        return INT_RET_OK;
     }
@@ -1366,7 +1364,9 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         int iRet;
         java.sql.PreparedStatement stmt;
         DetectorMeasurementsShortClientDataLevel oi = new DetectorMeasurementsShortClientDataLevel();
-        iRet = oi.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = oi.MakeConnection(oConnType);
         if (iRet == DATABASE_CONNECTION_OK) {
             strRet = oi.GetMeasurementsDataString(plngIntersectionId, plngControllerId, pstrTimestamp);
         }
@@ -1377,7 +1377,9 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         int iRet;
         java.sql.PreparedStatement stmt;
         OmniaDetectorClientDatalevel oi = new OmniaDetectorClientDatalevel();
-        iRet = oi.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = oi.MakeConnection(oConnType);
         if (iRet == DATABASE_CONNECTION_OK) {
             strRet = oi.GetDetectorJsonData(plngDetectorId,  pstrTimestamp);
         }
@@ -1388,7 +1390,9 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         int iRet;
         java.sql.PreparedStatement stmt;
         OmniaIntesectionControllerClientDatalevel oi = new OmniaIntesectionControllerClientDatalevel();
-        iRet = oi.MakeConnection(SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST);
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = oi.MakeConnection(oConnType);
         if (iRet == DATABASE_CONNECTION_OK) {
             if (pWorkType.equals(TT_CONTROLLER_DATA_CHANGE)) {
                 strRet = oi.GetControllerJsonData(plngIntersectionId, plngControllerId, pstrTimestamp);

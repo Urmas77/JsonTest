@@ -25,7 +25,7 @@ public class SelectDetectorMeasurementsMySql {
         statement =	statement + "MeasurementOccupancyProcent,";
         statement =	statement + "MeasurementAccurancy ";
         statement =	statement + " from DetectorMeasurements ";
-        logger.info("statement = " + statement);
+  //      logger.info("statement = " + statement);
     }
 }
 
