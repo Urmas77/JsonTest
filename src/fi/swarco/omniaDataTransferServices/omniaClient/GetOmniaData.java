@@ -1,5 +1,6 @@
 package fi.swarco.omniaDataTransferServices.omniaClient;
 import fi.swarco.SwarcoEnumerations;
+import fi.swarco.connections.ConWrapper;
 import fi.swarco.controlandalarms.AlarmHandling;
 import fi.swarco.dataHandling.MakeSendJsonOperations;
 import fi.swarco.omniaDataTransferServices.FileOperations;
@@ -53,7 +54,8 @@ public class GetOmniaData {
         }
         int iloop=1;
         byte bXorResult;
-        MakeSendJsonOperations.setSleep(Integer.valueOf(sw.getOmniaClientWorkWaitSleep()));
+        ms.setSleep(Integer.valueOf(sw.getOmniaClientWorkWaitSleep()));
+        //MakeSendJsonOperations.setSleep(Integer.valueOf(sw.getOmniaClientWorkWaitSleep()));
         while (iloop == 1) {
             try {
                 for (long i = 1; i < 2; i++) {
@@ -76,7 +78,10 @@ public class GetOmniaData {
                             }
                         } else {
                             // if no value do not send RETHINK
-                            strHelp1 = MakeSendJsonOperations.getJSonDataForTransfer();
+                            strHelp1 = ms.getJSonDataForTransfer();
+                            logger.info("moi2 strHelp1 =" + strHelp1);
+                            // String strHelp2 =
+
                             if (strHelp1.equals(NO_VALUE)) {
                                 iRet = mfl.MakeFullLogOperations(
                                         SwarcoEnumerations.LoggingDestinationType.OMNIA_CLIENT,
@@ -88,8 +93,12 @@ public class GetOmniaData {
                               //  strHelp1="OK";   //RETHINK
                                 strHelp1 = URLEncoder.encode(strHelp1, StandardCharsets.UTF_8.toString());
                                 //url1 = sw.getOmniaClientUrl();
-                                url1 ="http://localhost:" +GHTTPOmniaClientPort +  "/?";
-           //                     logger.info("moi2 url1 =" + url1);
+                                oConnType=getSqlServerConnectionType();
+                                ConWrapper cW = new ConWrapper();
+                                cW= sw.FillConnectionWrapper(oConnType);
+                                url1 = cW.getClientUrl();
+                                //url1 ="http://localhost:" +GHTTPOmniaClientPort +  "/?";
+                                logger.info("moi2 url1 =" + url1);
                                 url1 = url1 + strHelp1;
          //                       logger.info("moi2 url1 =" + url1);
                                 bXorResult = XORChecksumShort.xor(url1);

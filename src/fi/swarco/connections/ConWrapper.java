@@ -8,6 +8,7 @@ public class ConWrapper  {
     private String httpServerPort;
     private String httpClientPort;
     private String serverTimeZone;
+    private String  clientUrl;
 
     public  ConWrapper (){}
     public  ConWrapper (
@@ -17,6 +18,7 @@ public class ConWrapper  {
             String dbPassword,
             String httpServerPort,
             String httpClientPort,
+            String  clientUrl,
             String serverTimeZone){
         super();
         this.connUrlStart=connUrlStart;
@@ -25,6 +27,7 @@ public class ConWrapper  {
         this.dbPassword=dbPassword;
         this.httpServerPort=httpServerPort;
         this.httpClientPort=httpClientPort;
+        this.clientUrl=clientUrl;
         this.serverTimeZone=serverTimeZone;
     }
     public String getConnUrlStart() {
@@ -56,7 +59,13 @@ public class ConWrapper  {
     public void setHttpClientPort(String pHttpClientPort) {
         this.httpClientPort= pHttpClientPort;
     }
-    public String getHttpClientPort() {return this.httpClientPort;}
+    public String getHttpClientPort() {
+        return this.httpClientPort;
+    }
+    public void setClientUrl(String pClientUrl) {
+        this.clientUrl= pClientUrl;
+    }
+    public String getClientUrl() {return this.clientUrl;}
     public void setServerTimeZone(String pServerTimeZone) {
         this.serverTimeZone= pServerTimeZone;
     }
@@ -67,9 +76,10 @@ public class ConWrapper  {
                 ", databaseName = " + this.databaseName  +
                 ", databaseUserName = " + this.databaseUserName  +
                 ", dbPassword = " + this.dbPassword +
-                ", httpServerPort ="  + this.httpServerPort +
-                ", httpClientPort ="  + this.httpClientPort +
-                ", serverTimeZone    ="      + this.serverTimeZone +
+                ", httpServerPort = "  + this.httpServerPort +
+                ", httpClientPort = "  + this.httpClientPort +
+                ", ClientUrl = " + this.clientUrl +
+                ", serverTimeZone = "      + this.serverTimeZone +
                 " ]";
     }
     public void MakeEmptyElement() {
@@ -79,6 +89,7 @@ public class ConWrapper  {
         dbPassword=NO_VALUE;
         httpServerPort=NO_VALUE;
         httpClientPort=NO_VALUE;
+        clientUrl=NO_VALUE;
         serverTimeZone=NO_VALUE;
     }
 }

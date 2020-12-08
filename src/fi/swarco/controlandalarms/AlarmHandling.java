@@ -21,7 +21,7 @@ public class AlarmHandling {
         return INT_RET_OK;
     }
     public int SendAlarm() throws SQLException{
-        // send alarm email if it is needed JIs 10.3 20202
+        // send alarm email if it is needed JIs 10.3 2020
         String SQL ="";
         String strRet="";
         int iRet;

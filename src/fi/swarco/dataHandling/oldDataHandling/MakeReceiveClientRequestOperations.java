@@ -52,7 +52,6 @@ public class MakeReceiveClientRequestOperations {
             logger.info("queryParameters error iRet= " + iRet);
             return iRet;
         }
-
         Map<String,String> queryMap =cmH.MapQueryParametersString();
         ParameterWrapper pmW =  cmH.DefineAndCheckQueryParameters(queryMap);
         if (pmW.getOmniaCode()==NO_OMNIA) {

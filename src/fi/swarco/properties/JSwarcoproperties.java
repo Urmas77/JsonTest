@@ -334,6 +334,7 @@ public class JSwarcoproperties {
             retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordL"));
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortL"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
+            retWrapper.setClientUrl(prop.getProperty("ClientUrlL"));
             retWrapper.setServerTimeZone(TT_NOT_DEFINED);
         }
         if (pstrCity.equals("helsinki")) {
@@ -343,6 +344,7 @@ public class JSwarcoproperties {
             retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordH"));
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortH"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortH"));
+            retWrapper.setClientUrl(prop.getProperty("ClientUrlH"));
             retWrapper.setServerTimeZone(TT_NOT_DEFINED);
         }
         if (pstrCity.equals("helsinkiomniview")) {
@@ -352,6 +354,7 @@ public class JSwarcoproperties {
             retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordHOW"));
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortHOW"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortHOW"));
+            retWrapper.setClientUrl(prop.getProperty("ClientUrlHOW"));
             retWrapper.setServerTimeZone(TT_NOT_DEFINED);
         }
         logger.info("retWrapper.toString()  = " +retWrapper.toString());
@@ -368,6 +371,7 @@ public class JSwarcoproperties {
             retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordL"));
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortL"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
+            retWrapper.setClientUrl(prop.getProperty("ClientUrlL"));
             retWrapper.setServerTimeZone(TT_NOT_DEFINED);
         }
         if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_HELSINKI) {
@@ -377,6 +381,7 @@ public class JSwarcoproperties {
             retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordH"));
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortH"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortH"));
+            retWrapper.setClientUrl(prop.getProperty("ClientUrlH"));
             retWrapper.setServerTimeZone(TT_NOT_DEFINED);
         }
         if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_HELSINKI_OMNIVIEW) {
@@ -386,6 +391,7 @@ public class JSwarcoproperties {
             retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordHOW"));
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortHOW"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortHOW"));
+            retWrapper.setClientUrl(prop.getProperty("ClientUrlHOW"));
             retWrapper.setServerTimeZone(TT_NOT_DEFINED);
         }
         if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST) { // Lahti settings RETHINK
@@ -395,6 +401,7 @@ public class JSwarcoproperties {
             retWrapper.setDbPassword(prop.getProperty("SqlServerpasswordL"));
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortL"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
+            retWrapper.setClientUrl(prop.getProperty("ClientUrlL"));
             retWrapper.setServerTimeZone(TT_NOT_DEFINED);
         }
         if (enConType==SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2) {
@@ -404,6 +411,7 @@ public class JSwarcoproperties {
             retWrapper.setDbPassword(prop.getProperty("MySqlpassword"));
             retWrapper.setHttpServerPort(TT_NOT_DEFINED);
             retWrapper.setHttpClientPort(TT_NOT_DEFINED);
+            retWrapper.setClientUrl(TT_NOT_DEFINED);
             retWrapper.setServerTimeZone(prop.getProperty("MySqlServerTimeZone"));
         }
   //      logger.info("retWrapper.toString()  = " +retWrapper.toString());

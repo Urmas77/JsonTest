@@ -470,7 +470,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " from TRPX_MeasurementTask  ";
             SQL = SQL + "where TaskType = 'MEASUREMENTDATAINSERT' and  " ;
             SQL = SQL +  " DetectorMeasuresTimestamp = ";
-            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where  TaskType = 'MEASUREMENTDATAINSERT') ";
+            SQL = SQL + " (select  max(DetectorMeasuresTimestamp) from TRPX_MeasurementTask where  TaskType = 'MEASUREMENTDATAINSERT') ";
             SQL = SQL + " order by DetectorMeasuresTimestamp asc ";
               logger.info("SQL = " + SQL);
             java.sql.PreparedStatement stmt;

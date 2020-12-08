@@ -11,7 +11,7 @@ import static fi.swarco.CONSTANT.NO_VALUE;
 public class T10 {
     private static Connection gSqlCon;
     private static JSwarcoproperties swarvop;
-    private static Logger logger = Logger.getLogger(T5.class.getName());
+    private static Logger logger = Logger.getLogger(T10.class.getName());
     private static SwarcoEnumerations.ConnectionType SqlConnectionType = SwarcoEnumerations.ConnectionType.NOT_DEFINED;
     private SwarcoEnumerations.RequestOriginType requestOrigin = SwarcoEnumerations.RequestOriginType.NORMALROAD;
     public void setRequestOrigin(SwarcoEnumerations.RequestOriginType prequestOrigin) {

@@ -105,6 +105,7 @@ public class MakeSendJsonOperations {
         int iloop = 1;
         int intSleep = 0;
         int iRet;
+        int iWorkSeekCounter=10; // check other than measurementdatatraanfer works not every time fork
         SwarcoEnumerations.ConnectionType oConnType;
         oConnType = getSqlServerConnectionType() ;
         iRet = th.MakeConnection(oConnType);
@@ -118,64 +119,71 @@ public class MakeSendJsonOperations {
                 return THERE_IS_WORK;
             }
             while (iloop == 1) {
-                if (th.AnyWorkIntersection() > 0) {
-                    iRet = th.TransferIntersectionTasksToWorkQueue();
-                    if (iRet != TASK_TRANSFER_OK) {
-                        logger.info("Task Transfer error iRet = " + iRet);
-                        return iRet;
+                 if (iWorkSeekCounter<=0) {
+                    iWorkSeekCounter=10;
+                     logger.info(" check all works iWorkSeekCounter= " +iWorkSeekCounter);
+                    if (th.AnyWorkIntersection() > 0) {
+                        iRet = th.TransferIntersectionTasksToWorkQueue();
+                        if (iRet != TASK_TRANSFER_OK) {
+                            logger.info("Task Transfer error iRet = " + iRet);
+                            return iRet;
+                        }
+                        setWorkType(TT_INTERSECTION_DATA_CHANGE);
+                        // update work from super
+                        iRet = th.FillUpIntersectionTasks();
+                        if (iRet != FILL_UP_TASK_OK) {
+                            logger.info("Fill UpTask error iRet = " + iRet);
+                            return iRet;
+                        }
+                        iRet = th.DeleteNotFilledIntersectionTasks();
+                        if (iRet != DELETE_UNFILLABLE_TASK_OK) {
+                            logger.info("Fill UpTask error iRet = " + iRet);
+                            return iRet;
+                        }
+                        return THERE_IS_WORK;
                     }
-                    setWorkType(TT_INTERSECTION_DATA_CHANGE);
-                    // update work from super
-                    iRet = th.FillUpIntersectionTasks();
-                    if (iRet != FILL_UP_TASK_OK) {
-                        logger.info("Fill UpTask error iRet = " + iRet);
-                        return iRet;
+                    if (th.AnyWorkController() > 0) {
+                        iRet = th.TransferControllerTasksToWorkQueue();
+                        if (iRet != TASK_TRANSFER_OK) {
+                            logger.info("Task Transfer error iRet = " + iRet);
+                            return iRet;
+                        }
+                        setWorkType(TT_CONTROLLER_DATA_CHANGE);
+                        iRet = th.FillUpControllerTasks();
+                        if (iRet != FILL_UP_TASK_OK) {
+                            logger.info("Fill UpTask error iRet = " + iRet);
+                            return iRet;
+                        }
+                        iRet = th.DeleteNotFilledControllerTasks();
+                        if (iRet != DELETE_UNFILLABLE_TASK_OK) {
+                            logger.info("Fill UpTask error iRet = " + iRet);
+                            return iRet;
+                        }
+                        return THERE_IS_WORK;
                     }
-                    iRet = th.DeleteNotFilledIntersectionTasks();
-                    if (iRet != DELETE_UNFILLABLE_TASK_OK) {
-                        logger.info("Fill UpTask error iRet = " + iRet);
-                        return iRet;
+                    if (th.AnyWorkDetector() > 0) {
+                        iRet = th.TransferDetectorTasksToWorkQueue();
+                        if (iRet != TASK_TRANSFER_OK) {
+                            logger.info("Task Transfer error iRet = " + iRet);
+                            return iRet;
+                        }
+                        setWorkType(TT_DETECTOR_DATA_CHANGE);
+                        // update work from super
+                        iRet = th.FillUpDetectorTasks();
+                        if (iRet != FILL_UP_TASK_OK) {
+                            logger.info("Fill UpTask error iRet = " + iRet);
+                            return iRet;
+                        }
+                        iRet = th.DeleteNotFilledDetectorTasks();
+                        if (iRet != DELETE_UNFILLABLE_TASK_OK) {
+                            logger.info("Fill UpTask error iRet = " + iRet);
+                            return iRet;
+                        }
+                        return THERE_IS_WORK;
                     }
-                    return THERE_IS_WORK;
-                }
-                if (th.AnyWorkController() > 0) {
-                    iRet = th.TransferControllerTasksToWorkQueue();
-                    if (iRet != TASK_TRANSFER_OK) {
-                        logger.info("Task Transfer error iRet = " + iRet);
-                        return iRet;
-                    }
-                    setWorkType(TT_CONTROLLER_DATA_CHANGE);
-                    iRet = th.FillUpControllerTasks();
-                    if (iRet != FILL_UP_TASK_OK) {
-                        logger.info("Fill UpTask error iRet = " + iRet);
-                        return iRet;
-                    }
-                    iRet = th.DeleteNotFilledControllerTasks();
-                    if (iRet != DELETE_UNFILLABLE_TASK_OK) {
-                        logger.info("Fill UpTask error iRet = " + iRet);
-                        return iRet;
-                    }
-                    return THERE_IS_WORK;
-                }
-                if (th.AnyWorkDetector() > 0) {
-                    iRet = th.TransferDetectorTasksToWorkQueue();
-                    if (iRet != TASK_TRANSFER_OK) {
-                        logger.info("Task Transfer error iRet = " + iRet);
-                        return iRet;
-                    }
-                    setWorkType(TT_DETECTOR_DATA_CHANGE);
-                    // update work from super
-                    iRet = th.FillUpDetectorTasks();
-                    if (iRet != FILL_UP_TASK_OK) {
-                        logger.info("Fill UpTask error iRet = " + iRet);
-                        return iRet;
-                    }
-                    iRet = th.DeleteNotFilledDetectorTasks();
-                    if (iRet != DELETE_UNFILLABLE_TASK_OK) {
-                        logger.info("Fill UpTask error iRet = " + iRet);
-                        return iRet;
-                    }
-                    return THERE_IS_WORK;
+                } else {
+                    iWorkSeekCounter=iWorkSeekCounter-1;
+                    logger.info(" iWorkSeekCounter= " +iWorkSeekCounter);
                 }
                 if (th.AnyWorkMeasurements() == 0) {
                     Thread.sleep(getSleep());   // 5 seconds sleep
@@ -227,12 +235,8 @@ public class MakeSendJsonOperations {
                 iRet = th.MeasurementTaskDataList();
                 if (iRet != INT_RET_OK) {
                     if (iRet == NO_TASK_LIST) {
-   //                     logger.info("Other error iRet = " + iRet);
                         iRet2 = th.DeleteTrashTasksAfterHand();
-  //                      logger.info("Successful task delete afterhand continue");
-//   Delete lines also from Task list RETHINK JIs 18.11 2019
                         iRet2 = th.DeleteTrashTasksAfterHandFromTaskList();
-// do  not Handle iRet2 codes   RETHINK JIs 18.11 2019
                         iRet = th.MeasurementTaskDataList();
                         if (iRet != INT_RET_OK) {
                             return OMNIA_DATA_PICK_NOT_OK;
@@ -274,8 +278,8 @@ public class MakeSendJsonOperations {
                                                                    ce.getControllerId(),
                                                                    ce.getPermanentDataTimestamp(),
                                                                    getWorkType());
-                    logger.info("strHelp1 = " + strHelp1);
-                    logger.info("strHelp1.length()  = " + strHelp1.length());
+               //     logger.info("strHelp1 = " + strHelp1);
+               //     logger.info("strHelp1.length()  = " + strHelp1.length());
                     if (strHelp1.equals(NO_VALUE)) {
                         // RETHINK update task state and write to log
                         iRet = MakeClearanceOperations(ce);
@@ -291,7 +295,7 @@ public class MakeSendJsonOperations {
                     }
                 }
                 if ((getWorkType().equals(TT_DETECTOR_DATA_CHANGE))) {
-                    strHelp1 = th.getDetectorSqlData(ce.getDetectorId(), ce.getPermanentDataTimestamp());
+                    strHelp1 = th.getDetectorSqlData(ce.getDetectorId(),ce.getPermanentDataTimestamp());
                    //logger.info("strHelp1 = " + strHelp1);
                    // logger.info("strHelp1.length()  = " + strHelp1.length());
                     if (strHelp1.equals(NO_VALUE)) {
