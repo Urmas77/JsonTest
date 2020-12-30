@@ -9,6 +9,7 @@ public class ConWrapper  {
     private String httpClientPort;
     private String serverTimeZone;
     private String  clientUrl;
+    private String  dataTransferStatus;
 
     public  ConWrapper (){}
     public  ConWrapper (
@@ -19,7 +20,8 @@ public class ConWrapper  {
             String httpServerPort,
             String httpClientPort,
             String  clientUrl,
-            String serverTimeZone){
+            String serverTimeZone,
+            String  dataTransferStatus){
         super();
         this.connUrlStart=connUrlStart;
         this.databaseName=databaseName;
@@ -29,6 +31,7 @@ public class ConWrapper  {
         this.httpClientPort=httpClientPort;
         this.clientUrl=clientUrl;
         this.serverTimeZone=serverTimeZone;
+        this.dataTransferStatus=dataTransferStatus;
     }
     public String getConnUrlStart() {
         return connUrlStart;
@@ -70,6 +73,11 @@ public class ConWrapper  {
         this.serverTimeZone= pServerTimeZone;
     }
     public String getServerTimeZone() {return this.serverTimeZone;}
+    public void setDataTransferStatus(String pDataTransferStatus) {
+        this.dataTransferStatus= pDataTransferStatus;
+    }
+    public String getDataTransferStatus() {return this.dataTransferStatus;}
+
     @Override
     public String toString() {
         return "JsonWrapper [connUrlStart = " + this.connUrlStart +
@@ -80,6 +88,7 @@ public class ConWrapper  {
                 ", httpClientPort = "  + this.httpClientPort +
                 ", ClientUrl = " + this.clientUrl +
                 ", serverTimeZone = "      + this.serverTimeZone +
+                ", dataTransferStatus = " + this.dataTransferStatus +
                 " ]";
     }
     public void MakeEmptyElement() {
@@ -91,5 +100,6 @@ public class ConWrapper  {
         httpClientPort=NO_VALUE;
         clientUrl=NO_VALUE;
         serverTimeZone=NO_VALUE;
+        dataTransferStatus=NO_VALUE;
     }
 }

@@ -28,7 +28,7 @@ public class MakeSendTimeSeriesOperations {
         currentWorkIndex = pCurrentWorkIndex;
     }
 
-    private static int intSleep = 5000;
+    private static int intSleep = 300;
 
     public static int getSleep() {
         return intSleep;

@@ -24,7 +24,7 @@ public class MakeSendJsonOperations {
     public void setCurrentWorkIndex(long pCurrentWorkIndex) {
         currentWorkIndex = pCurrentWorkIndex;
     }
-    private static int intSleep = 5000;
+    private static int intSleep = 200;
     public static int getSleep() {
         return intSleep;
     }
@@ -105,7 +105,7 @@ public class MakeSendJsonOperations {
         int iloop = 1;
         int intSleep = 0;
         int iRet;
-        int iWorkSeekCounter=10; // check other than measurementdatatraanfer works not every time fork
+        int iWorkSeekCounter=1; // check other than measurementdatatraanfer works not every time fork
         SwarcoEnumerations.ConnectionType oConnType;
         oConnType = getSqlServerConnectionType() ;
         iRet = th.MakeConnection(oConnType);
@@ -119,8 +119,8 @@ public class MakeSendJsonOperations {
                 return THERE_IS_WORK;
             }
             while (iloop == 1) {
-                 if (iWorkSeekCounter<=0) {
-                    iWorkSeekCounter=10;
+                // if (iWorkSeekCounter<=0) {
+                //    iWorkSeekCounter=10;
                      logger.info(" check all works iWorkSeekCounter= " +iWorkSeekCounter);
                     if (th.AnyWorkIntersection() > 0) {
                         iRet = th.TransferIntersectionTasksToWorkQueue();
@@ -181,13 +181,18 @@ public class MakeSendJsonOperations {
                         }
                         return THERE_IS_WORK;
                     }
-                } else {
-                    iWorkSeekCounter=iWorkSeekCounter-1;
-                    logger.info(" iWorkSeekCounter= " +iWorkSeekCounter);
-                }
+               // } else {
+               //     iWorkSeekCounter=iWorkSeekCounter-1;
+               //     logger.info(" iWorkSeekCounter= " +iWorkSeekCounter);
+               // }
                 if (th.AnyWorkMeasurements() == 0) {
                     Thread.sleep(getSleep());   // 5 seconds sleep
                 } else {
+                    iRet =th.CreateControllerGroups();
+                    if (iRet!=INT_RET_OK)  {
+                       logger.info("Impossible to create Controller groups iRet =" + iRet);
+                        return iRet;
+                    }
                     iRet = th.DeleteTrashTasksBeforeHand();
                     if (iRet != DELETE_TRASH_TASK_OK) {
                         logger.info("Task Transfer error iRet = " + iRet);
@@ -220,7 +225,7 @@ public class MakeSendJsonOperations {
         oConnType=getSqlServerConnectionType();
         int iRet = th.MakeConnection(oConnType);
         if (iRet != INT_RET_OK) {
-            logger.info("Ei kantayhteytt� lopetetaan");
+            logger.info("Ei kantayhteyttä lopetetaan");
             return OMNIA_DATA_PICK_NOT_OK;
         }
         TRPXMeasurementTaskData ce = null;
@@ -252,7 +257,29 @@ public class MakeSendJsonOperations {
                 }
 // here logic what type work logic there are only one type of task on _work   table
                 if (getWorkType().equals(TT_MEASUREMENT_DATA_INSERT)) {
-                    strHelp1 = th.getMeasurementShortSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
+//                    iRet =th.CreateControllerGroups();
+//                    if (iRet!=INT_RET_OK)  {
+//                        logger.info("Impossible to create Controller groups iRet =" + iRet);
+//                        return iRet;
+//                    }
+// update first group to handling
+                    MeasurementTaskWorkHandling ms = new MeasurementTaskWorkHandling();
+                    //  DefineFirstUnhandledGroupSqlServerData first = new DefineFirstUnhandledGroupSqlServerData();
+                    // first.andling ms = new MeasurementTaskWorkHandling();
+                    oConnType = getSqlServerConnectionType();
+                    iRet =ms.MakeConnection(oConnType);
+                    if (iRet != INT_RET_OK) {
+                        logger.info("Ei kantayhteyttä lopetetaan");
+                        return iRet;
+                    }
+                    iRet =ms.DefineFirstUnhandledGroup();
+                    if (iRet!=INT_RET_OK)  {
+                        logger.info("Impossible to find first unhandled group iRet =" + iRet);
+                        return iRet;
+                    }
+// get first group on use
+                    strHelp1 = th.getMeasurementShortSqlDataGroup(ce.getDetectorMeasuresTimestamp());
+                   // strHelp1 = th.getMeasurementShortSqlData(ce.getIntersectionId(), ce.getControllerId(), ce.getDetectorMeasuresTimestamp());
       //              logger.info("strHelp1 = " + strHelp1);
                 //    logger.info("strHelp1.length()  = " + strHelp1.length());
                     if (strHelp1.equals(NO_VALUE)) {
@@ -322,29 +349,35 @@ public class MakeSendJsonOperations {
         } // polling loop while end
         return OMNIA_DATA_PICK_OK;
     }
-
-
     // *******************Make own class *****/
     public int DeleteDoneTaskFromWorkDb() throws SQLException {
         TRPXMeasurementTaskData ce = getTaskUnderWork();
         long doneWorkIndex = 0;
         int iRet = INT_RET_OK;
         if (getWorkType().equals(TT_MEASUREMENT_DATA_INSERT)) {
-            iRet = th.DeleteDoneTaskFromDb(ce);
+            ///iRet = th.DeleteDoneTaskFromDb(ce);
+            iRet =th.DeleteDoneTaskGroupFromDb();  // do this always before
             if (iRet < 0) {   // 0 they have all ready been deleted
                 logger.info("Unsuccessful delete from worktask ce.toString() =  " + ce.toString());
                 logger.info("Unsuccessful delete from worktask iRet = " + iRet);
                 return OMNIA_DATA_PICK_NOT_OK;
             }
-            iRet = th.DeleteDoneTaskFromWorkDb(ce);
+            //iRet = th.DeleteDoneTaskFromWorkDb(ce);
+            iRet = th.DeleteDoneTaskFromGroupWorkDb();
             if (iRet < 1) {
                 logger.info("Unsuccessful delete from Work table ce.toString() =  " + ce.toString());
                 logger.info("Unsuccessful delete from Work table iRet = " + iRet);
                 return OMNIA_DATA_PICK_NOT_OK;
             }
+            iRet=th.MarkControllerGroupHandled();
+            if (iRet < 1) {
+                logger.info("Unsuccessful Controllergroup Handled operatuin iRet =  " + iRet);
+                logger.info("Unsuccessful delete from Work table iRet = " + iRet);
+                return OMNIA_DATA_PICK_NOT_OK;
+            }
             return INT_RET_OK;
         } else if ((getWorkType().equals(TT_INTERSECTION_DATA_CHANGE)) || (getWorkType().equals(TT_CONTROLLER_DATA_CHANGE)) || (getWorkType().equals(TT_DETECTOR_DATA_CHANGE))) {
-            doneWorkIndex = th.GetCurrentWorkTaskIdindex();
+                doneWorkIndex = th.GetCurrentWorkTaskIdindex();
             if (doneWorkIndex > 0) {
                 iRet = th.DeleteDoneTaskWorkUsingIdentityFromDb(doneWorkIndex);
                 if (iRet < 0) {   // 0 they have all ready been deleted
@@ -368,8 +401,6 @@ public class MakeSendJsonOperations {
         return iRet;
     }
     //*******************************************************
-
-
     public String MakeMessageToBeSended() throws SQLException {
         String strHelp1 = NO_VALUE;
         String strHelp2 = NO_VALUE;

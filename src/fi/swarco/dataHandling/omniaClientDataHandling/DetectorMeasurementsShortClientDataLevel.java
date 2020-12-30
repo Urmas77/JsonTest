@@ -5,6 +5,7 @@ import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShort;
 import fi.swarco.dataHandling.pojos.OmniaMeasurementDataShortJson;
 import fi.swarco.dataHandling.queriesSql.sqlServer.GetMeasurementShortSqlServerData;
+import fi.swarco.dataHandling.queriesSql.sqlServer.GetMeasurementShortSqlServerDataGroup;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
 import org.apache.log4j.Logger;
 import java.sql.Connection;
@@ -43,6 +44,66 @@ public class DetectorMeasurementsShortClientDataLevel {
         }
         return strHelp1;
     }
+    public String GetMeasurementsDataGroupString(String pstrTimestamp) throws SQLException{
+        String strHelp1=NO_VALUE;
+        int iRet = GetOmniaMeasurementsDataShortGroup(pstrTimestamp);
+        if  (iRet ==INT_RET_OK) {
+            strHelp1 = GetMeasurementsDataShortJsonString();
+        }
+        return strHelp1;
+    }
+    private int GetOmniaMeasurementsDataShortGroup(String pstrTimestamp) throws SQLException{
+        DmUnits.clear();
+        java.sql.PreparedStatement stmt;
+        logger.info("Start ");
+        GetMeasurementShortSqlServerDataGroup st= new GetMeasurementShortSqlServerDataGroup();
+        String SQL = st.getStatement();
+        OmniaMeasurementDataShort cc;
+        int pos;
+        try {
+            stmt = gSqlCon.prepareStatement(SQL);
+            pos=1;
+            java.sql.Timestamp  tStamp=java.sql.Timestamp.valueOf(pstrTimestamp);
+            stmt.setTimestamp(pos,tStamp);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+            while (rs.next()) {
+                cc= new OmniaMeasurementDataShort();
+                cc.MakeEmptyElement();
+                cc.setOmniaCode(rs.getLong(1));
+                cc.setIntersectionId(rs.getLong(2));
+                cc.setControllerId(rs.getLong(3));
+                cc.setMeasurementTime(rs.getString(4));
+                cc.setDetectorId(rs.getLong(5));
+                cc.setDetectorExternalCode(rs.getString(6));   // old column value was 5   = DetectorId
+                cc.setVehicleCount(rs.getLong(7));
+                cc.setMeanVehicleSpeed(rs.getDouble(8));
+                cc.setOccupancyProcent(rs.getDouble(9));
+                cc.setAccurancy(rs.getDouble(10));
+                DmUnits.add(cc);
+            }
+            stmt.close();
+            rs.close();
+            if (DmUnits.isEmpty()) {
+                cc= new OmniaMeasurementDataShort();
+                cc.MakeEmptyElement();
+                DmUnits.add(cc);
+                return INT_RET_NOT_OK;
+            }
+            //         logger.info("bef ret iRet OK");
+            return INT_RET_OK;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.info("error e=",e);
+            cc= new OmniaMeasurementDataShort();
+            cc.MakeEmptyElement();
+            DmUnits.add(cc);
+            gSqlCon.close();
+            return INT_RET_NOT_OK;
+        }
+    }
+
     private int GetOmniaMeasurementsDataShort(long plngIntersectionId, long plngControllerId,String pstrTimestamp) throws SQLException{
         DmUnits.clear();
         java.sql.PreparedStatement stmt;

@@ -1,15 +1,20 @@
 package fi.swarco.dataHandling;
+import fi.swarco.connections.ConWrapper;
 import fi.swarco.dataHandling.omniaClientDataHandling.OmniaMeasurementShortListDataLevel;
 import fi.swarco.dataHandling.omniaServerDataHandling.IntersectionControllerListDatalevel;
 import fi.swarco.dataHandling.omniaServerDataHandling.DetectorServerListDataLevel;
 import fi.swarco.dataHandling.pojos.RawData;
 import fi.swarco.omniaDataTransferServices.FileOperations;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
+import fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer.OmniaCloudHTTPServer;
+import fi.swarco.properties.JSwarcoproperties;
 import fi.swarco.serviceOperations.SwarcoTimeUtilities;
+import fi.swarco.properties.JSwarcoproperties;
 import org.apache.log4j.Logger;
 import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2;
+
 public class MakeReceiveJsonOperations {
     static Logger logger = Logger.getLogger(MakeReceiveJsonOperations.class.getName());
     private static String pseudoJsonData = NO_VALUE;
@@ -74,8 +79,21 @@ public class MakeReceiveJsonOperations {
                         logger.info("Unsuccesful insert iRet=" + iRet);
                         MakeLogFileOperations("error##" + strWhoJsonData);
                     }
+                    String strServer= OmniaCloudHTTPServer.getOmniaServerName();
+                    ConWrapper cW1;
+                    cW1 = new ConWrapper();
+                    JSwarcoproperties  sp = new JSwarcoproperties();
+                    cW1 = sp.FillServerWrapper(strServer);
+                    String sDataTransferStatus =cW1.getDataTransferStatus();
+                // *******************************   }
+                    if (sDataTransferStatus.equals("ON")) {
+                        iRet = mm.MakeDataTransferOperations();
+                        if (iRet!=INT_RET_OK) {
+                           logger.info("Unsuccessful data transfer operation iRet=" + iRet);
+                        }
+                    }
                 } else {
-                    MakeLogFileOperations("ok##" + strWhoJsonData);
+                        MakeLogFileOperations("ok##" + strWhoJsonData);
                 }
                 return iRet;
             }

@@ -999,6 +999,38 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
+    public int DeleteDoneTaskGroupFromDb() throws SQLException{
+        int iRet;
+        //       logger.info("ce.toString()=" + ce.toString());
+        try {
+            java.sql.PreparedStatement stmt;
+            String SQL = " delete from  TRPX_MeasurementTask " ;
+            SQL = SQL +  "where MeasurementTask_idindex in ";
+            SQL = SQL + "(select work.MeasurementTask_idindex from TRPX_MeasurementTask_Work work ";
+            SQL = SQL +" join TRPX_ControllerCount con  on con.controllerid= work.controllerid  and con.handled=2);";
+            //    logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            //  logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
+                return iRet;
+            }
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+
+
     public int DeleteDoneTaskUsingIdentityFromDb( long pIdentity) throws SQLException{
         int iRet;
         try {
@@ -1226,7 +1258,74 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int UpdateTaskFromDbForClearance(TRPXMeasurementTaskData ce) throws SQLException{
+    public int DeleteDoneTaskFromGroupWorkDb() throws SQLException{
+        int iRet;
+        try {
+            java.sql.PreparedStatement stmt;
+            String SQL = " delete from TRPX_MeasurementTask_Work ";
+            SQL = SQL + " where MeasurementTask_idindex in (";
+            SQL = SQL + " select work.MeasurementTask_idindex from TRPX_MeasurementTask_Work work";
+            SQL = SQL + " join TRPX_ControllerCount con  on con.controllerid= work.controllerid  and con.handled=2)"+ ";";
+            logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
+                return iRet;
+            }
+            return INT_RET_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+
+
+
+
+
+
+    public int MarkControllerGroupHandled() throws SQLException{
+        int iRet;
+        try {
+            java.sql.PreparedStatement stmt;
+            String SQL = " exec TRPX_MarkControllerGroupHandled;";
+            logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            logger.info(" iRet = " + iRet);
+            if (iRet ==0) {
+                iRet= INT_RET_OK;
+            }
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_OPERATION;
+                return iRet;
+            }
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+
+
+
+        public int UpdateTaskFromDbForClearance(TRPXMeasurementTaskData ce) throws SQLException{
         int iRet;
     //    logger.info("ce.toString()=" + ce.toString());
         try {
@@ -1372,6 +1471,22 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         }
         return strRet;
     }
+
+    public String getMeasurementShortSqlDataGroup(String pstrTimestamp) throws SQLException{
+        String strRet = NO_VALUE;
+        int iRet;
+        java.sql.PreparedStatement stmt;
+        DetectorMeasurementsShortClientDataLevel oi = new DetectorMeasurementsShortClientDataLevel();
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = oi.MakeConnection(oConnType);
+        if (iRet == DATABASE_CONNECTION_OK) {
+            strRet = oi.GetMeasurementsDataGroupString(pstrTimestamp);
+        }
+        return strRet;
+    }
+
+
     public String getDetectorSqlData(long plngDetectorId, String pstrTimestamp) throws SQLException{
         String strRet = NO_VALUE;
         int iRet;
@@ -1402,4 +1517,34 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         }
         return strRet;
     }
+    public int CreateControllerGroups() throws SQLException{
+        int iRet;
+        try {
+            java.sql.PreparedStatement stmt;
+            String SQL = " exec [dbo].[TRPX_CreateControllerGroups] ";
+              logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            //      logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
+                return iRet;
+            }
+            iRet=INT_RET_OK;
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+
+
+
 }

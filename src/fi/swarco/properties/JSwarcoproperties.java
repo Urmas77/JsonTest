@@ -115,7 +115,7 @@ public class JSwarcoproperties {
     private String MySqldatabase;
     private String MySqldbuser;
     private String MySqlConnUrlWhole;
-    private String MySqlServerTimeZone;
+    private String MySqlTimeZone;
     public String getMySqlDriver() {
         return MySqlDriver;
     }
@@ -155,14 +155,14 @@ public class JSwarcoproperties {
     public String getMySqlConnUrlWhole() {
         return MySqlConnUrlWhole;
     }
-    public void setMySqlServerTimeZone(String pMySqlServerTimeZone) {
-        MySqlServerTimeZone = pMySqlServerTimeZone;
+    public void setMySqlTimeZone(String pMySqlTimeZone) {
+        MySqlTimeZone = pMySqlTimeZone;
     }
-    public String getMySqlServerTimeZone() {
-        if (MySqlServerTimeZone==null) {
-            MySqlServerTimeZone=TT_NOT_DEFINED;
+    public String getMySqlTimeZone() {
+        if (MySqlTimeZone==null) {
+            MySqlTimeZone=TT_NOT_DEFINED;
         }
-        return MySqlServerTimeZone;
+        return MySqlTimeZone;
     }
     public void setMySqlConnUrlWhole(String pMySqlConnUrlWhole) {
         MySqlConnUrlWhole = pMySqlConnUrlWhole;
@@ -272,6 +272,11 @@ public class JSwarcoproperties {
             if (iRet != 1) {
                 logger.info("No SqlServer props in this environment!");
             }
+            iRet =  setMySqlProps();
+            if (iRet != 1) {
+                logger.info("No Myql props in this environment!");
+            }
+
             iRet = setInfluxProps();
             if (iRet != 1) {
                 logger.info("No MySql props in this environment!");
@@ -335,7 +340,8 @@ public class JSwarcoproperties {
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortL"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlL"));
-            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+            retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
+            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusL"));
         }
         if (pstrCity.equals("helsinki")) {
             retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartH"));
@@ -345,7 +351,8 @@ public class JSwarcoproperties {
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortH"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortH"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlH"));
-            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+            retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
+            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusH"));
         }
         if (pstrCity.equals("helsinkiomniview")) {
             retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartHOW"));
@@ -355,7 +362,8 @@ public class JSwarcoproperties {
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortHOW"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortHOW"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlHOW"));
-            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+            retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
+            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusHOW"));
         }
         logger.info("retWrapper.toString()  = " +retWrapper.toString());
         return retWrapper;
@@ -372,7 +380,8 @@ public class JSwarcoproperties {
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortL"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlL"));
-            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+            retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
+            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusL"));
         }
         if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_HELSINKI) {
             retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartH"));
@@ -382,7 +391,8 @@ public class JSwarcoproperties {
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortH"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortH"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlH"));
-            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+            retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
+            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusH"));
         }
         if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_HELSINKI_OMNIVIEW) {
             retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartHOW"));
@@ -392,7 +402,8 @@ public class JSwarcoproperties {
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortHOW"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortHOW"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlHOW"));
-            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+            retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
+            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusHOW"));
         }
         if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST) { // Lahti settings RETHINK
             retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartL"));
@@ -402,7 +413,8 @@ public class JSwarcoproperties {
             retWrapper.setHttpServerPort(prop.getProperty("HttpServerPortL"));
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlL"));
-            retWrapper.setServerTimeZone(TT_NOT_DEFINED);
+            retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
+            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusL"));
         }
         if (enConType==SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2) {
             retWrapper.setConnUrlStart(prop.getProperty("MySqlConnectionUrlStart"));
@@ -412,7 +424,8 @@ public class JSwarcoproperties {
             retWrapper.setHttpServerPort(TT_NOT_DEFINED);
             retWrapper.setHttpClientPort(TT_NOT_DEFINED);
             retWrapper.setClientUrl(TT_NOT_DEFINED);
-            retWrapper.setServerTimeZone(prop.getProperty("MySqlServerTimeZone"));
+            retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
+            retWrapper.setDataTransferStatus(prop.getProperty(TT_NOT_DEFINED));
         }
   //      logger.info("retWrapper.toString()  = " +retWrapper.toString());
         return retWrapper;
@@ -423,21 +436,21 @@ public class JSwarcoproperties {
         setMySqlpassword(prop.getProperty("MySqlpassword"));
         setMySqldatabase(prop.getProperty("MySqldatabase"));
         setMySqldbuser(prop.getProperty("MySqldbuser"));
-        setMySqlServerTimeZone(prop.getProperty("MySqlServerTimeZone"));
+        setMySqlTimeZone(prop.getProperty("MySqlTimeZone"));
         setMySqlConnUrlStartDbase(prop.getProperty("MySqlConnectionUrlStart") + prop.getProperty("MySqldatabase"));
-        String strHelp1 = prop.getProperty("MySqlConnectionUrlStart");    // +";" removed
-        strHelp1 = strHelp1 + getMySqldatabase() +","; // JIs 18.6 11:44
+        String strHelp1 = prop.getProperty("MySqlConnectionUrlStart");
+        strHelp1 = strHelp1 + getMySqldatabase() +",";
         strHelp1 = strHelp1 + getMySqldbuser() + ",";
         strHelp1 = strHelp1 + getMySqlpassword();
         //   strHelp1 =strHelp1 + "database=" + getMySqldatabase()  +",";
         //   strHelp1 = strHelp1 + "user=" + getMySqldbuser() +",";
         //   strHelp1 = strHelp1 + "password=" + getMySqlpassword();
            setMySqlConnUrlWhole(strHelp1);
-    //      logger.info("MySqlConnUrlStart = " + prop.getProperty("MySqlConnectionUrlStart"));
-      //    logger.info("MySqlpassword = " + prop.getProperty("MySqlpassword"));
-      //    logger.info("MySqldatabase = " + prop.getProperty("MySqldatabase"));
-      //    logger.info("MySqldbuser = " + prop.getProperty("MySqldbuser"));
-      //    logger.info("MySqlServerTimeZone = " + prop.getProperty("MySqlServerTimeZone"));
+          logger.info("MySqlConnUrlStart = " + prop.getProperty("MySqlConnectionUrlStart"));
+          logger.info("MySqlpassword = " + prop.getProperty("MySqlpassword"));
+          logger.info("MySqldatabase = " + prop.getProperty("MySqldatabase"));
+          logger.info("MySqldbuser = " + prop.getProperty("MySqldbuser"));
+          logger.info("MySqlServerTimeZone = " + prop.getProperty("MySqlServerTimeZone"));
       //    logger.info("getpMySqlConnUrlWhole() = " + getMySqlConnUrlWhole());
         return INT_RET_OK;
     }

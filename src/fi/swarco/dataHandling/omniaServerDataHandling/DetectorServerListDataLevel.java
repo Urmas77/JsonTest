@@ -427,9 +427,9 @@ public class DetectorServerListDataLevel {
         try {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();
-//            logger.info("pPermanentData = " + pPermanentData);
+          logger.info("pPermanentData = " + pPermanentData);
             strHelp1 = mu.ThrowChecksumAway(pPermanentData);
-//            logger.info("strHelp1 = " + strHelp1);
+            logger.info("strHelp1 = " + strHelp1);
             JsonParser jsonParser = new JsonParser();
             OmniaDetectorServer aOmniaDetector1 = myGson.fromJson(strHelp1, OmniaDetectorServer.class);
             SwarcoTimeUtilities sw = new  SwarcoTimeUtilities();

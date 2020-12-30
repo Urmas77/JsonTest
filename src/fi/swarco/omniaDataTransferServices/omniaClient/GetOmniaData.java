@@ -3,6 +3,7 @@ import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.ConWrapper;
 import fi.swarco.controlandalarms.AlarmHandling;
 import fi.swarco.dataHandling.MakeSendJsonOperations;
+import fi.swarco.dataHandling.MeasurementTaskHandling;
 import fi.swarco.omniaDataTransferServices.FileOperations;
 import fi.swarco.omniaDataTransferServices.LogUtilities;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
@@ -24,6 +25,7 @@ public class GetOmniaData {
     private static Logger logger = Logger.getLogger(GetOmniaData.class.getName());
     private static boolean TodayDone = false; // true if no need to tranfer detectordata today
     private static boolean HourDone = false; // true if no need to run check queries
+    private static MeasurementTaskHandling th = new MeasurementTaskHandling();
     public static void sendGetOmniaData()  {
         int intSleep;
         String strHelp1;
@@ -60,6 +62,7 @@ public class GetOmniaData {
             try {
                 for (long i = 1; i < 2; i++) {
                     iRet = ms.PollOfWorks();
+// RETHINK does above really belongs here
                     if (iRet == THERE_IS_WORK) {
                         iRet = ms.MakeSendOmniaOperations();
                         if (iRet != OMNIA_DATA_PICK_OK) {
@@ -79,7 +82,8 @@ public class GetOmniaData {
                         } else {
                             // if no value do not send RETHINK
                             strHelp1 = ms.getJSonDataForTransfer();
-                            logger.info("moi2 strHelp1 =" + strHelp1);
+                            logger.info("moi2 lähtee jotakin");
+                            //     logger.info("moi2 strHelp1 =" + strHelp1);
                             // String strHelp2 =
 
                             if (strHelp1.equals(NO_VALUE)) {
@@ -142,7 +146,7 @@ public class GetOmniaData {
             //       logger.info("bef sleep");
                     intSleep = Integer.valueOf(sw.getOmniaClientSleepMs());
                     if (intSleep <=100) {
-                        intSleep=200;
+                        intSleep=101;
                     }
                     Thread.sleep(intSleep);   // 200 ms
                     strJobTime=sw.getOmniaClientDetectorDataTime();

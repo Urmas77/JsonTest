@@ -34,7 +34,7 @@ public class SelectDetectorDataMySqlWhere {
         statement = statement + " from DetectorData ";
         statement = statement + "  where OmniaCode = ? and ";
         statement = statement + "  DetectorId = ? ; ";
-     //   logger.info("statement = " + statement);
+       logger.info("statement = " + statement);
     }
 }
 

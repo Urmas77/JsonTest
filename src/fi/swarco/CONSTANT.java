@@ -34,6 +34,7 @@ public static final int UNSUCCESSFUL_DATABASE_FETCH_OPERATION=-9994;
 public static final int UNSUCCESSFUL_DATABASE_CONNECTION_OPERATION=-9995;
 public static final int UNSUCCESSFUL_DATABASE_DELETE_OPERATION=-9993;
 public static final int UNSUCCESSFUL_DATABASE_UPDATE_OPERATION=-9992;
+public static final int UNSUCCESSFUL_DATABASE_DATA_TRANSFER_OPERATION=-9991;
 public static final int UNSUCCESSFUL_JSON_OPERATION = -8999;
 public static final int EMPTY_ELEMENT =-99999;
 public static final int LINE_NOT_OK = -2222;

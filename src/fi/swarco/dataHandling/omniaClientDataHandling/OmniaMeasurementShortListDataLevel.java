@@ -154,6 +154,9 @@ public class OmniaMeasurementShortListDataLevel {
         }
         return iRet;
     }
+
+
+
     private int DeleteOldOmniaMeasurementDataShortLineFromDb(OmniaMeasurementDataShort pC1 ) throws SQLException{
         int iRet;
         String SQL;
@@ -187,6 +190,34 @@ public class OmniaMeasurementShortListDataLevel {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
+    public static int MakeDataTransferOperations() throws SQLException{
+        int iRet;
+        String SQL;
+        try {
+            java.sql.PreparedStatement stmt;
+            SQL = " call FromShortToStorageMinute(); ";
+//            logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            stmt.close();
+            if (iRet < 0) {
+                logger.info("iRet = " + iRet);
+                iRet = UNSUCCESSFUL_DATABASE_DATA_TRANSFER_OPERATION;
+                logger.info("iRet = " + iRet);
+                return iRet;
+            }
+            return iRet;
+        } catch (Exception e) {
+        logger.info(" catch 11");
+        logger.info(e.getMessage());
+        logger.info(ExceptionUtils.getRootCauseMessage(e));
+        logger.info(ExceptionUtils.getFullStackTrace(e));
+        e.printStackTrace();
+        gSqlCon.close();
+        return UNSUCCESSFUL_DATABASE_OPERATION;
+    }
+    }
+
     public static int AddNewOmniaMeasurementDataShort(OmniaMeasurementDataShort pOmniaMeasurementDataShort) throws SQLException{
         int iRet;
         String SQL="";
@@ -242,6 +273,24 @@ public class OmniaMeasurementShortListDataLevel {
             OmniaMeasurementDataUnits.add(cc);
         }
         return OmniaMeasurementDataUnits;
+    }
+    public  long JsonOmniaGetOmniaCode(String pMeasurementsDataShort) {
+        Gson myGson = new Gson();
+        MessageUtils mu = new MessageUtils();
+        String strHelp1 = mu.StripFileStartEnd(pMeasurementsDataShort);
+        if (strHelp1.equals(NO_VALUE)) {
+           return INT_RET_NOT_OK;
+        }
+        int iHere = strHelp1.indexOf("}");
+        long iRet;
+        String strHelp2 = strHelp1.substring(0, iHere + 1);
+        OmniaMeasurementDataShort aO1;
+        OmniaMeasurementDataShortJson ceJson = new OmniaMeasurementDataShortJson();
+        if (iHere > 0) {
+           ceJson = myGson.fromJson(strHelp2, OmniaMeasurementDataShortJson.class);
+           return ceJson.getOmniaCode();
+        }
+        return INT_RET_NOT_OK;
     }
     public  int JsonOmniaMeasurementShortSql(String pMeasurementsDataShort) throws SQLException{
         int iRet=0;

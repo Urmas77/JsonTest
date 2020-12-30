@@ -10,6 +10,7 @@ import fi.swarco.dataHandling.queriesSql.sqlServer.JiMeasurementTaskWorkSelectSq
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
+
 public class MeasurementTaskWorkHandling {
     private static Logger logger = Logger.getLogger(MeasurementTaskWorkHandling.class.getName());
     private List<TRPXMeasurementTaskWorkData> TaskUnits = Collections.synchronizedList(new LinkedList<>());  // ????
@@ -454,4 +455,30 @@ public class MeasurementTaskWorkHandling {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
+    public int DefineFirstUnhandledGroup() throws SQLException {
+        int iRet = INT_RET_NOT_OK;
+        try {
+            String SQL = "exec dbo.TRPX_DefineFirstUnhandledGroup;";
+            logger.info("SQL = " + SQL);
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            logger.info(" iRet = " + iRet);
+            if(iRet==0) {
+                iRet=INT_RET_OK;
+            }
+            stmt.close();
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
 }
+
+

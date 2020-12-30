@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.CONSTANT.INT_RET_OK;
-import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.GSqlServerConnectionType;
 import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
 
 public class StartOmniaClient {

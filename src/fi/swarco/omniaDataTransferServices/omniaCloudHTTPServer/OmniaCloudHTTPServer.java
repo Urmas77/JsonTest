@@ -6,6 +6,7 @@ package fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer;
         import com.sun.net.httpserver.HttpExchange;
         import com.sun.net.httpserver.HttpHandler;
         import com.sun.net.httpserver.HttpServer;
+        import fi.swarco.SwarcoEnumerations;
         import fi.swarco.connections.ConWrapper;
         import fi.swarco.dataHandling.MakeReceiveJsonOperations;
         import fi.swarco.properties.JSwarcoproperties;
@@ -15,6 +16,9 @@ package fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer;
         import static fi.swarco.CONSTANT.MESSAGE_RECEIVED_OK;
         import static fi.swarco.CONSTANT.*;
 public class OmniaCloudHTTPServer {
+    public static  void setOmniaServerName(String pOmniaServerName ) {GOmniaHttpServerName = pOmniaServerName;};
+    public static String getOmniaServerName() { return GOmniaHttpServerName;};
+    public static  String GOmniaHttpServerName =NO_VALUE;
     private static Logger logger = Logger.getLogger(OmniaCloudHTTPServer.class.getName());
     private static JSwarcoproperties swarvop;
     public static void main(String[] args) {
@@ -32,9 +36,9 @@ public class OmniaCloudHTTPServer {
             System.out.println("Ei argumentteja ");
         } else if  (args.length==1) {
             strServer = args[0];
+            setOmniaServerName(strServer);
             System.out.println("strServer = " + strServer);
         }
-        cW1 = new ConWrapper();
         cW1 =swarvop.FillServerWrapper(strServer);
         logger.info("cW1.getHttpServerPort() = " + cW1.getHttpServerPort());
         strServerPort=cW1.getHttpServerPort();
@@ -48,7 +52,7 @@ public class OmniaCloudHTTPServer {
 //            HttpServer server = HttpServer.create(new InetSocketAddress(8888), 0);
             server.createContext("/", new MyHandlerOmniaJson());
             server.setExecutor(null); // creates a default executor
-            logger.info("Entering application.");
+            logger.info("Entering application. server.toString() =" + server.toString());
             server.start();
         } catch (Exception e) {
             logger.info(ExceptionUtils.getRootCauseMessage(e));
@@ -56,7 +60,6 @@ public class OmniaCloudHTTPServer {
             logger.info("e.getMessage() =" + e.getMessage());
         }
     }
-
     static class MyHandlerOmniaJson implements HttpHandler {
         @Override
         public void handle(HttpExchange t) throws IOException {
@@ -66,8 +69,8 @@ public class OmniaCloudHTTPServer {
             String method = t.getRequestMethod();
             String path = t.getRequestURI().getPath();
             String uquery = t.getRequestURI().getQuery();
-         //   logger.info(" t.getRequestURI().getPath() path = " + path);
-         //   logger.info("uquery                            =" + uquery);
+           logger.info(" t.getRequestURI().getPath() path = " + path);
+            logger.info("uquery                            =" + uquery);
             logger.info("method =" + method);
             String response1 = "Hello, world!";
             String response2 = "Hello, wrong world!";
