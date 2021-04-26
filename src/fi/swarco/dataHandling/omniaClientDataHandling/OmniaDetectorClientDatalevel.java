@@ -11,6 +11,7 @@ package fi.swarco.dataHandling.omniaClientDataHandling;
         import fi.swarco.dataHandling.pojos.OmniaDetector;
         import fi.swarco.dataHandling.pojos.OmniaDetectorServer;
         import fi.swarco.dataHandling.pojos.influx.InfluxSqlToTimeSerie;
+        import fi.swarco.dataHandling.queriesSql.sqlServer.GetDetectorOmniviewSqlServerData;
         import fi.swarco.dataHandling.queriesSql.sqlServer.GetDetectorSqlServerData;
         import fi.swarco.dataHandling.queriesSql.sqlServer.GetVisibleDetectorsSqlServerData;
         import fi.swarco.influxoperations.InfluxDBOwn;
@@ -159,7 +160,7 @@ public class OmniaDetectorClientDatalevel {
         GetDetectorSqlServerData st = new GetDetectorSqlServerData();
         SQL =st.getStatement() ;
  //       logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
- //       logger.info("SQL = " +SQL);
+         logger.info("SQL = " +SQL);
         int pos=0;
         OmniaDetector ce;
         try {
@@ -174,27 +175,49 @@ public class OmniaDetectorClientDatalevel {
             logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 ce = new OmniaDetector();
+   //             logger.info(" rs.getLong(1) =" +rs.getLong(1));
                 ce.setOmniaCode(rs.getLong(1));
+   //             logger.info(" rs.getString(2) =" +rs.getString(2));
                 ce.setOmniaName(rs.getString(2));
+   //             logger.info(" rs.getLong(3) =" +rs.getLong(3));
                 ce.setOmniaPublicationStatus(rs.getLong(3));
+    //            logger.info(" rs.getLong(4) =" +rs.getLong(4));
                 ce.setIntersectionId(rs.getLong(4));
+      //          logger.info(" rs.getLong(5) =" +rs.getLong(5));
                 ce.setControllerId(rs.getLong(5));
+       //         logger.info(" rs.getLong(6) =" +rs.getLong(6));
                 ce.setDetectorId(rs.getLong(6));
+       //         logger.info(" rs.getLong(7) =" +rs.getLong(7));
                 ce.setDetectorTypeId(rs.getLong(7));
+        //        logger.info(" rs.getLong(8) =" +rs.getLong(8));
                 ce.setDetectorProgressId(rs.getLong(8));
+         //       logger.info(" rs.getString(9) =" +rs.getString(9));
                 ce.setDetectorMaintenanceCode(rs.getString(9));
+          //      logger.info(" rs.getLong(10) =" +rs.getLong(10));
                 ce.setDetectorMeasurementStationId(rs.getLong(10));
+           //     logger.info(" rs.getString(11) =" +rs.getString(11));
                 ce.setDetectorExternalCode(rs.getString(11));
+           //     logger.info(" rs.getLong(12) =" +rs.getLong(12));
                 ce.setDetectorSubSystemId(rs.getLong(12));
+            //    logger.info(" rs.getLong(13) =" +rs.getLong(13));
                 ce.setDetectorUnitId(rs.getLong(13));
+            //    logger.info(" rs.getLong(14) =" +rs.getLong(14));
                 ce.setDetectorVisible(rs.getLong(14));
+            //    logger.info(" rs.getLong(15) =" +rs.getLong(15));
                 ce.setDetectorDeleted(rs.getLong(15));
+             //   logger.info(" rs.getString(16) =" +rs.getString(16));
                 ce.setDetectorDataPreviousUpdate(rs.getString(16));
+             //   logger.info(" rs.getString(17) =" +rs.getString(17));
                 ce.setDetectorGuid(rs.getString(17));
+             //   logger.info(" rs.getString(18) =" +rs.getString(18));
                 ce.setDetectorDescription(rs.getString(18));
+             //   logger.info(" rs.getLong(19) =" +rs.getLong(19));
                 ce.setDetectorAreaId(rs.getLong(19));
+             //   logger.info(" rs.getString(20) =" +rs.getString(20));
                 ce.setCreated(rs.getString(20));
+           //     logger.info(" rs.getLong(21) =" +rs.getLong(21));
                 ce.setDetectorObjectPriorityId(rs.getLong(21));
+           //     logger.info(" rs.getLong(22) =" +rs.getLong(22));
                 ce.setDetectorParkingHouseId(rs.getLong(22));
                 stmt.close();
                 rs.close();
@@ -215,6 +238,95 @@ public class OmniaDetectorClientDatalevel {
             return ce;
         }
     }
+    private OmniaDetector GetOmniviewDetectorData (long plngControllerId,long plngDetectorId, String pstrTimestamp) throws SQLException {
+// there is only one element
+        String SQL="";
+        java.sql.PreparedStatement stmt;
+     //   logger.info(" SqlConnectionType =" + SqlConnectionType);
+     //   logger.info("Start ");
+        GetDetectorOmniviewSqlServerData st = new GetDetectorOmniviewSqlServerData();
+        SQL =st.getStatement() ;
+        //       logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
+     //   logger.info( "plngControllerId = "+ plngControllerId+ " plngDetectorId = "+ plngDetectorId + " pstrTimestamp = "+pstrTimestamp);
+     //   logger.info("SQL = " +SQL);
+        int pos=0;
+        OmniaDetector ce;
+        try {
+            stmt = gSqlCon.prepareStatement(SQL);
+            pos=1;   // 1
+            stmt.setLong(pos, plngControllerId);
+            pos=pos+1;
+            stmt.setLong(pos,plngDetectorId);
+            pos=pos+1;
+            java.sql.Timestamp  tStamp=java.sql.Timestamp.valueOf(pstrTimestamp);
+            stmt.setTimestamp(pos,tStamp);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+       //     logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+            while (rs.next()) {
+                ce = new OmniaDetector();
+         //       logger.info(" rs.getLong(1) =" +rs.getLong(1));
+                ce.setOmniaCode(rs.getLong(1));
+         //       logger.info(" rs.getString(2) =" +rs.getString(2));
+                ce.setOmniaName(rs.getString(2));
+         //       logger.info(" rs.getLong(3) =" +rs.getLong(3));
+                ce.setOmniaPublicationStatus(rs.getLong(3));
+          //      logger.info(" rs.getLong(4) =" +rs.getLong(4));
+                ce.setIntersectionId(rs.getLong(4));
+          //      logger.info(" rs.getLong(5) =" +rs.getLong(5));
+                ce.setControllerId(rs.getLong(5));
+          //      logger.info(" rs.getLong(6) =" +rs.getLong(6));
+                ce.setDetectorId(rs.getLong(6));
+          //      logger.info(" rs.getLong(7) =" +rs.getLong(7));
+                ce.setDetectorTypeId(rs.getLong(7));
+          //      logger.info(" rs.getLong(8) =" +rs.getLong(8));
+                ce.setDetectorProgressId(rs.getLong(8));
+          //      logger.info(" rs.getString(9) =" +rs.getString(9));
+                ce.setDetectorMaintenanceCode(rs.getString(9));
+          //      logger.info(" rs.getLong(10) =" +rs.getLong(10));
+                ce.setDetectorMeasurementStationId(rs.getLong(10));
+           //     logger.info(" rs.getString(11) =" +rs.getString(11));
+                ce.setDetectorExternalCode(rs.getString(11));
+           //     logger.info(" rs.getLong(12) =" +rs.getLong(12));
+                ce.setDetectorSubSystemId(rs.getLong(12));
+           //     logger.info(" rs.getLong(13) =" +rs.getLong(13));
+                ce.setDetectorUnitId(rs.getLong(13));
+           //     logger.info(" rs.getLong(14) =" +rs.getLong(14));
+                ce.setDetectorVisible(rs.getLong(14));
+           //     logger.info(" rs.getLong(15) =" +rs.getLong(15));
+                ce.setDetectorDeleted(rs.getLong(15));
+            //    logger.info(" rs.getString(16) =" +rs.getString(16));
+                ce.setDetectorDataPreviousUpdate(rs.getString(16));
+            //    logger.info(" rs.getString(17) =" +rs.getString(17));
+                ce.setDetectorDescription(rs.getString(17));
+            //    logger.info(" rs.getLong(18) =" +rs.getLong(18));
+                ce.setDetectorAreaId(rs.getLong(18));
+            //    logger.info(" rs.getString(19) =" +rs.getString(19));
+                ce.setCreated(rs.getString(19));
+            //    logger.info(" rs.getLong(20) =" +rs.getLong(20));
+                ce.setDetectorObjectPriorityId(rs.getLong(20));
+            //    logger.info(" rs.getLong(21) =" +rs.getLong(21));
+                ce.setDetectorParkingHouseId(rs.getLong(21));
+                stmt.close();
+                rs.close();
+                return ce;
+            }
+            stmt.close();
+            rs.close();
+            ce = new OmniaDetector();
+            ce.MakeEmptyElement();
+            return ce;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            ce= new OmniaDetector();
+            ce.MakeEmptyElement();
+            gSqlCon.close();
+            return ce;
+        }
+    }
+
     private  String  GetDetectorJsonString(OmniaDetector pCe) {
         int iRet=0;
         String strHelp1=NO_VALUE;
@@ -245,5 +357,11 @@ public class OmniaDetectorClientDatalevel {
             DataUnits.add(cc);
         }
         return DataUnits;
+    }
+
+    public String GetDetectorJsonDataOmniview(long plngControllerId ,long plngDetectorId, String pstrTimestamp) throws SQLException {
+        OmniaDetector ce = GetOmniviewDetectorData(plngControllerId,plngDetectorId, pstrTimestamp);
+        String strHelp1 = GetDetectorJsonString(ce);
+        return strHelp1;
     }
 }

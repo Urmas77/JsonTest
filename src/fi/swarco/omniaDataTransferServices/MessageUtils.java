@@ -85,6 +85,10 @@ public class MessageUtils {
     }
     public String CutJsonMessage(String pJson) {
         String strHelp1;
+        if (pJson.indexOf(TT_CONTROLLER_STATUS_DATA_INSERT) == 0) {
+            strHelp1 = pJson.substring(TT_CONTROLLER_STATUS_DATA_INSERT.length());
+            return strHelp1;
+        }
         if (pJson.indexOf(TT_MEASUREMENT_DATA_INSERT) == 0) {
             strHelp1 = pJson.substring(TT_MEASUREMENT_DATA_INSERT.length());
             return strHelp1;
@@ -108,10 +112,9 @@ public class MessageUtils {
         return pJson ;   // current situation nothing to cut RETHINK JIs 15.10 2019
     }
     public String GetJsonMessageType(String pJson) {
-//        public static final String  TT_MEASUREMENT_DATA_INSERT="MEASUREMENTDATAINSERT";
-//        public static final String  TT_CONTROLLER_DATA_CHANGE="CONTROLLERDATACHANGE";
-//        public static final String  TT_DETECTOR_DATA_CHANGE="DETECTORDATACHANGE";                    //  1234567890123456789012345678901234567890
-//        public static final String  TT_NOT_DEFINED="NOTDEFINED";
+        if (pJson.indexOf(TT_CONTROLLER_STATUS_DATA_INSERT) == 0) {
+            return TT_CONTROLLER_STATUS_DATA_INSERT;
+        }
         if (pJson.indexOf(TT_MEASUREMENT_DATA_INSERT) == 0) {
             return TT_MEASUREMENT_DATA_INSERT;
         }

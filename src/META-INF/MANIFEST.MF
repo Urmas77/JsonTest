@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Main-Class: fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer.Omn
- iaCloudHTTPServer
+Main-Class: fi.swarco.omniaDataTransferServices.omniviewClient.OmniviewC
+ lient
 Class-Path: . log4j-1.2.17.jar annotations-17.0.0.jar commons-lang-2.6.j
  ar commons-lang3-3.9.jar DateAdapterJ-1.1.4.jar gson-2.8.5.jar httpclie
  nt-4.1.2.jar javax.json-api-1.1.4.jar mssql-jdbc-7.2.2.jre8.jar mysql-c

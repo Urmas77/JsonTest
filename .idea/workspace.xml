@@ -5,7 +5,7 @@
   </component>
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="OmniaHttpServer" />
+      <artifact name="OmniaClient" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -17,31 +17,58 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9846a0e7-31a3-41ef-a568-a11f339761b7" name="Default Changelist" comment="30.12 keskellä helsinkiasennuksia välitalletus &#10;Lisätty alkua DebtClientille &#10;-- device groups">
-      <change afterPath="$PROJECT_DIR$/src/META-INF/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetMeasurementShortSqlServerDataGroup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/debtClient/DebtClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/OmniewClient.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/connections/DualConWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/ControllerStatusClientDataLevel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/OmniaControllerStatusListDataLevel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaControllerStatusData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaControllerStatusDataJson.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/InsertOmniaControllerStatusDataMySql.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectOmniaControllerStatusDataMySqlWhere.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetControllerStatusSqlServerDataGroup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetDetectorOmniviewSqlServerData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/JiMeasurementStorageTaskSelectSqlServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/JiMeasurementStorageTaskWorkSelectSqlServer.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/debtClient/MakeDebtPayments.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/debtClient/MeasurementStorageTaskHandling.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/debtClient/MeasurementStorageTaskWorkHandling.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniviewClient/GetOmniviewData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniviewClient/OmniviewClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniviewClient/StartOmniviewClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/swarco.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/CONSTANT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/CONSTANT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/connections/ConWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/connections/ConWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/SwarcoEnumerations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/SwarcoEnumerations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendTimeSeriesOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendTimeSeriesOperations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskWorkHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskWorkHandling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/RawDataDataListLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/RawDataDataListLevel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsShortClientDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsShortClientDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaDetectorClientDatalevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaDetectorClientDatalevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaIntesectionControllerClientDatalevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaIntesectionControllerClientDatalevel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaDetector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaDetector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementDataShort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementDataShort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementDataShortJson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaMeasurementDataShortJson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/InsertOmniaMeasurementDataShortMySql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/InsertOmniaMeasurementDataShortMySql.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectDetectorDataMySqlWhere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectDetectorDataMySqlWhere.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectMeasurementDataShortMySqlWhere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectMeasurementDataShortMySqlWhere.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/JiMeasurementTaskSelectSqlServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/JiMeasurementTaskSelectSqlServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/MessageUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/MessageUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/MakeSendMessage.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/OmniaClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/StartOmniaClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/StartOmniaClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaCloudHTTPServer/OmniaCloudHTTPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaCloudHTTPServer/OmniaCloudHTTPServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/swarco.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/swarco.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/log4j.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/swarco.properties" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +103,29 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaDetector.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniviewClient/GetOmniviewData.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaIntersectionData.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskWorkHandling.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaDetectorClientDatalevel.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/mySQL/SelectDetectorDataMySqlWhere.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/fi/swarco/dataHandling/queriesSql/sqlServer/GetDetectorOmniviewSqlServerData.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
   <component name="ProjectId" id="1OVVhVipmapTEUdifBHH05qFgP2" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -104,7 +154,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/META-INF" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/org" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -121,18 +171,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\TFS\IntelliJ\JsonTest\src\META-INF" />
+      <recent name="C:\TFS\IntelliJ\JsonTest\src\org" />
       <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco" />
+      <recent name="C:\TFS\IntelliJ\JsonTest\src\META-INF" />
       <recent name="C:\TFS\IntelliJ\JsonTest\src" />
       <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco\influxdb" />
-      <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco\Influxdb" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\TFS\IntelliJ\JsonTest\src" />
-      <recent name="C:\TFS\IntelliJ\JsonTest\lib" />
-      <recent name="C:\TFS\IntelliJ\JsonTest" />
-      <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco\properties" />
+      <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco" />
       <recent name="C:\TFS\IntelliJ\JsonTest\src\META-INF" />
+      <recent name="C:\TFS\IntelliJ\JsonTest\src\fi\swarco\properties" />
+      <recent name="C:\TFS\IntelliJ\JsonTest\src\org" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="fi.swarco.influxoperations" />
@@ -158,6 +208,14 @@
     <configuration name="MakeSendJsonOperations" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="fi.swarco.dataHandling.MakeSendJsonOperations" />
       <module name="JsonTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OmniViewClient" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="fi.swarco.omniaDataTransferServices.omniviewClient.OmniviewClient" />
+      <module name="JsonTest" />
+      <option name="PROGRAM_PARAMETERS" value="helsinkiomniview" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -271,18 +329,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.OmniViewClient" />
       <item itemvalue="Application.OmniacCientHelsinkiOmniview" />
       <item itemvalue="Application.MakeSendJsonOperations" />
       <item itemvalue="Application.OmniaClient" />
@@ -614,7 +675,43 @@
       <workItem from="1608647873728" duration="11893000" />
       <workItem from="1608716244181" duration="4081000" />
       <workItem from="1609143357729" duration="5892000" />
-      <workItem from="1609168636363" duration="26481000" />
+      <workItem from="1609168636363" duration="26970000" />
+      <workItem from="1609413560229" duration="1357000" />
+      <workItem from="1609756911829" duration="100000" />
+      <workItem from="1609757056375" duration="23648000" />
+      <workItem from="1610049070244" duration="6603000" />
+      <workItem from="1610958134504" duration="1256000" />
+      <workItem from="1611820619561" duration="660000" />
+      <workItem from="1612432921263" duration="241000" />
+      <workItem from="1612433211381" duration="23679000" />
+      <workItem from="1612946530952" duration="20948000" />
+      <workItem from="1613028537033" duration="8870000" />
+      <workItem from="1613039296130" duration="37269000" />
+      <workItem from="1613121934651" duration="25739000" />
+      <workItem from="1613380371637" duration="534000" />
+      <workItem from="1613380979752" duration="240000" />
+      <workItem from="1613381582360" duration="32683000" />
+      <workItem from="1613470879168" duration="27000" />
+      <workItem from="1613470937319" duration="14423000" />
+      <workItem from="1613977250471" duration="16988000" />
+      <workItem from="1614186247496" duration="6039000" />
+      <workItem from="1614627066471" duration="10387000" />
+      <workItem from="1615143118948" duration="623000" />
+      <workItem from="1615297506558" duration="21000" />
+      <workItem from="1615369915260" duration="627000" />
+      <workItem from="1615549145242" duration="20685000" />
+      <workItem from="1616139085633" duration="156000" />
+      <workItem from="1616139506346" duration="16253000" />
+      <workItem from="1616404174350" duration="3237000" />
+      <workItem from="1617049437436" duration="26821000" />
+      <workItem from="1617863497003" duration="51969000" />
+      <workItem from="1618222166532" duration="158000" />
+      <workItem from="1618222386199" duration="15611000" />
+      <workItem from="1618262180311" duration="1631000" />
+      <workItem from="1618295540746" duration="27923000" />
+      <workItem from="1618425018404" duration="7696000" />
+      <workItem from="1618988639871" duration="656000" />
+      <workItem from="1619437620452" duration="1452000" />
     </task>
     <task id="LOCAL-00001" summary="Eka committi">
       <created>1569300763657</created>
@@ -735,7 +832,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607414361880</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="30.12 keskellä helsinkiasennuksia välitalletus &#10;Lisätty alkua DebtClientille &#10;-- device groups">
+      <created>1609332467631</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1609332467631</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -868,11 +972,6 @@
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/ReandJsonfromOmniaDb.java</url>
           <line>84</line>
           <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/messageHandling/HtppRequestWrapper.java</url>
@@ -1016,7 +1115,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/MessageUtils.java</url>
-          <line>159</line>
+          <line>162</line>
           <option name="timeStamp" value="162" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1026,13 +1125,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/MessageUtils.java</url>
-          <line>137</line>
+          <line>140</line>
           <option name="timeStamp" value="167" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="199" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/TRPXMeasurementTaskData.java</url>
@@ -1046,7 +1140,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaIntesectionControllerClientDatalevel.java</url>
-          <line>287</line>
+          <line>369</line>
           <option name="timeStamp" value="206" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1056,7 +1150,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/MessageUtils.java</url>
-          <line>169</line>
+          <line>172</line>
           <option name="timeStamp" value="208" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1076,42 +1170,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>183</line>
-          <option name="timeStamp" value="215" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>449</line>
+          <line>458</line>
           <option name="timeStamp" value="217" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>305</line>
+          <line>315</line>
           <option name="timeStamp" value="218" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>312</line>
+          <line>322</line>
           <option name="timeStamp" value="219" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>368</line>
+          <line>378</line>
           <option name="timeStamp" value="220" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>352</line>
+          <line>362</line>
           <option name="timeStamp" value="221" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>431</line>
-          <option name="timeStamp" value="222" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaDetectorClientDatalevel.java</url>
-          <line>235</line>
+          <line>347</line>
           <option name="timeStamp" value="224" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1125,33 +1209,8 @@
           <option name="timeStamp" value="226" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>315</line>
-          <option name="timeStamp" value="227" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>316</line>
-          <option name="timeStamp" value="228" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>319</line>
-          <option name="timeStamp" value="229" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>320</line>
-          <option name="timeStamp" value="230" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>326</line>
-          <option name="timeStamp" value="231" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/MessageUtils.java</url>
-          <line>156</line>
+          <line>159</line>
           <option name="timeStamp" value="234" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1161,22 +1220,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>236</line>
+          <line>249</line>
           <option name="timeStamp" value="237" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>49</line>
+          <line>48</line>
           <option name="timeStamp" value="238" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>148</line>
+          <line>147</line>
           <option name="timeStamp" value="241" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>140</line>
+          <line>139</line>
           <option name="timeStamp" value="242" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1185,7 +1244,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>668</line>
+          <line>891</line>
           <option name="timeStamp" value="255" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1205,12 +1264,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskWorkHandling.java</url>
-          <line>251</line>
+          <line>281</line>
           <option name="timeStamp" value="281" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskWorkHandling.java</url>
-          <line>165</line>
+          <line>195</line>
           <option name="timeStamp" value="282" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1310,7 +1369,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendTimeSeriesOperations.java</url>
-          <line>229</line>
+          <line>228</line>
           <option name="timeStamp" value="341" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1322,11 +1381,6 @@
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendTimeSeriesOperations.java</url>
           <line>67</line>
           <option name="timeStamp" value="345" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java</url>
-          <line>461</line>
-          <option name="timeStamp" value="346" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/controlandalarms/AlarmHandling.java</url>
@@ -1359,169 +1413,269 @@
           <option name="timeStamp" value="376" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="378" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/properties/JSwarcoproperties.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="383" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java</url>
-          <line>230</line>
+          <line>232</line>
           <option name="timeStamp" value="385" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java</url>
-          <line>261</line>
+          <line>263</line>
           <option name="timeStamp" value="386" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java</url>
-          <line>301</line>
+          <line>303</line>
           <option name="timeStamp" value="387" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>115</line>
-          <option name="timeStamp" value="401" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>954</line>
-          <option name="timeStamp" value="404" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>964</line>
+          <line>1186</line>
           <option name="timeStamp" value="409" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="414" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaMeasurementShortListDataLevel.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="415" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>1522</line>
-          <option name="timeStamp" value="419" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>281</line>
-          <option name="timeStamp" value="420" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsShortClientDataLevel.java</url>
-          <line>57</line>
-          <option name="timeStamp" value="421" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>274</line>
-          <option name="timeStamp" value="422" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/DetectorMeasurementsShortClientDataLevel.java</url>
-          <line>94</line>
-          <option name="timeStamp" value="425" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java</url>
-          <line>63</line>
+          <line>62</line>
           <option name="timeStamp" value="426" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>1529</line>
-          <option name="timeStamp" value="427" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>195</line>
-          <option name="timeStamp" value="428" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>200</line>
-          <option name="timeStamp" value="429" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java</url>
-          <line>66</line>
+          <line>65</line>
           <option name="timeStamp" value="430" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaClient/GetOmniaData.java</url>
-          <line>83</line>
+          <line>82</line>
           <option name="timeStamp" value="431" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>124</line>
-          <option name="timeStamp" value="432" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>116</line>
-          <option name="timeStamp" value="433" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
-          <line>191</line>
-          <option name="timeStamp" value="434" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>1524</line>
-          <option name="timeStamp" value="435" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>1525</line>
-          <option name="timeStamp" value="436" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>1526</line>
-          <option name="timeStamp" value="437" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>1534</line>
-          <option name="timeStamp" value="438" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
-          <line>1535</line>
-          <option name="timeStamp" value="439" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/fi/swarco/connections/SwarcoConnections.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="443" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
-          <line>125</line>
+          <line>147</line>
           <option name="timeStamp" value="447" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>433</line>
+          <line>443</line>
           <option name="timeStamp" value="448" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/DetectorServerListDataLevel.java</url>
-          <line>425</line>
+          <line>435</line>
           <option name="timeStamp" value="449" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaIntesectionControllerClientDatalevel.java</url>
+          <line>137</line>
+          <option name="timeStamp" value="466" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaIntesectionControllerClientDatalevel.java</url>
+          <line>177</line>
+          <option name="timeStamp" value="467" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
+          <line>1962</line>
+          <option name="timeStamp" value="468" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>428</line>
+          <option name="timeStamp" value="469" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaIntesectionControllerClientDatalevel.java</url>
+          <line>387</line>
+          <option name="timeStamp" value="470" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>633</line>
+          <option name="timeStamp" value="472" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>610</line>
+          <option name="timeStamp" value="473" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaClientDataHandling/OmniaDetectorClientDatalevel.java</url>
+          <line>160</line>
+          <option name="timeStamp" value="476" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>456</line>
+          <option name="timeStamp" value="477" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
+          <line>1931</line>
+          <option name="timeStamp" value="478" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/pojos/OmniaDetector.java</url>
+          <line>209</line>
+          <option name="timeStamp" value="479" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
+          <line>1682</line>
+          <option name="timeStamp" value="489" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
+          <line>2100</line>
+          <option name="timeStamp" value="494" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskWorkHandling.java</url>
+          <line>491</line>
+          <option name="timeStamp" value="496" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
+          <line>1624</line>
+          <option name="timeStamp" value="498" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
+          <line>2075</line>
+          <option name="timeStamp" value="500" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="519" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="520" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="522" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>85</line>
+          <option name="timeStamp" value="523" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="524" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/omniaDataTransferServices/omniaCloudHTTPServer/OmniaCloudHTTPServer.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="527" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
+          <line>1896</line>
+          <option name="timeStamp" value="528" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>301</line>
+          <option name="timeStamp" value="529" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>236</line>
+          <option name="timeStamp" value="530" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>280</line>
+          <option name="timeStamp" value="531" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
+          <line>2019</line>
+          <option name="timeStamp" value="532" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>252</line>
+          <option name="timeStamp" value="534" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>382</line>
+          <option name="timeStamp" value="535" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
+          <line>1911</line>
+          <option name="timeStamp" value="536" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>402</line>
+          <option name="timeStamp" value="537" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>137</line>
+          <option name="timeStamp" value="538" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="539" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>101</line>
+          <option name="timeStamp" value="540" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="541" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="542" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>98</line>
+          <option name="timeStamp" value="543" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeReceiveJsonOperations.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="544" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/omniaServerDataHandling/OmniaControllerStatusListDataLevel.java</url>
+          <line>235</line>
+          <option name="timeStamp" value="545" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MeasurementTaskHandling.java</url>
+          <line>1776</line>
+          <option name="timeStamp" value="546" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>678</line>
+          <option name="timeStamp" value="547" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>662</line>
+          <option name="timeStamp" value="548" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/fi/swarco/dataHandling/MakeSendJsonOperations.java</url>
+          <line>677</line>
+          <option name="timeStamp" value="550" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="com.microsoft.sqlserver.jdbc.SQLServerException" package="com.microsoft.sqlserver.jdbc" />
@@ -1536,13 +1690,13 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/JsonTest$T7.ic" NAME="T7 Coverage Results" MODIFIED="1572442915880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>fi.swarco.testPrograms.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/JsonTest$T10.ic" NAME="T10 Coverage Results" MODIFIED="1606222052476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>fi.swarco.testPrograms.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/JsonTest$OmniaClient.ic" NAME="OmniaClient Coverage Results" MODIFIED="1606125715434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/JsonTest$T7.ic" NAME="T7 Coverage Results" MODIFIED="1572442915880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>fi.swarco.testPrograms.*</FILTER>
-    </SUITE>
     <SUITE FILE_PATH="coverage/JsonTest$ReandJsonfromOmniaDb.ic" NAME="ReandJsonfromOmniaDb Coverage Results" MODIFIED="1560854127673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>fi.swarco.*</FILTER>
     </SUITE>

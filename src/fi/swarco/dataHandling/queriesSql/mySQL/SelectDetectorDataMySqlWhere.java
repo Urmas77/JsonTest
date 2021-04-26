@@ -33,8 +33,10 @@ public class SelectDetectorDataMySqlWhere {
         statement = statement + "DetectorParkingHouseId ";
         statement = statement + " from DetectorData ";
         statement = statement + "  where OmniaCode = ? and ";
+        statement = statement + "IntersectionId = ? and ";
+        statement = statement + " ControllerId =?  and  ";
         statement = statement + "  DetectorId = ? ; ";
-       logger.info("statement = " + statement);
+   //    logger.info("statement = " + statement);
     }
 }
 

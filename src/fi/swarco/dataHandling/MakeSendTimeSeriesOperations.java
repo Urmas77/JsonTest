@@ -98,12 +98,11 @@ public class MakeSendTimeSeriesOperations {
         logger.info("No JsonMeasurementData! ");
         return OMNIA_DATA_PICK_NOT_OK;
     }
-
     private int MakeSpareOperations(TRPXMeasurementTaskData pCe) throws SQLException {
         String strHelp1;
         int iRet;
         LogUtilities mfl = new LogUtilities();
-        strHelp1 = th.getPermanentSqlDataSpare(pCe.getIntersectionId(), pCe.getControllerId());
+        strHelp1 = th.GetPermanentSqlDataSpare(pCe.getIntersectionId(), pCe.getControllerId());
         logger.info("spare strHelp1 = " + strHelp1);
         if (strHelp1.equals(NO_VALUE)) {   // Still no data
             iRet = th.UpdateTaskFromDbForClearance(pCe);

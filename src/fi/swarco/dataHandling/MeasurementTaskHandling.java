@@ -13,7 +13,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
-
+import static fi.swarco.omniaDataTransferServices.omniviewClient.OmniviewClient.GMaxClientMaxControllersInMessage;
 public class MeasurementTaskHandling {
     private static Logger logger = Logger.getLogger(MeasurementTaskHandling.class.getName());
     private List<TRPXMeasurementTaskData> TaskUnits = Collections.synchronizedList(new LinkedList<>());  // ????
@@ -35,6 +35,63 @@ public class MeasurementTaskHandling {
         gSqlCon = vg.getSqlCon();
         return INT_RET_OK;
     }
+    public int  CountOmniviewWorkTypes()  throws SQLException {
+        int iRet=0;
+        String SQL;
+        try {
+            SQL = "select COUNT(*)  from TRPX_MeasurementTask_work ";
+            SQL = SQL + "where tasktype not in  ";
+            SQL = SQL +  "(select top 1  tasktype  from TRPX_MeasurementTask_work);";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
+                return iRet;
+            }
+            stmt.close();
+            rs.close();
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION ;
+        }
+    }
+    public String  GetFirstUndoneOmniviewTaskWorktype()  throws SQLException {
+        String strRet=TT_NOT_DEFINED;
+        try {
+            String SQL = "select distinct tasktype from TRPX_MeasurementTask_Work;";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                strRet = rs.getString(1);
+                stmt.close();
+                rs.close();
+                return strRet;
+            }
+            stmt.close();
+            rs.close();
+            return strRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return  TT_NOT_DEFINED;
+        }
+    }
     public int MeasurementTaskDataList() throws SQLException {
         TaskUnits.clear();
         String SQL;
@@ -42,8 +99,8 @@ public class MeasurementTaskHandling {
         ResultSet rs;
         JiMeasurementTaskSelectSqlServer st = new JiMeasurementTaskSelectSqlServer();
         SQL = st.getStatement();
-  //      logger.info("SqlConnectionTypeyyyy= " + SqlConnectionType);
-  //      logger.info("SQL = " + SQL);
+     //   logger.info("SqlConnectionTypeyyyy= " + SqlConnectionType);
+     //   logger.info("SQL = " + SQL);
         TRPXMeasurementTaskData ce;
         try {
             stmt = gSqlCon.prepareStatement(SQL);
@@ -70,7 +127,7 @@ public class MeasurementTaskHandling {
                 TaskUnits.add(ce);
                 return NO_TASK_LIST;
             }
-         //   logger.info("bef ret iRet OK");
+            //   logger.info("bef ret iRet OK");
             return INT_RET_OK;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,11 +140,70 @@ public class MeasurementTaskHandling {
             return NO_TASK_LIST;
         }
     }
+
+
     public int AnyWorkWork() throws SQLException{
         int iRet = INT_RET_NOT_OK;
         try {
             String SQL = "select count(*) from TRPX_MeasurementTask_Work;";
             java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
+                return iRet;
+            }
+            stmt.close();
+            rs.close();
+            logger.info("AnyWork iRet = " + iRet);
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int AnyWork() throws SQLException{
+        int iRet = INT_RET_NOT_OK;
+        try {
+            String SQL = "select count(*) from TRPX_MeasurementTask;";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+             while (rs.next()) {
+                iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
+                return iRet;
+            }
+            stmt.close();
+            rs.close();
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int AnyWorkMeasurementsOmniview() throws SQLException{
+    // JIs 11.2 2021 klo 11:15
+        int iRet = INT_RET_NOT_OK;
+        try {
+            java.sql.PreparedStatement stmt;
+            String SQL = "select count(*) from TRPX_MeasurementTask_WORK where taskType='MEASUREMENTDATAINSERT';";
             stmt = gSqlCon.prepareStatement(SQL);
             ResultSet rs;
             rs = stmt.executeQuery();
@@ -110,16 +226,16 @@ public class MeasurementTaskHandling {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int AnyWork() throws SQLException{
+    public int AnyWorkControllerStatusOmniview() throws SQLException{
+        // JIs 9.4 2021 klo 10:25
         int iRet = INT_RET_NOT_OK;
         try {
-            String SQL = "select count(*) from TRPX_MeasurementTask;";
             java.sql.PreparedStatement stmt;
+            String SQL = "select count(*) from TRPX_MeasurementTask_WORK where taskType='CONTROLLERSTATUSDATAINSERT';";
             stmt = gSqlCon.prepareStatement(SQL);
             ResultSet rs;
             rs = stmt.executeQuery();
-            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
-             while (rs.next()) {
+            while (rs.next()) {
                 iRet = rs.getInt(1);
                 stmt.close();
                 rs.close();
@@ -223,6 +339,113 @@ public class MeasurementTaskHandling {
         int iRet = INT_RET_NOT_OK;
         try {
             String SQL = "select count(*) from TRPX_MeasurementTask where taskType='DETECTORDATACHANGE';";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
+                return iRet;
+            }
+            stmt.close();
+            rs.close();
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int AnyWorkIntersectionOmniview() throws SQLException{
+        int iRet = INT_RET_NOT_OK;
+        try {
+            String SQL = "select count(*) from TRPX_MeasurementTask_Work  where taskType='INTERSECTIONDATACHANGE' ;";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
+                return iRet;
+            }
+            stmt.close();
+            rs.close();
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int CreateNeededPermanentDataWorks()  throws SQLException{
+        int iRet;
+        try {
+            java.sql.PreparedStatement stmt;
+            String SQL = " [dbo].[TRPX_CreateNeededPermanentDataTransferWorks]  ";
+        //    logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
+                return iRet;
+            }
+            iRet = INT_RET_OK;
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int AnyWorkControllerOmniview() throws SQLException{
+        int iRet = INT_RET_NOT_OK;
+        try {
+            String SQL = "select count(*) from TRPX_MeasurementTask_Work  where taskType='CONTROLLERDATACHANGE';";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
+                return iRet;
+            }
+            stmt.close();
+            rs.close();
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int AnyWorkDetectorOmniview() throws SQLException{
+        int iRet = INT_RET_NOT_OK;
+        try {
+            String SQL = "select count(*) from TRPX_MeasurementTask_Work where taskType='DETECTORDATACHANGE';";
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             ResultSet rs;
@@ -952,10 +1175,9 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
     }
     public TRPXMeasurementTaskData GetFirstUndoneTaskFromList() {
         TRPXMeasurementTaskData ce = new TRPXMeasurementTaskData();
-   //     logger.info("TaskUnits.size()= " + TaskUnits.size());
-        for (int i = 0; i < TaskUnits.size(); i++) {
+           for (int i = 0; i < TaskUnits.size(); i++) {
             ce = TaskUnits.get(i);
-//            logger.info("ce.toString()=" + ce.toString());
+            logger.info("ce.toString()=" + ce.toString());
             return ce;
         }
         ce.MakeEmptyElement();
@@ -1029,8 +1251,6 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-
-
     public int DeleteDoneTaskUsingIdentityFromDb( long pIdentity) throws SQLException{
         int iRet;
         try {
@@ -1258,6 +1478,147 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
+    public int MarkOmniviewControllerStatusBackToBeingTransfer() throws SQLException {
+        int iRet;
+        try {
+            String SQL = " update controllerstatus set transfer_state = 0, transfer_time = getdate() ";
+            SQL = SQL + " where  transfer_state = 1; ";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            stmt.close();
+            logger.info(" tranfer_state to 0 updated lines number  iRet  = "+ iRet);
+            if (iRet < 0) {
+                gSqlCon.close();
+                logger.info(" iRet  = "+ iRet);
+                return TASK_TRANSFERSTATE_UPDATE_ERROR;
+            }
+            return TASK_TRANSFERSTATE_UPDATE_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return FILL_UP_TASK_ERROR;
+        }
+    }
+    public int MarkOmniviewMeasurementsBackToBeingTransfer() throws SQLException {
+        int iRet;
+        try {
+            String SQL = " update measurements set transfer_state = 0, transfer_time = getdate() ";
+            SQL = SQL + " where  transfer_state = 1; ";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            stmt.close();
+            logger.info(" tranfer_state to 0 updated lines number  iRet  = "+ iRet);
+            if (iRet < 0) {
+                gSqlCon.close();
+                logger.info(" iRet  = "+ iRet);
+                return TASK_TRANSFERSTATE_UPDATE_ERROR;
+            }
+            return TASK_TRANSFERSTATE_UPDATE_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return FILL_UP_TASK_ERROR;
+        }
+    }
+    public int MarkOmniviewMeasurementsHandled() throws SQLException {
+        int iRet;
+        try {
+            String SQL = " update measurements set transfer_state = 2, transfer_time = getdate() ";
+            SQL = SQL + " where measurement_id in (select measurement_id from measurements ms  ";
+            SQL = SQL + " join TRPX_MeasurementTask_Work wo on ms.Intersection_id = wo.IntersectionID and  ";
+            SQL = SQL + " ms.Intersection_id = wo.ControllerId and  ";
+            SQL = SQL + " ms.detector_id = wo.DetectorID and  ";
+            SQL = SQL + " ms.measurement_time = wo.DetectorMeasuresTimestamp  ";
+            SQL = SQL + " where ms.transfer_state = 1)  ";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = FILL_UP_TASK_ERROR;
+                return iRet;
+            }
+            return FILL_UP_TASK_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return FILL_UP_TASK_ERROR;
+        }
+    }
+
+    public int MarkOmniviewControllerStatusesHandled() throws SQLException {
+        int iRet;
+        try {
+            String SQL = " update controllerstatus set transfer_state = 2, transfer_time = getdate() ";
+            SQL = SQL + " where status_id in (select status_id from controllerstatus ms  ";
+            SQL = SQL + " join TRPX_MeasurementTask_Work wo on ms.Intersection_id = wo.IntersectionID and  ";
+            SQL = SQL + " ms.Intersection_id = wo.ControllerId and  ";
+            SQL = SQL + " ms.measurement_time = wo.DetectorMeasuresTimestamp  ";
+            SQL = SQL + " where ms.transfer_state = 1)  ";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            stmt.close();
+            if (iRet < 0) {
+               gSqlCon.close();
+               iRet = FILL_UP_TASK_ERROR;
+               return iRet;
+            }
+            return FILL_UP_TASK_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return FILL_UP_TASK_ERROR;
+        }
+    }
+    public int DeleteDoneTaskFromOmniView() throws SQLException{
+        int iRet;
+        try {
+            java.sql.PreparedStatement stmt;
+            String SQL = " delete from TRPX_MeasurementTask_Work ";
+            SQL = SQL + " where MeasurementTask_idindex in (";
+            SQL = SQL + " select MeasurementTask_idindex from TRPX_MeasurementTask_Work ";
+            SQL = SQL + " where taskstatus=1)"+ ";";
+ //           logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+ //           logger.info("Lines deleted iRet = " + iRet);
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
+                return iRet;
+            }
+            return INT_RET_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
     public int DeleteDoneTaskFromGroupWorkDb() throws SQLException{
         int iRet;
         try {
@@ -1287,12 +1648,35 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-
-
-
-
-
-
+   public int DeleteDonePermanentdataTaskFromDb() throws SQLException{
+        int iRet;
+        try {
+            java.sql.PreparedStatement stmt;
+            String SQL = " exec dbo.TRPX_MarkPermanentdatatasksDone;";
+            logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            logger.info(" iRet = " + iRet);
+            if (iRet ==0) {
+                iRet= INT_RET_OK;
+            }
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_OPERATION;
+                return iRet;
+            }
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
     public int MarkControllerGroupHandled() throws SQLException{
         int iRet;
         try {
@@ -1322,9 +1706,6 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-
-
-
         public int UpdateTaskFromDbForClearance(TRPXMeasurementTaskData ce) throws SQLException{
         int iRet;
     //    logger.info("ce.toString()=" + ce.toString());
@@ -1354,7 +1735,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public String getPermanentSqlDataSpare(long plngIntersectionId, long plngControllerId) throws SQLException{
+    public String GetPermanentSqlDataSpare(long plngIntersectionId, long plngControllerId) throws SQLException{
         String strRet;
         int iRet = 0;
         java.sql.PreparedStatement stmt;
@@ -1382,7 +1763,33 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         }
         return NO_VALUE;
    }
-   private String getPermanentJsonDataSpare(long plngIntersectionId, long plngControllerId) throws SQLException{
+   public String GetCurrentWorkTimestamp() throws SQLException{
+       String strRet;
+       int iRet = 0;
+       java.sql.PreparedStatement stmt;
+       try {
+           String SQL = "  select [dbo].[TRPX_GetTopDetectorMeasuresTimestampFromMeasurementTaskWork](); ";
+           //     logger.info("SQL = " + SQL);
+           stmt = gSqlCon.prepareStatement(SQL);
+           ResultSet rs;
+           rs = stmt.executeQuery();
+           while (rs.next()) {
+               strRet = rs.getString(1);
+               strRet = strRet.substring(0, 19);
+               stmt.close();
+               rs.close();
+               return strRet;
+           }
+       } catch (SQLException e) {
+           logger.info(ExceptionUtils.getRootCauseMessage(e));
+           logger.info(ExceptionUtils.getFullStackTrace(e));
+           e.printStackTrace();
+           gSqlCon.close();
+           return NO_VALUE;
+       }
+       return NO_VALUE;
+   }
+    private String GetPermanentJsonDataSpare(long plngIntersectionId, long plngControllerId) throws SQLException{
         String strRet;
         int iRet = 0;
         java.sql.PreparedStatement stmt;
@@ -1409,7 +1816,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         }
         return NO_VALUE;
     }
-    public String getPermanentSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException  {
+    public String GetPermanentSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException  {
         String strRet = NO_VALUE;
         int iRet;
         java.sql.PreparedStatement stmt;
@@ -1422,7 +1829,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         }
         return strRet;
     }
-    public String getMeasurementSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException{
+    public String GetMeasurementSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException{
         String strRet = NO_VALUE;
         int iRet;
         java.sql.PreparedStatement stmt;
@@ -1448,7 +1855,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
        }
        return INT_RET_OK;
     }
-    public int buildMeasurementShortSqlDataFile(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException{
+    public int BuildMeasurementShortSqlDataFile(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException{
         int iRet;
         fo.initFileOperations();
         String strInfluxFileName = fo.getFullInfluxFileName();
@@ -1458,7 +1865,8 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         iRet= fo.addOmniaInfluxLine("cpu_load_short,host=server02 value=0.678999 1422568543702900266","jatri1");
        return iRet;
     }
-    public String getMeasurementShortSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException{
+    // RETHINK RETHINK
+    public String GetControllerStatusSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException{
         String strRet = NO_VALUE;
         int iRet;
         java.sql.PreparedStatement stmt;
@@ -1471,8 +1879,21 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         }
         return strRet;
     }
-
-    public String getMeasurementShortSqlDataGroup(String pstrTimestamp) throws SQLException{
+    //  RETHINK RETHINK
+    public String GetMeasurementShortSqlData(long plngIntersectionId, long plngControllerId, String pstrTimestamp) throws SQLException{
+        String strRet = NO_VALUE;
+        int iRet;
+        java.sql.PreparedStatement stmt;
+        DetectorMeasurementsShortClientDataLevel oi = new DetectorMeasurementsShortClientDataLevel();
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = oi.MakeConnection(oConnType);
+        if (iRet == DATABASE_CONNECTION_OK) {
+            strRet = oi.GetMeasurementsDataString(plngIntersectionId, plngControllerId, pstrTimestamp);
+        }
+        return strRet;
+    }
+    public String GetMeasurementShortSqlDataGroup(String pstrTimestamp) throws SQLException{
         String strRet = NO_VALUE;
         int iRet;
         java.sql.PreparedStatement stmt;
@@ -1485,9 +1906,36 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         }
         return strRet;
     }
-
-
-    public String getDetectorSqlData(long plngDetectorId, String pstrTimestamp) throws SQLException{
+    public String GetControllerStatusSqlDataGroup(String pstrTimestamp) throws SQLException{
+        String strRet = NO_VALUE;
+        int iRet;
+        java.sql.PreparedStatement stmt;
+        ControllerStatusClientDataLevel  oi = new ControllerStatusClientDataLevel();
+        //DetectorMeasurementsShortClientDataLevel oi = new DetectorMeasurementsShortClientDataLevel();
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = oi.MakeConnection(oConnType);
+        if (iRet == DATABASE_CONNECTION_OK) {
+            strRet = oi.GetControllerStatusDataGroupString(pstrTimestamp);
+           // strRet = oi.GetOmniaControllerStatusDataGroupString(pstrTimestamp);
+          //  strRet = oi.GetMeasurementsDataGroupString(pstrTimestamp);
+        }
+        return strRet;
+    }
+    public String GetDetectorOmniviewSqlData(long plngcontrollerID,long plngDetectorId, String pstrTimestamp) throws SQLException{
+        String strRet = NO_VALUE;
+        int iRet;
+        java.sql.PreparedStatement stmt;
+        OmniaDetectorClientDatalevel oi = new OmniaDetectorClientDatalevel();
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = oi.MakeConnection(oConnType);
+        if (iRet == DATABASE_CONNECTION_OK) {
+           strRet = oi.GetDetectorJsonDataOmniview(plngcontrollerID,plngDetectorId,  pstrTimestamp);
+        }
+        return strRet;
+    }
+    public String GetDetectorSqlData(long plngDetectorId, String pstrTimestamp) throws SQLException{
         String strRet = NO_VALUE;
         int iRet;
         java.sql.PreparedStatement stmt;
@@ -1500,7 +1948,7 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         }
         return strRet;
     }
-    public String getIntersectionControllerSqlData(long plngIntersectionId,long plngControllerId, String pstrTimestamp,String pWorkType) throws SQLException{
+    public String GetIntersectionControllerSqlData(long plngIntersectionId,long plngControllerId, String pstrTimestamp,String pWorkType) throws SQLException{
         String strRet = NO_VALUE;
         int iRet;
         java.sql.PreparedStatement stmt;
@@ -1517,15 +1965,34 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         }
         return strRet;
     }
-    public int CreateControllerGroups() throws SQLException{
+    public String GetIntersectionControllerSqlDataForOmniview(long plngIntersectionId,long plngControllerId, String pstrTimestamp,String pWorkType) throws SQLException{
+        String strRet = NO_VALUE;
+        int iRet;
+        java.sql.PreparedStatement stmt;
+        OmniaIntesectionControllerClientDatalevel oi = new OmniaIntesectionControllerClientDatalevel();
+        SwarcoEnumerations.ConnectionType  oConnType;
+        oConnType=getSqlServerConnectionType();
+        iRet = oi.MakeConnection(oConnType);
+        if (iRet == DATABASE_CONNECTION_OK) {
+            if (pWorkType.equals(TT_CONTROLLER_DATA_CHANGE)) {
+// RETHINK delete newer called JIs 10.2 2021
+               strRet = oi.GetControllerJsonData(plngIntersectionId, plngControllerId, pstrTimestamp);
+            } else if (pWorkType.equals(TT_INTERSECTION_DATA_CHANGE)) {
+                strRet = oi.GetIntersectionJsonDataForOmniview(plngIntersectionId, plngControllerId, pstrTimestamp);
+            }
+        }
+        return strRet;
+    }
+    public int CreateOmniviewTypeMeasurementsWorks() throws SQLException{
         int iRet;
         try {
             java.sql.PreparedStatement stmt;
-            String SQL = " exec [dbo].[TRPX_CreateControllerGroups] ";
-              logger.info("SQL = " + SQL);
+// get parameter here from global variable
+            //    String SQL = " exec [dbo].[TRPX_CreateOldestMeasurementTimestampDataTransferWorks];";
+            String SQL = " exec [dbo].[TRPX_CreateOldestMeasurementTimestampDataTransferWorks2] " +GMaxClientMaxControllersInMessage + " ;";
+      //      logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            //      logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -1544,7 +2011,113 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-
-
-
+    public int CreateOmniviewTypeControllerStatusWorks() throws SQLException{
+        int iRet;
+        try {
+            java.sql.PreparedStatement stmt;
+// get parameter here from global variable
+        //    String SQL = " exec [dbo].[TRPX_CreateOldestMeasurementTimestampDataTransferWorks];";
+            String SQL = " exec [dbo].[TRPX_CreateOldestControllerStatusTimestampDataTransferWorks] " +GMaxClientMaxControllersInMessage + " ;";
+    //        logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
+                return iRet;
+            }
+            iRet=INT_RET_OK;
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int StartOmniviewControllerStatusWorks() throws SQLException{
+        // not needed because of groups   RETHINK JIs 9.4 2021 klo 10:20
+        int iRet;
+        try {
+            java.sql.PreparedStatement stmt;
+           // String SQL = " exec [dbo].[TRPX_StartOmniviewMeasurementWorks]; ";
+            String SQL = " exec [dbo].[TRPX_StartOmniviewControllerStatusWorks]; ";
+            logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
+                return iRet;
+            }
+            iRet=INT_RET_OK;
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int StartOmniviewMeasurementWorks() throws SQLException{
+        // not needed because of groups   RETHINK JIs 9.4 2021 klo 10:20
+        int iRet;
+        try {
+            java.sql.PreparedStatement stmt;
+            String SQL = " exec [dbo].[TRPX_StartOmniviewMeasurementWorks]; ";
+            logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
+                return iRet;
+            }
+            iRet=INT_RET_OK;
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int CreateControllerGroups() throws SQLException{
+        int iRet;
+        try {
+            java.sql.PreparedStatement stmt;
+            String SQL = " exec [dbo].[TRPX_CreateControllerGroups];  ";
+              logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
+                return iRet;
+            }
+            iRet=INT_RET_OK;
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
 }

@@ -33,7 +33,7 @@ public class DetectorServerListDataLevel {
             return iRet;
         }
         SqlConnectionType=pSqlCon;
-        logger.info("SqlConnectionType = " + SqlConnectionType);
+  //      logger.info("SqlConnectionType = " + SqlConnectionType);
         gSqlCon = vg.getSqlCon();
         return DATABASE_CONNECTION_OK;
     }
@@ -165,6 +165,9 @@ public class DetectorServerListDataLevel {
             return -1;
         }
     }
+
+
+
     public int DoesLineAlreadyExist(OmniaDetectorServer pOmniaData) throws SQLException {
         String SQL="";
         java.sql.PreparedStatement stmt=null;
@@ -177,9 +180,13 @@ public class DetectorServerListDataLevel {
             ResultSet rs;
             stmt = gSqlCon.prepareStatement(SQL);
             stmt.setLong(1,pOmniaData.getOmniaCode());
-            stmt.setLong(2,pOmniaData.getDetectorId());
-//            logger.info("pOmniaData.getOmniaCode() =" + pOmniaData.getOmniaCode());
-//            logger.info("pOmniaData.getDetectorId() =" + pOmniaData.getDetectorId());
+            stmt.setLong(2,pOmniaData.getIntersectionId());
+            stmt.setLong(3,pOmniaData.getControllerId());
+            stmt.setLong(4,pOmniaData.getDetectorId());
+            logger.info("pOmniaData.getOmniaCode() =" + pOmniaData.getOmniaCode());
+            logger.info("pOmniaData.getIntersectionId() =" + pOmniaData.getIntersectionId());
+            logger.info("pOmniaData.getControllerId() =" + pOmniaData.getControllerId());
+            logger.info("pOmniaData.getDetectorId() =" + pOmniaData.getDetectorId());
             rs = stmt.executeQuery();
             OmniaDetectorServer cc;
             while (rs.next()) {
@@ -207,12 +214,18 @@ public class DetectorServerListDataLevel {
                 cc.setDetectorObjectPriorityId(rs.getLong(21));
                 cc.setDetectorParkingHouseId(rs.getLong(22));
                 logger.info("pOmniaData.getOmniaCode() =" + pOmniaData.getOmniaCode());
+                logger.info("pOmniaData.getIntersectionId() =" + pOmniaData.getIntersectionId());
+                logger.info("pOmniaData.getControllerId() =" + pOmniaData.getControllerId());
                 logger.info("pOmniaData.getDetectorId() =" + pOmniaData.getDetectorId());
                 logger.info("cc.getOmniaCode() =" + cc.getOmniaCode());
+                logger.info("cc.getIntersectionId() =" + cc.getIntersectionId());
+                logger.info("cc.getControllerId() =" + cc.getControllerId());
                 logger.info("cc.getDetectorId() =" + cc.getDetectorId());
-                if (((cc.getOmniaCode()==(pOmniaData.getOmniaCode()) &&
-                   (cc.getDetectorId()==(pOmniaData.getDetectorId()) )))) {
-                    logger.info("löyty");
+                if ((cc.getOmniaCode()==(pOmniaData.getOmniaCode()) &&
+                   (cc.getIntersectionId()==(pOmniaData.getIntersectionId())   &&
+                   (cc.getControllerId()==(pOmniaData.getControllerId())   &&
+                   (cc.getDetectorId()==(pOmniaData.getDetectorId()) ))))) {
+                    logger.info("*****1111***** löyty");
                     setFoundRec(cc);
                     stmt.close();
                     rs.close();
@@ -221,7 +234,7 @@ public class DetectorServerListDataLevel {
             }
             stmt.close();
             rs.close();
-            logger.info("ei l�ytyny");
+            logger.info("*****1111***** ei löytyny");
             return INT_RET_NOT_FOUND;
         } catch(Exception e) {
             logger.info(" catch 11");
@@ -274,9 +287,9 @@ public class DetectorServerListDataLevel {
         if (!(pC1.getDetectorDeleted()==(pC2.getDetectorDeleted()))) {
             iRet =  CHANGED;
         }
-        if (!(pC1.getDetectorDataPreviousUpdate().equals(pC2.getDetectorDataPreviousUpdate()))) {
-            iRet =  CHANGED;
-        }
+     //   if (!(pC1.getDetectorDataPreviousUpdate().equals(pC2.getDetectorDataPreviousUpdate()))) {
+     //       iRet =  CHANGED;
+     //   }
         if (!(pC1.getDetectorGuid().equals(pC2.getDetectorGuid()))) {
             iRet =  CHANGED;
         }
@@ -286,9 +299,6 @@ public class DetectorServerListDataLevel {
         if (!(pC1.getDetectorAreaId()==(pC2.getDetectorAreaId()))) {
             iRet =  CHANGED;
         }
-    //    if (!(pC1.getCreated().equals(pC2.getCreated()))) {
-    //        iRet =  CHANGED;
-    //    }  RETHINK created during and because data transfer
         if (!(pC1.getDetectorObjectPriorityId()==(pC2.getDetectorObjectPriorityId()))) {
             iRet =  CHANGED;
         }
@@ -329,7 +339,7 @@ public class DetectorServerListDataLevel {
             logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+//            logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 logger.info("iRet = " + iRet);
@@ -427,16 +437,15 @@ public class DetectorServerListDataLevel {
         try {
             Gson myGson = new Gson();
             MessageUtils mu = new MessageUtils();
-          logger.info("pPermanentData = " + pPermanentData);
+      //    logger.info("pPermanentData = " + pPermanentData);
             strHelp1 = mu.ThrowChecksumAway(pPermanentData);
-            logger.info("strHelp1 = " + strHelp1);
+       //     logger.info("strHelp1 = " + strHelp1);
             JsonParser jsonParser = new JsonParser();
             OmniaDetectorServer aOmniaDetector1 = myGson.fromJson(strHelp1, OmniaDetectorServer.class);
             SwarcoTimeUtilities sw = new  SwarcoTimeUtilities();
             String swarcoTime =sw.ToSwarcoTime(aOmniaDetector1.getDetectorDataPreviousUpdate());
             aOmniaDetector1.setDetectorDataPreviousUpdate(swarcoTime);
             swarcoTime =sw.ToSwarcoTime(aOmniaDetector1.getCreated());
-// here find controller and Intersection ????ne pitää laittaa lähtöpäässä
             aOmniaDetector1.setCreated(swarcoTime);
             iRet= DoesLineAlreadyExist(aOmniaDetector1);
             if (iRet==INT_RET_NOT_FOUND) {
@@ -469,48 +478,4 @@ public class DetectorServerListDataLevel {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

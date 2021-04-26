@@ -1,8 +1,6 @@
 package fi.swarco.dataHandling.pojos;
 import org.apache.log4j.Logger;
-
 import static fi.swarco.CONSTANT.*;
-
 public class OmniaMeasurementDataShortJson {
      static Logger logger = Logger.getLogger(OmniaMeasurementDataShortJson.class.getName());
      private long OmniaCode=INT_EMPTY_ELEMENT;

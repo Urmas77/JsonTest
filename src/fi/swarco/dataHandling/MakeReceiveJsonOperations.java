@@ -1,20 +1,18 @@
 package fi.swarco.dataHandling;
-import fi.swarco.connections.ConWrapper;
 import fi.swarco.dataHandling.omniaClientDataHandling.OmniaMeasurementShortListDataLevel;
 import fi.swarco.dataHandling.omniaServerDataHandling.IntersectionControllerListDatalevel;
 import fi.swarco.dataHandling.omniaServerDataHandling.DetectorServerListDataLevel;
+import fi.swarco.dataHandling.omniaServerDataHandling.OmniaControllerStatusListDataLevel;
 import fi.swarco.dataHandling.pojos.RawData;
 import fi.swarco.omniaDataTransferServices.FileOperations;
 import fi.swarco.omniaDataTransferServices.MessageUtils;
 import fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer.OmniaCloudHTTPServer;
-import fi.swarco.properties.JSwarcoproperties;
 import fi.swarco.serviceOperations.SwarcoTimeUtilities;
-import fi.swarco.properties.JSwarcoproperties;
 import org.apache.log4j.Logger;
 import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2;
-
+import static fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer.OmniaCloudHTTPServer.getOmniaMysqlFromReadToWrite;
 public class MakeReceiveJsonOperations {
     static Logger logger = Logger.getLogger(MakeReceiveJsonOperations.class.getName());
     private static String pseudoJsonData = NO_VALUE;
@@ -57,6 +55,9 @@ public class MakeReceiveJsonOperations {
         String strWhoJsonData =mu.reCreateJsonDecimal(strWholeRawData);
 // fin d out what kind of like message it is
         setMessageType(mu.GetJsonMessageType(strWhoJsonData));
+
+       logger.info("getMessageType() =" + getMessageType());
+
         if (getMessageType().equals(NO_VALUE)) {
             logger.info("Illegal messageType");
             return INT_RET_NOT_OK;
@@ -79,25 +80,46 @@ public class MakeReceiveJsonOperations {
                         logger.info("Unsuccesful insert iRet=" + iRet);
                         MakeLogFileOperations("error##" + strWhoJsonData);
                     }
-                    String strServer= OmniaCloudHTTPServer.getOmniaServerName();
-                    ConWrapper cW1;
-                    cW1 = new ConWrapper();
-                    JSwarcoproperties  sp = new JSwarcoproperties();
-                    cW1 = sp.FillServerWrapper(strServer);
-                    String sDataTransferStatus =cW1.getDataTransferStatus();
-                // *******************************   }
-                    if (sDataTransferStatus.equals("ON")) {
-                        iRet = mm.MakeDataTransferOperations();
-                        if (iRet!=INT_RET_OK) {
-                           logger.info("Unsuccessful data transfer operation iRet=" + iRet);
-                        }
+                }
+                String strDataTransferStatus = OmniaCloudHTTPServer.getOmniaMysqlFromReadToWrite();
+                logger.info("bef strDataTransferStatus =" + strDataTransferStatus);
+                MakeLogFileOperations("ok##" + strWhoJsonData);
+                if (strDataTransferStatus.equals("ON")) {
+                    logger.info("inside maketran strDataTransferStatus =" + strDataTransferStatus);
+                    iRet = mm.MakeDataTransferOperations();
+                    if (iRet != INT_RET_OK) {
+                       logger.info("Unsuccessful data transfer operation iRet=" + iRet);
                     }
-                } else {
-                        MakeLogFileOperations("ok##" + strWhoJsonData);
                 }
                 return iRet;
             }
         }
+        // *********   new code start
+        if (getMessageType().equals(TT_CONTROLLER_STATUS_DATA_INSERT)) {
+            iRet = MakeLogOperations("OK##" + strWhoJsonData);
+            OmniaControllerStatusListDataLevel mm = new OmniaControllerStatusListDataLevel();
+            // OmniaMeasurementShortListDataLevel mm = new OmniaMeasurementShortListDataLevel();
+            iRet = mm.MakeConnection(MYSQL_LOCAL_JATRI2);
+            if (iRet != DATABASE_CONNECTION_OK) {
+                logger.info("No Database conncection iRet =" + iRet);
+                MakeLogFileOperations("error##" + strWhoJsonData);
+                // MakeLogFileOperations("error##" + getMeasurementsJsonData());
+            } else {  // do db operations
+                strHelp1 = mu.CutJsonMessage(strWhoJsonData);
+                iRet = mm.JsonOmniaControllerStatusDataSql(strHelp1);
+                // iRet = mm.JsonOmniaMeasurementShortSql(strHelp1);
+                if (iRet != INT_RET_OK) {
+                    if (iRet == NOT_CHANGED) {
+                        MakeLogFileOperations("ok##" + strWhoJsonData);
+                    } else {
+                        logger.info("Unsuccesful insert iRet=" + iRet);
+                        MakeLogFileOperations("error##" + strWhoJsonData);
+                    }
+                    return iRet;
+                }
+            }
+        }
+//******* new code end
         if ((getMessageType().equals(TT_INTERSECTION_DATA_CHANGE))||(getMessageType().equals(TT_CONTROLLER_DATA_CHANGE))) {
             // kirjoita kama lokiin
             strHelp1 = mu.CutJsonMessage(strWhoJsonData);

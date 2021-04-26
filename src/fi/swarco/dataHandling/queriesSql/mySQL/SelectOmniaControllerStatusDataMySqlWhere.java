@@ -1,6 +1,6 @@
 package fi.swarco.dataHandling.queriesSql.mySQL;
 import org.apache.log4j.Logger;
-public class SelectMeasurementDataShortMySqlWhere {
+public class SelectOmniaControllerStatusDataMySqlWhere {
     private static Logger logger = Logger.getLogger(SelectMeasurementDataShortMySqlWhere.class.getName());
     private String statement="";
     public String getStatement() {
@@ -13,20 +13,16 @@ public class SelectMeasurementDataShortMySqlWhere {
         statement =	statement +	"IntersectionID ,";
         statement =	statement +	"ControllerId ,";
         statement =	statement + "MeasurementTime ,";
-        statement =	statement +	"DetectorId ,";
-        statement =	statement + "DetectorExternalCode ,";
-        statement =	statement +	"VehicleCount,";
-        statement =	statement + "MeanVehicleSpeed,";
-        statement =	statement +	"OccupancyProcent,";
-        statement =	statement +	"Accurancy";
-        statement =	statement + " from OmniaMeasurementDataShort ";
+        statement =	statement +	"IntersectionCode ,";
+        statement =	statement + "ControllerProgramNumber ,";
+        statement =	statement +	"ControllerProgramDescription,";
+        statement =	statement + "ControllerStatus";
+        statement =	statement + " from OmniaControllerStatusData ";
         statement =	statement + " where omniacode =  ? and " ;
-        statement =	statement + " intersectionId  =  ? and  ";
+        statement =	statement + " IntersectionID  =  ? and  ";
         statement =	statement + " ControllerId  =  ? and  ";
-        statement =	statement + " DetectorId  =  ? and  ";
         statement =	statement + " MeasurementTime= ? ";
         statement =	statement + ";";
-  //      logger.info(" hereherehere statement = " + statement);
+      //  logger.info("  statement = " + statement);
     }
 }
-

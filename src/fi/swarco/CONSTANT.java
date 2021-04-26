@@ -1,7 +1,9 @@
 package fi.swarco;
 public class CONSTANT {
 private CONSTANT(){}
-public static final String NO_VALUE ="novalue";   //moi moi
+public static final String VALUE_ON ="ON";
+public static final String VALUE_OFF ="OFF";
+public static final String NO_VALUE ="novalue";
 public static final String ERROR_VALUE ="errorvalue";
 public static final String JOB_DONE ="JOB_DONE";
 public static final String  NO_TIME_SERIE_STRING ="NO_TIME_SERIE_STRING";
@@ -55,6 +57,7 @@ public static final int FILL_UP_TASK_ERROR =-5999;
 public static final int FILL_UP_TASK_OK =5999;
 public static final int TASK_TRANSFER_ERROR =-5998;
 public static final int TASK_TRANSFER_OK =5998;
+
 public static final int THERE_IS_WORK =5997;
 public static final int THERE_IS_NO_WORK =-5997;
 public static final int  DELETE_UNFILLABLE_TASK_OK=5996;
@@ -65,6 +68,9 @@ public static final int  EXTRACLEANUP_TASK_OK=5994;
 public static final int  EXTRACLEANUP_DELETE_TASK_ERROR=-5994;
 public static final int DELETE_TRASH_TASKTASK_ERROR=-5992;
 public static final int DELETE_TRASH_TASKTASK_OK=5992;
+public static final int TASK_TRANSFERSTATE_UPDATE_ERROR =-5991;
+public static final int TASK_TRANSFERSTATE_UPDATE_OK =5991;
+
 public static final int  OMNIA_EMPTY_WORK_LIST = -4999;
 public static final String QUERY_CURRENTSTATE="CURRENTSTATE";
 public static final String QUERY_HISTORYSTATE="HISTORYSTATE";
@@ -78,6 +84,9 @@ public static final int SERIENAME_IS_FREE = 5679;
 public static final int NEW_DATATRANSFER_TASK =0;
 public static final int READY_DATATRANSFER_TASK =-999;
 public static final int DATABASE_CONNECTION_OK =111;
+//
+public static final int    OMNIVIEW_FIRST_ROUND_YES =878787;
+public static final int    OMNIVIEW_FIRST_ROUND_NO =-878787;
 //
 public static final int FILE_NOT_EXIST = -9998;
 public static final int OMNIA_DATA_PICK_OK =2222;
@@ -94,8 +103,10 @@ public static final String  TT_INTERSECTION_DATA_CHANGE="INTERSECTIONDATACHANGE"
 public static final String  TT_DETECTOR_DATA_CHANGE="DETECTORDATACHANGE";                    //  1234567890123456789012345678901234567890
 public static final String  TT_LOAD_CURRENT_CONTROLLER_INTERSECTION_DATA="LOADCURRENTCONTROLLERINTERSECTIONDATA";
 public static final String  TT_LOAD_CURRENT_DETECTORS_DATA="LOADCURRENTDETECTORSDATA";
+public static final String  TT_CONTROLLER_STATUS_DATA_INSERT="CONTROLLERSTATUSDATAINSERT";
 public static final String  TT_NOT_DEFINED="NOTDEFINED";
 public static final String  TT_NO_WORK="NO_WORK";
+public static final String  TT_TOO_MANY_WORKTYPES="TT_TOO_MANY_WORKTYPES";
 public static final long    NO_WORK_INDEX=-5678;
 public static final long    TWO_HOURS_MS=7200000;
 public static final long    THREE_HOURS_MS=10800000;

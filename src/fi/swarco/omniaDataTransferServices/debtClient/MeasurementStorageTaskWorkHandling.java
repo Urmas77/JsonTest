@@ -1,4 +1,4 @@
-package fi.swarco.dataHandling;
+package fi.swarco.omniaDataTransferServices.debtClient;
 import java.sql.*;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -6,12 +6,14 @@ import java.util.List;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.pojos.TRPXMeasurementTaskWorkData;
+import fi.swarco.dataHandling.queriesSql.sqlServer.JiMeasurementStorageTaskWorkSelectSqlServer;
 import fi.swarco.dataHandling.queriesSql.sqlServer.JiMeasurementTaskWorkSelectSqlServer;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import static fi.swarco.CONSTANT.*;
-public class MeasurementTaskWorkHandling {
-    private static Logger logger = Logger.getLogger(MeasurementTaskWorkHandling.class.getName());
+
+public class MeasurementStorageTaskWorkHandling {
+    private static Logger logger = Logger.getLogger(MeasurementStorageTaskWorkHandling.class.getName());
     private List<TRPXMeasurementTaskWorkData> TaskUnits = Collections.synchronizedList(new LinkedList<>());  // ????
     static Connection gSqlCon;
     private static SwarcoEnumerations.ConnectionType SqlConnectionType = SwarcoEnumerations.ConnectionType.NOT_DEFINED;
@@ -21,23 +23,23 @@ public class MeasurementTaskWorkHandling {
     }
     public static int MakeConnection(SwarcoEnumerations.ConnectionType pSqlCon)  {
         SwarcoConnections vg = new SwarcoConnections();
-//        logger.info("pSqlCon = " + pSqlCon);
+        logger.info("pSqlCon = " + pSqlCon);
         int iRet = vg.MakeConnection(pSqlCon);
         if (iRet != INT_RET_OK) {
             return iRet;
         }
         SqlConnectionType = pSqlCon;
-        logger.info(" *** this line must be seen SqlConnectionType = " + SqlConnectionType);
+        logger.info("SqlConnectionType = " + SqlConnectionType);
         gSqlCon = vg.getSqlCon();
         return INT_RET_OK;
     }
-    public int MeasurementTaskWorkDataList() throws SQLException {
+    public int MeasurementStorageTaskWorkDataList() throws SQLException {
         TaskUnits.clear();
         java.sql.PreparedStatement stmt;
         ResultSet rs;
-        JiMeasurementTaskWorkSelectSqlServer st = new JiMeasurementTaskWorkSelectSqlServer();
+        JiMeasurementStorageTaskWorkSelectSqlServer st = new JiMeasurementStorageTaskWorkSelectSqlServer();
         String SQL = st.getStatement();
- //       logger.info("SqlConnectionTypeyyyy= " + SqlConnectionType);
+        logger.info("SqlConnectionTypeyyyy= " + SqlConnectionType);
     //    logger.info("SQL = " + SQL);
         TRPXMeasurementTaskWorkData ce;
         try {
@@ -68,7 +70,7 @@ public class MeasurementTaskWorkHandling {
                 TaskUnits.add(ce);
                 return NO_TASK_LIST;
             }
-      //      logger.info("bef ret iRet OK");
+            logger.info("bef ret iRet OK");
             return INT_RET_OK;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,13 +97,13 @@ public class MeasurementTaskWorkHandling {
     public int AnyWorkWork() throws SQLException{
         int iRet = INT_RET_NOT_OK;
         try {
-            String SQL = "select count(*) from TRPX_MeasurementTask_Work;";
-//            logger.info("SQL = " + SQL);
+            String SQL = "select count(*) from TRPX_MeasurementTask_Storage_Work;";
+            logger.info("SQL = " + SQL);
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             ResultSet rs;
             rs = stmt.executeQuery();
- //           logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 iRet = rs.getInt(1);
                 stmt.close();
@@ -122,7 +124,7 @@ public class MeasurementTaskWorkHandling {
         }
     }
     public TRPXMeasurementTaskWorkData GetFirstWorkTask() throws SQLException{
-       int iRet =  MeasurementTaskWorkDataList();
+       int iRet =  MeasurementStorageTaskWorkDataList();
        TRPXMeasurementTaskWorkData tr;
        if (iRet<0) {
            tr = new TRPXMeasurementTaskWorkData();
@@ -132,48 +134,17 @@ public class MeasurementTaskWorkHandling {
         tr =GetFirstTaskWorkFromList();
         return tr;
     }
-    public int MakeStartOmniviewClientDbOperations() throws SQLException{
-        // RETHINK TaskType
-        int iRet;
-  //      logger.info("Moi Jatri2");
-        try {
-        // this transfer all permanent data
-            String SQL = " exec dbo.TRPX_StartOmniviewClientDbOperations; ";
-            // this only truncates work table
-          //  String SQL = " exec dbo.TRPX_StartOmniviewClientDbOperations2; ";
-        //    logger.info("SQL = " + SQL);
-            java.sql.PreparedStatement stmt;
-            stmt = gSqlCon.prepareStatement(SQL);
-            iRet = stmt.executeUpdate();
-       //     logger.info(" iRet = " + iRet);
-            stmt.close();
-            if (iRet < 0) {
-                gSqlCon.close();
-                iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
-                return iRet;
-            }
-            return INT_RET_OK;
-        } catch (Exception e) {
-            logger.info(ExceptionUtils.getRootCauseMessage(e));
-            logger.info(ExceptionUtils.getFullStackTrace(e));
-            logger.info(" catch 11");
-            logger.info(e.getMessage());
-            e.printStackTrace();
-            gSqlCon.close();
-            return UNSUCCESSFUL_DATABASE_OPERATION;
-        }
-    }
     public String  GetWorkTaskType() throws SQLException {
         String strRet;
         int iRet = 0;
         java.sql.PreparedStatement stmt;
         try {
             String SQL = " select [dbo].[TRPX_GetWorkTaskType]() ";
-        //    logger.info("SQL = " + SQL);
+            logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             ResultSet rs;
             rs = stmt.executeQuery();
-        //    logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 strRet = rs.getString(1);
                 stmt.close();
@@ -194,10 +165,10 @@ public class MeasurementTaskWorkHandling {
         int iRet;
         try {
             java.sql.PreparedStatement stmt;
-            String SQL = " delete from TRPX_MeasurementTask_Work ";
+            String SQL = " delete from TRPX_MeasurementTask_Storage_Work ";
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-       //     logger.info("Lines deleted iRet = " + iRet);
+            logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -219,7 +190,7 @@ public class MeasurementTaskWorkHandling {
 // Take first count  RETHINK Jis 18.11 2019     copied also to MeasurementTaskHandling
         int iRet;
         try {
-            String SQL = " select count(*) from TRPX_MeasurementTask task";
+            String SQL = " select count(*) from TRPX_MeasurementTask_Storage task";
             SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid";
             String strRet;
             java.sql.PreparedStatement stmt;
@@ -253,14 +224,14 @@ public class MeasurementTaskWorkHandling {
             return DELETE_TRASH_TASKTASK_OK;
         }
         try {
-            String SQL = "delete from TRPX_MeasurementTask  ";
+            String SQL = "delete from TRPX_MeasurementTask_Storage  ";
             SQL = SQL + " where MeasurementTask_idindex in (   ";
             SQL = SQL + " select MeasurementTask_idindex from TRPX_MeasurementTask task";
             SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid)";
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-        //    logger.info("Lines deleted ************************** iRet = " + iRet);
+            logger.info("Lines deleted ************************** iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 iRet = DELETE_TRASH_TASKTASK_ERROR;
@@ -298,58 +269,11 @@ public class MeasurementTaskWorkHandling {
             return EXTRACLEANUP_DELETE_TASK_ERROR;
         }
     }
-   public int ReCreateIntersectionTask(TRPXMeasurementTaskWorkData pCe) throws SQLException {
-        int iRet;
-        try {
-            java.sql.PreparedStatement stmt;
-            String SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask] ( ";
-            SQL = SQL + " [OmniaCode] ";
-            SQL = SQL + " ,[IntersectionID] ";
-            SQL = SQL + " ,[ControllerId] ";
-            SQL = SQL + " ,[DetectorID] ";
-            SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
-            SQL = SQL + " ,[PermanentDataTimestamp]  ";
-            SQL = SQL + " ,[TaskType] ";
-            SQL = SQL + " ,[TaskStatus] ";
-            SQL = SQL + " ,[Created])  ";
-            SQL = SQL + " select  ";
-            SQL = SQL + " 7777  ";
-            SQL = SQL + " ,[IntersectionID]  ";
-            SQL = SQL + " ,7777 ";
-            SQL = SQL + " ,7777 ";
-            SQL = SQL + " , [LastUpdate]  ";
-            SQL = SQL + " , [LastUpdate]  ";
-            SQL = SQL + " ,'INTERSECTIONDATACHANGE' ";
-            SQL = SQL + " ,0 ";
-            SQL = SQL + " ,GETDATE() ";
-            SQL = SQL + " from [dbo].[Intersections]  where visible=1 and deleted=0 and ";
-            SQL = SQL + " IntersectionId = " + pCe.getIntersectionId() + " and ";
-            SQL = SQL + "  LastUpdate = '" + pCe.getPermanentDataTimestamp() + "'";
-            stmt = gSqlCon.prepareStatement(SQL);
-            iRet = stmt.executeUpdate();
-       //     logger.info("Lines inserted iRet = " + iRet);
-            stmt.close();
-            if (iRet < 0) {
-                gSqlCon.close();
-                iRet = UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
-                return iRet;
-            }
-            return INT_RET_OK;
-        } catch (Exception e) {
-            logger.info(ExceptionUtils.getRootCauseMessage(e));
-            logger.info(ExceptionUtils.getFullStackTrace(e));
-            logger.info(" catch 11");
-            logger.info(e.getMessage());
-            e.printStackTrace();
-            gSqlCon.close();
-            return UNSUCCESSFUL_DATABASE_OPERATION;
-        }
-    }
     public int ReCreateMeasurementsTasks(TRPXMeasurementTaskWorkData pCe) throws SQLException {
         int iRet;
         try {
             java.sql.PreparedStatement stmt;
-            String SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask]( ";
+            String SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask_Storage]( ";
             SQL = SQL + " [OmniaCode] ";
             SQL = SQL + " ,[IntersectionID] ";
             SQL = SQL + " ,[ControllerId] ";
@@ -373,7 +297,7 @@ public class MeasurementTaskWorkHandling {
             SQL = SQL + "  [Timestamp] = '" + pCe.getDetectorMeasuresTimestamp() + "'";
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-       //     logger.info("Lines inserted iRet = " + iRet);
+            logger.info("Lines inserted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -391,124 +315,7 @@ public class MeasurementTaskWorkHandling {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-    public int ReCreateControllerTask(TRPXMeasurementTaskWorkData pCe) throws SQLException {
-        int iRet;
-        try {
-            java.sql.PreparedStatement stmt;
-            String SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask] ( ";
-            SQL = SQL + " [OmniaCode] ";
-            SQL = SQL + " ,[IntersectionID] ";
-            SQL = SQL + " ,[ControllerId] ";
-            SQL = SQL + " ,[DetectorID] ";
-            SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
-            SQL = SQL + " ,[PermanentDataTimestamp]  ";
-            SQL = SQL + " ,[TaskType] ";
-            SQL = SQL + " ,[TaskStatus] ";
-            SQL = SQL + " ,[Created])  ";
-            SQL = SQL + " select  ";
-            SQL = SQL + " 7777  ";
-            SQL = SQL + " ,7777  ";
-            SQL = SQL + " ,[ControllerId] ";
-            SQL = SQL + " ,7777 ";
-            SQL = SQL + " , [LastUpdate]  ";
-            SQL = SQL + " , [LastUpdate]  ";
-            SQL = SQL + " ,'CONTROLLERDATACHANGE' ";
-            SQL = SQL + " ,0 ";
-            SQL = SQL + " ,GETDATE() ";
-            SQL = SQL + " from [dbo].[Controllers]  where visible=1 and deleted=0 and ";
-            SQL = SQL + " ControllerId = " + pCe.getControllerId() + " and ";
-            SQL = SQL + "  LastUpdate = '" + pCe.getPermanentDataTimestamp() + "'";
-            stmt = gSqlCon.prepareStatement(SQL);
-            iRet = stmt.executeUpdate();
-       //     logger.info("Lines inserted iRet = " + iRet);
-            stmt.close();
-            if (iRet < 0) {
-                gSqlCon.close();
-                iRet = UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
-                return iRet;
-            }
-            return INT_RET_OK;
-        } catch (Exception e) {
-            logger.info(ExceptionUtils.getRootCauseMessage(e));
-            logger.info(ExceptionUtils.getFullStackTrace(e));
-            logger.info(" catch 11");
-            logger.info(e.getMessage());
-            e.printStackTrace();
-            gSqlCon.close();
-            return UNSUCCESSFUL_DATABASE_OPERATION;
-        }
-    }
-    public int ReCreateDetectorTask(TRPXMeasurementTaskWorkData pCe) throws SQLException {
-        int iRet;
-        try {
-            java.sql.PreparedStatement stmt;
-            String SQL = "INSERT INTO [dbo].[TRPX_MeasurementTask] ( ";
-            SQL = SQL + " [OmniaCode] ";
-            SQL = SQL + " ,[IntersectionID] ";
-            SQL = SQL + " ,[ControllerId] ";
-            SQL = SQL + " ,[DetectorID] ";
-            SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
-            SQL = SQL + " ,[PermanentDataTimestamp]  ";
-            SQL = SQL + " ,[TaskType] ";
-            SQL = SQL + " ,[TaskStatus] ";
-            SQL = SQL + " ,[Created])  ";
-            SQL = SQL + " select  ";
-            SQL = SQL + " 7777  ";
-            SQL = SQL + " ,7777  ";
-            SQL = SQL + " ,7777 ";
-            SQL = SQL + " ,[DetectorId] ";
-            SQL = SQL + " , [LastUpdate]  ";
-            SQL = SQL + " , [LastUpdate]  ";
-            SQL = SQL + " ,'DETECTORDATACHANGE' ";
-            SQL = SQL + " ,0 ";
-            SQL = SQL + " ,GETDATE() ";
-            SQL = SQL + " from [dbo].[Detectors]  where visible=1 and deleted=0 and ";
-            SQL = SQL + " DetectorId = " + pCe.getDetectorId() + " and ";
-            SQL = SQL + "  LastUpdate = '" + pCe.getPermanentDataTimestamp() + "'";
-            stmt = gSqlCon.prepareStatement(SQL);
-            iRet = stmt.executeUpdate();
-        //    logger.info("Lines inserted iRet = " + iRet);
-            stmt.close();
-            if (iRet < 0) {
-                gSqlCon.close();
-                iRet = UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
-                return iRet;
-            }
-            return INT_RET_OK;
-        } catch (Exception e) {
-            logger.info(ExceptionUtils.getRootCauseMessage(e));
-            logger.info(ExceptionUtils.getFullStackTrace(e));
-            logger.info(" catch 11");
-            logger.info(e.getMessage());
-            e.printStackTrace();
-            gSqlCon.close();
-            return UNSUCCESSFUL_DATABASE_OPERATION;
-        }
-    }
-    public int DefineFirstUnhandledGroup() throws SQLException {
-        int iRet = INT_RET_NOT_OK;
-        try {
-            String SQL = "exec dbo.TRPX_DefineFirstUnhandledGroup;";
-        //    logger.info("SQL = " + SQL);
-            java.sql.PreparedStatement stmt;
-            stmt = gSqlCon.prepareStatement(SQL);
-            iRet = stmt.executeUpdate();
-        //    logger.info(" iRet = " + iRet);
-            if(iRet==0) {
-                iRet=INT_RET_OK;
-            }
-            stmt.close();
-            return iRet;
-        } catch (Exception e) {
-            logger.info(ExceptionUtils.getRootCauseMessage(e));
-            logger.info(ExceptionUtils.getFullStackTrace(e));
-            logger.info(" catch 11");
-            logger.info(e.getMessage());
-            e.printStackTrace();
-            gSqlCon.close();
-            return UNSUCCESSFUL_DATABASE_OPERATION;
-        }
-    }
+	
 }
 
 

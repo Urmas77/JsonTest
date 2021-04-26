@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.SwarcoConnections;
 import fi.swarco.dataHandling.omniaServerDataHandling.OmniaMeasurementListDataLevel;
@@ -91,7 +90,7 @@ public class OmniaMeasurementShortListDataLevel {
                    (cc.getControllerId()==(pOmniaMeasurementDataShort.getControllerId())) &&
                    (cc.getDetectorId()==(pOmniaMeasurementDataShort.getDetectorId())) &&
                    (cc.getMeasurementTime().equals(sWarcoTime))))) {
-                    logger.info(" löyty  cc.toString()= " + cc.toString());
+          //          logger.info(" löyty  cc.toString()= " + cc.toString());
               //      logger.info(" löyty  pOmniaMeasurementDataShort.toString()= " + pOmniaMeasurementDataShort.toString());
                     setFoundRec(cc);
                     stmt.close();
@@ -154,9 +153,6 @@ public class OmniaMeasurementShortListDataLevel {
         }
         return iRet;
     }
-
-
-
     private int DeleteOldOmniaMeasurementDataShortLineFromDb(OmniaMeasurementDataShort pC1 ) throws SQLException{
         int iRet;
         String SQL;
@@ -196,9 +192,10 @@ public class OmniaMeasurementShortListDataLevel {
         try {
             java.sql.PreparedStatement stmt;
             SQL = " call FromShortToStorageMinute(); ";
-//            logger.info("SQL = " + SQL);
+            logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
+            if (iRet >= 0) iRet=INT_RET_OK;
             stmt.close();
             if (iRet < 0) {
                 logger.info("iRet = " + iRet);
@@ -217,7 +214,6 @@ public class OmniaMeasurementShortListDataLevel {
         return UNSUCCESSFUL_DATABASE_OPERATION;
     }
     }
-
     public static int AddNewOmniaMeasurementDataShort(OmniaMeasurementDataShort pOmniaMeasurementDataShort) throws SQLException{
         int iRet;
         String SQL="";

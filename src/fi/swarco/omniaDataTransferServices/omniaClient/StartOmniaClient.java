@@ -14,7 +14,6 @@ public class StartOmniaClient {
     public int ClearWorkTable() throws SQLException {
         StartWrapper stw = new StartWrapper();
         stw.MakeEmptyElement();
-       // TRPXMeasurementTaskWorkData trp = new TRPXMeasurementTaskWorkData();
         MeasurementTaskWorkHandling mth =new MeasurementTaskWorkHandling();
         SwarcoEnumerations.ConnectionType  oConnType;
         oConnType=getSqlServerConnectionType();

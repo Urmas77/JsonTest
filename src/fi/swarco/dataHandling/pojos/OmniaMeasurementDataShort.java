@@ -66,7 +66,7 @@ public class OmniaMeasurementDataShort {
         return MeasurementTime;
     }
     public void setMeasurementTime(String pMeasurementTime) {
-        this.MeasurementTime = pMeasurementTime;
+        this.MeasurementTime = pMeasurementTime.substring(0,19);
     }
     public long getDetectorId() {
         return DetectorId;

@@ -11,6 +11,8 @@ public class SwarcoConnections {
     InfluxDBTestJI curInfluxDB;
     static SwarcoEnumerations.ConnectionType curSqlConnectionType = SwarcoEnumerations.ConnectionType.NOT_DEFINED;
     public Connection getSqlCon() {
+ //       logger.info(" getSqlCon()");
+
         return curSqlCon;
     }
     public void setSqlCon(Connection pcurSqlCon) {
@@ -28,7 +30,7 @@ public class SwarcoConnections {
         return INT_RET_OK;
     }
     public int MakeConnection(SwarcoEnumerations.ConnectionType enConType) {
-        logger.info("  **** enConType = " + enConType);
+//        logger.info("  **** enConType = " + enConType);
         if (curSqlConnectionType.equals(enConType)) {
             if (curSqlCon != null) {
                 try {
@@ -114,7 +116,7 @@ public class SwarcoConnections {
     private int MakeSqlServerConnectionCity(SwarcoEnumerations.ConnectionType enConType) {
         ConWrapper cW;
         try {
-            logger.info("Start 2");
+     //       logger.info("Start 2");
             cW =swarvop.FillConnectionWrapper(enConType);
             logger.info(" enConType = " +enConType);
             if (curSqlCon == null) {   // only one RSQSErver connection/ program JIs 23.11 2020 klo 13.20
@@ -300,12 +302,11 @@ public class SwarcoConnections {
            }
        } catch (Exception e) {
            System.out.println(" catch 1112345");
+           System.out.println(e.toString());
            logger.info(" catch 1112345");
            logger.info(e.toString());
            e.printStackTrace();
-
-
-           return UNSUCCESSFUL_DATABASE_CONNECTION_OPERATION;
+         return UNSUCCESSFUL_DATABASE_CONNECTION_OPERATION;
        }
    }
     //*********************************************************************************************

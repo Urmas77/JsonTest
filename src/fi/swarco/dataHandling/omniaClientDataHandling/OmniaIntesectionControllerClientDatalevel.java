@@ -36,6 +36,7 @@ public class OmniaIntesectionControllerClientDatalevel{
     private OmniaIntersectionControllerData GetOmniaIntesectionControllerData (long plngIntersectionId,long plngControllerId ,String pstrTimestamp) throws SQLException {
 // there is only one element
         String SQL="";
+        String strHelp1;
         java.sql.PreparedStatement stmt;
         logger.info(" SqlConnectionType =" + SqlConnectionType);
         logger.info("Start ");
@@ -71,9 +72,14 @@ public class OmniaIntesectionControllerClientDatalevel{
                 ce.setIntersectionVisible(rs.getLong(10));
                 ce.setIntersectionDeleted(rs.getLong(11));
                 ce.setIntersectionDataPreviousUpdate(rs.getString(12));
+                strHelp1 = rs.getString(13);
+                logger.info(" rs.getString(13) =" + strHelp1 );
                 ce.setIntersectionGuid(rs.getString(13));
+                logger.info(" rs.getLong(14) =" + rs.getLong(14));
                 ce.setIntersectionProgressId(rs.getLong(14));
+                logger.info(" rs.getLong(15) =" + rs.getLong(15));
                 ce.setControllerId(rs.getLong(15));
+                logger.info(" rs.getString(16) ="+ rs.getString(16));
                 ce.setControllerDescription(rs.getString(16));
                 ce.setControllerTypeId(rs.getLong(17));
                 ce.setControllerRoadsideUnitId(rs.getLong(18));
@@ -109,6 +115,7 @@ public class OmniaIntesectionControllerClientDatalevel{
         java.sql.PreparedStatement stmt;
         logger.info(" SqlConnectionType =" + SqlConnectionType);
         logger.info("Start ");
+        logger.info(" plngIntersectionId = " + plngIntersectionId  + " plngControllerId"  + plngControllerId + " pstrTimestamp = " + pstrTimestamp);
         GetIntersectionSqlServerData st = new GetIntersectionSqlServerData();
         SQL =st.getStatement() ;
         logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
@@ -141,9 +148,13 @@ public class OmniaIntesectionControllerClientDatalevel{
                 ce.setIntersectionVisible(rs.getLong(10));
                 ce.setIntersectionDeleted(rs.getLong(11));
                 ce.setIntersectionDataPreviousUpdate(rs.getString(12));
+                logger.info("  rs.getString(13) =" + rs.getString(13));
                 ce.setIntersectionGuid(rs.getString(13));
+                logger.info("  rs.getLong(14) =" + rs.getLong(14));
                 ce.setIntersectionProgressId(rs.getLong(14));
+                logger.info("  rs.getLong(15) =" + rs.getLong(15));
                 ce.setControllerId(rs.getLong(15));
+                logger.info("  rs.getString(16) =" + rs.getString(16));
                 ce.setControllerDescription(rs.getString(16));
                 ce.setControllerTypeId(rs.getLong(17));
                 ce.setControllerRoadsideUnitId(rs.getLong(18));
@@ -173,6 +184,101 @@ public class OmniaIntesectionControllerClientDatalevel{
             return ce;
         }
     }
+    private OmniaIntersectionControllerData GetOmniaIntesectionDataForOmniview (long plngIntersectionId,long plngControllerId ,String pstrTimestamp) throws SQLException {
+// there is only one element
+        String SQL="";
+        java.sql.PreparedStatement stmt;
+        logger.info(" SqlConnectionType =" + SqlConnectionType);
+        logger.info("Start ");
+        logger.info(" plngIntersectionId = " + plngIntersectionId  + " plngControllerId"  + plngControllerId + " pstrTimestamp = " + pstrTimestamp);
+        GetIntersectionSqlServerData st = new GetIntersectionSqlServerData();
+        SQL =st.getStatement() ;
+        logger.info("SqlConnectionTypeyyyy= "+ SqlConnectionType);
+        logger.info("SQL = " +SQL);
+        int pos=0;
+        OmniaIntersectionControllerData ce;
+        try {
+            stmt = gSqlCon.prepareStatement(SQL);
+            pos=1;   // 1
+            stmt.setLong(pos,plngIntersectionId);
+            pos=pos+1;
+            stmt.setLong(pos,plngControllerId);
+            pos=pos+1;
+            java.sql.Timestamp  tStamp=java.sql.Timestamp.valueOf(pstrTimestamp);
+            stmt.setTimestamp(pos,tStamp);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+            while (rs.next()) {
+                ce = new OmniaIntersectionControllerData();
+                logger.info("  rs.getLong(1) =" + rs.getLong(1));
+                ce.setOmniaCode(rs.getLong(1));
+                logger.info("  rs.getString(2) =" + rs.getString(2));
+                ce.setOmniaName(rs.getString(2));
+                logger.info("  rs.getLong(3) =" + rs.getLong(3));
+                ce.setOmniaPublicationStatus(rs.getLong(3));
+                logger.info("  rs.getLong(4) =" + rs.getLong(4));
+                ce.setIntersectionId(rs.getLong(4));
+                logger.info("  rs.getString(5) =" + rs.getString(5));
+                ce.setIntesectionDescription(rs.getString(5));
+                logger.info("  rs.getLong(6) =" + rs.getLong(6));
+                ce.setIntersectionAreaId(rs.getLong(6));
+                logger.info("  rs.getLong(7) =" + rs.getLong(7));
+                ce.setIntersectionMaintenanceAreaId(rs.getLong(7));
+                logger.info("  rs.getString(8) =" + rs.getString(8));
+                ce.setIntersectionExternalCode(rs.getString(8));
+                logger.info("  rs.getLong(9) =" + rs.getLong(9));
+                ce.setIntersectionSubSystemId(rs.getLong(9));
+                logger.info("  rs.getLong(10) =" + rs.getLong(10));
+                ce.setIntersectionVisible(rs.getLong(10));
+                logger.info("  rs.getLong(11) =" + rs.getLong(11));
+                ce.setIntersectionDeleted(rs.getLong(11));
+                logger.info("  rs.getString(12) =" + rs.getString(12));
+                ce.setIntersectionDataPreviousUpdate(rs.getString(12));
+                logger.info("  rs.getString(13) =" + rs.getString(13));
+                ce.setIntersectionGuid(rs.getString(13));
+                logger.info("  rs.getLong(14) =" + rs.getLong(14));
+                ce.setControllerId(rs.getLong(14));
+                logger.info("  rs.getString(15) =" + rs.getString(15));
+                ce.setControllerDescription(rs.getString(15));
+                logger.info("  rs.getLong(16) =" + rs.getLong(16));
+                ce.setIntersectionProgressId(rs.getLong(16));
+                logger.info("  rs.getLong(17) =" + rs.getLong(17));
+                ce.setControllerTypeId(rs.getLong(17));
+                logger.info("  rs.getLong(18) =" + rs.getLong(18));
+                ce.setControllerRoadsideUnitId(rs.getLong(18));
+                logger.info("  rs.getString(19) =" + rs.getString(19));
+                ce.setControllerExternalCode(rs.getString(19));
+                logger.info("  rs.getLong(20) =" + rs.getLong(20));
+                ce.setControllerSubSystemId(rs.getLong(20));
+                logger.info("  rs.getLong(21) =" + rs.getLong(21));
+                ce.setControllerObjectPriorityId(rs.getLong(21));
+                logger.info("  rs.getLong(22) =" + rs.getLong(22));
+                ce.setControllerVisible(rs.getLong(22));
+                logger.info("  rs.getString(23) =" + rs.getString(23));
+                ce.setControllerDataPreviousUpdate(rs.getString(23));
+                stmt.close();
+                rs.close();
+                return ce;
+            }
+            stmt.close();
+            rs.close();
+            ce = new OmniaIntersectionControllerData();
+            ce.MakeEmptyElement();
+            return ce;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            ce= new OmniaIntersectionControllerData();
+            ce.MakeEmptyElement();
+            gSqlCon.close();
+            return ce;
+        }
+    }
+
+
+
     private OmniaIntersectionControllerData GetOmniaControllerData (long plngIntersectionId,long plngControllerId ,String pstrTimestamp) throws SQLException {
 // there is only one element
         String SQL="";
@@ -243,30 +349,6 @@ public class OmniaIntesectionControllerClientDatalevel{
             return ce;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private  String  GetIntersectionControllerJsonString(OmniaIntersectionControllerData pCe) {
         int iRet=0;
         String strHelp1=NO_VALUE;
@@ -296,7 +378,14 @@ public class OmniaIntesectionControllerClientDatalevel{
         return strHelp1;
     }
     public String GetIntersectionJsonData(long plngIntersectionId,long plngControllerId, String pstrTimestamp) throws SQLException {
+
         OmniaIntersectionControllerData ce =  GetOmniaIntesectionData(plngIntersectionId,plngControllerId ,pstrTimestamp);
+        String strHelp1 = GetIntersectionControllerJsonString(ce);
+        return strHelp1;
+    }
+    public String GetIntersectionJsonDataForOmniview(long plngIntersectionId,long plngControllerId, String pstrTimestamp) throws SQLException {
+// ************************
+        OmniaIntersectionControllerData ce =  GetOmniaIntesectionDataForOmniview(plngIntersectionId,plngControllerId ,pstrTimestamp);
         String strHelp1 = GetIntersectionControllerJsonString(ce);
         return strHelp1;
     }

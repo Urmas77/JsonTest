@@ -1,6 +1,5 @@
 package fi.swarco.dataHandling.pojos;
 import org.apache.log4j.Logger;
-
 import static fi.swarco.CONSTANT.INT_EMPTY_ELEMENT;
 import static fi.swarco.CONSTANT.NO_IDENTITY;
 public class OmniaMeasurementData {

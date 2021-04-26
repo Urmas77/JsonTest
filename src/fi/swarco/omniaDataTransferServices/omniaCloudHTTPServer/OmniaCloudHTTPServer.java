@@ -19,6 +19,11 @@ public class OmniaCloudHTTPServer {
     public static  void setOmniaServerName(String pOmniaServerName ) {GOmniaHttpServerName = pOmniaServerName;};
     public static String getOmniaServerName() { return GOmniaHttpServerName;};
     public static  String GOmniaHttpServerName =NO_VALUE;
+    private static String strOmniaMysqlFromReadToWrite="OFF";
+    public static String getOmniaMysqlFromReadToWrite() { return strOmniaMysqlFromReadToWrite;};
+    private static void setOmniaMysqlFromReadToWrite(String pOmniaMysqlFromReadToWrite)
+    { strOmniaMysqlFromReadToWrite= pOmniaMysqlFromReadToWrite;};
+
     private static Logger logger = Logger.getLogger(OmniaCloudHTTPServer.class.getName());
     private static JSwarcoproperties swarvop;
     public static void main(String[] args) {
@@ -32,6 +37,9 @@ public class OmniaCloudHTTPServer {
             logger.info ("Ei saatu properteja");
             System.exit(0);
         }
+     //   setOmniaMysqlFromReadToWrite(swarvop.getOmniaMysqlFromReadToWrite());
+     //   logger.info(" getOmniaMysqlFromReadToWrite() = " +getOmniaMysqlFromReadToWrite());
+
         if (args.length==0) {
             System.out.println("Ei argumentteja ");
         } else if  (args.length==1) {
@@ -46,6 +54,10 @@ public class OmniaCloudHTTPServer {
             logger.info ("Ei saatu porttia");
             System.exit(0);
         }
+        //   setOmniaMysqlFromReadToWrite(swarvop.getOmniaMysqlFromReadToWrite());
+        //   logger.info(" getOmniaMysqlFromReadToWrite() = " +getOmniaMysqlFromReadToWrite());
+        setOmniaMysqlFromReadToWrite(cW1.getDataTransferStatus());
+        logger.info(" getOmniaMysqlFromReadToWrite() = " +getOmniaMysqlFromReadToWrite());
         try {
             int intPort = Integer.parseInt(strServerPort);
             HttpServer server = HttpServer.create(new InetSocketAddress(intPort), 0);

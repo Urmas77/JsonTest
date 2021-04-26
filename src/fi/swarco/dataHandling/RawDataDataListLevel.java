@@ -46,9 +46,11 @@ public class RawDataDataListLevel {
             if (getSqlConnectionType().equals(SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2)) {
                InsertRawDataMySql st = new InsertRawDataMySql();
                SQL =st.getStatement();
+  //              logger.info("MySql  SQL = " + SQL );
             } else  {   // RETHINK everything else is here
                InsertRawDataSqlServer st = new InsertRawDataSqlServer();
                SQL =st.getStatement();
+ //               logger.info(" sql server SQL = "+ SQL);
             }
            stmt = gSqlCon.prepareStatement(SQL);
            int pos=0;

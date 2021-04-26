@@ -178,7 +178,7 @@ public class OmniaDetector {
         return detectorDataPreviousUpdate;
     }
     public void setDetectorDataPreviousUpdate(String pDetectorDataPreviousUpdate) {
-        this.detectorDataPreviousUpdate = pDetectorDataPreviousUpdate;
+        this.detectorDataPreviousUpdate = pDetectorDataPreviousUpdate.substring(0, 19);
         if (!(detectorDataPreviousUpdate == null )) {
             detectorDataPreviousUpdateSql=java.sql.Timestamp.valueOf(detectorDataPreviousUpdate);
         }
@@ -236,7 +236,7 @@ public class OmniaDetector {
         return created;
     }
     public void setCreated(String pCreated) {
-        this.created = pCreated;
+        this.created = pCreated.substring(0, 19);
         if (!(created == null )) {
             createdSql=java.sql.Timestamp.valueOf(created);
         }

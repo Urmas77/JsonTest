@@ -214,6 +214,21 @@ public class JSwarcoproperties {
     public void setLog4JPathAndFileName(String pLog4JPathAndFileName) {
         Log4JPathAndFileName= pLog4JPathAndFileName;
     }
+// jis 16.2 2021
+    private String OmniaMysqlFromReadToWrite;
+    public String getOmniaMysqlFromReadToWrite() {
+        return OmniaMysqlFromReadToWrite;
+    }
+    public void setOmniaMysqlFromReadToWrite(String pOmniaMysqlFromReadToWrite) {
+        OmniaMysqlFromReadToWrite = pOmniaMysqlFromReadToWrite;
+    }
+    private String ClientMaxControllersInMessage;
+    public String getClientMaxControllersInMessage() {
+        return ClientMaxControllersInMessage;
+    }
+    public void setClientMaxControllersInMessage(String pClientMaxControllersInMessage) {
+        ClientMaxControllersInMessage = pClientMaxControllersInMessage;
+    }
     private Properties prop;
 
     public int getLog4JProperties() {
@@ -341,7 +356,7 @@ public class JSwarcoproperties {
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlL"));
             retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
-            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusL"));
+            retWrapper.setDataTransferStatus(prop.getProperty("DataTransferStatusL"));
         }
         if (pstrCity.equals("helsinki")) {
             retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartH"));
@@ -352,7 +367,7 @@ public class JSwarcoproperties {
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortH"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlH"));
             retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
-            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusH"));
+            retWrapper.setDataTransferStatus(prop.getProperty("DataTransferStatusH"));
         }
         if (pstrCity.equals("helsinkiomniview")) {
             retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartHOW"));
@@ -363,9 +378,10 @@ public class JSwarcoproperties {
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortHOW"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlHOW"));
             retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
-            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusHOW"));
+           //  DataTransferStatusHOW
+            retWrapper.setDataTransferStatus(prop.getProperty("DataTransferStatusHOW"));
         }
-        logger.info("retWrapper.toString()  = " +retWrapper.toString());
+      //  logger.info("retWrapper.toString()  = " +retWrapper.toString());
         return retWrapper;
     }
     public ConWrapper FillConnectionWrapper(SwarcoEnumerations.ConnectionType enConType)  {
@@ -381,7 +397,7 @@ public class JSwarcoproperties {
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlL"));
             retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
-            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusL"));
+            retWrapper.setDataTransferStatus(prop.getProperty("DataTransferStatusL",VALUE_OFF));
         }
         if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_HELSINKI) {
             retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartH"));
@@ -392,7 +408,7 @@ public class JSwarcoproperties {
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortH"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlH"));
             retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
-            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusH"));
+            retWrapper.setDataTransferStatus(prop.getProperty("DataTransferStatusH",VALUE_OFF));
         }
         if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_HELSINKI_OMNIVIEW) {
             retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartHOW"));
@@ -403,7 +419,7 @@ public class JSwarcoproperties {
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortHOW"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlHOW"));
             retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
-            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusHOW"));
+            retWrapper.setDataTransferStatus(prop.getProperty("DataTransferStatusHOW",VALUE_OFF));
         }
         if (enConType==SwarcoEnumerations.ConnectionType.SQLSERVER_LOCAL_JOMNIATEST) { // Lahti settings RETHINK
             retWrapper.setConnUrlStart(prop.getProperty("SqlServerConnectionUrlStartL"));
@@ -414,7 +430,7 @@ public class JSwarcoproperties {
             retWrapper.setHttpClientPort(prop.getProperty("HttpClientPortL"));
             retWrapper.setClientUrl(prop.getProperty("ClientUrlL"));
             retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
-            retWrapper.setDataTransferStatus(prop.getProperty("dataTransferStatusL"));
+            retWrapper.setDataTransferStatus(prop.getProperty("DataTransferStatusL",VALUE_OFF));
         }
         if (enConType==SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2) {
             retWrapper.setConnUrlStart(prop.getProperty("MySqlConnectionUrlStart"));
@@ -427,7 +443,7 @@ public class JSwarcoproperties {
             retWrapper.setServerTimeZone(prop.getProperty("MySqlTimeZone"));
             retWrapper.setDataTransferStatus(prop.getProperty(TT_NOT_DEFINED));
         }
-  //      logger.info("retWrapper.toString()  = " +retWrapper.toString());
+    //     logger.info("retWrapper.toString()  = " +retWrapper.toString());
         return retWrapper;
     }
     private int setMySqlProps() {
@@ -445,13 +461,15 @@ public class JSwarcoproperties {
         //   strHelp1 =strHelp1 + "database=" + getMySqldatabase()  +",";
         //   strHelp1 = strHelp1 + "user=" + getMySqldbuser() +",";
         //   strHelp1 = strHelp1 + "password=" + getMySqlpassword();
-           setMySqlConnUrlWhole(strHelp1);
-          logger.info("MySqlConnUrlStart = " + prop.getProperty("MySqlConnectionUrlStart"));
-          logger.info("MySqlpassword = " + prop.getProperty("MySqlpassword"));
-          logger.info("MySqldatabase = " + prop.getProperty("MySqldatabase"));
-          logger.info("MySqldbuser = " + prop.getProperty("MySqldbuser"));
-          logger.info("MySqlServerTimeZone = " + prop.getProperty("MySqlServerTimeZone"));
-      //    logger.info("getpMySqlConnUrlWhole() = " + getMySqlConnUrlWhole());
+        setMySqlConnUrlWhole(strHelp1);
+      //  logger.info("MySqlConnUrlStart = " + prop.getProperty("MySqlConnectionUrlStart"));
+     //   logger.info("MySqlpassword = " + prop.getProperty("MySqlpassword"));
+     //   logger.info("MySqldatabase = " + prop.getProperty("MySqldatabase"));
+     //   logger.info("MySqldbuser = " + prop.getProperty("MySqldbuser"));
+     //   logger.info("MySqlServerTimeZone = " + prop.getProperty("MySqlServerTimeZone"));
+     //   logger.info("getpMySqlConnUrlWhole() = " + getMySqlConnUrlWhole());
+        setOmniaMysqlFromReadToWrite(prop.getProperty("OmniaMysqlFromReadToWrite","OFF"));
+   //     logger.info("OmniaMysqlFromReadToWrite = " + getOmniaMysqlFromReadToWrite());
         return INT_RET_OK;
     }
     private int setInfluxProps () {
@@ -510,6 +528,8 @@ public class JSwarcoproperties {
     //    logger.info("getOmniaClientWorkWaitSleep() = " + getOmniaClientWorkWaitSleep());
         setOmniaClientDetectorDataTime(prop.getProperty("OmniaClientDetectorDataTime"));
        // logger.info("getOmniaClientDetectorDataTime() = " + getOmniaClientDetectorDataTime());
+       setClientMaxControllersInMessage(prop.getProperty("ClientMaxControllersInMessage","1"));
+        logger.info("getClientMaxControllersInMessage() = " + getClientMaxControllersInMessage());
         return INT_RET_OK;
     }
 }
