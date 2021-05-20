@@ -118,7 +118,7 @@ public class SwarcoConnections {
         try {
      //       logger.info("Start 2");
             cW =swarvop.FillConnectionWrapper(enConType);
-            logger.info(" enConType = " +enConType);
+   //         logger.info(" enConType = " +enConType);
             if (curSqlCon == null) {   // only one RSQSErver connection/ program JIs 23.11 2020 klo 13.20
                logger.info("CurConnection is null make totally new connection!");
                 //logger.info("not used Connected.swarvop.getSqlServerConnUrlWhole() = " + swarvop.getSqlServerConnUrlWhole());

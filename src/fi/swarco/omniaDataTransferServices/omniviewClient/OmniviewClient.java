@@ -5,12 +5,9 @@ import fi.swarco.omniaDataTransferServices.omniaClient.StartOmniaClient;
 import fi.swarco.properties.JSwarcoproperties;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-
 import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
-import static fi.swarco.omniaDataTransferServices.omniaClient.GetOmniaData.sendGetOmniaData;
 import static fi.swarco.omniaDataTransferServices.omniviewClient.GetOmniviewData.sendGetOmniviewData;
-
 public class OmniviewClient {
 // special client for Helsiki Omniview data transfer
     public static SwarcoEnumerations.ConnectionType getSqlServerConnectionType() { return GSqlServerConnectionType;};

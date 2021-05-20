@@ -45,7 +45,7 @@ public class OmniaCloudHTTPServer {
         } else if  (args.length==1) {
             strServer = args[0];
             setOmniaServerName(strServer);
-            System.out.println("strServer = " + strServer);
+            logger.info("strServer = " + strServer);
         }
         cW1 =swarvop.FillServerWrapper(strServer);
         logger.info("cW1.getHttpServerPort() = " + cW1.getHttpServerPort());

@@ -57,7 +57,7 @@ public class DetectorMeasurementsShortClientDataLevel {
     private int GetOmniaMeasurementsDataShortGroup(String pstrTimestamp) throws SQLException{
         DmUnits.clear();
         java.sql.PreparedStatement stmt;
-        logger.info("Start ");
+ //       logger.info("Start ");
         GetMeasurementShortSqlServerDataGroup st= new GetMeasurementShortSqlServerDataGroup();
         String SQL = st.getStatement();
         OmniaMeasurementDataShort cc;
@@ -69,7 +69,7 @@ public class DetectorMeasurementsShortClientDataLevel {
             stmt.setTimestamp(pos,tStamp);
             ResultSet rs;
             rs = stmt.executeQuery();
-            logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
+   //         logger.info(" rs.getFetchSize() = " + rs.getFetchSize());
             while (rs.next()) {
                 cc= new OmniaMeasurementDataShort();
                 cc.MakeEmptyElement();

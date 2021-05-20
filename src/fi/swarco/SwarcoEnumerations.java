@@ -15,4 +15,4 @@ public SwarcoEnumerations(){}
    // LOAD_CURRENT_DETECTORS_DATA
    // CONTROLLER_STATUS_DATA_INSERT // controller_status /stae data insert
     //         NOT_DEFINED
-}
+ }

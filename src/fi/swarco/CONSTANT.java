@@ -7,7 +7,8 @@ public static final String NO_VALUE ="novalue";
 public static final String ERROR_VALUE ="errorvalue";
 public static final String JOB_DONE ="JOB_DONE";
 public static final String  NO_TIME_SERIE_STRING ="NO_TIME_SERIE_STRING";
-public static int SERIENAMES_CREATED_OK=45987;
+   public static final int NO_INT_VALUE =-9999999;
+   public static int SERIENAMES_CREATED_OK=45987;
 public static int SERIENAMES_CREATED_NOT_OK=-45987;
 public static final int NO_IDENTITY =-1;
 public static final int INT_FIELD_NOT_IN_USE =-9999999;
@@ -106,6 +107,21 @@ public static final String  TT_LOAD_CURRENT_DETECTORS_DATA="LOADCURRENTDETECTORS
 public static final String  TT_CONTROLLER_STATUS_DATA_INSERT="CONTROLLERSTATUSDATAINSERT";
 public static final String  TT_NOT_DEFINED="NOTDEFINED";
 public static final String  TT_NO_WORK="NO_WORK";
+
+public static final long TASK_SELECTION_MODE_YOUNGEST=0;
+public static final long TASK_SELECTION_MODE_OLDEST=1;
+public static final long TASK_SELECTION_MODE_YOUNGEST_WITH_LINE_LIMIT=2;
+public static final long TASK_SELECTION_MODE_OLDEST_WITH_LINE_LIMIT=3;
+public static final long TASK_SELECTION_MODE_MIXTURE_01=4;
+public static final long TASK_SELECTION_MODE_MIXTURE_WITH_LINE_LIMIT_01=5;
+//
+public static final long TASK_SELECTION_MODE_NOT_DEFINED=-9999999;
+public static final int  TOO_FEW_LINES_TO_TRANSFER=-60001;
+public static final int  NO_INT_VALUE_FOR_TO_TRANSFER=-60002;
+public static final int  IMPOSSIBLE_SELECTOR_RESULT=-60003;
+public static final int NO_SELECTION_DONE=-543;
+public static final int SELECTION_DONE=543;
+   // youngest,  oldest , youngest with line limit ..... JIs 27.04 2021
 public static final String  TT_TOO_MANY_WORKTYPES="TT_TOO_MANY_WORKTYPES";
 public static final long    NO_WORK_INDEX=-5678;
 public static final long    TWO_HOURS_MS=7200000;

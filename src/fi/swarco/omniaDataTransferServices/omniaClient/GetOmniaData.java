@@ -97,6 +97,7 @@ public class GetOmniaData {
                                 strHelp1 = URLEncoder.encode(strHelp1, StandardCharsets.UTF_8.toString());
                                 //url1 = sw.getOmniaClientUrl();
                                 oConnType=getSqlServerConnectionType();
+                                logger.info("moi2 oConnType=" + oConnType);
                                 ConWrapper cW = new ConWrapper();
                                 cW= sw.FillConnectionWrapper(oConnType);
                                 url1 = cW.getClientUrl();
@@ -136,10 +137,10 @@ public class GetOmniaData {
                                 response = new StringBuffer();
                                 while ((inputLine = in.readLine()) != null) {
                                     response.append(inputLine);
-                                    logger.info(" jjjjj inputLine = " + inputLine);
+                                //    logger.info(" jjjjj inputLine = " + inputLine);
                                 }
                                 in.close();
-                                logger.info("jjjj response.length()=  " + response.length());
+                               // logger.info("jjjj response.length()=  " + response.length());
                             }
                         }
                     }

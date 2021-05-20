@@ -224,10 +224,31 @@ public class JSwarcoproperties {
     }
     private String ClientMaxControllersInMessage;
     public String getClientMaxControllersInMessage() {
-        return ClientMaxControllersInMessage;
+        return ClientMaxControllersInMessage.trim();
     }
     public void setClientMaxControllersInMessage(String pClientMaxControllersInMessage) {
-        ClientMaxControllersInMessage = pClientMaxControllersInMessage;
+        ClientMaxControllersInMessage = pClientMaxControllersInMessage.trim();
+    }
+    private String ClientCriticalAmountOfTransferTaskLines;
+    public String getClientCriticalAmountOfTransferTaskLines() {
+        return ClientCriticalAmountOfTransferTaskLines.trim();
+    }
+    public void setClientCriticalAmountOfTransferTaskLines(String pClientCriticalAmountOfTransferTaskLines) {
+        ClientCriticalAmountOfTransferTaskLines = pClientCriticalAmountOfTransferTaskLines.trim();
+    }
+    private String MaxDetectorsOnControllerGroups;
+    public String getMaxDetectorsOnControllerGroups() {
+            return MaxDetectorsOnControllerGroups.trim();
+        }
+    public void setMaxDetectorsOnControllerGroups(String pMaxDetectorsOnControllerGroups) {
+        MaxDetectorsOnControllerGroups = pMaxDetectorsOnControllerGroups.trim();
+    }
+    private String DataTransferTaskSelectionMode;
+    public String getDataTransferTaskSelectionMode() {
+           return DataTransferTaskSelectionMode.trim();
+    }
+    public void setDataTransferTaskSelectionMode(String pDataTransferTaskSelectionMode) {
+        DataTransferTaskSelectionMode = pDataTransferTaskSelectionMode.trim();
     }
     private Properties prop;
 
@@ -529,7 +550,13 @@ public class JSwarcoproperties {
         setOmniaClientDetectorDataTime(prop.getProperty("OmniaClientDetectorDataTime"));
        // logger.info("getOmniaClientDetectorDataTime() = " + getOmniaClientDetectorDataTime());
        setClientMaxControllersInMessage(prop.getProperty("ClientMaxControllersInMessage","1"));
-        logger.info("getClientMaxControllersInMessage() = " + getClientMaxControllersInMessage());
+     //   logger.info("getClientMaxControllersInMessage() = " + getClientMaxControllersInMessage());
+        setClientCriticalAmountOfTransferTaskLines(prop.getProperty("ClientCriticalAmountOfTransferTaskLines","0"));
+//        logger.info("getClientCriticalAmountOfTransferTaskLines() = " + getClientCriticalAmountOfTransferTaskLines());
+        setMaxDetectorsOnControllerGroups(prop.getProperty("MaxDetectorsOnControllerGroups","0"));
+ //       logger.info("getMaxDetectorsOnControllerGroups() = " + getMaxDetectorsOnControllerGroups());
+        setDataTransferTaskSelectionMode(prop.getProperty("DataTransferTaskSelectionMode","0"));
+ //       logger.info("getDataTransferTaskSelectionMode() = " + getDataTransferTaskSelectionMode());
         return INT_RET_OK;
     }
 }

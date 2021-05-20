@@ -27,7 +27,7 @@ public class MeasurementTaskWorkHandling {
             return iRet;
         }
         SqlConnectionType = pSqlCon;
-        logger.info(" *** this line must be seen SqlConnectionType = " + SqlConnectionType);
+  //      logger.info(" *** this line must be seen SqlConnectionType = " + SqlConnectionType);
         gSqlCon = vg.getSqlCon();
         return INT_RET_OK;
     }
@@ -223,7 +223,7 @@ public class MeasurementTaskWorkHandling {
             SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid";
             String strRet;
             java.sql.PreparedStatement stmt;
-//            logger.info("SQL = " + SQL);
+            logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             ResultSet rs;
             rs = stmt.executeQuery();
@@ -509,6 +509,34 @@ public class MeasurementTaskWorkHandling {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
+    public  int GetOmniaCode () throws SQLException{
+// get omniacode to
+        int iRet;
+        try {
+            String strRet;
+
+            String SQL =   "select [dbo].[TRPX_GetOmniaCode]();";
+            java.sql.PreparedStatement stmt;
+            logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
+                return iRet;
+            }
+        } catch (SQLException e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            e.printStackTrace();
+            gSqlCon.close();
+            return INT_RET_NOT_OK;
+        }
+        return INT_RET_NOT_OK;
+    }
+
 }
 
 

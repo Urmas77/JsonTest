@@ -61,7 +61,7 @@ public class OmniaMeasurementShortListDataLevel {
             stmt.setLong(3,pOmniaMeasurementDataShort.getControllerId());
             stmt.setLong(4,pOmniaMeasurementDataShort.getDetectorId());
             stmt.setString(5,pOmniaMeasurementDataShort.getMeasurementTime());
-  //          logger.info(" pOmniaMeasurementDataShort.toString() = " + pOmniaMeasurementDataShort.toString());
+            logger.info(" pOmniaMeasurementDataShort.toString() = " + pOmniaMeasurementDataShort.toString());
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -84,14 +84,14 @@ public class OmniaMeasurementShortListDataLevel {
   //              logger.info("DetectorId p  = " + pOmniaMeasurementDataShort.getDetectorId() + " cc " + cc.getDetectorId());
   //              logger.info("MeasurementTime p  = " + pOmniaMeasurementDataShort.getMeasurementTime() + " cc " + cc.getMeasurementTime());
                  sWarcoTime  =stu.ToSwarcoTime( pOmniaMeasurementDataShort.getMeasurementTime());
-  //               logger.info("MeasurementTime sWarcoTime  = " + sWarcoTime + " cc " + cc.getMeasurementTime());
+                 logger.info("MeasurementTime sWarcoTime  = " + sWarcoTime + " cc " + cc.getMeasurementTime());
                 if (((cc.getOmniaCode()==(pOmniaMeasurementDataShort.getOmniaCode())) &&
                    (cc.getIntersectionId()==(pOmniaMeasurementDataShort.getIntersectionId()) &&
                    (cc.getControllerId()==(pOmniaMeasurementDataShort.getControllerId())) &&
                    (cc.getDetectorId()==(pOmniaMeasurementDataShort.getDetectorId())) &&
                    (cc.getMeasurementTime().equals(sWarcoTime))))) {
-          //          logger.info(" löyty  cc.toString()= " + cc.toString());
-              //      logger.info(" löyty  pOmniaMeasurementDataShort.toString()= " + pOmniaMeasurementDataShort.toString());
+                    logger.info(" löyty  cc.toString()= " + cc.toString());
+                    logger.info(" löyty  pOmniaMeasurementDataShort.toString()= " + pOmniaMeasurementDataShort.toString());
                     setFoundRec(cc);
                     stmt.close();
                     rs.close();
@@ -138,7 +138,7 @@ public class OmniaMeasurementShortListDataLevel {
     public int MakeDeleteInsert(OmniaMeasurementDataShort pC1) throws SQLException{
         int iRet;
         iRet = DeleteOldOmniaMeasurementDataShortLineFromDb(pC1);
- //       logger.info("***deletedinserted  pC1.toString()" + pC1.toString());
+        logger.info("***deletedinserted  pC1.toString()" + pC1.toString());
         if (iRet < 0) {
  //           logger.info("iRet = " + iRet);
             iRet = UNSUCCESSFUL_DATABASE_DELETE_OPERATION;
@@ -164,7 +164,7 @@ public class OmniaMeasurementShortListDataLevel {
                     " ControllerId = " + pC1.getControllerId() + " and " +
                     " DetectorId = " + pC1.getDetectorId() + " and " +
                     " MeasurementTime = '" + pC1.getMeasurementTime()  +  "';";
-//            logger.info("SQL = " + SQL);
+           logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
       //      logger.info("Lines deleted iRet = " + iRet);
@@ -311,8 +311,8 @@ public class OmniaMeasurementShortListDataLevel {
                  //  jsonParser = new JsonParser();
                    ceJson = myGson.fromJson(strHelp2, OmniaMeasurementDataShortJson.class);
                    aO1=ceJson.MakeItemFromJsonTransferItem();
- //                 logger.info("ceJson.toString().length() = " + ceJson.toString().length());
- //                  logger.info("aO1.toString() = " +aO1.toString());
+                  logger.info("ceJson.toString().length() = " + ceJson.toString().length());
+                   logger.info("aO1.toString() = " +aO1.toString());
                    iRet= DoesLineAlreadyExist(aO1);
                 if (iRet==INT_RET_NOT_FOUND) {
                     iRet=AddNewOmniaMeasurementDataShort(aO1);
@@ -329,7 +329,7 @@ public class OmniaMeasurementShortListDataLevel {
                         }
                     }
                 } else {
-                    logger.info("Unsuccessful DoesLineAlreadyExsist insert iRet = " + iRet);
+                    logger.info("Unsuccessful DoesLineAlreadyExist insert iRet = " + iRet);
                     return iRet;
                 }
                 iHereOld =iHere+1;

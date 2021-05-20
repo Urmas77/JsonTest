@@ -6,7 +6,8 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
-import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
+import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.*;
+
 public class MakeSendJsonOperations {
     static Logger logger = Logger.getLogger(MakeSendJsonOperations.class.getName());
     private static String jSonPermanentData = "novalue";
@@ -94,7 +95,8 @@ public class MakeSendJsonOperations {
         logger.info("No JsonMeasurementData! ");
         return OMNIA_DATA_PICK_NOT_OK;
     }
-    private int MakeSpareOperations(TRPXMeasurementTaskData pCe) throws SQLException {
+    private int MakeSpareOperationsxxxx(TRPXMeasurementTaskData pCe) throws SQLException {
+     // not in use JIs 6.5 2021
         String strHelp1;
         int iRet;
         LogUtilities mfl = new LogUtilities();
@@ -125,7 +127,7 @@ public class MakeSendJsonOperations {
         oConnType = getSqlServerConnectionType() ;
         iRet = th.MakeConnection(oConnType);
         if (iRet != INT_RET_OK) {
-            logger.info("Ei kantayhteytt� lopetetaan");
+            logger.info("Ei kantayhteyttä lopetetaan");
             return OMNIA_DATA_PICK_NOT_OK;
         }
         try {
@@ -196,19 +198,22 @@ public class MakeSendJsonOperations {
                 if (th.AnyWorkMeasurements() == 0) {
                     Thread.sleep(getSleep());   // 5 seconds sleep
                 } else {
-                    iRet =th.CreateControllerGroups();
-                    if (iRet!=INT_RET_OK)  {
-                       logger.info("Impossible to create Controller groups iRet =" + iRet);
-                        return iRet;
-                    }
+
                     iRet = th.DeleteTrashTasksBeforeHand();
                     if (iRet != DELETE_TRASH_TASK_OK) {
                         logger.info("Task Transfer error iRet = " + iRet);
                         return iRet;
                     }
-                    iRet = th.TransferMeasurementTasksToWorkQueue();
-                    if (iRet != TASK_TRANSFER_OK) {
-                        logger.info("Task Transfer error iRet = " + iRet);
+// depending on parameters select, which works are executed first
+                    iRet =WorkTaskExecuteSelector();
+                    if (iRet<0) {
+                        logger.info("Task selection r error iRet = " + iRet);
+                        return iRet;
+                    }
+                    long iMaxDetectors=getMaxDetectorsOnControllerGroups();
+                     iRet =th.CreateControllerGroups3(iMaxDetectors);
+                    if (iRet!=INT_RET_OK)  {
+                        logger.info("Impossible to create Controller groups iRet =" + iRet);
                         return iRet;
                     }
                     setWorkType(TT_MEASUREMENT_DATA_INSERT);
@@ -236,7 +241,7 @@ public class MakeSendJsonOperations {
         oConnType = getSqlServerConnectionType() ;
         iRet = th.MakeConnection(oConnType);
         if (iRet != INT_RET_OK) {
-            logger.info("Ei kantayhteytt� lopetetaan");
+            logger.info("Ei kantayhteyttä lopetetaan");
             return OMNIA_DATA_PICK_NOT_OK;
         }
         try {
@@ -367,8 +372,12 @@ public class MakeSendJsonOperations {
                           return INT_RET_NOT_OK;
                        }
                        strHelp1 = th.GetMeasurementShortSqlDataGroup(strHelp2);
+
+
                    if (strHelp1.equals(NO_VALUE)) {
-                       iRet = MakeClearanceOperations(ce);
+                       // check here  are there any orphan lines left
+
+                       iRet = MakeClearanceOperations(ce);  // RETHINK JIs 19.05 2021
                        logger.info("No JsonMeasurementData! ");
                        return iRet;
                    } else {
@@ -423,8 +432,6 @@ public class MakeSendJsonOperations {
                        }
                        return iRet;
                    }
-
-
                    ce = th.GetFirstUndoneTaskFromList();
                    strHelp1 = th.GetIntersectionControllerSqlDataForOmniview(ce.getIntersectionId(),
                               ce.getControllerId(),
@@ -455,8 +462,6 @@ public class MakeSendJsonOperations {
                    }
                    ce = th.GetFirstUndoneTaskFromList();
                    strHelp1 = th.GetDetectorOmniviewSqlData(ce.getControllerId(),ce.getDetectorId(),ce.getPermanentDataTimestamp());
-                    //logger.info("strHelp1 = " + strHelp1);
-                    // logger.info("strHelp1.length()  = " + strHelp1.length());
                    if (strHelp1.equals(NO_VALUE)) {
                         // RETHINK update task state and write to log
                        iRet = MakeClearanceOperations(ce);
@@ -481,7 +486,128 @@ public class MakeSendJsonOperations {
         } // polling loop while end
         return OMNIA_DATA_PICK_OK;
     }
-    public int MakeSendOmniaOperations() throws SQLException {
+    private int  WorkTaskExecuteSelector() {
+       int iRet=INT_RET_OK;
+       int iCount;
+       int iSomethingSelected=NO_SELECTION_DONE;
+       long iPreviousMode;
+       long iRunningMode = getDataTransferTaskSelectionMode();
+       long iMinLines = getClientCriticalAmountOfTransferTaskLines();
+       try {
+           iSomethingSelected=NO_SELECTION_DONE;
+           logger.info("iRunningMode = "+iRunningMode);
+            if (iRunningMode == TASK_SELECTION_MODE_NOT_DEFINED) {
+                logger.info("inside iRunningMode = "+iRunningMode);
+                iSomethingSelected=SELECTION_DONE;
+                iRet = th.TransferMeasurementTasksToWorkQueue(); // youngest
+               return iRet;
+           }
+           if (iRunningMode == TASK_SELECTION_MODE_OLDEST) {
+               logger.info("inside iRunningMode = "+iRunningMode);
+               iSomethingSelected=SELECTION_DONE;
+               iRet = th.TransferMeasurementTasksToWorkQueueOldest();
+                   return iRet;
+           }
+           if (iRunningMode == TASK_SELECTION_MODE_YOUNGEST) {
+               logger.info("inside iRunningMode = "+iRunningMode);
+               iSomethingSelected=SELECTION_DONE;
+               iRet = th.TransferMeasurementTasksToWorkQueue();
+                   return iRet;
+           }
+           if (iRunningMode == TASK_SELECTION_MODE_YOUNGEST_WITH_LINE_LIMIT) {
+               logger.info("inside iRunningMode ="+iRunningMode);
+               iSomethingSelected=SELECTION_DONE;
+               iCount = th.TransferMeasurementTasksCountYoungest(); // that have enough lines
+              if (iCount >= iMinLines) {
+                 iRet = th.TransferMeasurementTasksToWorkQueue();
+                 return iRet;
+              } else {
+                 return TOO_FEW_LINES_TO_TRANSFER;
+              }
+           }
+           if (iRunningMode == TASK_SELECTION_MODE_OLDEST_WITH_LINE_LIMIT) {
+               logger.info("inside iRunningMode = "+iRunningMode);
+               iSomethingSelected=SELECTION_DONE;
+               iCount = th.TransferMeasurementTasksCountOldest();  // that have enough lines
+               logger.info("iCount = "  + iCount);
+              logger.info("iMinLines = "  +iMinLines);
+               if (iCount >= iMinLines) {
+                 iRet = th.TransferMeasurementTasksToWorkQueueOldest();
+                 return iRet;
+              } else {
+                 return TOO_FEW_LINES_TO_TRANSFER;
+              }
+           }
+           if (iRunningMode == TASK_SELECTION_MODE_MIXTURE_WITH_LINE_LIMIT_01) {
+               logger.info("inside iRunningMode = "+iRunningMode);
+               iSomethingSelected=SELECTION_DONE;
+               iPreviousMode = getTaskSelectionModePrevious();
+               logger.info(" iPreviousMode = "+iPreviousMode);
+               if (iPreviousMode == TASK_SELECTION_MODE_YOUNGEST_WITH_LINE_LIMIT) {
+                   logger.info("inside iRunningMode = "+iRunningMode + " iPreviousMode = "+iPreviousMode);
+                   setTaskSelectionModePrevious(TASK_SELECTION_MODE_OLDEST_WITH_LINE_LIMIT);
+                   iCount = th.TransferMeasurementTasksCountYoungest(); // that have enough lines
+                   if (iCount >= iMinLines) {
+                       iRet = th.TransferMeasurementTasksToWorkQueue();
+                       return iRet;
+                   } else {
+                       return TOO_FEW_LINES_TO_TRANSFER;
+                   }
+               }
+               if (iPreviousMode == TASK_SELECTION_MODE_OLDEST_WITH_LINE_LIMIT) {
+                   logger.info("inside iRunningMode = "+iRunningMode);
+                   iSomethingSelected=SELECTION_DONE;
+                   setTaskSelectionModePrevious(TASK_SELECTION_MODE_YOUNGEST_WITH_LINE_LIMIT);
+                   logger.info("inside iRunningMode = "+iRunningMode + " iPreviousMode = "+iPreviousMode);
+                   iCount = th.TransferMeasurementTasksCountOldest();  // that have enough lines
+                   logger.info("inside iRunningMode = "+iRunningMode +  " iCount = " + iCount);
+                   if (iCount >= iMinLines) {
+                       iRet = th.TransferMeasurementTasksToWorkQueueOldest();
+                       return iRet;
+                   } else {
+                       return TOO_FEW_LINES_TO_TRANSFER;
+                   }
+               }
+               // no init value
+               logger.info("inside iRunningMode = "+iRunningMode + " no init value");
+               setTaskSelectionModePrevious(TASK_SELECTION_MODE_YOUNGEST_WITH_LINE_LIMIT);
+               return iRet;
+           }
+           if (iRunningMode == TASK_SELECTION_MODE_MIXTURE_01) {
+               logger.info("inside iRunningMode = "+iRunningMode);
+               iSomethingSelected=SELECTION_DONE;
+               iPreviousMode = getTaskSelectionModePrevious();
+               if (iPreviousMode == TASK_SELECTION_MODE_YOUNGEST) {
+                   iRet = th.TransferMeasurementTasksToWorkQueue();
+                   setTaskSelectionModePrevious(TASK_SELECTION_MODE_OLDEST);
+                   return iRet;
+               }
+               if (iPreviousMode == TASK_SELECTION_MODE_OLDEST) {
+                   iRet = th.TransferMeasurementTasksToWorkQueueOldest();
+                   setTaskSelectionModePrevious(TASK_SELECTION_MODE_YOUNGEST);
+                   return iRet;
+               }
+               // no init value
+               logger.info("inside iRunningMode = "+iRunningMode + " No init mode");
+               setTaskSelectionModePrevious(TASK_SELECTION_MODE_YOUNGEST);
+               return NO_INT_VALUE_FOR_TO_TRANSFER;
+           }
+           // nothing found so
+           if (iSomethingSelected==NO_SELECTION_DONE) {
+               logger.info("No selection done?");
+               logger.info("inside iRunningMode = "+iRunningMode + " No selection done");
+               iRet = th.TransferMeasurementTasksToWorkQueue(); // youngest
+               return iRet;
+           }
+           return  IMPOSSIBLE_SELECTOR_RESULT;
+       } catch (Exception e) {
+         logger.info(ExceptionUtils.getRootCauseMessage(e));
+         logger.info(ExceptionUtils.getFullStackTrace(e));
+         e.printStackTrace();
+         return OMNIA_DATA_PICK_NOT_OK;
+       }
+    }
+   public int MakeSendOmniaOperations() throws SQLException {
         LogUtilities mfl = new LogUtilities();
         SwarcoEnumerations.ConnectionType  oConnType;
         oConnType=getSqlServerConnectionType();

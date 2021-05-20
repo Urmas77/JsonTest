@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.CONSTANT.INT_RET_OK;
 import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.getSqlServerConnectionType;
+import static fi.swarco.omniaDataTransferServices.omniaClient.OmniaClient.setOmniaCode;
 
 public class StartOmniaClient {
     private static Logger logger = Logger.getLogger(StartOmniaClient.class.getName());
@@ -27,6 +28,9 @@ public class StartOmniaClient {
         if (iRet==EXTRACLEANUP_DELETE_TASK_ERROR) {
             logger.info("ExtraCleanUpTask Error iRet = " + iRet);
         }
+// get Omniacode to global variable RETHINK is this right place
+        iRet=mth.GetOmniaCode();
+        setOmniaCode(iRet);
 //  Are there tasks
         String strTaskType = mth.GetWorkTaskType();
         if (!(strTaskType.equals(TT_NOT_DEFINED))) {

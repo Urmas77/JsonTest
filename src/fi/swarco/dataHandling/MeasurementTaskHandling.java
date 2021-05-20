@@ -661,6 +661,124 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return TASK_TRANSFER_ERROR;
         }
     }
+
+    public int TransferMeasurementTasksCountYoungest() throws SQLException{
+        int iRet = INT_RET_NOT_OK;
+        try {
+            String SQL = "select count(*) from TRPX_MeasurementTask ";
+            SQL = SQL + " where DetectorMeasuresTimestamp = ";
+            SQL = SQL + " (select max(DetectorMeasuresTimestamp) from TRPX_MeasurementTask) ";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
+                return iRet;
+            }
+            stmt.close();
+            rs.close();
+            logger.info("TransferMeasurementTasksCountYongest iRet = " + iRet);
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int TransferMeasurementTasksCountOldest() throws SQLException{
+        int iRet = INT_RET_NOT_OK;
+        try {
+            String SQL = "select count(*) from TRPX_MeasurementTask ";
+            SQL = SQL + " where DetectorMeasuresTimestamp = ";
+            SQL = SQL + " (select min(DetectorMeasuresTimestamp) from TRPX_MeasurementTask) ";
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                iRet = rs.getInt(1);
+                stmt.close();
+                rs.close();
+                return iRet;
+            }
+            stmt.close();
+            rs.close();
+            logger.info("TransferMeasurementTasksCountOldest iRet = " + iRet);
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int TransferMeasurementTasksToWorkQueueOldest() throws SQLException{
+        int iRet;
+        try {
+            String SQL = "insert into TRPX_MeasurementTask_Work ";
+            SQL = SQL + " ([MeasurementTask_idindex] ";
+            SQL = SQL + " ,[OmniaCode] ";
+            SQL = SQL + " ,[IntersectionID] ";
+            SQL = SQL + " ,[ControllerId] ";
+            SQL = SQL + " ,[DetectorID] ";
+            SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
+            SQL = SQL + " ,[TaskType] ";
+            SQL = SQL + " ,[TaskStatus] ";
+            SQL = SQL + " ,[Created] ";
+            SQL = SQL + " ,[Updated] ";
+            SQL = SQL + " ,[WorkCreated]) ";
+            SQL = SQL + "select ";
+            SQL = SQL + " [MeasurementTask_idindex] ";
+            SQL = SQL + " ,[OmniaCode] ";
+            SQL = SQL + " ,[IntersectionID] ";
+            SQL = SQL + " ,[ControllerId] ";
+            SQL = SQL + " ,[DetectorID] ";
+            SQL = SQL + " ,[DetectorMeasuresTimestamp] ";
+            SQL = SQL + " ,[PermanentDataTimestamp] ";
+            SQL = SQL + " ,[TaskType] ";
+            SQL = SQL + " ,[TaskStatus] ";
+            SQL = SQL + " ,[Created] ";
+            SQL = SQL + " ,GETDATE() ";
+            SQL = SQL + " , GETDATE() ";
+            SQL = SQL + " from TRPX_MeasurementTask  ";
+            SQL = SQL + "where TaskType = 'MEASUREMENTDATAINSERT' and  " ;
+            SQL = SQL +  " DetectorMeasuresTimestamp = ";
+            SQL = SQL + " (select  min(DetectorMeasuresTimestamp) from TRPX_MeasurementTask where  TaskType = 'MEASUREMENTDATAINSERT') ;";
+            logger.info("SQL = " + SQL);
+            java.sql.PreparedStatement stmt;
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            //   logger.info("Lines inserted iRet = " + iRet);
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = TASK_TRANSFER_ERROR;
+                return iRet;
+            }
+            return TASK_TRANSFER_OK;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return TASK_TRANSFER_ERROR;
+        }
+    }
+
+
     public int TransferMeasurementTasksToWorkQueue() throws SQLException{
         int iRet;
         try {
@@ -693,9 +811,8 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " from TRPX_MeasurementTask  ";
             SQL = SQL + "where TaskType = 'MEASUREMENTDATAINSERT' and  " ;
             SQL = SQL +  " DetectorMeasuresTimestamp = ";
-            SQL = SQL + " (select  max(DetectorMeasuresTimestamp) from TRPX_MeasurementTask where  TaskType = 'MEASUREMENTDATAINSERT') ";
-            SQL = SQL + " order by DetectorMeasuresTimestamp asc ";
-              logger.info("SQL = " + SQL);
+            SQL = SQL + " (select  max(DetectorMeasuresTimestamp) from TRPX_MeasurementTask where  TaskType = 'MEASUREMENTDATAINSERT') ;";
+            logger.info("SQL = " + SQL);
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
@@ -1049,7 +1166,8 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             return INT_RET_NOT_OK;
         }
     public int DeleteTrashTasksAfterHandFromTaskList() throws SQLException{
-// clean also task list if other error message is given RETHINK Jis 18.11 2019 copied also to MeasurementTaskWorkHandling
+// clean also task list if other error message is given RETHINK
+// Jis 18.11 2019 copied also to MeasurementTaskWorkHandling
         int iRet = CountTrashTasksBeforeDelete();
         if (iRet == 0) {   // nothing to delete
             return DELETE_TRASH_TASKTASK_OK;
@@ -1090,13 +1208,11 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             String SQL = "delete from TRPX_MeasurementTask  ";
             SQL = SQL + " where MeasurementTask_idindex in (   ";
             SQL = SQL + " select MeasurementTask_idindex from TRPX_MeasurementTask Task  ";
-            SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid   ";
-            SQL = SQL + " where  DetectorMeasuresTimestamp = ";
-            SQL = SQL + " (select top 1 DetectorMeasuresTimestamp from TRPX_MeasurementTask where  TaskType = 'MEASUREMENTDATAINSERT'  order by DetectorMeasuresTimestamp asc))";
+            SQL = SQL + "  join TRPX_Super2Invisible invi on invi.Detectorid=task.detectorid);   ";
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-      //      logger.info("Lines deleted  iRet = " + iRet);
+            logger.info("Lines deleted  iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 iRet = DELETE_TRASH_TASK_ERROR;
@@ -1627,10 +1743,10 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             SQL = SQL + " where MeasurementTask_idindex in (";
             SQL = SQL + " select work.MeasurementTask_idindex from TRPX_MeasurementTask_Work work";
             SQL = SQL + " join TRPX_ControllerCount con  on con.controllerid= work.controllerid  and con.handled=2)"+ ";";
-            logger.info("SQL = " + SQL);
+   //         logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info("Lines deleted iRet = " + iRet);
+    //        logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -1682,10 +1798,10 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
         try {
             java.sql.PreparedStatement stmt;
             String SQL = " exec TRPX_MarkControllerGroupHandled;";
-            logger.info("SQL = " + SQL);
+  //          logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-            logger.info(" iRet = " + iRet);
+   //         logger.info(" iRet = " + iRet);
             if (iRet ==0) {
                 iRet= INT_RET_OK;
             }
@@ -1708,16 +1824,16 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
     }
         public int UpdateTaskFromDbForClearance(TRPXMeasurementTaskData ce) throws SQLException{
         int iRet;
-    //    logger.info("ce.toString()=" + ce.toString());
+         logger.info("ce.toString()=" + ce.toString());
         try {
             java.sql.PreparedStatement stmt;
             String SQL = " update TRPX_MeasurementTask_Work  set TaskStatus = " + MEASUREMENT_TASK_STATUS_CLEARING + " ";
             SQL = SQL + "where ";
             SQL = SQL + " MeasurementTask_idindex = " + ce.getMeasurementTaskIdindex() + ";";
-      //      logger.info("SQL = " + SQL);
+            logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-     //       logger.info("Lines deleted iRet = " + iRet);
+            logger.info("Lines deleted iRet = " + iRet);
             stmt.close();
             if (iRet < 0) {
                 gSqlCon.close();
@@ -2100,6 +2216,34 @@ public int TransferIntersectionTasksToWorkQueue() throws SQLException{
             java.sql.PreparedStatement stmt;
             String SQL = " exec [dbo].[TRPX_CreateControllerGroups];  ";
               logger.info("SQL = " + SQL);
+            stmt = gSqlCon.prepareStatement(SQL);
+            iRet = stmt.executeUpdate();
+            stmt.close();
+            if (iRet < 0) {
+                gSqlCon.close();
+                iRet = UNSUCCESSFUL_DATABASE_INSERT_OPERATION;
+                return iRet;
+            }
+            iRet=INT_RET_OK;
+            return iRet;
+        } catch (Exception e) {
+            logger.info(ExceptionUtils.getRootCauseMessage(e));
+            logger.info(ExceptionUtils.getFullStackTrace(e));
+            logger.info(" catch 11");
+            logger.info(e.getMessage());
+            e.printStackTrace();
+            gSqlCon.close();
+            return UNSUCCESSFUL_DATABASE_OPERATION;
+        }
+    }
+    public int  CreateControllerGroups3(long plngDetectorCount ) throws SQLException{
+     // JIs 27.4 2021 klo 15:25
+        int iRet;
+        try {
+            java.sql.PreparedStatement stmt;
+            String SQL = " exec [dbo].[TRPX_CreateControllerGroups3] ";
+            SQL = SQL + plngDetectorCount + " ;";
+       //     logger.info("SQL = " + SQL);
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
             stmt.close();
