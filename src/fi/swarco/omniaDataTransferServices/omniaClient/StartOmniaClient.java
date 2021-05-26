@@ -31,6 +31,7 @@ public class StartOmniaClient {
 // get Omniacode to global variable RETHINK is this right place
         iRet=mth.GetOmniaCode();
         setOmniaCode(iRet);
+        iRet=INT_RET_OK;
 //  Are there tasks
         String strTaskType = mth.GetWorkTaskType();
         if (!(strTaskType.equals(TT_NOT_DEFINED))) {
@@ -41,13 +42,6 @@ public class StartOmniaClient {
                 iRet = mth.DeleteTasksFromWorkDb();
                 if (iRet == UNSUCCESSFUL_DATABASE_DELETE_OPERATION) {
                     logger.info("unsuccessfull delete iRet = " + iRet);
-                } else {
-// create tasks against using timestamp and worktype
-                    iRet = ReCreateTasks(thh,strTaskType);
-                    if (iRet<0) {
-                        logger.info("Unsuccesfull Task creation operation strTaskType = " +strTaskType);
-                        logger.info("Unsuccesfull Task creation operation thh.toString() = " +thh.toString());
-                    }
                 }
                 return iRet;
             }
@@ -60,7 +54,7 @@ public class StartOmniaClient {
         oConnType=getSqlServerConnectionType();
         int iRet = mth.MakeConnection(oConnType);
         if (iRet != INT_RET_OK) {
-           logger.info("Ei kantayhteytt� lopetetaan");
+           logger.info("Ei kantayhteyttä lopetetaan");
            return OMNIA_DATA_PICK_NOT_OK;
         }
         if (pTaskType.equals(TT_MEASUREMENT_DATA_INSERT)) {

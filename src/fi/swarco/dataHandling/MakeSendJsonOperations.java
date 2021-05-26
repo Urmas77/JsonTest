@@ -38,7 +38,6 @@ public class MakeSendJsonOperations {
     public static void setSleep(int pSleep) {
         intSleep = pSleep;
     }
-
    //-----------------------------------------------------------------------------------
     private static String jSonControllerStatus = "novalue";
     private static String getJSonControllerStatusData() {
@@ -93,29 +92,6 @@ public class MakeSendJsonOperations {
             logger.info("log write error  iRet = " + iRet);
         }
         logger.info("No JsonMeasurementData! ");
-        return OMNIA_DATA_PICK_NOT_OK;
-    }
-    private int MakeSpareOperationsxxxx(TRPXMeasurementTaskData pCe) throws SQLException {
-     // not in use JIs 6.5 2021
-        String strHelp1;
-        int iRet;
-        LogUtilities mfl = new LogUtilities();
-        strHelp1 = th.GetPermanentSqlDataSpare(pCe.getIntersectionId(), pCe.getControllerId());
-        logger.info("spare strHelp1 = " + strHelp1);
-        if (strHelp1.equals(NO_VALUE)) {   // Still no data
-            iRet = th.UpdateTaskFromDbForClearance(pCe);
-            if (iRet < 0) {
-                logger.info("database update error iRet = " + iRet);
-            }
-            iRet = mfl.MakeFullLogOperations(
-                    SwarcoEnumerations.LoggingDestinationType.OMNIA_CLIENT,
-                    SwarcoEnumerations.ApiMessageCodes.DATAERROR,
-                    "Unsuccessful data send " + pCe.toString());
-            if (iRet < 0) {
-                logger.info("log write error  iRet = " + iRet);
-            }
-            logger.info("No JsonPermanentData ");
-        }
         return OMNIA_DATA_PICK_NOT_OK;
     }
     public int PollOfWorks()  {
@@ -195,32 +171,46 @@ public class MakeSendJsonOperations {
                         }
                         return THERE_IS_WORK;
                     }
-                if (th.AnyWorkMeasurements() == 0) {
+                 if ((th.AnyWorkMeasurementsNew1() == 0)  && (th.AnyWorkMeasurementsNew2() == 0)) {
                     Thread.sleep(getSleep());   // 5 seconds sleep
-                } else {
-
-                    iRet = th.DeleteTrashTasksBeforeHand();
-                    if (iRet != DELETE_TRASH_TASK_OK) {
-                        logger.info("Task Transfer error iRet = " + iRet);
-                        return iRet;
-                    }
-// depending on parameters select, which works are executed first
-                    iRet =WorkTaskExecuteSelector();
-                    if (iRet<0) {
-                        logger.info("Task selection r error iRet = " + iRet);
-                        return iRet;
-                    }
-                    long iMaxDetectors=getMaxDetectorsOnControllerGroups();
-                     iRet =th.CreateControllerGroups3(iMaxDetectors);
-                    if (iRet!=INT_RET_OK)  {
-                        logger.info("Impossible to create Controller groups iRet =" + iRet);
-                        return iRet;
-                    }
-                    setWorkType(TT_MEASUREMENT_DATA_INSERT);
-                    iRet = th.FillUpTasks();
-                    if (iRet != FILL_UP_TASK_OK) {
-                        logger.info("Fill UpTask error iRet = " + iRet);
-                        return iRet;
+                } else{
+                    iRet = th.GetNextTimestampToTransfer(0);
+                    if (iRet == INT_RET_OK) {
+// check that there is work
+                        if (th.AnyWorkWork() == 0) {
+                            iRet = th.GetFirstDebtPaymentTimestampToTransfer();
+                            if (iRet == INT_RET_OK) {
+                                if (th.AnyWorkWork() == 0) {   // get more work if it is possible
+                                    iRet = th.HourlyUpdateTransferredLines();
+                                    if (iRet == INT_RET_OK) {
+                                        if (th.AnyWorkWork() == 0) {
+                                            iRet = th.GetFirstDebtPaymentTimestampToTransfer();
+                                            if (th.AnyWorkWork() == 0) {
+                                                Thread.sleep(getSleep());
+                                                return THERE_IS_NO_WORK;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        setWorkType(TT_MEASUREMENT_DATA_INSERT);
+                        iRet = th.FillUpTasks();
+                        if (iRet != FILL_UP_TASK_OK) {
+                            logger.info("Fill UpTask error iRet = " + iRet);
+                            return iRet;
+                        }
+                        iRet = th.DeleteNotFilledTasks();
+                        if (iRet != DELETE_UNFILLABLE_TASK_OK) {
+                            logger.info("DeleteNotFilledTasks error iRet = " + iRet);
+                            return iRet;
+                        }
+                     long iMaxDetectors=getMaxDetectorsOnControllerGroups();
+                        iRet =th.CreateControllerGroups3(iMaxDetectors);
+                        if (iRet!=INT_RET_OK)  {
+                            logger.info("Impossible to create Controller groups iRet =" + iRet);
+                            return iRet;
+                        }
                     }
                 }
                 return THERE_IS_WORK;
@@ -372,13 +362,11 @@ public class MakeSendJsonOperations {
                           return INT_RET_NOT_OK;
                        }
                        strHelp1 = th.GetMeasurementShortSqlDataGroup(strHelp2);
-
-
                    if (strHelp1.equals(NO_VALUE)) {
                        // check here  are there any orphan lines left
 
                        iRet = MakeClearanceOperations(ce);  // RETHINK JIs 19.05 2021
-                       logger.info("No JsonMeasurementData! ");
+                       logger.info("No JsonMeasurementData! 1111 ");
                        return iRet;
                    } else {
                        setJSonMeasurementData(strHelp1);
@@ -401,14 +389,6 @@ public class MakeSendJsonOperations {
                         logger.info("Illegal timestamp strHelp2 = " +strHelp2 );
                         return INT_RET_NOT_OK;
                     }
-                   /* strHelp1 = th.getMeasurementShortSqlDataGroup(strHelp2);
-                    if (strHelp1.equals(NO_VALUE)) {
-                        iRet = MakeClearanceOperations(ce);
-                        logger.info("No JsonMeasurementData! ");
-                        return iRet;
-                    } else {  */
-                   // th.GetControllerStatusDataGroupString
-                  //  strHelp1 = th.GetMeasurementShortSqlData(strHelp2)
                     strHelp1 =th.GetControllerStatusSqlDataGroup(strHelp2);
                     setJSonControllerStatusData(strHelp1);
                     setJSonDataForTransfer(TT_CONTROLLER_STATUS_DATA_INSERT + getJSonControllerStatusData());
@@ -440,7 +420,7 @@ public class MakeSendJsonOperations {
                    if (strHelp1.equals(NO_VALUE)) {
                         // RETHINK update task state and write to log
                        iRet = MakeClearanceOperations(ce);
-                       logger.info("No JsonMeasurementData! ");
+                       logger.info("No JsonMeasurementData! 2222 ");
                        return iRet;
                    } else {
                        if (getWorkType().equals(TT_INTERSECTION_DATA_CHANGE)) {
@@ -465,7 +445,7 @@ public class MakeSendJsonOperations {
                    if (strHelp1.equals(NO_VALUE)) {
                         // RETHINK update task state and write to log
                        iRet = MakeClearanceOperations(ce);
-                       logger.info("No JsonMeasurementData! ");
+                       logger.info("No JsonMeasurementData! 3333 ");
                        return iRet;
                    } else {
                        setJSonDataForTransfer(TT_DETECTOR_DATA_CHANGE + strHelp1);
@@ -647,8 +627,6 @@ public class MakeSendJsonOperations {
                 if (getWorkType().equals(TT_MEASUREMENT_DATA_INSERT)) {
 // update first group to handling
                     MeasurementTaskWorkHandling ms = new MeasurementTaskWorkHandling();
-                    //  DefineFirstUnhandledGroupSqlServerData first = new DefineFirstUnhandledGroupSqlServerData();
-                    // first.andling ms = new MeasurementTaskWorkHandling();
                     oConnType = getSqlServerConnectionType();
                     iRet =ms.MakeConnection(oConnType);
                     if (iRet != INT_RET_OK) {
@@ -664,7 +642,7 @@ public class MakeSendJsonOperations {
                     strHelp1 = th.GetMeasurementShortSqlDataGroup(ce.getDetectorMeasuresTimestamp());
                     if (strHelp1.equals(NO_VALUE)) {
                         iRet = MakeClearanceOperations(ce);
-                        logger.info("No JsonMeasurementData! ");
+                        logger.info("No JsonMeasurementData here here 4444 prop this! ");
                         return iRet;
                     } else {
                         setJSonMeasurementData(strHelp1);
@@ -685,12 +663,10 @@ public class MakeSendJsonOperations {
                                                                    ce.getControllerId(),
                                                                    ce.getPermanentDataTimestamp(),
                                                                    getWorkType());
-               //     logger.info("strHelp1 = " + strHelp1);
-               //     logger.info("strHelp1.length()  = " + strHelp1.length());
                     if (strHelp1.equals(NO_VALUE)) {
                         // RETHINK update task state and write to log
                         iRet = MakeClearanceOperations(ce);
-                        logger.info("No JsonMeasurementData! ");
+                        logger.info("No JsonMeasurementData! 5555");
                         return iRet;
                     } else {
                         if (getWorkType().equals(TT_INTERSECTION_DATA_CHANGE)) {
@@ -708,7 +684,7 @@ public class MakeSendJsonOperations {
                     if (strHelp1.equals(NO_VALUE)) {
                         // RETHINK update task state and write to log
                         iRet = MakeClearanceOperations(ce);
-                        logger.info("No JsonMeasurementData! ");
+                        logger.info("No JsonMeasurementData! 6666 ");
                         return iRet;
                     } else {
                         setJSonDataForTransfer(TT_DETECTOR_DATA_CHANGE + strHelp1);
@@ -731,33 +707,29 @@ public class MakeSendJsonOperations {
     }
     // *******************Make own class *****/
     public int DeleteDoneTaskFromWorkDb() throws SQLException {
-        TRPXMeasurementTaskData ce = getTaskUnderWork();
         long doneWorkIndex = 0;
         int iRet = INT_RET_OK;
         if (getWorkType().equals(TT_MEASUREMENT_DATA_INSERT)) {
-            ///iRet = th.DeleteDoneTaskFromDb(ce);
-            iRet =th.DeleteDoneTaskGroupFromDb();  // do this always before
-            if (iRet < 0) {   // 0 they have all ready been deleted
-                logger.info("Unsuccessful delete from worktask ce.toString() =  " + ce.toString());
-                logger.info("Unsuccessful delete from worktask iRet = " + iRet);
+            iRet = th.UpdateTransferredState();
+            if (iRet < 1) {
+                logger.info("Unsuccessful tansferred state update iRet = " + iRet);
                 return OMNIA_DATA_PICK_NOT_OK;
             }
-            //iRet = th.DeleteDoneTaskFromWorkDb(ce);
             iRet = th.DeleteDoneTaskFromGroupWorkDb();
             if (iRet < 1) {
-                logger.info("Unsuccessful delete from Work table ce.toString() =  " + ce.toString());
                 logger.info("Unsuccessful delete from Work table iRet = " + iRet);
                 return OMNIA_DATA_PICK_NOT_OK;
             }
             iRet=th.MarkControllerGroupHandled();
             if (iRet < 1) {
-                logger.info("Unsuccessful Controllergroup Handled operatin iRet =  " + iRet);
+                logger.info("Unsuccessful Controllergroup Handled operation iRet =  " + iRet);
                 logger.info("Unsuccessful delete from Work table iRet = " + iRet);
                 return OMNIA_DATA_PICK_NOT_OK;
             }
             return INT_RET_OK;
         } else if ((getWorkType().equals(TT_INTERSECTION_DATA_CHANGE)) || (getWorkType().equals(TT_CONTROLLER_DATA_CHANGE)) || (getWorkType().equals(TT_DETECTOR_DATA_CHANGE))) {
-                doneWorkIndex = th.GetCurrentWorkTaskIdindex();
+             TRPXMeasurementTaskData ce = getTaskUnderWork();
+            doneWorkIndex = th.GetCurrentWorkTaskIdindex();
             if (doneWorkIndex > 0) {
                 iRet = th.DeleteDoneTaskWorkUsingIdentityFromDb(doneWorkIndex);
                 if (iRet < 0) {   // 0 they have all ready been deleted
@@ -773,10 +745,6 @@ public class MakeSendJsonOperations {
                     logger.info("Unsuccessful delete from Work table iRet = " + iRet);
                     return OMNIA_DATA_PICK_NOT_OK;
                 }
-
-
-
-
             } else {
                 logger.info("No tasks/works to deleted doneWorkIndex = " + doneWorkIndex);
                 return INT_RET_NOT_OK;

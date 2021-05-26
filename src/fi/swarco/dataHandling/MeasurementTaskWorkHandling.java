@@ -493,7 +493,7 @@ public class MeasurementTaskWorkHandling {
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             iRet = stmt.executeUpdate();
-        //    logger.info(" iRet = " + iRet);
+            logger.info(" First unhandled iRet = " + iRet);
             if(iRet==0) {
                 iRet=INT_RET_OK;
             }
@@ -514,7 +514,6 @@ public class MeasurementTaskWorkHandling {
         int iRet;
         try {
             String strRet;
-
             String SQL =   "select [dbo].[TRPX_GetOmniaCode]();";
             java.sql.PreparedStatement stmt;
             logger.info("SQL = " + SQL);

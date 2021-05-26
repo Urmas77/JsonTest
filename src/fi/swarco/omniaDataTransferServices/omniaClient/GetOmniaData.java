@@ -1,7 +1,6 @@
 package fi.swarco.omniaDataTransferServices.omniaClient;
 import fi.swarco.SwarcoEnumerations;
 import fi.swarco.connections.ConWrapper;
-import fi.swarco.controlandalarms.AlarmHandling;
 import fi.swarco.dataHandling.MakeSendJsonOperations;
 import fi.swarco.dataHandling.MeasurementTaskHandling;
 import fi.swarco.omniaDataTransferServices.FileOperations;
@@ -37,7 +36,6 @@ public class GetOmniaData {
         StringBuffer response;
         SwarcoEnumerations.ConnectionType  oConnType;
         MakeSendJsonOperations ms = new MakeSendJsonOperations();
-        AlarmHandling ah = new AlarmHandling();
         MessageUtils mu = new MessageUtils();
         LogUtilities mfl = new LogUtilities();
         int responseCode;
@@ -122,7 +120,6 @@ public class GetOmniaData {
                                             SwarcoEnumerations.ApiMessageCodes.ERROR,
                                             url1);
                                 } else {
-
                                     iRet = ms.DeleteDoneTaskFromWorkDb();
                                     if (iRet != INT_RET_OK) {
                                         logger.info("Unsuccesfull delete from tasklist iRet = " + iRet);
@@ -154,32 +151,15 @@ public class GetOmniaData {
                     strTime = java.time.LocalTime.now().toString();
                     strTime= strTime.substring(0,5);
                     strMinute=strTime.substring(4);
-               //     logger.info(" strTime= " + strTime);
-                //    strJobTime="06:34";
-                //    logger.info(" strTime= " + strTime);
-                //    logger.info(" strJobTime= " + strJobTime);
                     if (strJobTime.equals(strTime)) {
                         if (!(TodayDone)) {
-//     getOmniaClientDetectorDataTime() if time >   getOmniaClientDetectorDataTime()
-                            //dootrick
-                           //  if ok
                             GetDetectorData dd = new  GetDetectorData();
                             oConnType=getSqlServerConnectionType();
                             iRet= dd.MakeConnection(oConnType);
                             if (iRet == DATABASE_CONNECTION_OK) {
                                 iRet =dd.AddDetectorDataLines();
-                             //   if (iRet>=0) {
-                             //       logger.info("Detector lines were added successfully iRet =" + iRet);
-                             //   } else {
-                             //       logger.info("Detector lines were added unsuccessfully iRet =" + iRet);
-                             //   }
                                 iRet =dd.AddIntersectionControllerDataLines();
-                               // if (iRet>=0) {
-                               //     logger.info("IntersectionController lines were added successfully iRet =" + iRet);
-                               // } else {
-                                //    logger.info("IntersectionController lines were added unsuccessfully iRet =" + iRet);
-                              //  }
-                                } else {
+                            } else {
                                 logger.info("No database connection! ");
                             }
                            TodayDone=true;
@@ -187,21 +167,15 @@ public class GetOmniaData {
                     }
                     // hour job if here
                     if (HourDone==false) {
-                        GetDetectorData dd = new  GetDetectorData();
-                        oConnType=getSqlServerConnectionType();
-                        iRet= dd.MakeConnection(oConnType);
-                        if (iRet == INT_RET_OK) {
-                            iRet = ah.SendAlarm();
-                            if (iRet ==INT_RET_OK) {
+                       iRet =th.HourlyUpdateTransferredLines();
+                        if (iRet ==INT_RET_OK) {
                                 HourDone=true;
-                            }
                         }
                     }
                     // hour job functionality enf
                     if (strMinute.equals("00")) {
                        HourDone=false;
                     }
-
                     if (strTime.equals("00:00")) {
                         TodayDone=false;
                     }

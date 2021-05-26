@@ -30,7 +30,7 @@ public class InsertOmniaMeasurementDataShortMySql {
         statement =	statement +	"?,";
         statement =	statement +	"?,";
         statement =	statement +	"?);";
-        logger.info("statement = " + statement);
+       // logger.info("statement = " + statement);
     }
 }
 

@@ -48,32 +48,35 @@ public class LogUtilities {
             destinationFileName = "OwmMachineClient";
             destinationDatabaseName = SQLSERVER_LOCAL_JOMNIATEST;
         }
-        iRet = fo.addOmniaClientJsonLine(pSuccessCode + strTime + "##" + pLogline, destinationFileName);
-        if (iRet != INT_RET_OK) {
-            logger.info("Unsuccessful log file write iRet =" + iRet + "  " + pSuccessCode + strTime + "##" + pLogline + destinationFileName);
-        }
-        RawDataDataListLevel rd = new RawDataDataListLevel();
-        SwarcoEnumerations.ConnectionType oConnType;
-        oConnType = getSqlServerConnectionType() ;
-        iRet = rd.MakeConnection(oConnType);
-        if (iRet == DATABASE_CONNECTION_OK) {
-            RawData rData = new RawData();
-            rData.MakeEmptyElement();
-            rData.setRawDataSourceId(1);   // RETHINK get real source values here
-            rData.setRawDataLine(pLogline);
-            rData.setRawDataStatus(1);   // RETHINK put real status value here see bellow this maybe not neede field
-            rData.setRawDataStatusString(pSuccessCode.toString());   //
-            rData.setTimestamp(strTime);
-  //          logger.info("bef AddNewRawData");
-            try {
-            iRet = rd.AddNewRawData(rData);
-            } catch (SQLException e) {
-                logger.info(ExceptionUtils.getRootCauseMessage(e));
-                logger.info(ExceptionUtils.getFullStackTrace(e));
-                e.printStackTrace();
-            }
+        // only unsuccessful events are booked JIs 24.5 2021 klo 15:45
+        if (pSuccessCode!= SwarcoEnumerations.ApiMessageCodes.SUCCESSFUL) {
+            iRet = fo.addOmniaClientJsonLine(pSuccessCode + strTime + "##" + pLogline, destinationFileName);
             if (iRet != INT_RET_OK) {
-                logger.info("Unsuccessful RawData Db operation iRet=" + iRet);
+                logger.info("Unsuccessful log file write iRet =" + iRet + "  " + pSuccessCode + strTime + "##" + pLogline + destinationFileName);
+            }
+            RawDataDataListLevel rd = new RawDataDataListLevel();
+            SwarcoEnumerations.ConnectionType oConnType;
+            oConnType = getSqlServerConnectionType();
+            iRet = rd.MakeConnection(oConnType);
+            if (iRet == DATABASE_CONNECTION_OK) {
+                RawData rData = new RawData();
+                rData.MakeEmptyElement();
+                rData.setRawDataSourceId(1);   // RETHINK get real source values here
+                rData.setRawDataLine(pLogline);
+                rData.setRawDataStatus(1);   // RETHINK put real status value here see bellow this maybe not neede field
+                rData.setRawDataStatusString(pSuccessCode.toString());   //
+                rData.setTimestamp(strTime);
+                //          logger.info("bef AddNewRawData");
+                try {
+                    iRet = rd.AddNewRawData(rData);
+                } catch (SQLException e) {
+                    logger.info(ExceptionUtils.getRootCauseMessage(e));
+                    logger.info(ExceptionUtils.getFullStackTrace(e));
+                    e.printStackTrace();
+                }
+                if (iRet != INT_RET_OK) {
+                    logger.info("Unsuccessful RawData Db operation iRet=" + iRet);
+                }
             }
         }
         return INT_RET_OK;

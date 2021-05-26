@@ -81,8 +81,8 @@ public class OmniaCloudHTTPServer {
             String method = t.getRequestMethod();
             String path = t.getRequestURI().getPath();
             String uquery = t.getRequestURI().getQuery();
-           logger.info(" t.getRequestURI().getPath() path = " + path);
-            logger.info("uquery                            =" + uquery);
+    //       logger.info(" t.getRequestURI().getPath() path = " + path);
+    //        logger.info("uquery                            =" + uquery);
             logger.info("method =" + method);
             String response1 = "Hello, world!";
             String response2 = "Hello, wrong world!";
