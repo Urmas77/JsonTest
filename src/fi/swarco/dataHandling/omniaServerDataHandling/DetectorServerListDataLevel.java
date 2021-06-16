@@ -165,9 +165,6 @@ public class DetectorServerListDataLevel {
             return -1;
         }
     }
-
-
-
     public int DoesLineAlreadyExist(OmniaDetectorServer pOmniaData) throws SQLException {
         String SQL="";
         java.sql.PreparedStatement stmt=null;

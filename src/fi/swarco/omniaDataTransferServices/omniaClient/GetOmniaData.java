@@ -167,10 +167,11 @@ public class GetOmniaData {
                     }
                     // hour job if here
                     if (HourDone==false) {
-                       iRet =th.HourlyUpdateTransferredLines();
-                        if (iRet ==INT_RET_OK) {
-                                HourDone=true;
-                        }
+                     // RETHINK too slow JIs 14.06 2021
+                        //  iRet =th.HourlyUpdateTransferredLines();
+                      //  if (iRet ==INT_RET_OK) {
+                      //          HourDone=true;
+                      //  }
                     }
                     // hour job functionality enf
                     if (strMinute.equals("00")) {

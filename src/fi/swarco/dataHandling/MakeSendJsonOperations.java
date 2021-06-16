@@ -39,7 +39,7 @@ public class MakeSendJsonOperations {
         intSleep = pSleep;
     }
    //-----------------------------------------------------------------------------------
-    private static String jSonControllerStatus = "novalue";
+    private static String jSonControllerStatus = NO_VALUE;
     private static String getJSonControllerStatusData() {
         return jSonControllerStatus;
     }
@@ -47,7 +47,7 @@ public class MakeSendJsonOperations {
         jSonControllerStatus = pJSonControllerStatus;
     }
     //------------------------------------------------------------------------
-    private static String jSonMeasurementData = "novalue";
+    private static String jSonMeasurementData = NO_VALUE;
     private static String getJSonMeasurementData() {
         return jSonMeasurementData;
     }

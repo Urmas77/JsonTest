@@ -294,8 +294,9 @@ public class JSwarcoproperties {
         try {
             String filename = "swarco.properties";  // old one Swarco.
             input = JSwarcoproperties.class.getClassLoader().getResourceAsStream(filename);
-        //   logger.info("input = " + input);
-         //  System.out.println("input = " + input);
+            logger.info(" filename  = " + filename);
+            logger.info("input = " + input);
+           System.out.println("input = " + input);
             if (input != null) {
                 prop.load(input);
             } else {
@@ -479,18 +480,18 @@ public class JSwarcoproperties {
         strHelp1 = strHelp1 + getMySqldatabase() +",";
         strHelp1 = strHelp1 + getMySqldbuser() + ",";
         strHelp1 = strHelp1 + getMySqlpassword();
-        //   strHelp1 =strHelp1 + "database=" + getMySqldatabase()  +",";
+        // strHelp1 =strHelp1 + "database=" + getMySqldatabase()  +",";
         //   strHelp1 = strHelp1 + "user=" + getMySqldbuser() +",";
         //   strHelp1 = strHelp1 + "password=" + getMySqlpassword();
         setMySqlConnUrlWhole(strHelp1);
-      //  logger.info("MySqlConnUrlStart = " + prop.getProperty("MySqlConnectionUrlStart"));
-     //   logger.info("MySqlpassword = " + prop.getProperty("MySqlpassword"));
-     //   logger.info("MySqldatabase = " + prop.getProperty("MySqldatabase"));
-     //   logger.info("MySqldbuser = " + prop.getProperty("MySqldbuser"));
-     //   logger.info("MySqlServerTimeZone = " + prop.getProperty("MySqlServerTimeZone"));
-     //   logger.info("getpMySqlConnUrlWhole() = " + getMySqlConnUrlWhole());
+       logger.info("MySqlConnUrlStart = " + prop.getProperty("MySqlConnectionUrlStart"));
+       logger.info("MySqlpassword = " + prop.getProperty("MySqlpassword"));
+       logger.info("MySqldatabase = " + prop.getProperty("MySqldatabase"));
+       logger.info("MySqldbuser = " + prop.getProperty("MySqldbuser"));
+       logger.info("MySqlServerTimeZone = " + prop.getProperty("MySqlServerTimeZone"));
+        logger.info("getpMySqlConnUrlWhole() = " + getMySqlConnUrlWhole());
         setOmniaMysqlFromReadToWrite(prop.getProperty("OmniaMysqlFromReadToWrite","OFF"));
-   //     logger.info("OmniaMysqlFromReadToWrite = " + getOmniaMysqlFromReadToWrite());
+        logger.info("OmniaMysqlFromReadToWrite = " + getOmniaMysqlFromReadToWrite());
         return INT_RET_OK;
     }
     private int setInfluxProps () {

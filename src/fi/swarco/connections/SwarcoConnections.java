@@ -117,15 +117,14 @@ public class SwarcoConnections {
         ConWrapper cW;
         try {
      //       logger.info("Start 2");
-            cW =swarvop.FillConnectionWrapper(enConType);
-   //         logger.info(" enConType = " +enConType);
+            cW =swarvop.FillConnectionWrapper(enConType);logger.info(" enConType = " +enConType);
             if (curSqlCon == null) {   // only one RSQSErver connection/ program JIs 23.11 2020 klo 13.20
                logger.info("CurConnection is null make totally new connection!");
-                //logger.info("not used Connected.swarvop.getSqlServerConnUrlWhole() = " + swarvop.getSqlServerConnUrlWhole());
-    //            logger.info("cW.getConnUrlStart() = " + cW.getConnUrlStart());
-    //            logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
-    //            logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
-    //            logger.info("cW.getDbPassword() = " + cW.getDbPassword());
+                 logger.info("not used Connected.swarvop.getSqlServerConnUrlWhole() = " + swarvop.getSqlServerConnUrlWhole());
+                logger.info("cW.getConnUrlStart() = " + cW.getConnUrlStart());
+                logger.info("cW.getDatabaseName() = " + cW.getDatabaseName());
+                logger.info("cW.getDatabaseUserName() = " + cW.getDatabaseUserName());
+                logger.info("cW.getDbPassword() = " + cW.getDbPassword());
 //                String strHelp1 = prop.getProperty("SqlServerConnectionUrlStart") + ";";
  //               strHelp1 = strHelp1 + "database=" + getSqlServerdatabase() + ";";    // +";";
                 String strHelp2 = cW.getConnUrlStart() +";" +"database=" + cW.getDatabaseName() +";";

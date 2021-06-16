@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import static fi.swarco.CONSTANT.*;
 import static fi.swarco.SwarcoEnumerations.ConnectionType.MYSQL_LOCAL_JATRI2;
 import static fi.swarco.omniaDataTransferServices.omniaCloudHTTPServer.OmniaCloudHTTPServer.getOmniaMysqlFromReadToWrite;
+import static fi.swarco.omniaDataTransferServices.omniaCloudHTTPServerLahti.OmniaCloudHTTPServerLahti.getOmniaServerName;
+
 public class MakeReceiveJsonOperations {
     static Logger logger = Logger.getLogger(MakeReceiveJsonOperations.class.getName());
     private static String pseudoJsonData = NO_VALUE;
@@ -49,15 +51,15 @@ public class MakeReceiveJsonOperations {
         String strHelp1;
         FileOperations fo = new  FileOperations();
         SwarcoTimeUtilities swt;
+        String omniaServerName =getOmniaServerName();
+        logger.info("omniaServerName =" + omniaServerName);
         // get data to be handled
         String strWholeRawData = getPseudoJSonData();
         MessageUtils mu = new MessageUtils();
         String strWhoJsonData =mu.reCreateJsonDecimal(strWholeRawData);
-// fin d out what kind of like message it is
+// find out what kind of like message it is
         setMessageType(mu.GetJsonMessageType(strWhoJsonData));
-
        logger.info("getMessageType() =" + getMessageType());
-
         if (getMessageType().equals(NO_VALUE)) {
             logger.info("Illegal messageType");
             return INT_RET_NOT_OK;
@@ -67,17 +69,21 @@ public class MakeReceiveJsonOperations {
             OmniaMeasurementShortListDataLevel mm = new OmniaMeasurementShortListDataLevel();
             iRet = mm.MakeConnection(MYSQL_LOCAL_JATRI2);
             if (iRet != DATABASE_CONNECTION_OK) {
-                logger.info("No Database conncection iRet =" + iRet);
+                logger.info("No Database connection iRet =" + iRet);
                 MakeLogFileOperations("error##" + strWhoJsonData);
                // MakeLogFileOperations("error##" + getMeasurementsJsonData());
             } else {  // do db operations
                 strHelp1 = mu.CutJsonMessage(strWhoJsonData);
-                iRet = mm.JsonOmniaMeasurementShortSql(strHelp1);
+                if (omniaServerName.equals(SERVER_NAME_LAHTI)) {
+                    iRet = mm.JsonOmniaMeasurementShortSqlLahti(strHelp1);
+                } else {
+                    iRet = mm.JsonOmniaMeasurementShortSql(strHelp1);
+                }
                 if (iRet != INT_RET_OK) {
                     if (iRet == NOT_CHANGED) {
                         MakeLogFileOperations("ok##" + strWhoJsonData);
                     } else {
-                        logger.info("Unsuccesful insert iRet=" + iRet);
+                        logger.info("Unsuccessfull insert iRet=" + iRet);
                         MakeLogFileOperations("error##" + strWhoJsonData);
                     }
                 }
@@ -85,8 +91,12 @@ public class MakeReceiveJsonOperations {
                 logger.info("bef strDataTransferStatus =" + strDataTransferStatus);
                 MakeLogFileOperations("ok##" + strWhoJsonData);
                 if (strDataTransferStatus.equals("ON")) {
-                    logger.info("inside maketran strDataTransferStatus =" + strDataTransferStatus);
-                    iRet = mm.MakeDataTransferOperations();
+                    logger.info("make datatransfers  omniaServerName =" + omniaServerName);
+                    if (omniaServerName.equals(SERVER_NAME_LAHTI)) {
+                        iRet = mm.MakeDataTransferOperationsLahti();
+                    } else {
+                        iRet = mm.MakeDataTransferOperations();
+                    }
                     if (iRet != INT_RET_OK) {
                        logger.info("Unsuccessful data transfer operation iRet=" + iRet);
                     }

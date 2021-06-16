@@ -263,14 +263,15 @@ public class MeasurementTaskHandling {
             return UNSUCCESSFUL_DATABASE_OPERATION;
         }
     }
-
     public int AnyWorkMeasurementsNew1() throws SQLException {
     // Omna client without workqueue
         int iRet = INT_RET_NOT_OK;
         try {
-            String SQL = " SELECT count(*) FROM TRPX_DetectorMeasures_TimestampV v1 ";
-            SQL =SQL + "where  not exists  ";
-            SQL =SQL + " (select * from TRPX_TransferredLines tr1  where  tr1.DetectorMeasuresTimestamp= v1.transferTime); ";
+            String SQL =  "select [dbo].[TRPX_GetMeasurementWorkLineCount]();";
+            //   String SQL = " select * from [dbo].[TRPX_Next_DetectorMeasures_Jobs_CountV];";
+         //  String SQL = " SELECT count(*) FROM TRPX_DetectorMeasures_TimestampV v1 ";
+         //   SQL =SQL + "where  not exists  ";
+         //   SQL =SQL + " (select * from TRPX_TransferredLines tr1  where  tr1.DetectorMeasuresTimestamp= v1.transferTime); ";
             java.sql.PreparedStatement stmt;
             stmt = gSqlCon.prepareStatement(SQL);
             ResultSet rs;

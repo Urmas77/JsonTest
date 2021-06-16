@@ -128,4 +128,7 @@ public static final long    TWO_HOURS_MS=7200000;
 public static final long    THREE_HOURS_MS=10800000;
 public static final long    TWENTYSEVEN_HOURS_MS=97200000;
 public static final double  DOUBLE_LONG_MULTIPLIER = 10000000.0;
+public static final String  SERVER_NAME_LAHTI  ="lahti";
+public static final String  SERVER_NAME_HELSINKI1  ="helsinki";
+public static final String  SERVER_NAME_HELSINKI2  ="helsinkiomniview";
 }
